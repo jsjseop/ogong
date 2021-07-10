@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AnswerMapper">
+ 	
+	<resultMap id="AnswerSelectMap" 	type="answer">
+			<result property="fileNo" 			column="file_no" 			jdbcType="NUMBER"/>
+			<result property="fileName"			column="file_name" 			jdbcType="VARCHAR" />
+			<result property="boardNo" 			column="board_no" 			jdbcType="NUMBER" />
+	</resultMap>
+	
+</mapper>	
