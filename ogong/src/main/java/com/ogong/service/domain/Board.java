@@ -17,8 +17,7 @@ public class Board {
 	private int ViewCount;
 	private int interest;
 	private boolean fileFlag;
-	private String thumbnail;
-	private String studyId;
+	private Study study;
 	
 }	
 	
