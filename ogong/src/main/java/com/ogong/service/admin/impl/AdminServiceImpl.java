@@ -1,17 +1,15 @@
 package com.ogong.service.admin.impl;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.ogong.common.Search;
 import com.ogong.service.admin.AdminMapper;
 import com.ogong.service.admin.AdminService;
-import com.ogong.service.domain.*;
+import com.ogong.service.domain.Report;
 
-@Service
+//@Service
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired

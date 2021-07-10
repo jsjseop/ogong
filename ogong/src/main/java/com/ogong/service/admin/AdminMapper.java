@@ -1,15 +1,12 @@
 package com.ogong.service.admin;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
-
 import com.ogong.common.Search;
 import com.ogong.service.domain.Report;
 import com.ogong.service.domain.User;
 
 
-@Repository
-@Mapper
+//@Repository
+//@Mapper
 public interface AdminMapper {
 	
 	//신고된 사용자 목록
