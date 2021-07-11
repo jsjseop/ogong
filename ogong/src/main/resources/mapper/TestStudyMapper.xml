@@ -113,7 +113,7 @@
       				study_end_flag = '1'
       					<if test="studyType == 'self'">
       						AND study_type = 'self'
-      						AND study_open_flag = '1'
+      						AND selfstudy_open_flag = '1'
       					</if>
       					<if test="studyType == 'group'">
       						AND study_type = 'group'
@@ -146,10 +146,10 @@
       					</if>
 	      				<if test="search.searchCondition != null">
 			      			<if test="search.searchCondition == 1">
-			      				and study_name LIKE '%'||#{searchKeyword}||'%'
+			      				and study_name LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
 			      			<if test="search.searchCondition == 2">
-			      			and study_hashtag LIKE '%'||#{searchKeyword}||'%'
+			      			and study_hashtag LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
 			      		</if>
 	      		</where>
@@ -171,8 +171,8 @@
 	      			</otherwise>
 	      		</choose>
    				) inner_table
-   			WHERE ROWNUM &lt;= #{endRowNum}) outer_table
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+   			WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 
 	 </select>
 	 
@@ -186,7 +186,7 @@
       				study_end_flag = '1'
       					<if test="studyType == 'self'">
       						AND study_type = 'self'
-      						AND study_open_flag = '1'
+      						AND selfstudy_open_flag = '1'
       					</if>
       					<if test="studyType == 'group'">
       						AND study_type = 'group'
@@ -219,10 +219,10 @@
       					</if>
 	      				<if test="search.searchCondition != null">
 			      			<if test="search.searchCondition == 1">
-			      				and study_name LIKE '%'||#{searchKeyword}||'%'
+			      				and study_name LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
 			      			<if test="search.searchCondition == 2">
-			      			and study_hashtag LIKE '%'||#{searchKeyword}||'%'
+			      			and study_hashtag LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
 			      		</if>
 	      		</where>
