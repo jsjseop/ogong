@@ -27,7 +27,7 @@ class StudyTest {
 		Study study = new Study();
 		
 		
-		String[] day = {"2021-06-07","2021-06-31","2021-06-01","2021-06-03"};
+		String[] day = {"2021-06-01","2021-06-31","2021-05-25","2021-05-30"};
 		
 		Date d[] = new Date[4];
 		
@@ -36,11 +36,11 @@ class StudyTest {
 		}
 		
 		User user = new User();
-		user.setEmail("user02");
+		user.setEmail("user04");
 		study.setStudyMaker(user);
-		study.setStudyName("junit테스트용");
-		study.setStudyHashtag("#java");
-		study.setStudyThumbnail("j.jpg");
+		study.setStudyName("자기계발");
+		study.setStudyHashtag("#자기계발");
+		study.setStudyThumbnail("a.jpg");
 		study.setStudyStartDate(d[0]);
 		study.setStudyEndDate(d[1]);
 		study.setMaxMamber(5);
@@ -48,7 +48,7 @@ class StudyTest {
 		study.setRecruitmentEndDate(d[3]);
 		study.setStudyRoomGrade("basic");
 		study.setStudyType("group");
-		study.setStudyInterest("취업");
+		study.setStudyInterest("자기계발");
 		
 		studyService.addStudy(study);
 		

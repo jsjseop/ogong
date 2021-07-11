@@ -89,17 +89,27 @@
 	 
 	 	SELECT 
 		study_no,
-		email,
+		email, 
 		study_name, 
-		study_hashtag, 
+		study_hashtag,
 		study_thumbnail, 
+		study_start_date, 
+		study_end_date, 
+		study_reg_date,
 		current_member, 
 		max_member, 
+		selfstudy_rule, 
+		selfstudy_open_flag, 
+		selfstudy_password, 
 		groupstudy_info, 
-		groupstudy_plan, 
+		groupstudy_plan,
 		groupstudy_condition, 
-		recruitment_start_date, 
-		recruitment_end_date
+		recruitment_start_date,
+		recruitment_end_date, 
+		study_end_flag, 
+		studyroom_grade, 
+		study_type, 
+		study_interest
 		FROM study
 		where study_no = #{value}
 	 	
@@ -108,17 +118,17 @@
 	 
 	 <select id="getStudyList"	parameterType="search" resultMap="studySelectMap">
 	 
-	 	SELECT
-		study_no, email, study_name, study_hashtag, study_thumbnail, recruitment_start_date, recruitment_end_date, current_member,
-		max_member, studyroom_grade, study_interest
+	 	SELECT *
 		FROM (  SELECT
-   			study_no, email, study_name, study_hashtag, study_thumbnail, recruitment_start_date, recruitment_end_date, current_member,
-   			max_member, studyroom_grade, study_interest, ROWNUM AS row_seq
-  			FROM (  SELECT
-      			study_no, email, study_name, study_hashtag, study_thumbnail, recruitment_start_date, recruitment_end_date,
-     			current_member, max_member, study_interest, studyroom_grade
-      			FROM study
-      			<where>
+		   		inner_table.*, ROWNUM AS row_seq
+		  		FROM (  SELECT
+		      		study_no, email, study_name, study_hashtag,
+					study_thumbnail, study_start_date, study_end_date, 
+					study_reg_date, current_member, max_member, 
+					selfstudy_open_flag, recruitment_start_date, recruitment_end_date, 
+					study_end_flag, studyroom_grade, study_type, study_interest
+		      		FROM study
+      				<where>
       				study_end_flag = '1' and study_type = 'group'
       					<if test="studyInterest != null">
       						<if test="studyInterest == 1">
@@ -154,7 +164,7 @@
 			      			and study_hashtag LIKE '%'||#{searchKeyword}||'%'
 			      			</if>
 			      		</if>
-	      		</where>
+	      			</where>
 		      		<choose>
 		      			<when test="searchSort == 1">
 		      				ORDER BY current_member ASC
@@ -173,7 +183,7 @@
 		      			</otherwise>
 		      		</choose>
 	   				) inner_table
-   				WHERE ROWNUM &lt;= #{endRowNum}) outer_table
+   				WHERE ROWNUM &lt;= #{endRowNum}) 
 			WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 
 	 </select>

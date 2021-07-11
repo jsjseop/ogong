@@ -19,13 +19,15 @@ public class StudyServiceImpl implements StudyService {
 	StudyMapper studyDAO;
 	
 	@Override
-	public void addStudy(Study study) throws Exception {	
+	public void addStudy(Study study) throws Exception {
+		
 		studyDAO.addStudy(study);
 
 	}
 
 	@Override
 	public Study getStudy(int studyNo) throws Exception {
+		
 		return studyDAO.getStudy(studyNo); 
 		
 	}
