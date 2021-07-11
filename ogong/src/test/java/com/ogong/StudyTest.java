@@ -1,12 +1,15 @@
 package com.ogong;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
@@ -22,7 +25,7 @@ class StudyTest {
 	void testAddStudy() throws Exception {
 		
 		Study study = new Study();
-		User user = new User();
+		
 		
 		String[] day = {"2021-06-07","2021-06-31","2021-06-01","2021-06-03"};
 		
@@ -32,8 +35,8 @@ class StudyTest {
 			d[i] = Date.valueOf(day[i]);
 		}
 		
+		User user = new User();
 		user.setEmail("user02");
-		
 		study.setStudyMaker(user);
 		study.setStudyName("junit테스트용");
 		study.setStudyHashtag("#java");
@@ -54,12 +57,41 @@ class StudyTest {
 	}
 	
 	@Test
-	@DisplayName("그룹 스터디 정보 조회")
+	//@DisplayName("그룹 스터디 정보 조회")
 	void testGetStudy() throws Exception {
 		
-		Study study = studyService.getStudy(10000);
+		Study study = studyService.getStudy(10002);
 		
 		System.out.println("getStudy 결과 :: "+study);
+		
+		
+		
+	}
+	
+	//@Test
+	@DisplayName("그룹스터디 목록 조회")
+	void testlistStudy() throws Exception {
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);
+		search.setSearchCondition("1");
+		search.setSearchKeyword("java");
+		
+		
+		Map<String,Object> map = studyService.getStudyList(search);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		
+		System.out.println("list 값 : "+list);
+		System.out.println("list size : "+list.size());
+		System.out.println("total Count : "+totalCount);
+		
+		System.out.println("================================");
+		
+		
 		
 		
 		

@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
-import com.ogong.service.study.StudyMapper;
-import com.ogong.service.study.StudyService;
+import com.ogong.service.study.TestStudyMapper;
+import com.ogong.service.study.TestStudyService;
 
 @Service
-public class StudyServiceImpl implements StudyService {
-	
+public class TestStudyServiceImpl implements TestStudyService {
+
 	@Autowired
-	StudyMapper studyMapper;
+	TestStudyMapper studyMapper;
 	
 	@Override
 	public void addStudy(Study study) throws Exception {
@@ -33,16 +33,16 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public Map<String, Object> getStudyList(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		List<Study> list= studyMapper.getStudyList(search);
-		int totalCount = studyMapper.getTotalCount(search);
+	public Map<String, Object> getStudyList(HashMap<String, Object> map) throws Exception {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		List<Study> list= studyMapper.getStudyList(map);
+		int totalCount = studyMapper.getTotalCount(map);
 		
-		return map;
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("list", list);
+		result.put("totalCount", new Integer(totalCount));
+		
+		return result;
 	}
-
+	
 }

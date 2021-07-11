@@ -1,55 +1,95 @@
 package com.ogong;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
-import com.ogong.service.study.StudyService;
+import com.ogong.service.study.TestStudyService;
 
 @SpringBootTest
 public class SelfStudyTest {
 
 	@Autowired
-	private StudyService studyService;
+	private TestStudyService studyService;
 	
-	@Test
+	//@Test
 	@DisplayName("자율 스터디 생성")
 	void testAddStudy() throws Exception {
 		
 		Study study = new Study();
 		User user = new User();
 		
-		String[] day = {"2021-06-07","2021-06-31","2021-06-01","2021-06-03"};
+		String[] day = {"2021-08-01","2021-08-07"};
 		
-		Date d[] = new Date[4];
+		Date d[] = new Date[2];
 		
 		for (int i =0; i<d.length; i++) {
 			d[i] = Date.valueOf(day[i]);
 		}
 		
-		user.setEmail("user01");
+		user.setEmail("user06");
 		
 		study.setStudyMaker(user);
-		study.setStudyName("junit테스트용");
-		study.setStudyHashtag("#java");
-		study.setStudyThumbnail("j.jpg");
+		study.setStudyName("자율스터디3");
+		study.setStudyHashtag("#test3");
+		study.setStudyThumbnail("j3.jpg");
 		study.setStudyStartDate(d[0]);
 		study.setStudyEndDate(d[1]);
-		study.setMaxMamber(5);
-		study.setRecruitmentStartDate(d[2]);
-		study.setRecruitmentEndDate(d[3]);
+		study.setMaxMamber(8);
+		study.setSelfStudyRule("자율스터디3 규칙입니다.");
+		study.setSelfStudyOpenFlag("1");
 		study.setStudyRoomGrade("basic");
-		study.setStudyType("group");
-		study.setStudyInterest("취업");
+		study.setStudyType("self");
+		study.setStudyInterest("기타공부");
 		
 		studyService.addStudy(study);
 		
+	}
+	
+	//@Test
+	@DisplayName("자율스터디 정보조회")
+	void testGetStudy() throws Exception{
 		
+		Study study = studyService.getStudy(10008);
+		
+		System.out.println(study);
+	}
+	
+	@Test
+	@DisplayName("자율스터디 목록조회")
+	void testlistStudy() throws Exception {
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);
+		search.setSearchCondition("1");
+		search.setSearchKeyword("방");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("studyType", "self");
+		
+		Map<String,Object> result = studyService.getStudyList(map);
+		
+		List<Object> list = (List<Object>)result.get("list");
+		
+		Integer totalCount = (Integer)result.get("totalCount");
+		
+		System.out.println("list 값 : "+list);
+		System.out.println("list size : "+list.size());
+		System.out.println("total Count : "+totalCount);
+		
+		System.out.println("================================");
 		
 	}
+	
 }
