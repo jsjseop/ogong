@@ -75,7 +75,10 @@ class StudyTest {
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
-		search.setStudyInterest(4);
+		search.setSearchCondition("1");
+		search.setSearchKeyword("java");
+		
+		
 		Map<String,Object> map = studyService.getStudyList(search);
 		
 		List<Object> list = (List<Object>)map.get("list");
@@ -83,6 +86,7 @@ class StudyTest {
 		Integer totalCount = (Integer)map.get("totalCount");
 		
 		System.out.println("list 값 : "+list);
+		System.out.println("list size : "+list.size());
 		System.out.println("total Count : "+totalCount);
 		
 		System.out.println("================================");
