@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 import com.ogong.service.study.TestStudyMapper;
 import com.ogong.service.study.TestStudyService;
@@ -19,6 +19,7 @@ public class TestStudyServiceImpl implements TestStudyService {
 	TestStudyMapper studyMapper;
 	
 	@Override
+	@Transactional
 	public void addStudy(Study study) throws Exception {
 		
 		studyMapper.addStudy(study);
