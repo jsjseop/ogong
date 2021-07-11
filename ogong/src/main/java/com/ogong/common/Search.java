@@ -15,5 +15,4 @@ public class Search {
 	private int endRowNum;
 	private int startRowNum;
 
-	
 }
