@@ -11,21 +11,20 @@ import com.ogong.service.study.StudyService;
 public class StudyServiceImpl implements StudyService {
 	
 	@Autowired
-	StudyMapper studyDAO;
+	StudyMapper studyMapper;
 	
 	@Override
 	public void addStudy(Study study) throws Exception {
 		
-		studyDAO.addStudy(study);
+		studyMapper.addStudy(study);
 		
 	}
 
 	@Override
 	public Study getStudy(int studyNo) throws Exception {
 		
-		return studyDAO.getStudy(studyNo); 
-				
-		
+		//return studyDAO.getStudy(studyNo); 
+		return null;		
 	}
 
 }

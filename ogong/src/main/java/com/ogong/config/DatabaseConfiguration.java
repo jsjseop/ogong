@@ -37,7 +37,7 @@ public class DatabaseConfiguration {
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setTypeAliasesPackage("com.ogong.service.domain");
+        sessionFactory.setTypeAliasesPackage("com.ogong.service.domain, com.ogong.common");
         sessionFactory.setMapperLocations(applicationContext.getResources("classpath:/mapper/*.xml"));
         return sessionFactory.getObject();
     }

@@ -12,13 +12,13 @@ import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
 
 @SpringBootTest
-class StudyTest {
+public class SelfStudyTest {
 
 	@Autowired
 	private StudyService studyService;
 	
-	//@Test
-	//@DisplayName("그룹 스터디 생성")
+	@Test
+	@DisplayName("자율 스터디 생성")
 	void testAddStudy() throws Exception {
 		
 		Study study = new Study();
@@ -32,7 +32,7 @@ class StudyTest {
 			d[i] = Date.valueOf(day[i]);
 		}
 		
-		user.setEmail("user02");
+		user.setEmail("user01");
 		
 		study.setStudyMaker(user);
 		study.setStudyName("junit테스트용");
@@ -52,17 +52,4 @@ class StudyTest {
 		
 		
 	}
-	
-	@Test
-	@DisplayName("그룹 스터디 정보 조회")
-	void testGetStudy() throws Exception {
-		
-		Study study = studyService.getStudy(10000);
-		
-		System.out.println("getStudy 결과 :: "+study);
-		
-		
-		
-	}
-
 }

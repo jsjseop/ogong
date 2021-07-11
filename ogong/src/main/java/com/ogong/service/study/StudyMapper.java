@@ -11,6 +11,6 @@ public interface StudyMapper {
 	
 	void addStudy(Study study);
 	
-	Study getStudy(int studyNo);
+	//Study getStudy(int studyNo);
 
 }
