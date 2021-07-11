@@ -7,6 +7,7 @@ public class Search {
 	private int currentPage;
 	private String searchCondition;
 	private String searchKeyword;
+	private int studyInterest;
 	private int pageSize;
 	private int endRowNum;
 	private int startRowNum;
@@ -44,20 +45,28 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	//==> Select Query �� ROWNUM ������ �� 
+	
+	public int getStudyInterest() {
+		return studyInterest;
+	}
+
+	public void setStudyInterest(int studyInterest) {
+		this.studyInterest = studyInterest;
+	}
+
 	public int getEndRowNum() {
 		return getCurrentPage()*getPageSize();
 	}
-	//==> Select Query �� ROWNUM ���� ��
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
 
 	@Override
 	public String toString() {
-		return "Search [currentPage=" + currentPage + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
+				+ searchKeyword + ", studyInterest=" + studyInterest + ", pageSize=" + pageSize + ", endRowNum="
+				+ endRowNum + ", startRowNum=" + startRowNum + "]";
 	}
+
+	
 }

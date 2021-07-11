@@ -51,7 +51,7 @@
 		groupstudy_info, 
 		groupstudy_plan,
 		groupstudy_condition, 
-		recruitment_start_date, 
+		recruitment_start_date,
 		recruitment_end_date, 
 		study_end_flag, 
 		studyroom_grade, 
@@ -88,7 +88,8 @@
 	 <select	id="getStudy"	parameterType="study"	resultMap="studySelectMap">
 	 
 	 	SELECT 
-		study_no, 
+		study_no,
+		email,
 		study_name, 
 		study_hashtag, 
 		study_thumbnail, 
@@ -103,6 +104,124 @@
 		where study_no = #{value}
 	 	
 	 	
+	 </select>
+	 
+	 <select id="getStudyList"	parameterType="search" resultMap="studySelectMap">
+	 
+	 	SELECT
+		study_no, email, study_name, study_hashtag, study_thumbnail, recruitment_start_date, recruitment_end_date, current_member,
+		max_member, studyroom_grade, study_interest
+		FROM (  SELECT
+   			study_no, email, study_name, study_hashtag, study_thumbnail, recruitment_start_date, recruitment_end_date, current_member,
+   			max_member, studyroom_grade, study_interest, ROWNUM AS row_seq
+  			FROM (  SELECT
+      			study_no, email, study_name, study_hashtag, study_thumbnail, recruitment_start_date, recruitment_end_date,
+     			current_member, max_member, study_interest, studyroom_grade
+      			FROM study
+      			<where>
+      				study_end_flag = '1' and study_type = 'group'
+      					<if test="studyInterest != null">
+      						<if test="studyInterest == 1">
+      						and study_interest = '독서'
+      						</if>
+      						<if test="studyInterest == 2">
+      						and study_interest = '어학'
+      						</if>
+      						<if test="studyInterest == 3">
+      						and study_interest = '임용'
+      						</if>
+      						<if test="studyInterest == 4">
+      						and study_interest = '취업'
+      						</if>
+      						<if test="studyInterest == 5">
+      						and study_interest = '공무원'
+      						</if>
+      						<if test="studyInterest == 6">
+      						and study_interest = '자격증'
+      						</if>
+      						<if test="studyInterest == 7">
+      						and study_interest = '자기계발'
+      						</if>
+      						<if test="studyInterest == 8">
+      						and study_interest = '기타공부'
+      						</if>		
+      					</if>
+      				
+	      				<if test="searchCondition != null">
+			      			<if test="searchCondition == '1'">
+			      			study_name LIKE '%'||#{searchKeyword}||'%'
+			      			</if>
+			      			<if test="searchCondition == '2'">
+			      			study_hashtag LIKE '%'||#{searchKeyword}||'%'
+			      			</if>
+			      		</if>
+	      		</where>
+	      		<if test="searchKeyword != null">
+      				<if test="searchKeyword == '1'">
+      					ORDER BY current_member ASC
+      				</if>
+      				<if test="searchKeyword == '2'">
+      					ORDER BY current_member DESC
+      				</if>
+      				<if test="searchKeyword == '3'">
+      					ORDER BY study_reg_date ASC
+      				</if>
+      				<if test="searchKeyword == '4'">
+      					ORDER BY study_reg_date DESC
+      				</if>
+      			</if>	
+      			ORDER BY study_no) inner_table
+   				WHERE ROWNUM &lt;= #{endRowNum}) outer_table
+			WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+
+	 </select>
+	 
+	 <select	id="getTotalCount"	parameterType="search"		resultType="int">
+	 	 SELECT COUNT(*)
+	 	 FROM(	SELECT
+      			study_no, email, study_name, study_hashtag, study_thumbnail, recruitment_start_date, recruitment_end_date,
+     			current_member, max_member, studyroom_grade, study_interest
+      			FROM study
+      			<where>
+      				study_end_flag = '1' and study_type = 'group'
+	      				<if test="studyInterest != null">
+      						<if test="studyInterest == 1">
+      						and study_interest = '독서'
+      						</if>
+      						<if test="studyInterest == 2">
+      						and study_interest = '어학'
+      						</if>
+      						<if test="studyInterest == 3">
+      						and study_interest = '임용'
+      						</if>
+      						<if test="studyInterest == 4">
+      						and study_interest = '취업'
+      						</if>
+      						<if test="studyInterest == 5">
+      						and study_interest = '공무원'
+      						</if>
+      						<if test="studyInterest == 6">
+      						and study_interest = '자격증'
+      						</if>
+      						<if test="studyInterest == 7">
+      						and study_interest = '자기계발'
+      						</if>
+      						<if test="studyInterest == 8">
+      						and study_interest = '기타공부'
+      						</if>		
+      					</if>
+      				
+	      				<if test="searchCondition != null">
+			      			<if test="searchCondition == '1'">
+			      			study_name LIKE '%'||#{searchKeyword}||'%'
+			      			</if>
+			      			<if test="searchCondition == '2'">
+			      			study_hashtag LIKE '%'||#{searchKeyword}||'%'
+			      			</if>
+			      		</if>
+	      		</where>
+      			) countTable
+	 
 	 </select>
 	
 </mapper>
