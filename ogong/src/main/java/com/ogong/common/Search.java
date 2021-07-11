@@ -14,5 +14,14 @@ public class Search {
 	private int pageSize;
 	private int endRowNum;
 	private int startRowNum;
-
+	
+	
+	public int getEndRowNum() {
+		return getCurrentPage()*getPageSize();
+	}
+	public int getStartRowNum() {
+		return (getCurrentPage()-1)*getPageSize()+1;
+	}
 }
+
+

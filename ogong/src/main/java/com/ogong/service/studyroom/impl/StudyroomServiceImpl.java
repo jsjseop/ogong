@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.studyroom.StudyroomMapper;
-import com.ogong.service.studyroom.studyroomService;
+import com.ogong.service.studyroom.StudyroomService;
 
-public class StudyroomServiceImpl implements studyroomService {
+public class StudyroomServiceImpl implements StudyroomService {
 
 		@Autowired
 		StudyroomMapper studyDAO;

@@ -56,8 +56,8 @@ class StudyTest {
 		
 	}
 	
-	//@Test
-	//@DisplayName("그룹 스터디 정보 조회")
+//	@Test
+//	@DisplayName("그룹 스터디 정보 조회")
 	void testGetStudy() throws Exception {
 		
 		Study study = studyService.getStudy(10002);
@@ -76,7 +76,7 @@ class StudyTest {
 		search.setCurrentPage(1);
 		search.setPageSize(3);
 		search.setSearchCondition("1");
-		search.setSearchKeyword("java");
+		search.setSearchKeyword("");
 		
 		
 		Map<String,Object> map = studyService.getStudyList(search);

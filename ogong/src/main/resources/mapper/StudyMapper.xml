@@ -118,7 +118,7 @@
 	 
 	 <select id="getStudyList"	parameterType="search" resultMap="studySelectMap">
 	 
-	 	SELECT *
+	 	SELECT outer_table.*
 		FROM (  SELECT
 		   		inner_table.*, ROWNUM AS row_seq
 		  		FROM (  SELECT
@@ -157,10 +157,10 @@
       						</if>		
       					</if>
 	      				<if test="searchCondition != null">
-			      			<if test="searchCondition == 1">
+			      			<if test="searchCondition == '1'">
 			      				and study_name LIKE '%'||#{searchKeyword}||'%'
 			      			</if>
-			      			<if test="searchCondition == 2">
+			      			<if test="searchCondition == '2'">
 			      			and study_hashtag LIKE '%'||#{searchKeyword}||'%'
 			      			</if>
 			      		</if>
@@ -183,8 +183,9 @@
 		      			</otherwise>
 		      		</choose>
 	   				) inner_table
-   				WHERE ROWNUM &lt;= #{endRowNum}) 
+   				WHERE ROWNUM &lt;= #{endRowNum}) outer_table
 			WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+
 
 	 </select>
 	 
@@ -223,10 +224,10 @@
       						</if>		
       					</if>
 	      				<if test="searchCondition != null">
-			      			<if test="searchCondition == 1">
+			      			<if test="searchCondition == '1'">
 			      				and study_name LIKE '%'||#{searchKeyword}||'%'
 			      			</if>
-			      			<if test="searchCondition == 2">
+			      			<if test="searchCondition == '2'">
 			      			and study_hashtag LIKE '%'||#{searchKeyword}||'%'
 			      			</if>
 			      		</if>
