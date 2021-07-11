@@ -14,4 +14,6 @@ public interface StudyService {
 	
 	public Map<String, Object> getStudyList(Search search) throws Exception;
 	
+	public void deleteStudy(int studyNo) throws Exception;
+	
 	}

@@ -224,5 +224,14 @@
       			) countTable
 	 
 	 </select>
+	 
+	 <delete id="deleteStudy" parameterType="int">
+	 
+	 	DELETE
+	 	FROM study
+	 	WHERE
+	 	study_no = #{value}
+	 
+	 </delete>
 	
 </mapper>

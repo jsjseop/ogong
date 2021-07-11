@@ -19,5 +19,7 @@ public interface StudyMapper {
 	List<Study> getStudyList(Search search);
 	
 	int getTotalCount(Search search);
+	
+	void deleteStudy(int studyNo);
 
 }

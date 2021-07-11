@@ -91,10 +91,14 @@ class StudyTest {
 		
 		System.out.println("================================");
 		
-		
-		
-		
-		
+	}
+	
+	//@Test
+	//@DisplayName("그룹 스터디 정보 조회")
+	void testDeleteStudy() throws Exception {
+			
+		studyService.deleteStudy(10002);
+			
 	}
 
 }
