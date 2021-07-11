@@ -14,6 +14,7 @@ public class Page {
 	private int beginUnitPage;	
 	private int endUnitPage;		
 	
+
 	///Constructor
 	public Page() {
 	}
