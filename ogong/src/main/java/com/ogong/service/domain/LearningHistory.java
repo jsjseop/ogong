@@ -9,7 +9,7 @@ public class LearningHistory {
 
 	private int learningHistoryNo;
 	private User user;
-	private int learningTime;
+	private String learningTime;
 	private String learningType;
 	private Date learningDate;
 	
