@@ -3,7 +3,6 @@ package com.ogong.service.study;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 
 public interface TestStudyService {
