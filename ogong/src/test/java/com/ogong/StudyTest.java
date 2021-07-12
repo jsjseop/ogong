@@ -57,8 +57,8 @@ class StudyTest {
 		
 	}
 	
-//	@Test
-//	@DisplayName("그룹 스터디 정보 조회")
+	//@Test
+	//@DisplayName("그룹 스터디 정보 조회")
 	void testGetStudy() throws Exception {
 		
 		Study study = studyService.getStudy(10002);
@@ -79,6 +79,7 @@ class StudyTest {
 		search.setSearchCondition("1");
 		search.setSearchKeyword("");
 		
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
 		map.put("studyType", "group");
@@ -86,7 +87,6 @@ class StudyTest {
 		Map<String,Object> result = studyService.getStudyList(map);
 		
 		List<Object> list = (List<Object>)result.get("list");
-		
 		Integer totalCount = (Integer)result.get("totalCount");
 		
 		System.out.println("list 값 : "+list);

@@ -168,7 +168,7 @@
 			      				and study_name LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
 			      			<if test="search.searchCondition == 2">
-			      			and study_hashtag LIKE '%'||#{search.searchKeyword}||'%'
+			      				and study_hashtag LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
 			      		</if>
 	      			</where>
@@ -190,8 +190,8 @@
 		      			</otherwise>
 		      		</choose>
 	   				) inner_table
-   				WHERE ROWNUM &lt;= #{endRowNum}) outer_table
-			WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
+			WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 
 
 	 </select>
@@ -203,39 +203,46 @@
      			current_member, max_member, studyroom_grade, study_interest
       			FROM study
       			<where>
-      				study_end_flag = '1' and study_type = 'group'
-      					<if test="studyInterest != null">
-      						<if test="studyInterest == 1">
-      						and study_interest = '독서'
+      				study_end_flag = '1'
+      					<if test="studyType == 'self'">
+      						AND study_type = 'self'
+      						AND selfstudy_open_flag = '1'
+      					</if>
+      					<if test="studyType == 'group'">
+      						AND study_type = 'group'
+      					</if>
+      					<if test="search.studyInterest != null">
+      						<if test="search.studyInterest == 1">
+      						AND study_interest = '독서'
       						</if>
-      						<if test="studyInterest == 2">
-      						and study_interest = '어학'
+      						<if test="search.studyInterest == 2">
+      						AND study_interest = '어학'
       						</if>
-      						<if test="studyInterest == 3">
-      						and study_interest = '임용'
+      						<if test="search.studyInterest == 3">
+      						AND study_interest = '임용'
       						</if>
-      						<if test="studyInterest == 4">
-      						and study_interest = '취업'
+      						<if test="search.studyInterest == 4">
+      						AND study_interest = '취업'
       						</if>
-      						<if test="studyInterest == 5">
-      						and study_interest = '공무원'
+      						<if test="search.studyInterest == 5">
+      						AND study_interest = '공무원'
       						</if>
-      						<if test="studyInterest == 6">
-      						and study_interest = '자격증'
+      						<if test="search.studyInterest == 6">
+      						AND study_interest = '자격증'
       						</if>
-      						<if test="studyInterest == 7">
-      						and study_interest = '자기계발'
+      						<if test="search.studyInterest == 7">
+      						AND study_interest = '자기계발'
       						</if>
-      						<if test="studyInterest == 8">
-      						and study_interest = '기타공부'
+      						<if test="search.studyInterest == 8">
+      						AND study_interest = '기타공부'
       						</if>		
       					</if>
-	      				<if test="searchCondition != null">
-			      			<if test="searchCondition == '1'">
-			      				and study_name LIKE '%'||#{searchKeyword}||'%'
+	      				<if test="search.searchCondition != null">
+			      			<if test="search.searchCondition == 1">
+			      				and study_name LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
-			      			<if test="searchCondition == '2'">
-			      			and study_hashtag LIKE '%'||#{searchKeyword}||'%'
+			      			<if test="search.searchCondition == 2">
+			      				and study_hashtag LIKE '%'||#{search.searchKeyword}||'%'
 			      			</if>
 			      		</if>
 	      		</where>

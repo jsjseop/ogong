@@ -57,4 +57,6 @@ public class DatabaseConfiguration {
 	public PlatformTransactionManager txManager() throws Exception {
 		return new DataSourceTransactionManager(dataSource());
 	}
+    
+    
 }
