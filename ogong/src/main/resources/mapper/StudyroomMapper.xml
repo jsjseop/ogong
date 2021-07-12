@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ogong.service.studyroom.StudyroomMapper">
+ 	
+	<resultMap id="gsmSelectMap" type="groupStudyMember">
+		<result property="groupStudyMemberNo" 		column="groupstudy_member_no" 		jdbcType="NUMERIC"/>
+		<result property="study.studyNo"			column="study_no" 					jdbcType="NUMERIC" />
+		<result property="member.email" 			column="email" 						jdbcType="VARCHAR" />
+		<result property="studyRole" 				column="study_role" 				jdbcType="VARCHAR" />
+		<result property="diligenceScore" 			column="diligence_score" 			jdbcType="NUMERIC" />
+		<result property="participationScore" 		column="participation_score" 		jdbcType="NUMERIC" />
+		<result property="participationReason" 		column="participation_reason" 		jdbcType="VARCHAR" />
+		<result property="determination" 			column="determination" 				jdbcType="VARCHAR" />
+		<result property="approvalFlag" 			column="approval_flag" 				jdbcType="CHAR"  />
+	</resultMap>
+	
+	<insert 	id="addGroupStudyMember"		parameterType="groupStudyMember" >
+	 	INSERT
+		INTO groupstudy_member
+		( 
+		groupstudy_member_no,
+		study_no, 
+		email, 
+		study_role,
+		diligence_score, 
+		participation_score, 
+		participation_reason, 
+		determination,
+		approval_flag
+		)
+		VALUES	 
+		(	
+		seq_groupstudy_member_no.NEXTVAL, 
+		#{study.studyNo}, 
+		#{member.email}, 
+		#{studyRole}, 
+		#{diligenceScore:NUMERIC}, 
+		#{participationScore:NUMERIC}, 
+		#{participationReason}, 
+		#{determination}, 
+		#{approvalFlag:VARCHAR}
+		)
+	 </insert>
+	 
+	 <select	id="getGroupStudyMember"	parameterType="int"	resultMap="gsmSelectMap">
+	 
+	 	SELECT 
+		groupstudy_member_no,
+		study_no, 
+		email, 
+		study_role,
+		diligence_score, 
+		participation_score, 
+		participation_reason, 
+		determination,
+		approval_flag
+		FROM groupstudy_member
+		WHERE study_no = #{value}
+	 
+	 </select>
+	 
+</mapper>
