@@ -11,15 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
+import com.ogong.service.studyroom.StudyroomService;
 
 @SpringBootTest
 class StudyTest {
 
 	@Autowired
 	private StudyService studyService;
+	
+	@Autowired
+	private StudyroomService studyroomService;
 	
 	//@Test
 	//@DisplayName("그룹 스터디 생성")
@@ -39,9 +44,9 @@ class StudyTest {
 		User user = new User();
 		user.setEmail("user04");
 		study.setStudyMaker(user);
-		study.setStudyName("자기계발");
-		study.setStudyHashtag("#자기계발");
-		study.setStudyThumbnail("a.jpg");
+		study.setStudyName("hot스터디");
+		study.setStudyHashtag("#hot");
+		study.setStudyThumbnail("hot.jpg");
 		study.setStudyStartDate(d[0]);
 		study.setStudyEndDate(d[1]);
 		study.setMaxMamber(5);
@@ -53,6 +58,17 @@ class StudyTest {
 		
 		studyService.addStudy(study);
 		
+		System.out.println(" 넘어온 시퀀스 studyNo 값 확인 : "+study.getStudyNo());
+		
+		GroupStudyMember gsm = new GroupStudyMember();
+		gsm.setStudy(study);
+		gsm.setMember(user);
+		gsm.setStudyRole("3");
+		gsm.setDiligenceScore(new Double(0));
+		gsm.setParticipationScore(new Double(0));
+		gsm.setApprovalFlag("1");
+		
+		studyroomService.addGSMember(gsm);
 		
 		
 	}
@@ -71,7 +87,7 @@ class StudyTest {
 	
 	@Test
 	@DisplayName("그룹스터디 목록 조회")
-	void testlistStudy() throws Exception {
+	void testgetStudyList() throws Exception {
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -98,7 +114,7 @@ class StudyTest {
 	}
 	
 	//@Test
-	//@DisplayName("그룹 스터디 정보 조회")
+	//@DisplayName("그룹스터디 삭제")
 	void testDeleteStudy() throws Exception {
 			
 		studyService.deleteStudy(10002);

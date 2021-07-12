@@ -14,5 +14,5 @@ public class GroupStudyMember {
 	private String participationReason;
 	private String determination;
 	private String approvalFlag;
-	
+	private double attendanceRate;
 }
