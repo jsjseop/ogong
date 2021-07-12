@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.ogong.service.domain.Board;
+import com.ogong.service.domain.Comment;
 
 
 	@Repository
@@ -24,8 +25,8 @@ import com.ogong.service.domain.Board;
 		
 		//List<Board> listQaBoard (Map<String, Object> map);
 		
-		List<Board> listBoard (Board board);
+		List<Board> listBoard(Map<String, Object> map) ;
 		
-		void addComment (Board board);
+		void addComment (Comment comment);
 		
 	}
