@@ -6,49 +6,44 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
-import com.ogong.service.study.StudyMapper;
-import com.ogong.service.study.StudyService;
+import com.ogong.service.study.TestStudyMapper;
+import com.ogong.service.study.TestStudyService;
 
 @Service
-public class StudyServiceImpl implements StudyService {
-	
+public class TestStudyServiceImpl implements TestStudyService {
+
 	@Autowired
-	StudyMapper studyDAO;
+	TestStudyMapper studyMapper;
 	
 	@Override
+	@Transactional
 	public void addStudy(Study study) throws Exception {
 		
-		studyDAO.addStudy(study);
-
+		studyMapper.addStudy(study);
+		
 	}
 
 	@Override
 	public Study getStudy(int studyNo) throws Exception {
 		
-		return studyDAO.getStudy(studyNo); 
+		return studyMapper.getStudy(studyNo);
 		
 	}
 
 	@Override
 	public Map<String, Object> getStudyList(HashMap<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		List<Study> list= studyDAO.getStudyList(map);
-		int totalCount = studyDAO.getTotalCount(map);
+		
+		List<Study> list= studyMapper.getStudyList(map);
+		int totalCount = studyMapper.getTotalCount(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		result.put("list", list);
+		result.put("totalCount", new Integer(totalCount));
 		
 		return result;
 	}
-
-	@Override
-	public void deleteStudy(int studyNo) throws Exception {
-		studyDAO.deleteStudy(studyNo);
-		
-	}
-
+	
 }

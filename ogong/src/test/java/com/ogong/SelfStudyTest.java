@@ -13,75 +13,70 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
-import com.ogong.service.study.StudyService;
+import com.ogong.service.study.TestStudyService;
 
 @SpringBootTest
-class StudyTest {
+public class SelfStudyTest {
 
 	@Autowired
-	private StudyService studyService;
+	private TestStudyService studyService;
 	
 	//@Test
-	//@DisplayName("그룹 스터디 생성")
+	@DisplayName("자율 스터디 생성")
 	void testAddStudy() throws Exception {
 		
 		Study study = new Study();
+		User user = new User();
 		
+		String[] day = {"2021-08-01","2021-08-07"};
 		
-		String[] day = {"2021-06-01","2021-06-31","2021-05-25","2021-05-30"};
-		
-		Date d[] = new Date[4];
+		Date d[] = new Date[2];
 		
 		for (int i =0; i<d.length; i++) {
 			d[i] = Date.valueOf(day[i]);
 		}
 		
-		User user = new User();
-		user.setEmail("user04");
+		user.setEmail("user06");
+		
 		study.setStudyMaker(user);
-		study.setStudyName("자기계발");
-		study.setStudyHashtag("#자기계발");
-		study.setStudyThumbnail("a.jpg");
+		study.setStudyName("자율스터디3");
+		study.setStudyHashtag("#test3");
+		study.setStudyThumbnail("j3.jpg");
 		study.setStudyStartDate(d[0]);
 		study.setStudyEndDate(d[1]);
-		study.setMaxMamber(5);
-		study.setRecruitmentStartDate(d[2]);
-		study.setRecruitmentEndDate(d[3]);
+		study.setMaxMamber(8);
+		study.setSelfStudyRule("자율스터디3 규칙입니다.");
+		study.setSelfStudyOpenFlag("1");
 		study.setStudyRoomGrade("basic");
-		study.setStudyType("group");
-		study.setStudyInterest("자기계발");
+		study.setStudyType("self");
+		study.setStudyInterest("기타공부");
 		
 		studyService.addStudy(study);
 		
-		
-		
 	}
 	
-//	@Test
-//	@DisplayName("그룹 스터디 정보 조회")
-	void testGetStudy() throws Exception {
+	//@Test
+	@DisplayName("자율스터디 정보조회")
+	void testGetStudy() throws Exception{
 		
-		Study study = studyService.getStudy(10002);
+		Study study = studyService.getStudy(10008);
 		
-		System.out.println("getStudy 결과 :: "+study);
-		
-		
-		
+		System.out.println(study);
 	}
 	
 	@Test
-	@DisplayName("그룹스터디 목록 조회")
+	@DisplayName("자율스터디 목록조회")
 	void testlistStudy() throws Exception {
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
 		search.setPageSize(3);
 		search.setSearchCondition("1");
-		search.setSearchKeyword("");
+		search.setSearchKeyword("방");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
-		map.put("studyType", "group");
+		map.put("studyType", "self");
 		
 		Map<String,Object> result = studyService.getStudyList(map);
 		
@@ -97,12 +92,4 @@ class StudyTest {
 		
 	}
 	
-	//@Test
-	//@DisplayName("그룹 스터디 정보 조회")
-	void testDeleteStudy() throws Exception {
-			
-		studyService.deleteStudy(10002);
-			
-	}
-
 }

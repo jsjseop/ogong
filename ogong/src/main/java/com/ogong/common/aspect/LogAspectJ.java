@@ -35,3 +35,5 @@ public class LogAspectJ {
 	}
 	
 }//end of class
+
+
