@@ -1,5 +1,6 @@
 package com.ogong.service.study;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.ogong.common.Search;
@@ -12,7 +13,7 @@ public interface StudyService {
 	
 	public Study getStudy(int studyNo) throws Exception;
 	
-	public Map<String, Object> getStudyList(Search search) throws Exception;
+	public Map<String, Object> getStudyList(HashMap<String, Object> map) throws Exception;
 	
 	public void deleteStudy(int studyNo) throws Exception;
 	

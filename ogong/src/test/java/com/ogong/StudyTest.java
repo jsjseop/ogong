@@ -1,6 +1,7 @@
 package com.ogong;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,12 +79,15 @@ class StudyTest {
 		search.setSearchCondition("1");
 		search.setSearchKeyword("");
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("studyType", "group");
 		
-		Map<String,Object> map = studyService.getStudyList(search);
+		Map<String,Object> result = studyService.getStudyList(map);
 		
-		List<Object> list = (List<Object>)map.get("list");
+		List<Object> list = (List<Object>)result.get("list");
 		
-		Integer totalCount = (Integer)map.get("totalCount");
+		Integer totalCount = (Integer)result.get("totalCount");
 		
 		System.out.println("list 값 : "+list);
 		System.out.println("list size : "+list.size());

@@ -33,16 +33,16 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public Map<String, Object> getStudyList(Search search) throws Exception {
+	public Map<String, Object> getStudyList(HashMap<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		List<Study> list= studyDAO.getStudyList(search);
-		int totalCount = studyDAO.getTotalCount(search);
+		List<Study> list= studyDAO.getStudyList(map);
+		int totalCount = studyDAO.getTotalCount(map);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
 		
-		return map;
+		return result;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.ogong.service.study;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,9 +17,9 @@ public interface StudyMapper {
 	
 	Study getStudy(int studyNo);
 	
-	List<Study> getStudyList(Search search);
+	List<Study> getStudyList(HashMap<String, Object> map);
 	
-	int getTotalCount(Search search);
+	int getTotalCount(HashMap<String, Object> map);
 	
 	void deleteStudy(int studyNo);
 
