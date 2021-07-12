@@ -36,7 +36,7 @@ class BoardApplicationTest {
 	  Board board = new Board();
 	  board.setBoardNo(1);
 	  board.setWriter(user);
-	  board.setBoardCategory(1);
+	  board.setBoardCategory("1");
 	  board.setBoardTitle("안녕하세요");
 	  board.setBoardContents("반갑습니다");
 	  board.setBoardInterest("2");
@@ -108,25 +108,23 @@ class BoardApplicationTest {
 	  
 		  
 		  Board board = new Board();
-		  board.setBoardCategory(1);
-		  board.setCurrentPage(1);
-		  board.setPageSize(2);
-		  board.setSearchKeyword("안녕");
-		  board.setSearchCondition("1");
-//		  Map<String, Object> map = new HashMap<String, Object>();
-//		  map.put("board", board);
-//		  map.put("search", search);
-//		  List<Board> listQaBoard = boardService.listQaBoard(map);
-//		  
-//		  for(Board b: listQaBoard) {
-//			  System.out.println(b);
-//		  }
+		  Search search = new Search();
+		  board.setBoardCategory("1");
+		  //board.setBoardInterest(null);
+		  search.setCurrentPage(1);
+		  search.setPageSize(2);
+		  search.setSearchKeyword("안녕");
+		  search.setSearchCondition("1");
 		  
-		  List<Board> listBoard = boardService.listBoard(board);
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  map.put("board", board);
+		  map.put("search", search);
+		  List<Board> listBoard = boardService.listBoard(map);
 		  
 		  for(Board b: listBoard) {
-			  System.out.println(b.getBoardNo());
+			  System.out.println(b);
 		  }
+		  
 	  }
 	  
 	  
@@ -137,12 +135,16 @@ class BoardApplicationTest {
 		  Board board = new Board();
 		  User user = new User();
 		  Comment comment = new Comment();
-		  board.setBoardNo(10003);
-		  board.setBoardCategory(1);	  
+		  board.setBoardNo(10004);	  
 		  user.setEmail("user03");
-		  user.setNickname("뽀글뽀글");
+		  user.setNickname("뽀글이");
+		  
+		  comment.setCommentBoard(board);
+		  comment.setCommentWriter(user);
 		  comment.setCommentRegDate(Date.valueOf("2021-07-22"));
-		  comment.setCommentContent("뽀글이");
+		  comment.setCommentContents("뽀글뽀글");
+		  
+		  boardService.addComment(comment);
 		  
 	  } 
 }

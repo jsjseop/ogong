@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ogong.service.domain.Board;
+import com.ogong.service.domain.Comment;
 
 public interface BoardService {
 
@@ -15,10 +16,10 @@ public interface BoardService {
 		
 		public int deleteBoard(Board board) throws Exception; 
 		
-		//public List<Board> listQaBoard(Map<String, Object> map) throws Exception;
+		public List<Board> listBoard(Map<String, Object> map) throws Exception;
 		
-		public List<Board> listBoard(Board board) throws Exception;
+		//public List<Board> listBoard(Board board) throws Exception;
 		
-		public void addComment(Board board) throws Exception;
+		public void addComment(Comment comment) throws Exception;
 		
 }
