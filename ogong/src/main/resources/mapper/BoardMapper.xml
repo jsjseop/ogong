@@ -4,31 +4,37 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="BoardMapper">
+<mapper namespace="com.ogong.service.board.BoardMapper">
  	
 	<resultMap id="boardSelectMap" 	type="board">
-		<result property="boardNo" 		column="board_no" 			jdbcType="NUMBER"/>
-		<result property="study.studyNo"			column="study_no" 			jdbcType="NUMBER" />
-		<result property="users.email" 			column="email" 				jdbcType="VARCHAR" />
-		<result property="nickName" 		column="nickname" 			jdbcType="VARCHAR" /> 
+		<result property="boardNo" 		column="board_no" 			jdbcType="NUMERIC"/>
+		<!-- <result property="nickName" 		column="nickname" 			jdbcType="VARCHAR" /> --> 
 		<result property="boardCategory" 		column="board_category" 			jdbcType="VARCHAR" />
 		<result property="boardTitle" 		column="board_title" 			jdbcType="VARCHAR" />
 		<result property="boardContents" 		column="board_contents" 			jdbcType="VARCHAR" />
-		<result property="boardInterest" 		column="board_interest" 			jdbcType="VARCHAR" /> 
+		<result property="boardInterest" 		column="board_interest" 			jdbcType="NUMERIC" /> 
 		<result property="boardRegDate" 		column="board_reg_date" 			jdbcType="DATE" /> 
-		<result property="viewCount" 		column="view_count" 			jdbcType="NUMBER" />
-		<result property="commentCount" 		column="comment_count" 			jdbcType="NUMBER" />
-		<result property="boardRegBanana" 		column="board_reg_banana" 		jdbcType="NUMBER" />
-		<result property="fileFlag" 			column="file_flag" 				jdbcType="VARCHAR" /> 
-		<result property="answerCount" 		column="answer_count" 			jdbcType="NUMBER" /> 
+		<result property="viewCount" 		column="view_count" 			jdbcType="NUMERIC" />
+		<result property="commentCount" 		column="comment_count" 			jdbcType="NUMERIC" />
+		<result property="boardRegBanana" 		column="board_reg_banana" 		jdbcType="NUMERIC" />
+		<result property="fileFlag" 			column="file_flag" 				jdbcType="NUMERIC" /> 
+		<result property="answerCount" 		column="answer_count" 			jdbcType="NUMERIC" />
+		
+		
+<!-- 	<association property="StudyNo"  javaType="study">
+			<id property="studyNo" column="study_no" jdbcType="NUMERIC"/>
+		</association> -->
+		
+		<association property="writer"  javaType="user">
+			<id property="nickname" column="nickname" jdbcType="VARCHAR"/>
+		</association>
+
 	</resultMap>
 	
 	
-	
-
 <!-- 검색조건 -->
 
-	<select 	id="getTotalCount" parameterType="search" resultType="int">
+<!-- 	<select 	id="getTotalCount" parameterType="search" resultType="int">
 	
 		SELECT
 			COUNT(*)
@@ -41,7 +47,7 @@
 		</if>	
 			
 	</select>
-	
+	 -->
 
 
 
@@ -52,7 +58,6 @@
 		INSERT
 		INTO board( board_no,
 					study_no,
-					seq_study_no.nextval,
 					email, 
 					nickname, 
 					board_category, 
@@ -64,65 +69,76 @@
 					file_flag, 
 					view_count,
 					comment_count,
-					answer_count
-			VALUES( seq_board_no.nextval
-					#{study_no:NUMBER}, 
-					#{email},
-					#{nickname},
-					#{board_category},
-					#{board_title},
-					#{board_contents},
-					#{board_interest},
-					#{board_reg_date},
-					#{board_reg_banana},
-					#{file_flag},		
+					answer_count )
+			VALUES( seq_board_no.nextval,
+					#{study.studyNo:NUMERIC}, 
+					#{writer.email},
+					#{writer.nickname},
+					#{boardCategory},
+					#{boardTitle},
+					#{boardContents},
+					#{boardInterest},
+					#{boardRegDate},
+					#{boardRegBanana},
+					#{fileFlag},		
 					0,  
 					0,
 					0 
 					)
-		WHERE board_category IN (#{value})
 	</insert>		
+
+	
+	<!-- 게시판 보기 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 4.자유게시판5.자율스터디 모집게시판 6.파일공유 게시판-->
+	
+		<select id="getBoard" parameterType="board" resultMap="boardSelectMap">
+			SELECT
+				board_no,
+				nickname,
+				board_category,
+				board_title
+				board_contents,
+				board_interest,
+				board_reg_date,
+				view_count,
+				comment_count,
+				file_flag
+			FROM 
+				board
+			WHERE 
+				board_no = #{boardNo}
+		</select> 
+	
 		
-
-<!-- 게시판 보기 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 4.자유게시판5.자율스터디 모집게시판 6.파일공유 게시판-->
-
-	<select id="getBoard" parameterType="int" resultMap="boardSelectMap">
-		SELECT
-			board_no,
-			board_title,
-			board_name,
-			board_detail,
-			reg_date
-		FROM board
-			WHERE board_no in (#{value})
-	</select>
+	<!-- 게시판 수정 -->
+	
+		<update id="updateBoard" parameterType="board" >
+			UPDATE 
+				board 
+			SET 
+				board_title = #{boardTitle}			
+				, board_contents = #{boardContents}
+			WHERE 
+				board_no = #{boardNo}
+		</update>
 	
 	
-<!-- 게시판 수정 -->
-
-	<update id="updateBoard" parameterType="board" >
-		DELETE
-		FROM board
-		WHERE board_no IN (#{value})
-	</update>	
-
-
-<!-- 게시판 삭제 -->
-
-	<delete id="deleteBoard" parameterType="int" >
-		DELETE
-		FROM board
-		WHERE board_no IN (#{value})
-	</delete>
+	<!-- 게시판 삭제 -->
 	
 	
+		<delete id="deleteBoard" parameterType="board" >
+			DELETE
+			FROM board
+			WHERE board_no = #{boardNo}
+		</delete> 
+		 
+		
 	
 	
 <!-- Q&A 게시판 목록 -->
 	
-	<select 	id="listQaBoard" parameterType="Search" resultMap="boardSelectMap">
+	<select 	id="listBoard" parameterType="board" resultMap="boardSelectMap">
 			
-		SELECT
+<!-- 		SELECT
 			 board_no,
 			 board_title, 
 			 nickname, 
@@ -131,36 +147,120 @@
 			board_reg_banana
 				 
 		FROM 
-		(SELECT board_no, 
-			board_title,
-			nickname,
-			board_reg_date,
-			board_interest,
-			board_reg_banana, 
-		ROWNUM AS row_seq
+			(
+			SELECT 
+				board_no, 
+				board_title,
+				nickname,
+				board_reg_date,
+				board_interest,
+				board_reg_banana, 
+				ROWNUM AS row_seq
 			
-		FROM (SELECT 
-			  board_no,
-			  board_title,
-			  nickname,
-			  board_reg_date,
-			  board_interest,
-			  board_reg_banana
-		FROM board 
+			FROM 
+				(
+					SELECT 
+					  board_no,
+					  board_title,
+					  nickname,
+					  board_reg_date,
+					  board_interest,
+					  board_reg_banana
+					FROM board 
+					WHERE 
+						board_category='2'	
+					ORDER BY 
+						view_count ASC  
+				) a 
+			WHERE 
+			ROWNUM &lt;= 3 
+			) b
 		WHERE 
-			board_category='2'	
-		ORDER BY 
-			view_count ASC  ) a 
-		WHERE 
-			ROWNUM &lt;= 3 ) b
-		WHERE 
-			row_seq BETWEEN{startRowNum} AND #{endRowNum};
-			   	
-	</select>
+			row_seq BETWEEN{startRowNum} AND #{endRowNum} -->
+			
+			
+		SELECT
+	  		a.*
+	  	FROM
+	  		(
+                SELECT 
+                    ROWNUM AS rnum
+                     a.board_no, 
+                     a.board_title,
+                     a.board_contents,
+                     a.board_interest,
+                     a.nickname,
+                     a.board_reg_date,
+                     a.board_reg_banana 
+<!--                      a.board_no                  
+                     a.email,
+                     a.nickname,
+                     a.board_category,
+                     a.board_title,
+                     a.board_contents,
+                     a.board_interest,
+                     a.board_interest,
+                     a.board_reg_date,
+                     a.view_count,
+                     a.comment_count,
+                     a.board_reg_banana,
+                     a.file_flag,
+                     a.answer_count -->
+                FROM 
+                    board a
+                WHERE
+                	board_category = #{boardCategory}
+                	<if test="searchKeyword!=null and searchKeyword!=''">
+                		<choose>
+                			<!-- <when test="searchCondition!=null and searchCondition==1"> -->
+                			<when test='searchCondition!=null and searchCondition.equals("1")'>
+                				AND board_title like '%'||#{searchKeyword}||'%'
+                			</when>
+                			<when test="searchCondition!=null and searchCondition==2">
+                				AND board_contents like '%'||#{searchKeyword}||'%'
+                			</when>
+                			<otherwise>
+                				AND nickname like '%'||#{searchKeyword}||'%'
+                			</otherwise>
+                		</choose>
+					 </if>
+                ORDER BY board_no DESC
+	  		) a	
+	  	WHERE
+  			a.rnum BETWEEN #{startRowNum} AND #{endRowNum}
+         	   	
+	</select> 
 
 
-	<!-- Q&A 게시판 등록-->
+	<!-- 댓글 등록 -->
+	<insert id="addComment" parameterType="board" >
+		INSERT 
+		INTO comment_info 
+		VALUES (
+				seq_comment_no.nextval
+				 	#{board_no}, 
+				 	#{writer.email},
+				 	#{writer.nickname},
+				 	#{comment.commentContents},
+				 	SYSDATE
+		);
+	</insert>
 	
+	
+		<!-- 게시판 수정 -->
+	
+	<update id="updateComment" parameterType="board" >
+		UPDATE 
+			comment_info 
+		SET 
+			board_title = #{commentContents}			
+		WHERE 
+			board_no = #{boardNo}
+	</update>
+	
+	
+	<!-- Q&A 게시판 등록-->
+	<!-- 
 	<insert 	id="addQaBoard"	 parameterType="board">
 
 		INSERT
@@ -192,12 +292,12 @@
 			#{boardRegBanana}
 			);
 
-	 </insert>
+	 </insert> -->
 	
 	 
 <!-- Q&A 게시판 보기-->
 
-	 <select 	id="getQaBoard"	parameterType="int"	resultMap="boardSelectMap">
+	<!--  <select 	id="getQaBoard"	parameterType="int"	resultMap="boardSelectMap">
 		SELECT
 		    b.board_no,
 		    b.board_title,
@@ -217,11 +317,11 @@
 		AND	 
 			 b.board_category = #{value}
 	 </select>	 
-
+ -->
 
 <!--  Q&A 게시판 수정 -->
 
-	<update 	id="updateQaBoard"	parameterType="board">
+	<!-- <update 	id="updateQaBoard"	parameterType="board">
 
 		UPDATE board
 		<set>
@@ -231,12 +331,12 @@
 		</set>
 		WHERE board_no = #{boardNo}
 
-	</update>
+	</update> -->
 	
 
 	<!-- Q&A 게시판 답변 등록 -->
 	
-	<insert 	id="addAnswerBoard"	parameterType="board">
+	<!-- <insert 	id="addAnswerBoard"	parameterType="board">
 	
 		INSERT
 		INTO answer  
@@ -252,17 +352,17 @@
 		);
 
 	</insert>
-
+ -->
 
 
 <!-- Q&A 게시판 답변 수정 -->
 
-	<update 	id="updateAnswerBoard"	parameterType="board">
+	<!-- <update 	id="updateAnswerBoard"	parameterType="board">
 	
 		UPDATE answer
 	<set>		
 			answer_contents =#{answerContents}
 	</set>
 		WHERE email = #{email}		
-	</update>
+	</update> -->
 </mapper>
