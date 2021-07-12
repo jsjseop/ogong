@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class Comment {
 
-	private String commentContent;
-	private String commentWriter;
+	private String commentContents;
+	private User commentWriter;
 	private Date commentRegDate;
 	private int commentNo;
-	private Board Commentboard;
+	private Board commentBoard;
 
 }

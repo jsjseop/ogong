@@ -6,9 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ogong.service.domain.Board;
 import com.ogong.service.board.BoardMapper;
 import com.ogong.service.board.BoardService;
+import com.ogong.service.domain.Board;
+import com.ogong.service.domain.Comment;
 
 @Service 
 public class BoardServiceImpl implements BoardService{
@@ -43,21 +44,24 @@ public class BoardServiceImpl implements BoardService{
 		return cnt;
 	}
 	
-	public List<Board> listBoard(Board board) throws Exception {
+	/*
+	 * public List<Board> listBoard(Board board) throws Exception {
+	 * 
+	 * return boardMapper.listBoard(board);
+	 * 
+	 * }
+	 */
+	
+	public List<Board> listBoard(Map<String, Object> map) throws Exception {
 		
-		 return boardMapper.listBoard(board);
+		 return boardMapper.listBoard(map);
 		
 	}
 	
-//	public List<Board> listQaBoard(Map<String, Object> board) throws Exception {
-//		
-//		 return boardMapper.listQaBoard(board);
-//		
-//	}
-	
-	public void addComment(Board board) throws Exception {
-		boardMapper.addComment(board);
+	public void addComment(Comment comment) throws Exception {
+		boardMapper.addComment(comment);
 	}
+	
 	
 	private int getPageTotalCount(int totalCount) {
 		int pageTotalCount = 0;
