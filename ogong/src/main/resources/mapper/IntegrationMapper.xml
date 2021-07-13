@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.ogong.service.integration.IntegrationMapper">
+	
+	 <resultMap id="MessageSelectMap" type="message">
+		<result property="messageNo" 					column="MESSAGE_NO" 		jdbcType="NUMERIC"/>
+		<result property="messageContents"				column="MESSAGE_CONTENTS"	jdbcType="VARCHAR"/>
+		<result property="sendDate"						column="SEND_DATE"			jdbcType="DATE"/>
+		<result property="receiver.email"				column="RECEIVER_EMAIL"				jdbcType="VARCHAR"/>
+		<result property="sender.email"					column="SENDER_EMAIL"				jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap id="NoticeSelectMap" type="notice" >
+		<result property="noticeNo"						column="NOTICE_NO"			jdbcType="NUMERIC"/>
+		<result property="noticeCategory"				column="NOTICE_CATEGORY"	jdbcType="VARCHAR"/>
+		<result property="noticeStudy.studyNo"			column="STUDY_NO"			jdbcType="NUMERIC"/>
+		<result property="noticeStudy.studyName"		column="STUDY_NAME"			jdbcType="VARCHAR"/>
+		<result property="noticeBoard.boardNo"			column="BOARD_NO"			jdbcType="NUMERIC"/>
+		<result property="noticeBoard.boardTitle"		column="BOARD_TITLE"		jdbcType="VARCHAR"/>
+		<result property="noticeAnswer.answerNo"		column="ANSWER_NO"			jdbcType="NUMERIC"/>
+		<result property="noticeAnswer.answerTitle"		column="ANSWER_TITLE"		jdbcType="VARCHAR"/>
+		<result property="noticeUser.email"				column="EMAIL"				jdbcType="VARCHAR"/>
+		<result property="sender.email"					column="SENDER_EMAIL"		jdbcType="VARCHAR"/>
+		<result property="noticeGroupMember.groupStudyMemberNo"	column="GROUPSTUDY_MEMBER_NO"	jdbcType="NUMERIC"/>
+		<result property="noticeGroupMember.approvalFlag"		column="APPROVAL_FLAG"			jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap id="UserSelectMap" type="user">
+		<result property="email"						 column="EMAIL"				 jdbcType="VARCHAR"/>
+		<result property="condition"					 column="CONDITION"			 jdbcType="VARCHAR"/>
+		<result property="nickname"					   	 column="NICKNAME"			 jdbcType="VARCHAR"/>
+		<result property="withdrawDate"					 column="WITHDRAW_DATE"		 jdbcType="DATE"/>
+		<result property="withdrawReason"				 column="WITHDRAW_REASON"	 jdbcType="VARCHAR"/>
+		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="DATE"/>
+		<result property="restoreReason"				 column="RESTORE_REASON"	 jdbcType="VARCHAR"/>
+		<result property="userTargetTime"				 column="USER_TARGET_TIME"	 jdbcType="NUMERIC"/>
+		<result property="regDate"						 column="REG_DATE"			 jdbcType="DATE"/>
+		<result property="suspendStartDate"				 column="SUSPEND_START_DATE" jdbcType="DATE"/>
+		<result property="suspendEndDate"				 column="SUSPEND_END_DATE"   jdbcType="DATE"/>
+		<result property="bananaCount"					 column="BANANA_COUNT"		 jdbcType="NUMERIC"/>
+	</resultMap> 
+	
+	<resultMap id="AnswerSelectMap" type="answer">
+		<result property="answerNo"						 column="ANSWER_NO"			 jdbcType="NUMERIC"/>
+		<!-- <result property="answerWriter"			 column="EMAIL"				 jdbcType="VARCHAR"/> -->
+		<result property="adoption"						 column="ADOPTION_FLAG" 	 jdbcType="VARCHAR"/>
+		<result property="adoptionCount"				 column="ADOPTION_COUNT" 	 jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<!-- 쪽지 보내기 -->
+	<insert id="addSendMessage"		parameterType="message">
+		INSERT
+		INTO message(message_no, 
+					 receiver_email, 
+					 sender_email, 
+					 message_contents, 
+					 send_date)
+		VALUES(seq_message_no.nextVal, 
+			   #{receiver.email}, 
+			   #{sender.email}, 
+			   #{messageContents:VARCHAR}, 
+			   SYSDATE)	
+	</insert>
+	
+	<!-- 받은 쪽지 목록 -->
+	<select id="getlistReceiveMessage" parameterType="hashmap"	resultMap="MessageSelectMap">
+		SELECT outer_table.*
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+						FROM		( SELECT message_no,
+											 message_contents,
+											 receiver_email,
+											 send_date
+											 FROM message
+											 WHERE receiver_email = #{message.receiver.email}		      									
+											 ) inner_table
+						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
+									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
+	</select>
+	
+	<!-- 보낸 쪽지 목록 -->
+	<select id="getlistSendMessage" parameterType="hashmap"	resultMap="MessageSelectMap">
+		SELECT outer_table.*
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+						FROM		( SELECT message_no,
+											 message_contents,
+											 send_date
+											 FROM message
+											 WHERE sender_email = #{message.sender.email}		      									
+											 ) inner_table
+						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
+									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
+	</select>
+	
+	<!-- 쪽지 삭제 -->
+<!-- 	
+	<delete id="deleteMessage"	parameterType="messageNo">
+		DELETE
+		FROM message
+		WHERE message_no in (#{value})
+	</delete> -->
+	
+	<!-- 바나나 랭킹 목록 -->
+	<select id="listBananaRanking" parameterType="hashmap" resultMap="UserSelectMap">
+		SELECT outer_table.*
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+						FROM		( SELECT 
+										      rank() over(order by banana_count DESC) as ranking
+											, email
+											, banana_count
+											  FROM users
+											  WHERE banana_count is not null	      									
+											 ) inner_table
+											 
+						   				WHERE ROWNUM &lt;= 5) outer_table
+									WHERE row_seq BETWEEN 1 AND 5	 
+	</select>
+	
+	<!-- 채택수 랭킹 목록 -->
+	<select id="listChooseCountRanking" parameterType="hashmap" resultMap="AnswerSelectMap">
+		SELECT outer_table.*
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+						FROM		( SELECT inner.email, inner.adoption_count
+											 FROM (SELECT email, COUNT(adoption_flag) adoption_count
+											 	   FROM	  ANSWER
+											 	   WHERE  adoption_flag = '1'
+											 	   GROUP BY email) inner
+											 	   ORDER BY inner.adoption_count DESC
+											 ) inner_table
+											 
+						   				WHERE ROWNUM &lt;= 5) outer_table
+									WHERE row_seq BETWEEN 1 AND 5	 
+	</select>
+	
+	<!-- 알림 도착 -->
+	<insert id="addNotice"	parameterType="notice">
+		INSERT INTO notice
+				(notice_no,
+				 study_no,
+				 board_no,
+				 answer_no,
+				 groupstudy_member_no,
+				 email,
+				 sender_email,
+				 notice_category,
+				 board_title,
+				 study_name,
+				 approval_flag,
+				 answer_title)
+		VALUES   (seq_notice_no.nextVal,
+				  #{noticeStudy.studyNo:NUMERIC},
+				  #{noticeBoard.boardNo:NUMERIC},
+				  #{noticeAnswer.answerNo:NUMERIC},
+				  #{noticeGroupMember.groupStudyMemberNo:NUMERIC},
+				  #{noticeUser.email:VARCHAR},
+				  #{sender.email:VARCHAR},
+				  #{noticeCategory:VARCHAR},
+				  #{noticeBoard.boardTitle:VARCHAR},
+				  #{noticeStudy.studyName:VARCHAR},
+				  #{noticeGroupMember.approvalFlag:VARCHAR},
+				  #{noticeAnswer.answerTitle:VARCHAR}
+				  )
+	</insert>
+	
+	<!-- 알림 목록 -->
+	<select id="getlistNotice" parameterType="string" resultMap="NoticeSelectMap">
+		SELECT 
+		notice_no, notice_category, board_title, study_name, approval_flag, sender_email
+		FROM notice
+		WHERE email = #{value}	
+	</select>
+	
+	
+	<!-- 알림 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+		DELETE
+		FROM notice
+		WHERE notice_no = #{value}
+	</delete>
+	
+	<!-- 알림 전체 삭제 -->
+	<delete id="deleteAllNotice" parameterType="string">
+		DELETE
+		FROM notice
+		WHERE email = #{value}
+	</delete>
+	
+	<select id="getTotalCount"		parameterType="hashmap"		resultType="int">
+		SELECT COUNT(*)
+						FROM		( SELECT message_no,
+											 message_contents,
+											 receiver_email,
+											 send_date
+											 FROM message
+											 WHERE receiver_email = #{message.receiver.email}
+											 ) countTable
+	</select>
+	<select id="getTotalCount2"		parameterType="hashmap"		resultType="int">
+		SELECT COUNT(*)
+						FROM		( SELECT message_no,
+											 message_contents,
+											 send_date
+											 FROM message
+											 WHERE sender_email = #{message.sender.email}
+											 ) countTable
+	</select>
+
+	
+	
+</mapper>
