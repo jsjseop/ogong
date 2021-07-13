@@ -256,9 +256,10 @@
 	 <delete id="deleteStudy" parameterType="int">
 	 
 	 	DELETE
-	 	FROM study
+	 	FROM
+	 		study
 	 	WHERE
-	 	study_no = #{value}
+	 		study_no = #{value}
 	 
 	 </delete>
 	
