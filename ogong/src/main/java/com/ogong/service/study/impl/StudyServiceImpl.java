@@ -16,27 +16,27 @@ import com.ogong.service.study.StudyService;
 public class StudyServiceImpl implements StudyService {
 	
 	@Autowired
-	StudyMapper studyDAO;
+	StudyMapper studyDao;
 	
 	@Override
 	public void addStudy(Study study) throws Exception {
 		
-		studyDAO.addStudy(study);
+		studyDao.addStudy(study);
 
 	}
 
 	@Override
 	public Study getStudy(int studyNo) throws Exception {
 		
-		return studyDAO.getStudy(studyNo); 
+		return studyDao.getStudy(studyNo); 
 		
 	}
 
 	@Override
 	public Map<String, Object> getStudyList(HashMap<String, Object> map) throws Exception {
 		
-		List<Study> list= studyDAO.getStudyList(map);
-		int totalCount = studyDAO.getTotalCount(map);
+		List<Study> list= studyDao.getStudyList(map);
+		int totalCount = studyDao.getTotalCount(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -47,7 +47,7 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public void deleteStudy(int studyNo) throws Exception {
-		studyDAO.deleteStudy(studyNo);
+		studyDao.deleteStudy(studyNo);
 		
 	}
 

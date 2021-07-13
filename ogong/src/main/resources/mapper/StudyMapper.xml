@@ -31,7 +31,8 @@
 		<result property="studyInterest" 			column="study_interest" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<insert 	id="addStudy"		parameterType="study" >
+	<insert 	id="addStudy"		parameterType="study"	
+	useGeneratedKeys="true" keyColumn="study_no" keyProperty="studyNo">
 	 	INSERT
 		INTO study
 		( 
@@ -88,30 +89,32 @@
 	 <select	id="getStudy"	parameterType="study"	resultMap="studySelectMap">
 	 
 	 	SELECT 
-		study_no,
-		email, 
-		study_name, 
-		study_hashtag,
-		study_thumbnail, 
-		study_start_date, 
-		study_end_date, 
-		study_reg_date,
-		current_member, 
-		max_member, 
-		selfstudy_rule, 
-		selfstudy_open_flag, 
-		selfstudy_password, 
-		groupstudy_info, 
-		groupstudy_plan,
-		groupstudy_condition, 
-		recruitment_start_date,
-		recruitment_end_date, 
-		study_end_flag, 
-		studyroom_grade, 
-		study_type, 
-		study_interest
-		FROM study
-		where study_no = #{value}
+			study_no,
+			email, 
+			study_name, 
+			study_hashtag,
+			study_thumbnail, 
+			study_start_date, 
+			study_end_date, 
+			study_reg_date,
+			current_member, 
+			max_member, 
+			selfstudy_rule, 
+			selfstudy_open_flag, 
+			selfstudy_password, 
+			groupstudy_info, 
+			groupstudy_plan,
+			groupstudy_condition, 
+			recruitment_start_date,
+			recruitment_end_date, 
+			study_end_flag, 
+			studyroom_grade, 
+			study_type, 
+			study_interest
+		FROM 
+			study
+		WHERE 
+			study_no = #{value}
 	 	
 	 	
 	 </select>
