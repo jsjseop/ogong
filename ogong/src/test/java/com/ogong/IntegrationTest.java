@@ -140,7 +140,7 @@ public class IntegrationTest {
 		
 	}
 	
-	//@Test
+	@Test
 	@DisplayName("채택수 랭킹")
 	void testlistChooseCountRanking() throws Exception{
 		

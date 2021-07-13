@@ -46,7 +46,7 @@
 	
 	<resultMap id="AnswerSelectMap" type="answer">
 		<result property="answerNo"						 column="ANSWER_NO"			 jdbcType="NUMERIC"/>
-		<result property="answerWriter"					 column="EMAIL"				 jdbcType="VARCHAR"/>
+		<!-- <result property="answerWriter"			 column="EMAIL"				 jdbcType="VARCHAR"/> -->
 		<result property="adoption"						 column="ADOPTION_FLAG" 	 jdbcType="VARCHAR"/>
 		<result property="adoptionCount"				 column="ADOPTION_COUNT" 	 jdbcType="NUMERIC"/>
 	</resultMap>
