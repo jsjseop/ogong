@@ -8,12 +8,13 @@ import lombok.Data;
 public class Answer {
 
 	private int answerNo;
-	private String answerContent;
+	private String answerContents;
 	private String answerTitle;
 	private boolean adoption;
 	private Date answerDate;
-	private String answerWriter;
+	private User answerWriter;
 	private Board board;
+	private String adoptionFlag;
 	private Date adoptionDate;
 	
 }
