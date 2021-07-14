@@ -84,6 +84,7 @@
 		#{studyType}, 
 		#{studyInterest} 
 		)
+		
 	 </insert>
 	 
 	 <select	id="getStudy"	parameterType="study"	resultMap="studySelectMap">
