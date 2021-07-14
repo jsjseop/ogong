@@ -45,9 +45,27 @@ public class AdminTest {
 		User user = new User();
 		user.setEmail("user02");
 		Report report = new Report();
-		report.setReportUser(user);
+		report.setReceiveReporter(user);
 		
 		adminService.updateUserRestore(report);
+	}
+	
+	//@Test
+	@DisplayName("신고하기")
+	void testaddReport() throws Exception{
+		
+		User receiveReporter = new User();
+		User sendReporter = new User();
+		Report report = new Report();
+		receiveReporter.setEmail("user07");
+		sendReporter.setEmail("user02");
+		
+		report.setReceiveReporter(receiveReporter);
+		report.setSendReporter(sendReporter);
+		report.setReportReason("test 신고하기 연습~");
+		
+		adminService.addReport(report);
+		
 	}
 	
 	@Test
@@ -76,10 +94,9 @@ public class AdminTest {
 		System.out.println("================================");
 		
 	}
-	
 	//@Test
-	@DisplayName("사용자 전체 목록 조회")
-	void testgetListTotalUser() throws Exception{
+	@DisplayName("신고된 사용자 목록 조회")
+	void testlistUserReport() throws Exception{
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
@@ -89,7 +106,34 @@ public class AdminTest {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
-		//map.put("listType", "1");
+		
+		Map<String,Object> result = adminService.getlistUserReport(map);
+		List<Object> list = (List<Object>)map.get("list");
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+		
+		System.out.println("list 값 : "+list);
+		System.out.println("list size : "+list.size());
+		System.out.println("total Count : "+totalCount);
+		
+		System.out.println("================================");
+		
+	}
+	
+	
+	//@Test
+	@DisplayName("사용자 전체 목록 조회")
+	void testgetListTotalUser() throws Exception{
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(3);
+//		search.setSearchCondition("1");
+//		search.setSearchKeyword("");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("listType", "3");
 		
 		Map<String,Object> result = adminService.getlistTotalUser(map);
 		List<Object> list = (List<Object>)map.get("list");
