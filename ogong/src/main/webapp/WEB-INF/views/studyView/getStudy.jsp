@@ -24,7 +24,6 @@
 			location.href = "/study/listStudy";
 		});
 	});
-
 </script>
 </head>
 <body>

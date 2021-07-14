@@ -35,7 +35,8 @@
 		
 	</resultMap>
 	
-	<insert 	id="addStudy"		parameterType="study" >
+	<insert 	id="addStudy"		parameterType="study" 
+	useGeneratedKeys="true" keyColumn="study_no" keyProperty="studyNo">
 	 	INSERT
 		INTO study
 		( 
@@ -97,7 +98,7 @@
 	 	
 	 </select>
 	 
-	 <select id="getStudyList"	parameterType="hashmap" resultMap="studySelectMap">
+	 <select id="getStudyList"	parameterType="map" resultMap="studySelectMap">
 	 
 	 	SELECT
 		study_no, email, study_name, study_hashtag, study_thumbnail, study_start_date, study_end_date, current_member, 
@@ -176,7 +177,7 @@
 
 	 </select>
 	 
-	 <select	id="getTotalCount"	parameterType="hashmap"		resultType="int">
+	 <select	id="getTotalCount"	parameterType="map"		resultType="int">
 	 	 SELECT COUNT(*)
 	 	 FROM(	SELECT
       			study_no, email, study_name, study_hashtag, study_thumbnail, study_start_date, study_end_date, current_member, 

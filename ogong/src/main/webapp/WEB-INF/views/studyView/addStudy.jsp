@@ -20,7 +20,6 @@
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <script type="text/javascript">
-
 	$(function(){
 		$ ( "#btn1").on("click", function(){
 			fncAddStudy();
@@ -31,7 +30,6 @@
 		$("form").attr("method","POST").attr("action","/study/addStudy").submit();
 	}
 	
-
 	$( function() {
 		$('#sdate, #sdate1').datepicker();
 		
@@ -46,7 +44,6 @@
 		$('#sdate1').datepicker("option", "onClose", function ( selectedDate ) {
 			$("#edate1").datepicker( "option", "minDate", selectedDate );
 		});
-
 		$('#edate, #edate1').datepicker();
 		
 		$('#edate').datepicker("option", "minDate", $("#sdate").val());
@@ -64,7 +61,6 @@
 		
 	
 	});
-
 	$.datepicker.regional['ko'] = {
 	        closeText: '닫기',
 	        prevText: '이전달',

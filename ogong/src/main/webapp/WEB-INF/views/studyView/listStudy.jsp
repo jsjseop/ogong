@@ -23,26 +23,19 @@
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 <script type="text/javascript">
    function fncGetList(currentPage) {
-
       $('#currentPage').val(currentPage);
       $('form').attr('action','/study/listStudy/').attr('method','POST').submit();
    }
-
 /*    function fncWrite(user) {
-
       console.log("확인용 : " + user);
       if (user == null || user == "") {
          alert("로그인 후 이용 가능합니다.");
          return;
       }
-
       location.href = "/board/addBoard";
    } */
-
    $(function() {
-
       $('tbody td:nth-child(2)').on('click', function() {
-
          let studyNo = $(this).children('input').val();
          alert(studyNo);
          location.href = "/study/getStudy?studyNo="+studyNo;

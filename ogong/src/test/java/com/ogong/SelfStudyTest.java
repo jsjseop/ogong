@@ -1,6 +1,5 @@
 package com.ogong;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,13 +20,12 @@ public class SelfStudyTest {
 	@Autowired
 	private TestStudyService studyService;
 	
-	//@Test
+	@Test
 	@DisplayName("자율 스터디 생성")
 	void testAddStudy() throws Exception {
 		
 		Study study = new Study();
 		User user = new User();
-		
 		user.setEmail("user06");
 		
 		study.setStudyMaker(user);
@@ -56,7 +54,7 @@ public class SelfStudyTest {
 		System.out.println(study);
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("자율스터디 목록조회")
 	void testlistStudy() throws Exception {
 		

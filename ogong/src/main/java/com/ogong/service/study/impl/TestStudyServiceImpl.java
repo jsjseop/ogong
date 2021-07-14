@@ -34,7 +34,7 @@ public class TestStudyServiceImpl implements TestStudyService {
 	}
 
 	@Override
-	public Map<String, Object> getStudyList(HashMap<String, Object> map) throws Exception {
+	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception {
 		
 		List<Study> list= studyMapper.getStudyList(map);
 		int totalCount = studyMapper.getTotalCount(map);
