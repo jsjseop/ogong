@@ -18,6 +18,14 @@
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
+<script type="text/javascript">
+	$( function(){
+		$("#list").on("click", function(){
+			location.href = "/study/listStudy";
+		});
+	});
+
+</script>
 </head>
 <body>
 
@@ -81,7 +89,7 @@
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-					<button id="ok" >확인</button>
+					<button id="list" >확인</button>
 	  		</div>
 		</div>
 		
