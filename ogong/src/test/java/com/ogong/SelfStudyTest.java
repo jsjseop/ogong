@@ -26,17 +26,14 @@ public class SelfStudyTest {
 		
 		Study study = new Study();
 		User user = new User();
-		
-		String[] day = {"2021-08-01","2021-08-07"};
-		
 		user.setEmail("user06");
 		
 		study.setStudyMaker(user);
 		study.setStudyName("자율스터디3");
 		study.setStudyHashtag("#test3");
 		study.setStudyThumbnail("j3.jpg");
-		study.setStudyStartDate(day[0]);
-		study.setStudyEndDate(day[1]);
+		study.setStudyStartDate("2021-08-01");
+		study.setStudyEndDate("2021-08-07");
 		study.setMaxMember(8);
 		study.setSelfStudyRule("자율스터디3 규칙입니다.");
 		study.setSelfStudyOpenFlag("1");

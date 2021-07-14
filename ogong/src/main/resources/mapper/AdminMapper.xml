@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.ogong.service.admin.AdminMapper">
+	
+	
+	<resultMap id="ReportSelectMap" type="report">
+		<result property="reportNo"        				 column="REPORT_NO"       	 jdbcType="NUMERIC"/>
+		<result property="reportReason"    				 column="REPORT_REASON"      jdbcType="VARCHAR"/>
+		<result property="reportDate"      				 column="REPORT_DATE"        jdbcType="DATE"/>
+		<result property="suspendType"	   				 column="SUSPEND_TYPE"	     jdbcType="VARCHAR"/>
+		<result property="reportAnswer.answerNo"    	 column="ANSWER_NO"    		 jdbcType="NUMERIC"/>
+		<result property="reportComment.commentNo"       column="COMMENT_NO"         jdbcType="NUMERIC"/>
+		<result property="reportBoard.boardNo"	   		 column="BOARD_NO"	         jdbcType="NUMERIC"/>
+		
+		<association property="reportUser" javaType="user">
+			<id property="email" column="email" jdbcType="VARCHAR"/>
+			<result property="nickname" 				 column="NICKNAME" 			 jdbcType="VARCHAR"/>
+			<result property="condition" 				 column="CONDITION" 		 jdbcType="VARCHAR"/>	
+			<result property="suspendStartDate" 		 column="SUSPEND_START_DATE" jdbcType="DATE"/>
+			<result property="suspendEndDate" 		 	 column="SUSPEND_END_DATE"	 jdbcType="DATE"/>
+		</association>
+	</resultMap>
+	
+	<resultMap id="UserSelectMap" type="user">
+		<result property="email"						 column="EMAIL"				 jdbcType="VARCHAR"/>
+		<result property="condition"					 column="CONDITION"			 jdbcType="VARCHAR"/>
+		<result property="nickname"					   	 column="NICKNAME"			 jdbcType="VARCHAR"/>
+		<result property="withdrawDate"					 column="WITHDRAW_DATE"		 jdbcType="DATE"/>
+		<result property="withdrawReason"				 column="WITHDRAW_REASON"	 jdbcType="VARCHAR"/>
+		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="DATE"/>
+		<result property="restoreReason"				 column="RESTORE_REASON"	 jdbcType="VARCHAR"/>
+		<result property="userTargetTime"				 column="USER_TARGET_TIME"	 jdbcType="NUMERIC"/>
+		<result property="regDate"						 column="REG_DATE"			 jdbcType="DATE"/>
+		<result property="suspendStartDate"				 column="SUSPEND_START_DATE" jdbcType="DATE"/>
+		<result property="suspendEndDate"				 column="SUSPEND_END_DATE"   jdbcType="DATE"/>
+	</resultMap>
+	
+	
+	
+	<!-- 신고 목록 -->
+	<select id="getlistReport" parameterType="hashmap" resultMap="ReportSelectMap">
+	
+		SELECT outer_table.*
+		FROM ( SELECT 
+			   inner_table.* , ROWNUM AS row_seq
+						FROM		( SELECT r.report_no,
+											 r.report_reason,
+											 u.nickname,
+											 a.answer_no,
+											 a.answer_contents,
+											 b.board_no,
+											 b.board_title,
+											 c.comment_contents,
+											 r.report_date,
+											 u.condition
+											 FROM report r, users u, answer a, board b, comment_info c
+											 WHERE r.email = u.email(+)
+											 AND r.email = a.email(+)
+											 AND r.email = b.email(+)
+											 AND r.email = c.email(+)
+											 <if test="reportType == 1">
+											 	AND r.email = u.email
+											 </if>
+											 <if test="reportType == 2">
+											 	AND r.answer_no = a.answer_no
+											 </if>
+											 <if test="reportType == 3">
+											 	AND r.board_no = b.board_no
+											 </if>
+											 <if test="reportType == 4">
+											 	AND r.comment_no = c.comment_no
+											 </if>
+											 <if test="search.searchCondition != null">
+											 	<choose>
+											 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
+											 			AND u.nickname LIKE '%'||#{search.searchKeyword}||'%'
+											 		</when>
+											 	</choose>
+											 </if>
+											 <choose>
+											 	<when test="search.searchSort == 1">
+											 		ORDER BY u.nickname ASC
+											 	</when>
+											 	<when test="search.searchSort == 2">
+											 		ORDER BY u.nickname DESC
+											 	</when>											 	
+											 	<when test="search.searchSort == 3">
+											 		ORDER BY r.report_date ASC
+											 	</when>
+											 	<when test="search.searchSort == 4">
+											 		ORDER BY r.report_date DESC
+											 	</when>
+											 	<otherwise>
+											 		ORDER BY r.report_no
+											 	</otherwise>											 												 	
+											 </choose> 
+											 ) inner_table
+						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
+									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+	</select>
+	
+	
+	
+	
+	<!-- 모든 회원 목록 -->
+	<select id="getlistTotalUser" parameterType="search" resultMap="UserSelectMap">
+		SELECT outer_table.*
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+						FROM		( SELECT email,
+											 nickname,
+											 reg_date,
+											 withdraw_date,
+											 withdraw_reason,
+											 restore_date,
+											 suspend_start_date,
+											 suspend_end_date,
+											 condition
+											 FROM users
+											 <where>
+											 	<if test="listType == 1">   <!-- 탈퇴한 회원 목록 -->
+												 	withdraw_date is NOT NULL
+												 	AND withdraw_reason is NOT NULL
+												 </if>
+												 <if test="listType == 2">	<!-- 복귀한 회원 목록 -->
+												 	restore_date is NOT NULL
+												 	AND retore_reason is NOT NULL
+												 </if>
+												 <if test="listType == 3">	<!-- 정지한 회원 목록 -->
+												 	suspend_start_date is NOT NULL
+												 	AND	suspend_end_date is NOT NULLL
+												 </if>	
+												 <if test="searchCondition != null">
+												 	<choose>
+												 		<when test="searchCondition == 0 and searchKeyword !='' ">
+												 			AND nickname LIKE '%'||#{search.searchKeyword}||'%'
+												 		</when>
+												 	</choose>
+												 </if>										 
+											 </where>
+											 
+											 <choose>
+											 	<when test="search.searchSort == 1">
+											 		ORDER BY nickname ASC
+											 	</when>
+											 	<when test="search.searchSort == 2">
+											 		ORDER BY nickname DESC
+											 	</when>											 	
+											 	<when test="search.searchSort == 3">
+											 		ORDER BY email ASC
+											 	</when>
+											 												 	
+											 </choose> 	      									
+											  ) inner_table
+						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
+									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+	</select>
+	
+	
+	<!-- 회원 정지 -->
+	<update id="updateUserSuspend" parameterType="report" >
+		UPDATE users
+		<set>
+			suspend_start_date = SYSDATE,
+			condition = '2',
+			<choose>
+				<when test="suspendType == 1">
+					suspend_end_date = SYSDATE+7
+				</when>
+				<when test="suspendType == 2">
+					suspend_end_date = SYSDATE+30
+				</when>
+				<when test="suspendType == 3">
+					suspend_end_date = '99/12/31'
+				</when>								
+			</choose>
+		</set>
+		WHERE email = #{reportUser.email}
+	</update>
+	
+	<!-- 회원 복구 -->
+	<update id="updateUserRestore" parameterType="report" >
+		UPDATE users
+		<set>
+			suspend_start_date = #{reportUser.suspendStartDate:DATE},
+			suspend_end_date = #{reportUser.suspendEndDate:DATE},
+			condition = 1
+		</set>
+		WHERE email = #{reportUser.email}
+	</update>
+	
+	<select id="getReportTotalCount"		parameterType="map"		resultType="int">
+		SELECT COUNT(*)
+		FROM (	SELECT r.report_no,
+											 r.report_reason,
+											 u.nickname,
+											 a.answer_no,
+											 a.answer_contents,
+											 b.board_no,
+											 b.board_title,
+											 c.comment_contents,
+											 r.report_date,
+											 u.condition
+											 FROM report r, users u, answer a, board b, comment_info c
+											 WHERE r.email = u.email(+)
+											 AND r.email = a.email(+)
+											 AND r.email = b.email(+)
+											 AND r.email = c.email(+)
+											 <if test="reportType == 1">
+											 	AND r.email = u.email
+											 </if>
+											 <if test="reportType == 2">
+											 	AND a.answer_no = r.answer_no
+											 </if>
+											 <if test="reportType == 3">
+											 	AND r.board_no = b.board_no
+											 </if>
+											 <if test="reportType == 4">
+											 	AND r.comment_no = c.comment_no
+											 </if>
+											 <if test="search.searchCondition != null">
+											 	<choose>
+											 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
+											 			AND u.nickname LIKE '%'||#{search.searchKeyword}||'%'
+											 		</when>
+											 	</choose>
+											 </if>) countTable
+	</select>
+	
+	<select id="getUserTotalCount"		parameterType="hashmap"		resultType="int">
+		SELECT COUNT(*)
+						FROM		( SELECT email,
+											 nickname,
+											 reg_date,
+											 withdraw_date,
+											 withdraw_reason,
+											 restore_date,
+											 suspend_start_date,
+											 suspend_end_date,
+											 condition
+											 FROM users
+											 <where> 
+											 <if test="listType == 1">   <!-- 탈퇴한 회원 목록 -->
+											 	withdraw_date is NOT NULL
+											 	AND withdraw_reason is NOT NULL
+											 </if>
+											 <if test="listType == '2'">	<!-- 복귀한 회원 목록 -->
+											 	restore_date is NOT NULL
+											 	AND retore_reason is NOT NULL
+											 </if>
+											 <if test="listType == '3'">	<!-- 정지한 회원 목록 -->
+											 	suspend_start_date is NOT NULL
+											 	AND	suspend_end_date is NOT NULLL
+											 </if>											 
+											 <if test="searchCondition != null">
+											 	<choose>
+											 		<when test="searchCondition == 0 and searchKeyword !='' ">
+											 			AND nickname LIKE '%'||#{search.searchKeyword}||'%'
+											 		</when>
+											 	</choose>
+											 </if>
+											 </where>) countTable
+	</select>
+	
+</mapper>
