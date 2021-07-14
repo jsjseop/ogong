@@ -140,8 +140,8 @@ class StudyroomTest {
 		calendar.setStudy(study);
 		calendar.setCalendarTitle("꼬미랑 놀아주는 날");
 		calendar.setCalendarContents("꼬미 코코");
-		calendar.setCalendarStartDate(Date.valueOf("2021-07-01"));
-		calendar.setCalendarEndDate(Date.valueOf("2021-07-03"));
+		calendar.setCalendarStartDate("2021-07-01");
+		calendar.setCalendarEndDate("2021-07-03");
 		
 		studyroomService.addCalendar(calendar);
 		

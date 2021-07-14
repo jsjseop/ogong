@@ -34,25 +34,17 @@ class StudyTest {
 		Study study = new Study();
 		
 		
-		String[] day = {"2021-05-01","2021-05-15","2021-06-01","2021-06-31"};
-		
-		Date d[] = new Date[4];
-		
-		for (int i =0; i<d.length; i++) {
-			d[i] = Date.valueOf(day[i]);
-		}
-		
 		User user = new User();
 		user.setEmail("user08");
 		study.setStudyMaker(user);
 		study.setStudyName("야 너두 할수있어");
 		study.setStudyHashtag("#toeic");
 		study.setStudyThumbnail("toeic.jpg");
-		study.setStudyStartDate(d[0]);
-		study.setStudyEndDate(d[1]);
-		study.setMaxMamber(5);
-		study.setRecruitmentStartDate(d[2]);
-		study.setRecruitmentEndDate(d[3]);
+		study.setStudyStartDate("2021-05-01");
+		study.setStudyEndDate("2021-05-15");
+		study.setMaxMember(5);
+		study.setRecruitmentStartDate("2021-06-01");
+		study.setRecruitmentEndDate("2021-06-31");
 		study.setStudyRoomGrade("basic");
 		study.setStudyType("group");
 		study.setStudyInterest("토익");

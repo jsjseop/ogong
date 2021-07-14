@@ -78,8 +78,6 @@
 			study_no, 
 			email, 
 			studyrole,
-			diligence_score, 
-			participation_score, 
 			participation_reason, 
 			determination,
 			approval_flag
@@ -90,8 +88,6 @@
 			#{study.studyNo}, 
 			#{member.email}, 
 			#{studyRole}, 
-			#{diligenceScore:NUMERIC}, 
-			#{participationScore:NUMERIC}, 
 			#{participationReason:VARCHAR}, 
 			#{determination:VARCHAR}, 
 			#{approvalFlag:VARCHAR}
