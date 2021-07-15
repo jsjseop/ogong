@@ -70,7 +70,7 @@ public class SelfStudyController {
 			if(study.getStudyType().equals("group")) {
 				gsm.setApprovalFlag("1");
 			}
-			studyroomService.addGSMember(gsm);
+			//studyroomService.addGSMember(gsm);
 			
 			calendar.setStudy(study);
 			calendar.setCalendarStartDate(study.getStudyStartDate());

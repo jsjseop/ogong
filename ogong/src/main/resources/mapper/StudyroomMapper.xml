@@ -68,31 +68,6 @@
 		) count_table
 	
 	</select>
-	
-	
-	<insert 	id="addGSMember"		parameterType="groupStudyMember" >
-	 	INSERT
-		INTO groupstudy_member
-		( 
-			groupstudy_member_no,
-			study_no, 
-			email, 
-			studyrole,
-			participation_reason, 
-			determination,
-			approval_flag
-		)
-		VALUES	 
-		(	
-			seq_groupstudy_member_no.NEXTVAL, 
-			#{study.studyNo}, 
-			#{member.email}, 
-			#{studyRole}, 
-			#{participationReason:VARCHAR}, 
-			#{determination:VARCHAR}, 
-			#{approvalFlag:VARCHAR}
-		)
-	 </insert>
 	 
 	 <update id="applyParticipation"	parameterType="string">
 	 
@@ -148,10 +123,10 @@
 			groupstudy_info = #{groupStudyInfo:VARCHAR},
 			groupstudy_plan = #{groupStudyPlan:VARCHAR},
 			groupstudy_condition = #{groupStudyCondition:VARCHAR},
-			recruitment_start_date = #{recruitmentStartDate},
-			recruitment_end_date = #{recruitmentEndDate},
-			study_start_date = #{studyStartDate},
-			study_end_date = #{studyEndDate}
+			recruitment_start_date = #{recruitmentStartDate:DATE},
+			recruitment_end_date = #{recruitmentEndDate:DATE},
+			study_start_date = #{studyStartDate:DATE},
+			study_end_date = #{studyEndDate:DATE}
 		WHERE
 			study_no = #{studyNo}
 	 

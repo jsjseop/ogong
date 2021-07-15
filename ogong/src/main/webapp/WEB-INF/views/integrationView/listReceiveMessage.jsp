@@ -116,7 +116,7 @@
 
 	</div>
 	
-	<jsp:include page="../common/pageNavigator_new.jsp"/>
+	<%-- <jsp:include page="../common/pageNavigator_new.jsp"/> --%>
 
 </body>
 </html>

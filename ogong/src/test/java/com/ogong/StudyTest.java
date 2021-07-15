@@ -63,7 +63,7 @@ class StudyTest {
 		gsm.setParticipationScore(new Double(0));
 		gsm.setApprovalFlag("1");
 		
-		studyroomService.addGSMember(gsm);
+		studyService.addParticipation(gsm);
 		
 		System.out.println("== 스터디 시작날짜로 일정 테이블 insert==");
 		
@@ -84,8 +84,7 @@ class StudyTest {
 		Study study = studyService.getStudy(10002);
 		
 		System.out.println("getStudy 결과 :: "+study);
-		
-		
+
 		
 	}
 	

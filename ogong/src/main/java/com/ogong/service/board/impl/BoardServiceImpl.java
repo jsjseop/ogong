@@ -50,9 +50,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 게시글 삭제
-	public void deleteBoard(Board board) throws Exception {
+	public void deleteBoard(int boardNo) throws Exception {
 
-		boardMapper.deleteBoard(board);
+		boardMapper.deleteBoard(boardNo);
 
 	}
 
@@ -82,6 +82,7 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> listComment(int boardNo) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", boardMapper.listComment(boardNo));
+		map.put("totalCount", boardMapper.listBoard(map));
 		map.put("totalCount", boardMapper.listComment(boardNo).size());
 
 		return map;
