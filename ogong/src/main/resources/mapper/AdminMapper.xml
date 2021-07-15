@@ -241,7 +241,7 @@
 					suspend_end_date = SYSDATE+30
 				</when>
 				<when test="suspendType == 3">
-					suspend_end_date = '99/12/31'
+					suspend_end_date = '2099/12/31'
 				</when>								
 			</choose>
 		</set>
