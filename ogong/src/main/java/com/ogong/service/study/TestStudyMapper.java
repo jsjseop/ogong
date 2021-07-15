@@ -20,4 +20,6 @@ public interface TestStudyMapper {
 	List<Study> getStudyList(Map<String, Object> map);
 	
 	int getTotalCount(Map<String, Object> map);
+	
+	void updateMember(int StudyNo);
 }

@@ -33,6 +33,7 @@
 			<id property="email" column="email" jdbcType="VARCHAR"/>
 		</association>
 		
+		
 	</resultMap>
 	
 	<insert 	id="addStudy"		parameterType="study" 
@@ -240,5 +241,11 @@
       			) countTable
 	 
 	 </select>
+	 
+	 <update id="updateMember" parameterType="int">
+	 	UPDATE study
+	 	SET current_member = current_member + 1
+	 	WHERE study_no = #{studyNo}
+	 </update>
 	
 </mapper>

@@ -10,6 +10,8 @@ public interface TestStudyService {
 	
 	public Study getStudy(int studyNo) throws Exception;
 	
+	public void entranceStudy(int studyNo) throws Exception;
+	
 	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception;
 	
 }

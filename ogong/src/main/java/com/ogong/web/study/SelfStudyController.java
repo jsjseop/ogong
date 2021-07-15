@@ -99,8 +99,15 @@ public class SelfStudyController {
 			return "/studyView/entranceSelfStudy";
 		}else {
 			return "/studyView/getStudy";
-		}
+		}	
+	}
+	
+	@GetMapping("entranceStudy")
+	public String entranceStudy(@RequestParam("studyNo") int studyNo) throws Exception{
 		
+		studyService.entranceStudy(studyNo);
+		
+		return "redirect:https://wnstjqtest.herokuapp.com/"+ studyNo;
 	}
 	
 	@RequestMapping("listStudy")

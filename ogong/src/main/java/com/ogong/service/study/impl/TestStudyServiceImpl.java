@@ -34,6 +34,12 @@ public class TestStudyServiceImpl implements TestStudyService {
 	}
 
 	@Override
+	public void entranceStudy(int studyNo) throws Exception {
+		
+		studyMapper.updateMember(studyNo);
+	}
+	
+	@Override
 	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception {
 		
 		List<Study> list= studyMapper.getStudyList(map);
@@ -45,5 +51,6 @@ public class TestStudyServiceImpl implements TestStudyService {
 		
 		return result;
 	}
+
 	
 }
