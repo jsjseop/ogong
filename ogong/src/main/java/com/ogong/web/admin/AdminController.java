@@ -205,7 +205,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("updateSuspendUser")
-	public String updateSuspendUser(@RequestParam("receiveReporter")String email,
+	public String updateSuspendUser(@RequestParam("receiveReporter") String email,
 									Model model) throws Exception {
 		System.out.println("/updateSuspendUser/GET");
 		

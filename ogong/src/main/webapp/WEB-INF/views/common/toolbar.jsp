@@ -192,7 +192,7 @@
 	 	
 	 	//=============  회원조회 Event  처리 =============
 	 	$( "a:contains('회원조회')").on("click", function(){
-	 		location.href = "/admin/listTotalUser";
+	 		location.href = "/admin/listTotalUser?listType="+'1';
 	 	});	 
 	 	
 	 	//=============  프로필 Event  처리 =============
@@ -207,7 +207,7 @@
 	 	
 	 	//=============  쪽지 Event  처리 =============
 	 	$( "a:contains('쪽지')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/integration/listReceiveMessage";
 	 	});	 
 	 	
 	 	//=============  공부기록 Event  처리 =============

@@ -43,10 +43,10 @@
 		});	
 		
 	 	$( "a:contains('보낸쪽지함')" ).on("click" , function() {
-	 		location.href = "/integration/listSendMessage";
+	 		location.href = "/integration/listReceiveMessage";
 		});
 	 	$( "a:contains('받은쪽지함')" ).on("click" , function() {
-	 		location.href = "/integration/listReceiveMessage";
+	 		location.href = "/integration/listSendMessage";
 		});
 	 	
 	 	$('.deleteMessage').on("click" , function() {
@@ -76,8 +76,7 @@
 			<div class="row">
 
 				<div class="col-md-6 text-left">
-					<p class="text-primary">전체 ${resultPage.totalCount } 건수, 현재
-						${resultPage.currentPage} 페이지</p>
+					<p class="text-primary">전체 ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage} 페이지</p>
 
 				</div>
 				<div class="col-md-5 text-right">
