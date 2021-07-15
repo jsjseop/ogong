@@ -82,7 +82,7 @@
 					#{boardTitle},
 					#{boardContents},
 					#{boardInterest},
-					#{boardRegDate},
+					SYSDATE,
 					#{boardRegBanana},
 					#{fileFlag},		
 					0 
