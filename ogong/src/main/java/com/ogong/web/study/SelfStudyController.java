@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.Calendar;
+import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.study.TestStudyService;
+import com.ogong.service.studyroom.StudyroomService;
 
 
 @Controller
@@ -27,34 +30,63 @@ public class SelfStudyController {
 	@Autowired
 	private TestStudyService studyService;
 	
+	@Autowired
+	private StudyroomService studyroomService;
+	
 	public SelfStudyController(){
 		System.out.println(this.getClass());
 	}
 	
 	@GetMapping("addStudy")
-	public String addStudy() throws Exception{
+	public String addStudy(@RequestParam("studyType") String studyType, Model model) throws Exception{
 		
 		System.out.println("/studyController/addStudy : GET");
 		
-		return "/studyView/addStudy";
+		model.addAttribute("studyType", studyType);
+		
+		return "/studyView/addSelfStudy";
 	}
 	
 	@PostMapping("addStudy")
-	public String addStudy(@ModelAttribute("study") Study study, HttpSession session) throws Exception{
+	public String addStudy(@ModelAttribute("study") Study study,
+										@RequestParam("studyType") String studyType, 
+										GroupStudyMember gsm,
+										Calendar calendar, HttpSession session) throws Exception{
 			
 		System.out.println("/studyController/addStudy : POST");
 		
 		User user = new User();
-		user.setEmail(((User)session.getAttribute("user")).getEmail());
+		//user.setEmail(((User)session.getAttribute("user")).getEmail());
+		user.setEmail("user01");
 		
 		study.setStudyMaker(user);
 		studyService.addStudy(study);
+		
+		if(studyType.equals("group")) {
+			gsm.setStudy(study);
+			gsm.setMember(user);
+			gsm.setStudyRole("3");
+			
+			if(study.getStudyType().equals("group")) {
+				gsm.setApprovalFlag("1");
+			}
+			studyroomService.addGSMember(gsm);
+			
+			calendar.setStudy(study);
+			calendar.setCalendarStartDate(study.getStudyStartDate());
+			calendar.setCalendarEndDate(study.getStudyEndDate());
+			
+			studyroomService.addCalendar(calendar);
+			
+			return "redirect:/study/getStudy?studyNo="+study.getStudyNo();
+		}
 		
 		return "redirect:https://wnstjqtest.herokuapp.com/"+ study.getStudyNo();
 	}
 	
 	@GetMapping("getStudy")
-	public String getStudy(@RequestParam("studyNo") int studyNo, Model model) throws Exception{
+	public String getStudy(@RequestParam("studyNo") int studyNo,
+										@RequestParam("studyType") String studyType, Model model) throws Exception{
 		
 		System.out.println("studyController/getStudy : GET");
 		
@@ -62,8 +94,13 @@ public class SelfStudyController {
 		study = studyService.getStudy(studyNo);
 		
 		model.addAttribute("study", study);
+		System.out.println(studyType);
+		if(studyType.equals("self")) {
+			return "/studyView/entranceSelfStudy";
+		}else {
+			return "/studyView/getStudy";
+		}
 		
-		return "/studyView/entranceStudy";
 	}
 	
 	@RequestMapping("listStudy")
@@ -85,9 +122,11 @@ public class SelfStudyController {
 		System.out.println("map : "+map);
 		
 		model.addAttribute("list", map.get("list"));
+		model.addAttribute("totalCount", map.get("totalCount"));
 		model.addAttribute("studyType", studyType);
+		model.addAttribute("search", search);
 		
-		return "/studyView/listStudy";
+		return "/studyView/listSelfStudy";
 	}
 	
 }
