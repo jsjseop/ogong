@@ -60,7 +60,8 @@
 <!-- 게시판 등록 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 
 4.자유게시판5.자율스터디 모집게시판 6.파일공유 게시판-->
 
-	<insert id="addBoard" parameterType="board" >
+	<insert id="addBoard" parameterType="board"
+	useGeneratedKeys="true" keyColumn="board_no" keyProperty="boardNo"> 
 		INSERT
 		INTO board( board_no,
 					study_no,
@@ -77,7 +78,7 @@
 			VALUES( seq_board_no.nextval,
 					#{study.studyNo:NUMERIC}, 
 					#{writer.email},
-					#{writer.nickname},
+					#{writer.nickname:VARCHAR},
 					#{boardCategory},
 					#{boardTitle},
 					#{boardContents},
@@ -147,7 +148,7 @@
 
 정렬순- 기본정렬:최신순, 1.조회수, 2.추천수-->
 	
-	<select 	id="listBoard" parameterType="map" resultMap="boardSelectMap">
+	<select 	id="listBoard" parameterType="hashmap" resultMap="boardSelectMap">
 
 		SELECT
 	  		a.*

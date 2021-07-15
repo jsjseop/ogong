@@ -14,7 +14,7 @@ public class Study {
 	private String studyThumbnail;	
 	private String studyStartDate;		
 	private String studyEndDate;		
-	private Date studyRegDate;		
+	private Date studyRegDate;					
 	private int currentMember;			
 	private int maxMember;				
 	private String selfStudyRule;		

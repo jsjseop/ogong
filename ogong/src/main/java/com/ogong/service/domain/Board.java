@@ -20,7 +20,7 @@ public class Board {
 	private int answerCount;
 	private int ViewCount;
 	private String boardInterest;
-	private boolean fileFlag;
+	private String fileFlag;
 	private Study study;
 	
 }	

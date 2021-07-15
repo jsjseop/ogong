@@ -18,7 +18,14 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	AdminMapper adminMapper;
-
+	
+	@Override
+	public void addReport(Report report) throws Exception{
+		
+		adminMapper.addReport(report);
+		
+	}
+	
 	@Override
 	public Map<String, Object> getlistReport(HashMap<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -30,6 +37,20 @@ public class AdminServiceImpl implements AdminService {
 		map.put("totalCount", new Integer(totalCount));
 		
 		return result;
+	}
+	
+	@Override
+	public Map<String, Object> getlistUserReport(HashMap<String, Object> map) throws Exception{
+		
+		List<Report> list= adminMapper.getlistUserReport(map);
+		int totalCount = adminMapper.getUserReportTotalCount(map);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return result;
+		
 	}
 
 	@Override
@@ -52,10 +73,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void updateUserRestore(Report report) throws Exception {
-		adminMapper.updateUserRestore(report);
+	public void updateUserRestore(String email) throws Exception {
+		adminMapper.updateUserRestore(email);
 		
 	}
+	
+	
 
 
 

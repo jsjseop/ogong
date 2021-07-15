@@ -92,7 +92,7 @@ public class StudyController {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
-		map.put("studyType", "group");
+		map.put("studyType", "self");
 		
 		Map<String, Object> result = studyService.getStudyList(map);
 			

@@ -40,7 +40,7 @@ public class IntegrationTest {
 		
 	}
 	
-	//@Test
+	@Test
 	@DisplayName("받은 쪽지 목록")
 	void testlistReceiveMessage() throws Exception{
 		
@@ -140,7 +140,7 @@ public class IntegrationTest {
 		
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("채택수 랭킹")
 	void testlistChooseCountRanking() throws Exception{
 		
@@ -201,6 +201,18 @@ public class IntegrationTest {
 		
 		integrationService.deleteAllNotice("user01");
 		
+	}
+	
+	//@Test
+	@DisplayName("알림 카운트 확인")
+	void testgetNoticeCount() throws Exception{
+		
+		User user = new User();
+		user.setEmail("user01");
+		Notice notice = new Notice();
+		notice.setNoticeUser(user);
+		
+		integrationService.getNoticeCount("user01");
 	}
 }
 
