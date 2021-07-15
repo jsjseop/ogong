@@ -23,7 +23,7 @@ class BoardTest {
 	@Autowired
 	private BoardService boardService;
 
-	// @Test
+	@Test
 	@DisplayName("게시글 등록")
 	void addBoard() throws Exception {
 
@@ -32,13 +32,11 @@ class BoardTest {
 		user.setNickname("권세은");
 
 		Board board = new Board();
-		board.setBoardNo(1);
 		board.setWriter(user);
 		board.setBoardCategory("2");
 		board.setBoardTitle("Q&A게시판 글 등록");
 		board.setBoardContents("성공성공~~");
 		board.setBoardInterest("3");
-		board.setBoardRegDate(Date.valueOf("2021-07-13"));
 		board.setViewCount(0);
 		board.setCommentCount(0);
 		// board.setFileFlag(false);
@@ -151,7 +149,7 @@ class BoardTest {
 
 	}
 
-	 @Test
+	// @Test
 	@DisplayName("댓글 목록")
 	void listComment() throws Exception {
 

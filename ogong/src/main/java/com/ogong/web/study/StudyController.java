@@ -3,6 +3,8 @@ package com.ogong.web.study;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,20 +59,20 @@ public class StudyController {
 		studyService.addStudy(study);
 		
 		
-		gsm.setStudy(study);
-		gsm.setMember(user);
-		gsm.setStudyRole("3");
 		
-		if(study.getStudyType().equals("group")) {
+		if(study.getStudyType().equals("group")) {				
+			gsm.setStudy(study);
+			gsm.setMember(user);
+			gsm.setStudyRole("3");
 			gsm.setApprovalFlag("1");
+			studyService.addParticipation(gsm);
+			
+			calendar.setStudy(study);
+			calendar.setCalendarStartDate(study.getStudyStartDate());
+			calendar.setCalendarEndDate(study.getStudyEndDate());
+			
+			studyroomService.addCalendar(calendar);
 		}
-		studyroomService.addGSMember(gsm);
-		
-		calendar.setStudy(study);
-		calendar.setCalendarStartDate(study.getStudyStartDate());
-		calendar.setCalendarEndDate(study.getStudyEndDate());
-		
-		studyroomService.addCalendar(calendar);
 		
 
 		return "redirect:/study/getStudy?studyNo="+study.getStudyNo();
@@ -97,6 +99,7 @@ public class StudyController {
 		model.addAttribute("list", result.get("list"));
 		model.addAttribute("totalCount", result.get("totalCount"));
 		model.addAttribute("search", search);
+		model.addAttribute("studyType","group");
 		
 		return "/studyView/listStudy";
 	}
@@ -111,5 +114,18 @@ public class StudyController {
 		return "/studyView/getStudy";
 	}
 	
+	@PostMapping("addParticipation")
+	public String addParticipation ( @ModelAttribute("study") Study study,
+										@ModelAttribute("GSMember") GroupStudyMember gsm,
+										HttpSession session) throws Exception {
+		User user = new User();
+		user.setEmail("user09");
+		gsm.setMember(user);
+		gsm.setStudy(study);
+		
+		studyService.addParticipation(gsm);
+		
+		return "redirect:/study/getStudy?studyNo="+study.getStudyNo();
+	}
 	
 }

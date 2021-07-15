@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.study.StudyMapper;
 import com.ogong.service.study.StudyService;
@@ -16,27 +17,27 @@ import com.ogong.service.study.StudyService;
 public class StudyServiceImpl implements StudyService {
 	
 	@Autowired
-	StudyMapper studyDao;
+	StudyMapper studyMapper;
 	
 	@Override
 	public void addStudy(Study study) throws Exception {
 		
-		studyDao.addStudy(study);
+		studyMapper.addStudy(study);
 
 	}
 
 	@Override
 	public Study getStudy(int studyNo) throws Exception {
 		
-		return studyDao.getStudy(studyNo); 
+		return studyMapper.getStudy(studyNo); 
 		
 	}
 
 	@Override
 	public Map<String, Object> getStudyList(HashMap<String, Object> map) throws Exception {
 		
-		List<Study> list= studyDao.getStudyList(map);
-		int totalCount = studyDao.getTotalCount(map);
+		List<Study> list= studyMapper.getStudyList(map);
+		int totalCount = studyMapper.getTotalCount(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -47,8 +48,14 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public void deleteStudy(int studyNo) throws Exception {
-		studyDao.deleteStudy(studyNo);
+		studyMapper.deleteStudy(studyNo);
 		
+	}
+	
+	@Override
+	public void addParticipation(GroupStudyMember gsm) throws Exception {
+		// TODO Auto-generated method stub
+		studyMapper.addParticipation(gsm);
 	}
 
 }
