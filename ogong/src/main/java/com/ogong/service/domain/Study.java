@@ -14,8 +14,8 @@ public class Study {
 	private String studyThumbnail;	
 	private String studyStartDate;		
 	private String studyEndDate;		
-	private Date studyRegDate;		
-	private int currentMebmer;			
+	private Date studyRegDate;					
+	private int currentMember;			
 	private int maxMember;				
 	private String selfStudyRule;		
 	private String selfStudyOpenFlag;	

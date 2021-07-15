@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.Calendar;
 import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
@@ -26,39 +27,33 @@ class StudyTest {
 	@Autowired
 	private StudyroomService studyroomService;
 	
-	//@Test
-	//@DisplayName("그룹 스터디 생성")
+	@Test
+	@DisplayName("그룹 스터디 생성(3개 테이블  insert)")
 	void testAddStudy() throws Exception {
 		
 		Study study = new Study();
 		
 		
-		String[] day = {"2021-06-01","2021-06-31","2021-05-25","2021-05-30"};
-		
-		Date d[] = new Date[4];
-		
-		for (int i =0; i<d.length; i++) {
-			d[i] = Date.valueOf(day[i]);
-		}
-		
 		User user = new User();
-		user.setEmail("user04");
+		user.setEmail("user08");
 		study.setStudyMaker(user);
-		study.setStudyName("hot스터디");
-		study.setStudyHashtag("#hot");
-		study.setStudyThumbnail("hot.jpg");
-		study.setStudyStartDate(d[0]);
-		study.setStudyEndDate(d[1]);
-		study.setMaxMamber(5);
-		study.setRecruitmentStartDate(d[2]);
-		study.setRecruitmentEndDate(d[3]);
+		study.setStudyName("야 너두 할수있어");
+		study.setStudyHashtag("#toeic");
+		study.setStudyThumbnail("toeic.jpg");
+		study.setStudyStartDate("2021-05-01");
+		study.setStudyEndDate("2021-05-15");
+		study.setMaxMember(5);
+		study.setRecruitmentStartDate("2021-06-01");
+		study.setRecruitmentEndDate("2021-06-31");
 		study.setStudyRoomGrade("basic");
 		study.setStudyType("group");
-		study.setStudyInterest("자기계발");
+		study.setStudyInterest("토익");
 		
 		studyService.addStudy(study);
 		
 		System.out.println(" 넘어온 시퀀스 studyNo 값 확인 : "+study.getStudyNo());
+		
+		System.out.println("== 넘어온 시퀀스 값 groupstudymember 테이블에 insert ==");
 		
 		GroupStudyMember gsm = new GroupStudyMember();
 		gsm.setStudy(study);
@@ -70,7 +65,16 @@ class StudyTest {
 		
 		studyroomService.addGSMember(gsm);
 		
+		System.out.println("== 스터디 시작날짜로 일정 테이블 insert==");
 		
+		Calendar calendar = new Calendar();
+		calendar.setStudy(study);
+		calendar.setCalendarStartDate(study.getStudyStartDate());
+		calendar.setCalendarEndDate(study.getStudyEndDate());
+		
+		studyroomService.addCalendar(calendar);
+		
+	
 	}
 	
 	//@Test
@@ -85,8 +89,8 @@ class StudyTest {
 		
 	}
 	
-	@Test
-	@DisplayName("그룹스터디 목록 조회")
+	//@Test
+	//@DisplayName("그룹스터디 목록 조회")
 	void testgetStudyList() throws Exception {
 		
 		Search search = new Search();

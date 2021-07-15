@@ -14,8 +14,8 @@
 		<result property="studyStartDate" 			column="study_start_date" 			jdbcType="DATE" />
 		<result property="studyEndDate" 			column="study_end_date" 			jdbcType="DATE" />
 		<result property="studyRegDate" 			column="study_reg_date" 			jdbcType="DATE" />
-		<result property="currentMemmer" 			column="current_member" 			jdbcType="NUMERIC"  />
-		<result property="maxMamber" 				column="max_member" 				jdbcType="NUMERIC" />
+		<result property="currentMember" 			column="current_member" 			jdbcType="NUMERIC"  />
+		<result property="maxMember" 				column="max_member" 				jdbcType="NUMERIC" />
 		<result property="selfStudyRule" 			column="selfstudy_rule" 			jdbcType="VARCHAR" />
 		<result property="selfStudyOpenFlag" 		column="selfstudy_open_flag" 		jdbcType="CHAR" />
 		<result property="selfStudyPassword" 		column="selfstudy_password" 		jdbcType="VARCHAR"  />
@@ -35,7 +35,8 @@
 		
 	</resultMap>
 	
-	<insert 	id="addStudy"		parameterType="study" >
+	<insert 	id="addStudy"		parameterType="study" 
+	useGeneratedKeys="true" keyColumn="study_no" keyProperty="studyNo">
 	 	INSERT
 		INTO study
 		( 
@@ -55,7 +56,7 @@
 		#{studyEndDate}, 
 		SYSDATE, 
 		1, 
-		#{maxMamber:NUMERIC}, 
+		#{maxMember:NUMERIC}, 
 		#{selfStudyRule:VARCHAR},
 		#{selfStudyOpenFlag:VARCHAR},
 		#{selfStudyPassword:VARCHAR},
@@ -71,7 +72,7 @@
 		)
 	 </insert>
 	 
-	 <select	id="getStudy"	parameterType="study"	resultMap="studySelectMap">
+	 <select	id="getStudy"	parameterType="int"	resultMap="studySelectMap">
 	 
 	 	SELECT 
 			study_no, 
@@ -93,21 +94,31 @@
 			studyroom_grade, 
 			study_interest
 		FROM study
-		where study_no = #{value}
+		WHERE study_no = #{value}
 	 	
 	 </select>
 	 
 	 <select id="getStudyList"	parameterType="hashmap" resultMap="studySelectMap">
 	 
-	 	SELECT
-		study_no, email, study_name, study_hashtag, study_thumbnail, study_start_date, study_end_date, current_member, 
-		max_member, selfstudy_password, recruitment_start_date, recruitment_end_date, studyroom_grade, study_interest
+	 	SELECT outer_table.*
 		FROM (  SELECT
-   			study_no, email, study_name, study_hashtag, study_thumbnail, study_start_date, study_end_date, current_member, 
-			max_member, selfstudy_password, recruitment_start_date, recruitment_end_date, studyroom_grade, study_interest, ROWNUM AS row_seq
+   					inner_table.*, ROWNUM AS row_seq
   			FROM (  SELECT
-      			study_no, email, study_name, study_hashtag, study_thumbnail, study_start_date, study_end_date, current_member, 
-				max_member, selfstudy_password, recruitment_start_date, recruitment_end_date, studyroom_grade, study_interest
+      					study_no, 
+      					email, 
+      					study_name, 
+      					study_hashtag, 
+      					study_thumbnail, 
+      					TO_CHAR(study_start_date,'YYYY/MM/DD') study_start_date, 
+						TO_CHAR(study_end_date,'YYYY/MM/DD') study_end_date, 
+      					current_member, 
+						max_member, 
+						selfstudy_open_flag,
+						selfstudy_password, 
+						TO_CHAR(recruitment_start_date,'YYYY/MM/DD') recruitment_start_date, 
+						TO_CHAR(recruitment_end_date,'YYYY/MM/DD') recruitment_end_date, 
+						studyroom_grade,
+						study_interest
       			FROM study
       			<where>
       				study_end_flag = '1'
@@ -167,7 +178,7 @@
 	      				ORDER BY study_reg_date DESC
 	      			</when>
 	      			<otherwise>
-	      				ORDER BY study_no
+	      				ORDER BY studyroom_grade DESC, study_no
 	      			</otherwise>
 	      		</choose>
    				) inner_table
@@ -176,7 +187,7 @@
 
 	 </select>
 	 
-	 <select	id="getTotalCount"	parameterType="hashmap"		resultType="int">
+	 <select	id="getTotalCount"	parameterType="map"		resultType="int">
 	 	 SELECT COUNT(*)
 	 	 FROM(	SELECT
       			study_no, email, study_name, study_hashtag, study_thumbnail, study_start_date, study_end_date, current_member, 

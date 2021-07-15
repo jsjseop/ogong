@@ -1,6 +1,5 @@
 package com.ogong;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,30 +20,21 @@ public class SelfStudyTest {
 	@Autowired
 	private TestStudyService studyService;
 	
-	//@Test
+	@Test
 	@DisplayName("자율 스터디 생성")
 	void testAddStudy() throws Exception {
 		
 		Study study = new Study();
 		User user = new User();
-		
-		String[] day = {"2021-08-01","2021-08-07"};
-		
-		Date d[] = new Date[2];
-		
-		for (int i =0; i<d.length; i++) {
-			d[i] = Date.valueOf(day[i]);
-		}
-		
 		user.setEmail("user06");
 		
 		study.setStudyMaker(user);
 		study.setStudyName("자율스터디3");
 		study.setStudyHashtag("#test3");
 		study.setStudyThumbnail("j3.jpg");
-		study.setStudyStartDate(d[0]);
-		study.setStudyEndDate(d[1]);
-		study.setMaxMamber(8);
+		study.setStudyStartDate("2021-08-01");
+		study.setStudyEndDate("2021-08-07");
+		study.setMaxMember(8);
 		study.setSelfStudyRule("자율스터디3 규칙입니다.");
 		study.setSelfStudyOpenFlag("1");
 		study.setStudyRoomGrade("basic");
@@ -64,7 +54,7 @@ public class SelfStudyTest {
 		System.out.println(study);
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("자율스터디 목록조회")
 	void testlistStudy() throws Exception {
 		

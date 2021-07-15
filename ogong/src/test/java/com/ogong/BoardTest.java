@@ -24,6 +24,7 @@ class BoardTest {
 	private BoardService boardService;
 
 	//@Test
+	@Test
 	@DisplayName("게시글 등록")
 	void addBoard() throws Exception {
 

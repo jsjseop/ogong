@@ -1,8 +1,8 @@
 package com.ogong.service.study;
 
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ public interface TestStudyMapper {
 	
 	Study getStudy(int studyNo);
 	
-	List<Study> getStudyList(HashMap<String, Object> map);
+	List<Study> getStudyList(Map<String, Object> map);
 	
-	int getTotalCount(HashMap<String, Object> map);
+	int getTotalCount(Map<String, Object> map);
 }

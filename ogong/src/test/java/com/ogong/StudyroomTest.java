@@ -1,5 +1,7 @@
 package com.ogong;
 
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.ogong.service.domain.Calendar;
 import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
+import com.ogong.service.studyroom.StudyroomMapper;
 import com.ogong.service.studyroom.StudyroomService;
 
 @SpringBootTest
@@ -79,8 +83,8 @@ class StudyroomTest {
 			
 	}
 	
-	//@Test
-	//@DisplayName("그룹스터디 회원목록")
+	@Test
+	@DisplayName("그룹스터디 회원목록")
 	void testGetGSMemberList() throws Exception {
 		
 		List<GroupStudyMember> list = studyroomService.getGSMemberList(10000);
@@ -96,8 +100,8 @@ class StudyroomTest {
 	
 	
 	
-	@Test
-	@DisplayName("스터디룸 정보수정")
+	//@Test
+	//@DisplayName("스터디룸 정보수정")
 	void testUpdateGSMember() throws Exception {
 		
 		Study study = studyService.getStudy(10002);
@@ -113,11 +117,75 @@ class StudyroomTest {
 		
 		System.out.println("updateStudy 결과 :: "+study);
 		
-		
-		
 	}
 	
+	//@Test
+	//@DisplayName("스터디룸 출석")
+	void testAddAttendance() throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("studyNo", new Integer(10000));
+		map.put("email", "user01");
+		
+		studyroomService.addAttendance(map);
+				
+	}
 	
+	//@Test
+	//@DisplayName(" 일정 생성 ")
+	void testAddCalendar() throws Exception {
+		
+		Calendar calendar = new Calendar();
+		Study study = studyService.getStudy(10000);
+		calendar.setStudy(study);
+		calendar.setCalendarTitle("꼬미랑 놀아주는 날");
+		calendar.setCalendarContents("꼬미 코코");
+		calendar.setCalendarStartDate("2021-07-01");
+		calendar.setCalendarEndDate("2021-07-03");
+		
+		studyroomService.addCalendar(calendar);
+		
+					
+	}
+	
+	//@Test
+	//@DisplayName(" 일정 보기 ")
+	void testGetCalendar() throws Exception {
+		
+		Calendar calendar = studyroomService.getCalendar(10000);
+		
+		System.out.println(" 일정 :: "+calendar);
+		
+				
+	}
+	
+	//@Test
+	//@DisplayName("그룹스터디 일정 리스트")
+	void testGetCalendarList() throws Exception {
+		
+		List<Calendar> list = studyroomService.getCalendarList(10000);
+	
+	}
+	
+	//@Test
+	//@DisplayName("일정 수정")
+	void testUpdateCalendar() throws Exception {
+		
+		Calendar calendar = studyroomService.getCalendar(10000);
+		
+		calendar.setCalendarTitle("수정된 일정");
+		calendar.setCalendarContents("수정된 일정 내용");
+		
+		studyroomService.updateCalendar(calendar);
+	}
+	
+	//@Test
+	//@DisplayName("일정 삭제")
+	void testDeleteCalendar() throws Exception {
+		
+		List<Calendar> list = studyroomService.getCalendarList(10000);
+	
+	}
 	
 	
 	

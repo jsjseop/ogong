@@ -17,4 +17,5 @@ public class Answer {
 	private String adoptionFlag;
 	private Date adoptionDate;
 	private int adoptionCount;
+
 }
