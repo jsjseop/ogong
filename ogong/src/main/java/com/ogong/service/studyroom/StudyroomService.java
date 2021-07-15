@@ -9,8 +9,6 @@ import com.ogong.service.domain.Study;
 
 public interface StudyroomService {
 	
-	public void addGSMember(GroupStudyMember gsm) throws Exception;
-	
 	public Map<String, Object> getParticipationList(int studyNo) throws Exception;
 	
 	public void applyParticipation(String email) throws Exception;

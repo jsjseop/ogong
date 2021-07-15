@@ -20,12 +20,6 @@ public class StudyroomServiceImpl implements StudyroomService {
 		StudyroomMapper studyroomMapper;
 
 		@Override
-		public void addGSMember(GroupStudyMember gsm) throws Exception {
-			// TODO Auto-generated method stub
-			studyroomMapper.addGSMember(gsm);
-		}
-
-		@Override
 		public Map<String, Object> getParticipationList(int studyNo) throws Exception {
 			// TODO Auto-generated method stub
 			

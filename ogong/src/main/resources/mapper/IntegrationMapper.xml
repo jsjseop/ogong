@@ -9,7 +9,7 @@
 	 <resultMap id="MessageSelectMap" type="message">
 		<result property="messageNo" 					column="MESSAGE_NO" 		jdbcType="NUMERIC"/>
 		<result property="messageContents"				column="MESSAGE_CONTENTS"	jdbcType="VARCHAR"/>
-		<result property="sendDate"						column="SEND_DATE"			jdbcType="DATE"/>
+		<result property="sendDate"						column="SEND_DATE"			jdbcType="VARCHAR"/>
 		<result property="receiver.email"				column="RECEIVER_EMAIL"				jdbcType="VARCHAR"/>
 		<result property="sender.email"					column="SENDER_EMAIL"				jdbcType="VARCHAR"/>
 	</resultMap>
@@ -17,6 +17,7 @@
 	<resultMap id="NoticeSelectMap" type="notice" >
 		<result property="noticeNo"						column="NOTICE_NO"			jdbcType="NUMERIC"/>
 		<result property="noticeCategory"				column="NOTICE_CATEGORY"	jdbcType="VARCHAR"/>
+		<result property="noticeCondition"				column="NOTICE_CONDITION"	jdbcType="VARCHAR"/>
 		<result property="noticeStudy.studyNo"			column="STUDY_NO"			jdbcType="NUMERIC"/>
 		<result property="noticeStudy.studyName"		column="STUDY_NAME"			jdbcType="VARCHAR"/>
 		<result property="noticeBoard.boardNo"			column="BOARD_NO"			jdbcType="NUMERIC"/>
@@ -38,7 +39,7 @@
 		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="DATE"/>
 		<result property="restoreReason"				 column="RESTORE_REASON"	 jdbcType="VARCHAR"/>
 		<result property="userTargetTime"				 column="USER_TARGET_TIME"	 jdbcType="NUMERIC"/>
-		<result property="regDate"						 column="REG_DATE"			 jdbcType="DATE"/>
+		<result property="regDate"						 column="REG_DATE"			 jdbcType="VARCHAR"/>
 		<result property="suspendStartDate"				 column="SUSPEND_START_DATE" jdbcType="DATE"/>
 		<result property="suspendEndDate"				 column="SUSPEND_END_DATE"   jdbcType="DATE"/>
 		<result property="bananaCount"					 column="BANANA_COUNT"		 jdbcType="NUMERIC"/>
@@ -73,7 +74,7 @@
 						FROM		( SELECT message_no,
 											 message_contents,
 											 receiver_email,
-											 send_date
+											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE receiver_email = #{message.receiver.email}		      									
 											 ) inner_table
@@ -87,7 +88,7 @@
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT message_no,
 											 message_contents,
-											 send_date
+											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE sender_email = #{message.sender.email}		      									
 											 ) inner_table
@@ -95,13 +96,12 @@
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
 	</select>
 	
-	<!-- 쪽지 삭제 -->
-<!-- 	
-	<delete id="deleteMessage"	parameterType="messageNo">
+	<!-- 쪽지 삭제 -->	
+	<delete id="deleteMessage"	parameterType="int">
 		DELETE
 		FROM message
-		WHERE message_no in (#{value})
-	</delete> -->
+		WHERE message_no in (+#{value}+)
+	</delete>
 	
 	<!-- 바나나 랭킹 목록 -->
 	<select id="listBananaRanking" parameterType="hashmap" resultMap="UserSelectMap">
@@ -149,7 +149,8 @@
 				 board_title,
 				 study_name,
 				 approval_flag,
-				 answer_title)
+				 answer_title,
+				 notice_condition)
 		VALUES   (seq_notice_no.nextVal,
 				  #{noticeStudy.studyNo:NUMERIC},
 				  #{noticeBoard.boardNo:NUMERIC},
@@ -161,7 +162,8 @@
 				  #{noticeBoard.boardTitle:VARCHAR},
 				  #{noticeStudy.studyName:VARCHAR},
 				  #{noticeGroupMember.approvalFlag:VARCHAR},
-				  #{noticeAnswer.answerTitle:VARCHAR}
+				  #{noticeAnswer.answerTitle:VARCHAR},
+				  #{noticeCondition:VARCHAR}				  
 				  )
 	</insert>
 	
@@ -171,6 +173,14 @@
 		notice_no, notice_category, board_title, study_name, approval_flag, sender_email
 		FROM notice
 		WHERE email = #{value}	
+	</select>
+	
+	<!-- 알림 조회 -->
+	<select id="getNotice" parameterType="int" resultMap="NoticeSelectMap">
+		SELECT
+		*
+		FROM notice
+		WHERE notice_no in #{noticeNo}
 	</select>
 	
 	
@@ -187,6 +197,21 @@
 		FROM notice
 		WHERE email = #{value}
 	</delete>
+	
+	<!-- 알림 카운트 수 -->
+	<select id="getNoticeCount" parameterType="string" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM notice
+		WHERE email in (#{email}) AND NOTICE_CATEGORY in ('1', '2', '3', '4', '5', '6', '7')
+	</select>	
+	
+	<update id="updateNotice" parameterType="string">
+		UPDATE notice
+		SET notice_condition = '1'
+		WHERE email in (#{email}) AND notice_condition in ('2')
+	</update>
+	
 	
 	<select id="getTotalCount"		parameterType="hashmap"		resultType="int">
 		SELECT COUNT(*)

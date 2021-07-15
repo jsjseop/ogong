@@ -23,6 +23,8 @@ class BoardTest {
 	@Autowired
 	private BoardService boardService;
 
+
+	//@Test
 	@Test
 	@DisplayName("게시글 등록")
 	void addBoard() throws Exception {
@@ -32,12 +34,20 @@ class BoardTest {
 		user.setNickname("권세은");
 
 		Board board = new Board();
+
+
 		//board.setBoardNo(1);
+
 		board.setWriter(user);
 		board.setBoardCategory("2");
 		board.setBoardTitle("Q&A게시판 글 등록");
 		board.setBoardContents("성공성공~~");
 		board.setBoardInterest("3");
+
+		board.setViewCount(0);
+		board.setCommentCount(0);
+		// board.setFileFlag(false);
+
 		//board.setBoardRegDate(Date.valueOf("2021-07-13"));
 		//board.setViewCount(0);
 		//board.setCommentCount(0);
@@ -49,12 +59,12 @@ class BoardTest {
 
 	}
 
-	// @Test
+	 @Test
 	@DisplayName("게시글 조회")
 	void getBoard() throws Exception {
 
 		Board board = new Board();
-		board.setBoardNo(10001);
+		board.setBoardNo(10021);
 		Map<String, Object> map = boardService.getBoard(board);
 
 		System.out.println(map);
@@ -81,11 +91,11 @@ class BoardTest {
 		Board board = new Board();
 		board.setBoardNo(10001);
 
-		boardService.deleteBoard(board);
+		boardService.deleteBoard(10021);
 
 	}
 
-	// @Test
+	 //@Test
 	@DisplayName("게시글 목록")
 	void listBoard() throws Exception {
 
@@ -151,7 +161,8 @@ class BoardTest {
 
 	}
 
-	 //@Test
+	// @Test
+
 	@DisplayName("댓글 목록")
 	void listComment() throws Exception {
 

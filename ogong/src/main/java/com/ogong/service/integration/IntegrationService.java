@@ -34,6 +34,9 @@ public interface IntegrationService {
 	//채택수 랭킹
 	public Map<String, Object> listChooseCountRanking(HashMap<String, Object> map) throws Exception;
 	
+	//알림 조회
+	public Notice getNotice(int noticeNo) throws Exception;
+	
 	//알림 목록 조회
 	public Notice getlistNotice(String email) throws Exception;
 	
@@ -42,7 +45,12 @@ public interface IntegrationService {
 	
 	//알림 전체 삭제
 	public void deleteAllNotice(String email) throws Exception;
-
+	
+	//알림 읽음 표시
+	public void updateNotice(String email) throws Exception;
+	
+	//알림 카운트
+	int getNoticeCount (String email) throws Exception;
 	
 	
 	

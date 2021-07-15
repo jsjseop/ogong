@@ -11,9 +11,10 @@ public class Report {
 	private Answer reportAnswer;		
 	private Comment reportComment;		
 	private Board reportBoard;		
-	private User reportUser;			
+	private User receiveReporter;
+	private User sendReporter;
 	private String reportReason;	
-	private Date reportDate;		
+	private String reportDate;		
 	private String suspendType;		
 
 }

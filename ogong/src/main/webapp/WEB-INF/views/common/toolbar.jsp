@@ -116,7 +116,6 @@
 		<!-- ToolBar End /////////////////////////////////////-->
  	
    	
-   	
    	<script type="text/javascript">
 
 	/* //============= logout Event  처리 =============	
@@ -154,6 +153,19 @@
 	 	
 	 	//=============  정보공유게시판 Event  처리 =============
 	 	$( "a:contains('정보공유게시판')").on("click", function(){
+
+	 		location.href = "/;
+	 	});	
+	 	
+	 	//=============  Q&A게시판 Event  처리 =============
+	 	$( "a:contains('Q&A게시판')").on("click", function(){
+	 		location.href = "listQaBoard";
+	 	});	 	 	
+		
+	 	//=============  자유게시판 Event  처리 =============
+	 	$( "a:contains('자유게시판')").on("click", function(){
+	 		location.href = "listBoard";
+
 	 		location.href = "/";
 	 	});	
 	 	
@@ -165,6 +177,7 @@
 	 	//=============  자유게시판 Event  처리 =============
 	 	$( "a:contains('자유게시판')").on("click", function(){
 	 		location.href = "/";
+
 	 	});
 	 	
 	 	//=============  합격후기게시판 Event  처리 =============
@@ -221,20 +234,6 @@
 	 	$( "a:contains('회원탈퇴')").on("click", function(){
 	 		location.href = "/";
 	 	});	 	 	
-	 	
-	 	
-	 	
-	 	
+	
 	</script>  
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	

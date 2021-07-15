@@ -1,7 +1,6 @@
 package com.ogong.service.board;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import com.ogong.common.Search;
 import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
-import com.ogong.service.domain.Study;
 
 
 	@Repository
@@ -29,7 +27,7 @@ import com.ogong.service.domain.Study;
 		void updateBoard(Board board);
 		
 		//게시글 삭제
-		void deleteBoard(Board board);
+		void deleteBoard(int boardNo);
 		
 		//게시글 목록
 		List<Board> listBoard(Map<String, Object> map) ;

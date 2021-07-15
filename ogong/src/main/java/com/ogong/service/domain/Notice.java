@@ -13,5 +13,6 @@ public class Notice {
 	private User noticeUser;
 	private User sender;
 	private String noticeCategory;
+	private String noticeCondition;
 	
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 
 @Repository
@@ -22,5 +23,7 @@ public interface StudyMapper {
 	int getTotalCount(HashMap<String, Object> map);
 	
 	void deleteStudy(int studyNo);
+	
+	void addParticipation(GroupStudyMember gsm);
 
 }

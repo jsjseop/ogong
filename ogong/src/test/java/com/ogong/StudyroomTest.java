@@ -36,7 +36,7 @@ class StudyroomTest {
 		Map<String,Object> result = studyroomService.getParticipationList(10000);
 		
 		List<Object> list = (List<Object>)result.get("list");
-		Integer totalCount = (Integer)result.get("totalCount");
+		int totalCount = (Integer)result.get("totalCount");
 		
 		System.out.println("list 값 : "+list);
 		System.out.println("list size : "+list.size());
@@ -63,7 +63,7 @@ class StudyroomTest {
 		gsm.setParticipationScore(new Double(0));
 		gsm.setApprovalFlag("0");
 		
-		studyroomService.addGSMember(gsm);
+		studyService.addParticipation(gsm);
 		
 	}
 	

@@ -20,9 +20,25 @@
 
 <script type="text/javascript">
 	$( function(){
-		$("#list").on("click", function(){
-			location.href = "/study/listStudy";
+		
+		$("#btn").on("click", function(){
+			self.location = "/study/listStudy"
 		});
+		
+		$('#modal').modal("hide"); //닫기 
+		 
+		$('#modal').modal("show"); //열기
+		
+		$("#submit").on("click", function(){
+			fncAddParticipation()
+			alert("참가 신청 되었습니다.")
+			alert("나중에 중복 신청을 방지하기위해 ajax를 사용 할 예정.")
+		});
+		
+		
+		function fncAddParticipation() {
+			$("form").attr("method","POST").attr("action","/study/addParticipation").submit();
+		}
 	});
 </script>
 </head>
@@ -88,11 +104,43 @@
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-					<button id="list" >확인</button>
+	  				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+					  참 가 신 청
+					</button>
+					<button id="btn" class="btn btn-primary" >확 인</button>
 	  		</div>
 		</div>
 		
 		<br/>
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">그룹스터디 참가신청</h4>
+		      </div>
+		      <div class="modal-body">
+		        <form>
+		        	<input type="hidden" name="studyNo" value="${study.studyNo}">     
+		        	<div class = "form-group">
+		        		<label>참가신청 동기</label>
+		        		<textarea name = "participationReason" class="form-control" maxLength="2048" style="height:180px"></textarea>
+		        	</div>
+		        	
+		        	<div class = "form-group">
+		        		<label>각 오</label>
+		        		<textarea name = "determination" class="form-control" maxLength="2048" style="height:180px"></textarea>
+		        	</div>
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		      	<button id="submit" class="btn btn-default" >신 청</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫 기</button>
+		      </div>
+		    </div>
+		  </div>
+		 </div>
 		
  	</div>
 

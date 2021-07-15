@@ -43,11 +43,20 @@ public interface IntegrationMapper {
 	//알림 목록
 	Notice getlistNotice(String email);
 	
+	//알림 조회
+	Notice getNotice(int noticeNo);
+	
 	//알림 삭제
 	void deleteNotice(int noticeNo);
 	
 	//알림 전체 삭제
 	void deleteAllNotice(String email);
+	
+	//알림 카운트 수
+	int getNoticeCount(String email);
+	
+	//알림 읽음
+	void updateNotice(String email);
 	
 	//페이지 수
 	int getTotalCount(HashMap<String, Object> map);
