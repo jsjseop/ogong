@@ -20,7 +20,7 @@ public interface BoardService {
 		public void updateBoard(Board board) throws Exception;
 		
 		//게시글 삭제
-		public void deleteBoard(Board board) throws Exception; 
+		public void deleteBoard(int boardNo) throws Exception; 
 		
 		//게시글 목록
 		public List<Board> listBoard(Map<String, Object> map) throws Exception;

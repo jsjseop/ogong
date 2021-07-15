@@ -16,5 +16,5 @@ public class Answer {
 	private Board board;
 	private String adoptionFlag;
 	private Date adoptionDate;
-	
+	private int adoptionCount;
 }

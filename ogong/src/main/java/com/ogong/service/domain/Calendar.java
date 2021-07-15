@@ -11,7 +11,7 @@ public class Calendar {
 	private Study study;		
 	private String calendarTitle;		
 	private String calendarContents;	
-	private Date calendarStartDate;		
-	private Date calendarEndDate;		
+	private String calendarStartDate;		
+	private String calendarEndDate;		
 	
 }
