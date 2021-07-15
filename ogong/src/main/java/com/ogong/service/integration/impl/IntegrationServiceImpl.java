@@ -100,6 +100,12 @@ public class IntegrationServiceImpl implements IntegrationService {
 
 		return integrationMapper.getlistNotice(email);
 	}
+	
+	@Override
+	public Notice getNotice(int noticeNo) throws Exception{
+		
+		return integrationMapper.getNotice(noticeNo);
+	}
 
 	@Override
 	public void deleteNotice(int noticeNo) throws Exception {
@@ -113,6 +119,17 @@ public class IntegrationServiceImpl implements IntegrationService {
 		integrationMapper.deleteAllNotice(email);
 	}
 	
+	@Override
+	public int getNoticeCount(String email) {
+		
+		return integrationMapper.getNoticeCount(email);
+	}
+	
+	@Override
+	public void updateNotice(String email) throws Exception{
+		
+		integrationMapper.updateNotice(email);
+	}
 	
 
 }

@@ -9,7 +9,7 @@ public class Message {
 
 	private int messageNo;
 	private String messageContents;
-	private Date sendDate;
+	private String sendDate;
 	private User receiver;
 	private User sender;
 

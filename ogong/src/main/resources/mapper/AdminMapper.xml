@@ -22,11 +22,11 @@
 		<result property="receiveReporter.email"		 column="RECEIVE_REPORTER_EMAIL" jdbcType="VARCHAR"/>
 		
 		<association property="receiveReporter" javaType="user">
-			<id property="email" column="email" jdbcType="VARCHAR"/>
+			<id property="email" column="RECEIVE_REPORTER_EMAIL" jdbcType="VARCHAR"/>
 			<result property="nickname" 				 column="NICKNAME" 			 jdbcType="VARCHAR"/>
 			<result property="condition" 				 column="CONDITION" 		 jdbcType="VARCHAR"/>	
-			<result property="suspendStartDate" 		 column="SUSPEND_START_DATE" jdbcType="DATE"/>
-			<result property="suspendEndDate" 		 	 column="SUSPEND_END_DATE"	 jdbcType="DATE"/>
+			<result property="suspendStartDate" 		 column="SUSPEND_START_DATE" jdbcType="VARCHAR"/>
+			<result property="suspendEndDate" 		 	 column="SUSPEND_END_DATE"	 jdbcType="VARCHAR"/>
 		</association>
 	</resultMap>
 	
@@ -34,18 +34,18 @@
 		<result property="email"						 column="EMAIL"				 jdbcType="VARCHAR"/>
 		<result property="condition"					 column="CONDITION"			 jdbcType="VARCHAR"/>
 		<result property="nickname"					   	 column="NICKNAME"			 jdbcType="VARCHAR"/>
-		<result property="withdrawDate"					 column="WITHDRAW_DATE"		 jdbcType="DATE"/>
+		<result property="withdrawDate"					 column="WITHDRAW_DATE"		 jdbcType="VARCHAR"/>
 		<result property="withdrawReason"				 column="WITHDRAW_REASON"	 jdbcType="VARCHAR"/>
-		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="DATE"/>
+		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="VARCHAR"/>
 		<result property="restoreReason"				 column="RESTORE_REASON"	 jdbcType="VARCHAR"/>
 		<result property="userTargetTime"				 column="USER_TARGET_TIME"	 jdbcType="NUMERIC"/>
-		<result property="regDate"						 column="REG_DATE"			 jdbcType="DATE"/>
-		<result property="suspendStartDate"				 column="SUSPEND_START_DATE" jdbcType="DATE"/>
-		<result property="suspendEndDate"				 column="SUSPEND_END_DATE"   jdbcType="DATE"/>
+		<result property="regDate"						 column="REG_DATE"			 jdbcType="VARCHAR"/>
+		<result property="suspendStartDate"				 column="SUSPEND_START_DATE" jdbcType="VARCHAR"/>
+		<result property="suspendEndDate"				 column="SUSPEND_END_DATE"   jdbcType="VARCHAR"/>
 	</resultMap>
-	
+
 	<!-- 신고하기 -->
-	<insert id="addReport"		parameterType="report">
+	<insert id="addReport"	parameterType="report" useGeneratedKeys="true" keyColumn="report_no" keyProperty="reportNo">
 		INSERT
 		INTO report (report_no
 					,answer_no
@@ -73,7 +73,8 @@
 		SELECT outer_table.*
 		FROM ( SELECT 
 			   inner_table.* , ROWNUM AS row_seq
-						FROM		( SELECT r.report_no,
+						FROM		( SELECT r.receive_reporter_email,
+											 r.report_no,
 											 r.report_reason,
 											 u.nickname,
 											 a.answer_no,
@@ -131,7 +132,8 @@
 		SELECT outer_table.*
 		FROM ( SELECT 
 			   inner_table.* , ROWNUM AS row_seq
-						FROM		( SELECT r.report_no,
+						FROM		( SELECT r.receive_reporter_email,
+											 r.report_no,
 											 r.report_reason,
 											 u.nickname,
 											 r.report_date,
@@ -175,26 +177,28 @@
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT email,
 											 nickname,
-											 reg_date,
-											 withdraw_date,
+											 TO_CHAR(reg_date,'YYYY-MM-DD') reg_date,
+											 TO_CHAR(withdraw_date,'YYYY-MM-DD') withdraw_date,
 											 withdraw_reason,
-											 restore_date,
-											 suspend_start_date,
-											 suspend_end_date,
+											 TO_CHAR(restore_date,'YYYY-MM-DD') restore_date,
+											 TO_CHAR(suspend_start_date,'YYYY-MM-DD') suspend_start_date,
+											 TO_CHAR(suspend_end_date,'YYYY-MM-DD') suspend_end_date,
 											 condition
 											 FROM users
 											 <where>
-											 	<if test="listType == 1">   <!-- 탈퇴한 회원 목록 -->
+											 	<if test="listType == 1"></if>
+											 	<if test="listType == 2">   <!-- 탈퇴한 회원 목록 -->
 												 	withdraw_date is NOT NULL
 												 	AND withdraw_reason is NOT NULL
 												 </if>
-												 <if test="listType == 2">	<!-- 복귀한 회원 목록 -->
+												 <if test="listType == 3">	<!-- 복귀한 회원 목록 -->
 												 	restore_date is NOT NULL
-												 	AND retore_reason is NOT NULL
+												 	AND restore_reason is NOT NULL
 												 </if>
-												 <if test="listType == 3">	<!-- 정지한 회원 목록 -->
+												 <if test="listType == 4">	<!-- 정지한 회원 목록 -->
 												 	suspend_start_date is NOT NULL
 												 	AND	suspend_end_date is NOT NULL
+												 	AND condition = 2
 												 </if>	
 												 <if test="searchCondition != null">
 												 	<choose>
@@ -245,11 +249,11 @@
 	</update>
 	
 	<!-- 회원 복구 -->
-	<update id="updateUserRestore" parameterType="report" >
+	<update id="updateUserRestore" parameterType="string" >
 		UPDATE users
 		<set>
-			suspend_start_date = #{receiveReporter.suspendStartDate:DATE},
-			suspend_end_date = #{receiveReporter.suspendEndDate:DATE},
+			suspend_start_date = '',
+			suspend_end_date = '',
 			condition = 1
 		</set>
 		WHERE email = #{receiveReporter.email}
@@ -257,7 +261,7 @@
 	
 	<select id="getReportTotalCount"		parameterType="hashmap"		resultType="int">
 		SELECT COUNT(*)
-		FROM (	SELECT r.report_no,
+		FROM (	SELECT r.receive_reporter_email,
 											 r.report_no,
 											 r.report_reason,
 											 u.nickname,
@@ -293,7 +297,8 @@
 	
 		<select id="getUserReportTotalCount"		parameterType="hashmap"		resultType="int">
 						SELECT COUNT(*)
-						     FROM (	SELECT r.report_no,
+						     FROM (	SELECT   r.receive_reporter_email,
+						     				 r.report_no,
 											 r.report_reason,
 											 u.nickname,
 											 r.report_date,
@@ -316,24 +321,25 @@
 		SELECT COUNT(*)
 						FROM		( SELECT email,
 											 nickname,
-											 reg_date,
-											 withdraw_date,
+											 TO_CHAR(reg_date,'YYYY-MM-DD') reg_date,
+											 TO_CHAR(withdraw_date,'YYYY-MM-DD') withdraw_date,
 											 withdraw_reason,
-											 restore_date,
-											 suspend_start_date,
-											 suspend_end_date,
+											 TO_CHAR(restore_date,'YYYY-MM-DD') restore_date,
+											 TO_CHAR(suspend_start_date,'YYYY-MM-DD') suspend_start_date,
+											 TO_CHAR(suspend_end_date,'YYYY-MM-DD') suspend_end_date,
 											 condition
 											 FROM users
 											 <where> 
-											 <if test="listType == 1">   <!-- 탈퇴한 회원 목록 -->
+											 <if test="listType == 1"></if>
+											 <if test="listType == 2">   <!-- 탈퇴한 회원 목록 -->
 											 	withdraw_date is NOT NULL
 											 	AND withdraw_reason is NOT NULL
 											 </if>
-											 <if test="listType == '2'">	<!-- 복귀한 회원 목록 -->
+											 <if test="listType == 3">	<!-- 복귀한 회원 목록 -->
 											 	restore_date is NOT NULL
-											 	AND retore_reason is NOT NULL
+											 	AND restore_reason is NOT NULL
 											 </if>
-											 <if test="listType == '3'">	<!-- 정지한 회원 목록 -->
+											 <if test="listType == 4">	<!-- 정지한 회원 목록 -->
 											 	suspend_start_date is NOT NULL
 											 	AND	suspend_end_date is NOT NULL
 											 </if>											 

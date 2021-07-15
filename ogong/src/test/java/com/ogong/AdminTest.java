@@ -38,16 +38,16 @@ public class AdminTest {
 	
 	*/
 	
-	//@Test
-	//@DisplayName("회원 복구")
+	@Test
+	@DisplayName("회원 복구")
 	void updateRestoreUser() throws Exception{
 		
 		User user = new User();
-		user.setEmail("user02");
 		Report report = new Report();
+		String email = "user08";
 		report.setReceiveReporter(user);
 		
-		adminService.updateUserRestore(report);
+		adminService.updateUserRestore(email);
 	}
 	
 	//@Test
@@ -68,7 +68,7 @@ public class AdminTest {
 		
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("신고된 사용자 목록 조회")
 	void testListReportUser() throws Exception{
 		
@@ -127,7 +127,7 @@ public class AdminTest {
 		
 		Search search = new Search();
 		search.setCurrentPage(1);
-		search.setPageSize(3);
+		search.setPageSize(10);
 //		search.setSearchCondition("1");
 //		search.setSearchKeyword("");
 		

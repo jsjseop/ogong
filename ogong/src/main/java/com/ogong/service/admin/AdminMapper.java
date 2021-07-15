@@ -31,7 +31,7 @@ public interface AdminMapper {
 	void updateUserSuspend(Report report);
 	
 	//회원 복구
-	void updateUserRestore(Report report);
+	void updateUserRestore(String email);
 	
 	//신고목록 페이지 수
 	int getReportTotalCount(HashMap<String, Object> map);

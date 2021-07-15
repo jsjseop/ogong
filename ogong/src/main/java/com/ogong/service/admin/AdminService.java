@@ -3,9 +3,7 @@ package com.ogong.service.admin;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ogong.service.domain.User;
 import com.ogong.common.Search;
-import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Report;
 
 public interface AdminService {
@@ -26,6 +24,6 @@ public interface AdminService {
 	public void updateUserSuspend(Report report) throws Exception;
 	
 	// 회원 복구하기
-	public void updateUserRestore(Report report) throws Exception;
+	public void updateUserRestore(String email) throws Exception;
 	
 }

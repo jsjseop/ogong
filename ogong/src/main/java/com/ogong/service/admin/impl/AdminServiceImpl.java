@@ -73,8 +73,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void updateUserRestore(Report report) throws Exception {
-		adminMapper.updateUserRestore(report);
+	public void updateUserRestore(String email) throws Exception {
+		adminMapper.updateUserRestore(email);
 		
 	}
 	
