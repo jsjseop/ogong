@@ -14,8 +14,6 @@ import com.ogong.service.domain.Study;
 @Mapper
 public interface StudyroomMapper {
 	
-	void addGSMember(GroupStudyMember gsm);
-	
 	List<GroupStudyMember> getParticipationList(int studyNo);
 	
 	int getTotalCount(int studyNo);

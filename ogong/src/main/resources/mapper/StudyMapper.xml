@@ -36,55 +36,79 @@
 	 	INSERT
 		INTO study
 		( 
-		study_no,
-		email, 
-		study_name, 
-		study_hashtag,
-		study_thumbnail, 
-		study_start_date, 
-		study_end_date, 
-		study_reg_date,
-		current_member, 
-		max_member, 
-		selfstudy_rule, 
-		selfstudy_open_flag, 
-		selfstudy_password, 
-		groupstudy_info, 
-		groupstudy_plan,
-		groupstudy_condition, 
-		recruitment_start_date,
-		recruitment_end_date, 
-		study_end_flag, 
-		studyroom_grade, 
-		study_type, 
-		study_interest
+			study_no,
+			email, 
+			study_name, 
+			study_hashtag,
+			study_thumbnail, 
+			study_start_date, 
+			study_end_date, 
+			study_reg_date,
+			current_member, 
+			max_member, 
+			selfstudy_rule, 
+			selfstudy_open_flag, 
+			selfstudy_password, 
+			groupstudy_info, 
+			groupstudy_plan,
+			groupstudy_condition, 
+			recruitment_start_date,
+			recruitment_end_date, 
+			study_end_flag, 
+			studyroom_grade, 
+			study_type, 
+			study_interest
 		)
 		VALUES	 
 		(	
-		seq_study_no.NEXTVAL, 
-		#{studyMaker.email}, 
-		#{studyName}, 
-		#{studyHashtag:VARCHAR}, 
-		#{studyThumbnail:VARCHAR}, 
-		#{studyStartDate}, 
-		#{studyEndDate}, 
-		SYSDATE, 
-		1, 
-		#{maxMember:NUMERIC}, 
-		#{selfStudyRule:VARCHAR},
-		#{selfStudyOpenFlag:VARCHAR},
-		#{selfStudyPassword:VARCHAR},
-		#{groupStudyInfo:VARCHAR},
-		#{groupStudyPlan:VARCHAR}, 
-		#{groupStudyCondition:VARCHAR}, 
-		#{recruitmentStartDate:DATE}, 
-		#{recruitmentEndDate:DATE},
-		'1', 
-		#{studyRoomGrade},
-		#{studyType}, 
-		#{studyInterest} 
+			seq_study_no.NEXTVAL, 
+			#{studyMaker.email}, 
+			#{studyName}, 
+			#{studyHashtag:VARCHAR}, 
+			#{studyThumbnail:VARCHAR}, 
+			#{studyStartDate}, 
+			#{studyEndDate}, 
+			SYSDATE, 
+			1, 
+			#{maxMember:NUMERIC}, 
+			#{selfStudyRule:VARCHAR},
+			#{selfStudyOpenFlag:VARCHAR},
+			#{selfStudyPassword:VARCHAR},
+			#{groupStudyInfo:VARCHAR},
+			#{groupStudyPlan:VARCHAR}, 
+			#{groupStudyCondition:VARCHAR}, 
+			#{recruitmentStartDate:DATE}, 
+			#{recruitmentEndDate:DATE},
+			'1', 
+			#{studyRoomGrade},
+			#{studyType}, 
+			#{studyInterest} 
 		)
 		
+	 </insert>
+	 
+	 <insert 	id="addParticipation"		parameterType="groupStudyMember" >
+	 	INSERT
+		INTO groupstudy_member
+		( 
+			groupstudy_member_no,
+			study_no, 
+			email, 
+			studyrole,
+			participation_reason, 
+			determination,
+			approval_flag
+		)
+		VALUES	 
+		(	
+			seq_groupstudy_member_no.NEXTVAL, 
+			#{study.studyNo}, 
+			#{member.email}, 
+			#{studyRole:VARCHAR}, 
+			#{participationReason:VARCHAR}, 
+			#{determination:VARCHAR},
+			#{approvalFlag:VARCHAR}
+		)
 	 </insert>
 	 
 	 <select	id="getStudy"	parameterType="study"	resultMap="studySelectMap">
