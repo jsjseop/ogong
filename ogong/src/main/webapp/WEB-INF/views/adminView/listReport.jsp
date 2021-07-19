@@ -35,14 +35,27 @@
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
 		$("input[name='currentPage']").val(currentPage)
-		$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/adminView/listReport").submit();
+		if(${reportType == 1}){
+			$("#currentPage").val(currentPage)
+			alert($("#currentPage").val());
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listReport?reportType=1").submit();
+		}
+		else if(${reportType == 2}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listReport?reportType=2").submit();
+		}
+		else if(${reportType == 3}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listReport?reportType=3").submit();
+		}
 	}
 	
 	
 	
 	$(function(){
 		// 검색
-		$( "td.ct_btn01:contains('검색')").on("click", function(){
+		$("button[name='search']").on("click", function(){
+			alert("asd");
 			fncGetList(1);
 		});	
 		
@@ -124,7 +137,7 @@
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-default">검색</button>
+				  <button type="button" name="search" class="btn btn-default">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>

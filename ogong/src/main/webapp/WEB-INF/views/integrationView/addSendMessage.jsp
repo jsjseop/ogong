@@ -30,7 +30,7 @@
 	 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#btn1" ).on("click" , function() {
-				fncAddReport();
+				fncAddSendMessage();
 			});
 		});	
 		
@@ -42,22 +42,33 @@
 			});
 		});	
 		
-		function fncAddReport(){
+		function fncAddSendMessage(){
 			//Form 유효성 검증
 		 	//var name = document.detailForm.prodName.value;
 			//var detail = document.detailForm.prodDetail.value;
 			//var manuDate = document.detailForm.manuDate.value;
 			//var price = document.detailForm.price.value;
-		
-			var reportReason = $("input[name='reportReason']").val();
+			var sender = "${message.sender.email}";
+			var receiver = $("input[name='receiver.email']").val();
+			var messageContents = $("input[name='messageContents']").val();
 			
-			if(reportReason == null || reportReason.length<1){
-				alert("신고사유 반드시 입력하여야 합니다.");
+			
+		/* 	if(receiver == null || receiver.length<1){
+				alert("수신자 이메일은 반드시 입력해야 합니다.");
+				alert(receiver);
 				return;
 			}
-
-		
-			$("form").attr("method", "POST").attr("action", "/admin/addReport").submit();
+			
+			if(messageContents == null || messageContents.length<1){
+				alert("보낼 내용은 반드시 입력해야 합니다.");
+				alert(messageContents);
+				return;
+			} */
+			alert(sender);
+			alert(receiver);
+			alert(messageContents);
+			
+			$("form").attr("method", "POST").attr("action", "/integration/addSendMessage").submit();
 			
 		}
 //	$( function() {
@@ -78,17 +89,33 @@
 	
 <form class="form-horizontal" method="post" name="addSendMessage" >
 
-  <!-- 신고사유 -->
+  <!-- 발신자 이메일 출력 -->
   <div class="form-group">
-    <label for="reportReason" class="col-sm-offset-1 col-sm-3 control-label">신 고 사 유</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="reportReason" name="reportReason" placeholder="신고 사유를 작성하세요">
-    </div>
+    <label for="message.sender.email" class="col-sm-offset-1 col-sm-3 control-label">발신자 이메일</label>
+    <input type="hidden" name="sender.email" value="${message.sender.email}"/>
+    <div class="col-sm-4">${message.sender.email}</div>
   </div> 
+  
+  <!-- 수신자 이메일 입력 -->
+   <div class="form-group">
+    <label for="message.receiver.email" class="col-sm-offset-1 col-sm-3 control-label">수신자 이메일</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="message.receiver.email" name="receiver.email" placeholder="받는 사람 이메일을 입력하세요">
+    </div>
+  </div>
+  
+  <!-- 내용 입력 -->
+   <div class="form-group">
+    <label for="messageContents" class="col-sm-offset-1 col-sm-3 control-label">내용</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" rows="15" id="messageContents" name="messageContents" placeholder="내용을 입력해 주세요.">
+    </div>
+  </div>  
+  
   
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" id="btn1" class="btn btn-info"  >신 &nbsp;고</button>
+		      <button type="button" id="btn1" class="btn btn-info"  >보&nbsp;내&nbsp;기</button>
 			  <a class="btn btn-info btn" href="#" role="button">취&nbsp;소</a>
 		    </div>
 		  </div>

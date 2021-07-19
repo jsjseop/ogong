@@ -38,8 +38,25 @@
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
-		$("input[name='currentPage']").val(currentPage)
-		$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/adminView/listTotalUser").submit();
+		alert(currentPage);
+		
+		if(${listType == 1}){
+			alert($("#searchCondition").val());
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=1").submit();
+		}
+		else if(${listType == 2}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=2").submit();
+		}
+		else if(${listType == 3}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=3").submit();
+		}
+		else if(${listType == 4}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=4").submit();
+		}
 	}
 	
 	function fncupdateRestoreUser(){
@@ -48,11 +65,11 @@
 	
 	$(function(){
 		// 검색
-		$( "td.ct_btn01:contains('검색')").on("click", function(){
+		$("button[name='search']").on("click", function(){
 			fncGetList(1);
 		});	
 		
-		
+		//정지한 회원 목록에서만 가능한 회원 복구 기능
 		$( "td:contains('복구')").on("click",function(){
 			var email = $(this).find('input').val()
 			alert(email);
@@ -74,19 +91,19 @@
 		})
 		
 	 	$( "a:contains('모든 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+1;
+	 		location.href = "/admin/listTotalUser?listType=1";
 		});
 		
 	 	$( "a:contains('탈퇴한 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+2;
+	 		location.href = "/admin/listTotalUser?listType=2";
 		});
 	 	
 	 	$( "a:contains('복귀한 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+3;
+	 		location.href = "/admin/listTotalUser?listType=3";
 		});
 	 	
 	 	$( "a:contains('정지된 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+4;
+	 		location.href = "/admin/listTotalUser?listType=4";
 		});	 
 	 	
 	})
@@ -112,11 +129,12 @@
 	</script>   	
 </head>
 <body>
-	
+	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../common/toolbar.jsp" />
-	
+	<!-- ToolBar End /////////////////////////////////////-->
 	<div class="contatiner">
 	
+	<!-- 각 목록에 타입을 지정하여 해당하는 목록을 출력 -->
 		<div class="page-header text-info">
 				<c:if test="${listType == 1}">
 	       				<h3>모든 회원 목록</h3>
@@ -154,7 +172,7 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-								<option value="0" ${ search.searchCondition eq '0' ? 'selected' : '' }>닉네임</option>
+								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
 					</select>
 				  </div>
 				  
@@ -164,7 +182,7 @@
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-default">검색</button>
+				  <button type="button" name="search" class="btn btn-default">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
@@ -244,8 +262,9 @@
 		</table>
 
 	</div>
-	
+	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/pageNavigator_new.jsp"/>
-
+	<!-- PageNavigation End... -->
+	
 </body>
 </html>

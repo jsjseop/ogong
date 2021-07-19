@@ -1,6 +1,7 @@
 package com.ogong.web.integration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,10 @@ public class IntegrationRestController {
 		return integrationService.getNoticeCount(email);
 	}
 	
-	@GetMapping(value="json/getListNotice/{email}")
-	public Notice getlistNotice(@PathVariable("email") String email) throws Exception{
+	
+	
+	@GetMapping(value="json/getlistNotice/{email}")
+	public List<Notice> getlistNotice(@PathVariable("email") String email) throws Exception{
 		
 		System.out.println("/getListNotice : GET");
 		Search search = new Search();
@@ -43,7 +46,9 @@ public class IntegrationRestController {
 		return integrationService.getlistNotice(email);
 	}
 	
-	@GetMapping(value="json/updateNoticeState/{email}")
+	
+	
+	@GetMapping(value="json/updateNotice/{email}")
 	public void updateNotice(@PathVariable("email") String email) throws Exception {
 		
 		System.out.println("updateNotice : GET");
@@ -66,6 +71,16 @@ public class IntegrationRestController {
 		
 		integrationService.deleteAllNotice(email);
 	}
+	
+	@GetMapping(value="json/deleteMessage/{messageNo}")
+	public void deleteMessage(@PathVariable("messageNo") int messageNo) throws Exception{
+		
+		integrationService.deleteMessage(messageNo);
+	}
+	
+	
+	
+	/* @PostMapping(value="json/deleteMessage/{email}") */
 }
 
 

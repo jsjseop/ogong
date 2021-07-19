@@ -52,7 +52,7 @@ public class IntegrationServiceImpl implements IntegrationService {
 	}
 
 	@Override
-	public void deleteMessage(int[] messageNo) throws Exception {
+	public void deleteMessage(int messageNo) throws Exception {
 
 		integrationMapper.deleteMessage(messageNo);
 	}
@@ -96,7 +96,7 @@ public class IntegrationServiceImpl implements IntegrationService {
 	}
 
 	@Override
-	public Notice getlistNotice(String email) throws Exception {
+	public List<Notice> getlistNotice(String email) throws Exception {
 
 		return integrationMapper.getlistNotice(email);
 	}
@@ -131,5 +131,9 @@ public class IntegrationServiceImpl implements IntegrationService {
 		integrationMapper.updateNotice(email);
 	}
 	
+	@Override
+	public void deleteTest(Message message) throws Exception{
+		integrationMapper.deleteTest(message);
+	}
 
 }

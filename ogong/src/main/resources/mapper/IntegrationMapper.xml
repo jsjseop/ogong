@@ -23,7 +23,6 @@
 		<result property="noticeBoard.boardNo"			column="BOARD_NO"			jdbcType="NUMERIC"/>
 		<result property="noticeBoard.boardTitle"		column="BOARD_TITLE"		jdbcType="VARCHAR"/>
 		<result property="noticeAnswer.answerNo"		column="ANSWER_NO"			jdbcType="NUMERIC"/>
-		<result property="noticeAnswer.answerTitle"		column="ANSWER_TITLE"		jdbcType="VARCHAR"/>
 		<result property="noticeUser.email"				column="EMAIL"				jdbcType="VARCHAR"/>
 		<result property="sender.email"					column="SENDER_EMAIL"		jdbcType="VARCHAR"/>
 		<result property="noticeGroupMember.groupStudyMemberNo"	column="GROUPSTUDY_MEMBER_NO"	jdbcType="NUMERIC"/>
@@ -74,6 +73,7 @@
 						FROM		( SELECT message_no,
 											 message_contents,
 											 receiver_email,
+											 sender_email,
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE receiver_email = #{message.receiver.email}		      									
@@ -88,6 +88,8 @@
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT message_no,
 											 message_contents,
+											 sender_email,
+											 receiver_email,
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE sender_email = #{message.sender.email}		      									
@@ -99,8 +101,16 @@
 	<!-- 쪽지 삭제 -->	
 	<delete id="deleteMessage"	parameterType="int">
 		DELETE
+		FROM message								
+		WHERE message_no = #{value} 
+	</delete>
+	
+	<!-- 쪽지 삭제 테스트 -->
+	<delete id="deleteTest" parameterType="message">
+		DELETE
 		FROM message
-		WHERE message_no in (+#{value}+)
+		WHERE message_no = #{messageNo}
+		AND RECEIVER_EMAIL = #{receiver.email}
 	</delete>
 	
 	<!-- 바나나 랭킹 목록 -->
@@ -149,7 +159,6 @@
 				 board_title,
 				 study_name,
 				 approval_flag,
-				 answer_title,
 				 notice_condition)
 		VALUES   (seq_notice_no.nextVal,
 				  #{noticeStudy.studyNo:NUMERIC},
@@ -162,7 +171,6 @@
 				  #{noticeBoard.boardTitle:VARCHAR},
 				  #{noticeStudy.studyName:VARCHAR},
 				  #{noticeGroupMember.approvalFlag:VARCHAR},
-				  #{noticeAnswer.answerTitle:VARCHAR},
 				  #{noticeCondition:VARCHAR}				  
 				  )
 	</insert>
@@ -170,7 +178,7 @@
 	<!-- 알림 목록 -->
 	<select id="getlistNotice" parameterType="string" resultMap="NoticeSelectMap">
 		SELECT 
-		notice_no, notice_category, board_title, study_name, approval_flag, sender_email
+		notice_no, notice_category, board_title, study_name, approval_flag, sender_email, approval_flag
 		FROM notice
 		WHERE email = #{value}	
 	</select>
@@ -203,7 +211,8 @@
 		SELECT
 		COUNT(*)
 		FROM notice
-		WHERE email in (#{email}) AND NOTICE_CATEGORY in ('1', '2', '3', '4', '5', '6', '7')
+		WHERE email = #{value} 
+		AND notice_condition = '2'
 	</select>	
 	
 	<update id="updateNotice" parameterType="string">

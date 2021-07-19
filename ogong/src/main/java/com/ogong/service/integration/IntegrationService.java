@@ -1,6 +1,7 @@
 package com.ogong.service.integration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.ogong.common.Search;
@@ -20,7 +21,10 @@ public interface IntegrationService {
 	public void addSendMessage(Message message) throws Exception;
 	
 	//쪽지 삭제
-	public void deleteMessage(int[] messageNo) throws Exception;
+	public void deleteMessage(int messageNo) throws Exception;
+	
+	//쪽지 삭제 테스트
+	public void deleteTest(Message message) throws Exception;
 	
 	//알림
 	public void addNotice(Notice notice) throws Exception;
@@ -38,7 +42,7 @@ public interface IntegrationService {
 	public Notice getNotice(int noticeNo) throws Exception;
 	
 	//알림 목록 조회
-	public Notice getlistNotice(String email) throws Exception;
+	public List<Notice> getlistNotice(String email) throws Exception;
 	
 	//알림 선택 삭제
 	public void deleteNotice(int noticeNo) throws Exception;

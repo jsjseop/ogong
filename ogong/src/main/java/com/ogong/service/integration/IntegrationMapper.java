@@ -26,7 +26,10 @@ public interface IntegrationMapper {
 	public int addSendMessage(Message message);
 	
 	//쪽지 삭제
-	public void deleteMessage(int[] messageNo);
+	public void deleteMessage(int messageNo);
+	
+	//쪽지 삭제 테스트
+	public void deleteTest(Message message);
 	
 	//알림
 	public void addNotice(Notice notice);
@@ -41,7 +44,7 @@ public interface IntegrationMapper {
 	List<User> listChooseCountRanking(HashMap<String, Object> map);
 	
 	//알림 목록
-	Notice getlistNotice(String email);
+	List<Notice> getlistNotice(String email);
 	
 	//알림 조회
 	Notice getNotice(int noticeNo);
