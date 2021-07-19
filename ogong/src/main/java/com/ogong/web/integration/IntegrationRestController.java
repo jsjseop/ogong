@@ -78,6 +78,7 @@ public class IntegrationRestController {
 		integrationService.deleteMessage(messageNo);
 	}
 	
+
 	
 	
 	/* @PostMapping(value="json/deleteMessage/{email}") */

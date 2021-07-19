@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
@@ -33,10 +34,10 @@ public interface IntegrationService {
 	public Map<String, Object> listLearningHistoryRanking() throws Exception;
 	
 	//바나나 랭킹
-	public Map<String, Object> listBananaRanking(HashMap<String, Object> map) throws Exception;
+	public List<User> listBananaRanking(HashMap<String, Object> map) throws Exception;
 	
 	//채택수 랭킹
-	public Map<String, Object> listChooseCountRanking(HashMap<String, Object> map) throws Exception;
+	public List<Answer> listChooseCountRanking(HashMap<String, Object> map) throws Exception;
 	
 	//알림 조회
 	public Notice getNotice(int noticeNo) throws Exception;

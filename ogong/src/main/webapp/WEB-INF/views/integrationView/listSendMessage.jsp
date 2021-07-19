@@ -66,10 +66,10 @@
 		});
 		
 	 	$( "a:contains('보낸쪽지함')" ).on("click" , function() {
-	 		location.href = "/integration/listSendMessage?sender.email=user01";
+	 		location.href = "/integration/listSendMessage";
 		});
 	 	$( "a:contains('받은쪽지함')" ).on("click" , function() {
-	 		location.href = "/integration/listReceiveMessage?receiver.email=user01";
+	 		location.href = "/integration/listReceiveMessage";
 		});
 	 	
 
@@ -105,7 +105,7 @@
   		  	 	 data : { messageNo : messageArr },
     		 	 success : function(result){
    		   	 	 	if(result == 1){
-    		 		 	location.href = "/integration/listSendMessage?sender.email=user01";
+    		 		 	location.href = "/integration/listSendMessage";
    		   	 	 	} else {
    		   	 	 		alert("삭제 실패")
    		   	 	 	}

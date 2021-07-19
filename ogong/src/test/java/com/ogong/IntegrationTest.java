@@ -143,7 +143,7 @@ public class IntegrationTest {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		Map<String, Object> result = integrationService.listBananaRanking(map);
+		//Map<String, Object> result = integrationService.listBananaRanking(map);
 		List<Object> list = (List<Object>)map.get("list");
 		
 		
@@ -162,7 +162,7 @@ public class IntegrationTest {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		Map<String, Object> result = integrationService.listChooseCountRanking(map);
+		Map<String, Object> result = (Map<String, Object>) integrationService.listChooseCountRanking(map);
 		List<Object> list = (List<Object>)map.get("list");
 		
 		
@@ -192,7 +192,7 @@ public class IntegrationTest {
 		
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("알림 목록 조회")
 	void testlistNotice() throws Exception{
 		

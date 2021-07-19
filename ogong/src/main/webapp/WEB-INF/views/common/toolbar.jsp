@@ -10,7 +10,7 @@
 	
 	<div class="container">
 	       
-		<a class="navbar-brand" href="#">OGong</a>
+		<a class="navbar-brand" >오공</a>
 		
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
@@ -57,8 +57,8 @@
 	               </li>
 	                 
 	              <!-- 관리자기능 DrowDown  -->
-	               <%-- <c:if test="${sessionScope.user.role == 'admin'}"> --%>
-		              
+	               <c:if test="${sessionScope.user.role == '2'}">
+		             
 		              <li class="dropdown">
 		                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 		                         <span >관리자</span>
@@ -75,7 +75,7 @@
 		                     </ul>
 		                </li>
 		              
-	                 <%-- </c:if> --%>
+	                 </c:if>
 	                 
 	             </ul>
 	             
@@ -83,6 +83,7 @@
 	             	<ul class="nav navbar-nav navbar-right">
 	             	
 	             	<!-- 알림 툴바 -->
+	             	<c:if test="${sessionScope.user.role == '1'}">
 						<li class="dropdown-toggle" id="noticeCount">
 							<a href="#" data-toggle="dropdown" role="button" aria-expanded="false"> 
 								<span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
@@ -92,6 +93,7 @@
 								<div align="right"><a href="javascript:deleteNoticeAll('user01')">전체삭제</a></div>
 							</ul>
 						</li>
+					</c:if>
 					<!-- 알림 툴바 END -->	
 					<!-- 프로필 툴바 -->
 						<li class="dropdown">
@@ -129,7 +131,7 @@
 	   	
 	   	function noticeCount() {
 	   		
-	   		var email = "user01";
+	   		
 	   		
 	   			$.ajax(
 	   					{
@@ -210,7 +212,7 @@
    		
 	 	
 	 		
-	 	var email = "user01";
+	 	
 	 	
 	 if( email != ''){
 	 		
@@ -318,6 +320,10 @@
 			}); 
 		 }); */
 		
+		$( "a:contains('오공')").on("click", function(){
+			location.href = "/integration/mainPage";
+		}) ;
+		 
 		//=============  자율스터디목록 Event  처리 =============
 	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
 	 		location.href = "/";
@@ -375,8 +381,8 @@
 	 	
 	 	//=============  쪽지 Event  처리 =============
 	 	$( "a:contains('쪽지')").on("click", function(){
-	 		location.href = "/integration/listSendMessage?sender.email=user01";
-	 	});	 
+	 		location.href = "/integration/listSendMessage";
+	 	});	
 	 	
 	 	//=============  공부기록 Event  처리 =============
 	 	$( "a:contains('공부기록')").on("click", function(){
