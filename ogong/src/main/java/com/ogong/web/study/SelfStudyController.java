@@ -81,7 +81,7 @@ public class SelfStudyController {
 			return "redirect:/study/getStudy?studyNo="+study.getStudyNo();
 		}
 		
-		return "redirect:https://wnstjqtest.herokuapp.com/"+ study.getStudyNo();
+		return "redirect:https://wnstjqtest.herokuapp.com/"+ study.getStudyNo()+"/"+user.getEmail();
 	}
 	
 	@GetMapping("getStudy")
@@ -107,7 +107,7 @@ public class SelfStudyController {
 		
 		studyService.entranceStudy(studyNo);
 		
-		return "redirect:https://wnstjqtest.herokuapp.com/"+ studyNo;
+		return "redirect:https://wnstjqtest.herokuapp.com/"+ studyNo+"/"+"user01";
 	}
 	
 	@RequestMapping("listStudy")
