@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ogong.service.user.UserMapper">
+ 	
+ 	
+	 <resultMap id="userSelectMap" type="user">
+		<result property="email" 				column="email" 				jdbcType="VARCHAR"/>
+		<result property="role"					column="role" 				jdbcType="VARCHAR" />
+		<result property="condition" 			column="condition" 			jdbcType="VARCHAR" />
+		<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
+		<result property="password" 			column="password" 			jdbcType="VARCHAR" />
+		<result property="name" 				column="name" 				jdbcType="VARCHAR" />
+		<result property="birth" 				column="birth" 				jdbcType="DATE" />
+		<result property="gender" 				column="gender" 			jdbcType="VARCHAR"  />
+		<result property="userImage" 			column="user_image" 		jdbcType="VARCHAR" />
+		<result property="goal" 				column="goal" 				jdbcType="VARCHAR" />
+		<result property="withdrawDate" 		column="withdraw_date" 		jdbcType="DATE" />
+		<result property="withdrawReason" 		column="withdraw_reason" 	jdbcType="VARCHAR" />
+		<result property="restoreDate" 			column="restore_date" 		jdbcType="DATE" />
+		<result property="restoreReason" 		column="restore_reason" 	jdbcType="VARCHAR" />
+		<result property="diligenceRate" 		column="diligence_rate" 	jdbcType="NUMERIC" />
+		<result property="participationRate" 	column="participation_rate" jdbcType="NUMERIC" />
+		<result property="suspendStartDate" 	column="suspend_start_date" jdbcType="DATE" />
+		<result property="suspendEndDate" 		column="suspend_end_date" 	jdbcType="DATE" />
+		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
+		<result property="regDate" 				column="reg_date" 			jdbcType="DATE" />
+		<result property="bananaCount" 			column="banana_count" 		jdbcType="NUMERIC" />
+		<result property="learingType" 			column="learing_type" 		jdbcType="VARCHAR" />
+		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
+		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
+		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
+		<result property="certified" 			column="certified" 			jdbcType="VARCHAR" />
+		
+		
+	</resultMap> 
+	
+	<!-- SQL : INSERT  회원가입-->
+	<insert 	id="addUser"		parameterType="user" >
+      	INSERT INTO users (
+    EMAIL,
+    NICKNAME,
+    PASSWORD,
+    NAME,
+    BIRTH,
+    GENDER,
+    USER_IMAGE,
+    GOAL,
+    WITHDRAW_DATE,
+    WITHDRAW_REASON,
+    RESTORE_DATE,
+    RESTORE_REASON,
+    DILIGENCE_RATE,
+    PARTICIPATION_RATE,
+    SUSPEND_START_DATE,
+    SUSPEND_END_DATE,
+    USER_TARGET_TIME,
+    reg_Date,
+    BANANA_COUNT,
+    LEARING_TYPE,
+    STUDY_INTEREST1,
+    STUDY_INTEREST2,
+    STUDY_INTEREST3,
+    CERTIFIED
+) VALUES (
+    #{email:VARCHAR},
+    #{nickname:VARCHAR},
+    #{password:VARCHAR},
+    #{name:VARCHAR},
+    #{birth:DATE},
+    #{gender:VARCHAR},
+    #{userImage:VARCHAR},
+    #{goal:VARCHAR},
+    #{withdrawDate:DATE},
+    #{withdrawReason:VARCHAR},
+    #{restoreDate:DATE},
+    #{restoreReason:VARCHAR},
+    #{diligenceRate:NUMERIC},
+    #{participationRate:NUMERIC},
+    #{suspendStartDate:DATE},
+    #{suspendEndDate:DATE},
+    #{userTargetTime:NUMERIC},
+    sysdate,
+    #{bananaCount:NUMERIC},
+    #{learingType:VARCHAR},
+    #{studyInterest1:VARCHAR},
+    #{studyInterest2:VARCHAR},
+    #{studyInterest3:VARCHAR},
+    #{certified:VARCHAR}
+)
+	 </insert>
+	 
+	  	 <!--로그인  -->  	  
+	  <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+  	  	  
+  	  	  select *
+from users
+where EMAIL=#{email}
+AND PASSWORD = #{password}
+  	  	  </select> 
+	
+	 
+	 	 <!-- 비밀번호 변경 	  -->
+	 
+	   <update id="updatePassword" parameterType="user">
+    update USERS
+     set password= #{newPassword}
+    where EMAIL = #{email}
+    
+    
+    
+  </update>
+  
+    	<!-- 아이디 중복검사 -->
+  	<select id="idCheck" resultType="int">
+  	
+  		select *
+  		from users 
+  		where 
+  		email = #{memberId}
+  
+	 </select>
+	 
+	 
+	 
+	<!-- SQL : 프로필 보기 
+	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+		userImage, nickname , userName , birth ,  gender ,  goal , uInterest		
+		FROM users 
+		WHERE EMAIL = #{EMAIL}
+	 </select> -->
+		
+		
+	 
+	<!--  SQL : 프로필 (수정)  
+	 <update	id="updateProfile"	parameterType="user" >
+	   	UPDATE users
+	   	set
+	   		  		 name =  #{name} ,
+   		 birth =  #{birth} ,
+   		 gender =  #{gender} ,
+   		 USERIMAGE =  #{user_image} ,
+    		goal =  #{goal} ,
+	   	set
+	   	WHERE email = #{email}
+	 </update> -->
+	 
+
+
+	  	
+	 <!-- SQL : 비밀번호 찾기	 
+	 	   <select id="getPassword" parameterType="String" resultType="String">
+	  	select *  from user where email=#{email}
+	  	</select> -->
+	  	
+	  	
+
+
+
+
+
+  
+		 <!-- 이메일 중복확인   
+
+  	  	  <select id="emailCheck" parameterType="String" resultMap="user">
+  	  	  select count(*)
+  	  	  form users
+  	  	  where email=#{email}
+  	  	  </select> -->
+  	  	  
+  	  	  
+ 
+  	  	   
+  	  	  
+
+	 
+
+</mapper>
