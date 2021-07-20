@@ -25,7 +25,16 @@
 
 	$(function (){
 		$("tbody td:nth-child(4)").find('button:contains("승인")').on("click", function(){
-			alert($(this).val()+"미구현")
+			
+			gsmNo = $(this).val();
+			
+			alert($(this).val()+"미구현");
+			
+
+		})
+		
+		$('tr td:nth(5)').on("click", function(){
+			
 		})
 		
 		$("tbody td:nth-child(4)").find('button:contains("거절")').on("click", function(){
@@ -83,11 +92,19 @@
                   </table>
             
       		 </div>	
-      		 
-                  
+ 
                 </div>
           </div> 
           
           </form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

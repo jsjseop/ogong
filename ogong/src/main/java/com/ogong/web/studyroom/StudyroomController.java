@@ -3,6 +3,8 @@ package com.ogong.web.studyroom;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,27 @@ public class StudyroomController {
 	
 	public StudyroomController(){
 		System.out.println(this.getClass());
+	}
+	
+	@GetMapping("getStudyRoom")
+	public String getStudyRoom ( @RequestParam("studyNo") String studyNo,
+								@RequestParam("email") String email,
+								Model model, HttpSession session) throws Exception{
+		
+		model.addAttribute("studyNo", studyNo);
+		model.addAttribute("email", email);
+		
+		return "/studyroomView/getStudyRoom";
+	}
+	
+//	
+	@GetMapping("chat")
+	public String chat( @RequestParam("email") String email,
+						@RequestParam("studyNo") String studyNo,
+						Model model) throws Exception{
+		model.addAttribute("studyNo", studyNo);
+		model.addAttribute("email", email);
+		return "/studyroomView/chat";
 	}
 	
 	@GetMapping("listParticipation")
@@ -86,5 +109,10 @@ public class StudyroomController {
 		studyroomService.updateStudy(study);
 		
 		return "/studyroomView/getStudyRoomInfo";
+	}
+	
+	@PostMapping("addAttendance")
+	public String addAttendance()throws Exception{
+		return null;
 	}
 }

@@ -38,8 +38,23 @@
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
-		$("input[name='currentPage']").val(currentPage)
-		$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/adminView/listTotalUser").submit();
+		
+		if(${listType == 1}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=1").submit();
+		}
+		else if(${listType == 2}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=2").submit();
+		}
+		else if(${listType == 3}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=3").submit();
+		}
+		else if(${listType == 4}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=4").submit();
+		}
 	}
 	
 	function fncupdateRestoreUser(){
@@ -48,45 +63,47 @@
 	
 	$(function(){
 		// 검색
-		$( "td.ct_btn01:contains('검색')").on("click", function(){
+		$("button[name='search']").on("click", function(){
 			fncGetList(1);
 		});	
 		
-		
+		//정지한 회원 목록에서만 가능한 회원 복구 기능
 		$( "td:contains('복구')").on("click",function(){
-			var email = $(this).find('input').val()
-			alert(email);
-			//fncupdateRestoreUser();
-			$.ajax({
-			
-			url : "/admin/json/updateUserRestore/"+email,
-			method : "GET" ,
-			dataType : "json" ,
-			headers : {
-				"Accept" : "application/json",
-				"Content-Type" : "application/json"
-			},
-			success : function(JSONData, status){
+				var email = $(this).find('input').val()
+				/* alert(email); */
+				//fncupdateRestoreUser();
+				$.ajax({
 				
-			}
-		})
-			/* $('#test').remove(); */
+					url : "/admin/json/updateUserRestore/"+email,
+					method : "GET" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					success : function(JSONData, status){
+					
+					}
+				})
+				$("#trRemove").remove();
+			
+			
 		})
 		
 	 	$( "a:contains('모든 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+1;
+	 		location.href = "/admin/listTotalUser?listType=1";
 		});
 		
 	 	$( "a:contains('탈퇴한 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+2;
+	 		location.href = "/admin/listTotalUser?listType=2";
 		});
 	 	
 	 	$( "a:contains('복귀한 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+3;
+	 		location.href = "/admin/listTotalUser?listType=3";
 		});
 	 	
 	 	$( "a:contains('정지된 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType="+4;
+	 		location.href = "/admin/listTotalUser?listType=4";
 		});	 
 	 	
 	})
@@ -105,18 +122,20 @@
 			success : function(JSONData, status){
 				
 			}
-		})
+		});
+		
 		
 	}
 	
 	</script>   	
 </head>
 <body>
-	
+	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../common/toolbar.jsp" />
-	
+	<!-- ToolBar End /////////////////////////////////////-->
 	<div class="contatiner">
 	
+	<!-- 각 목록에 타입을 지정하여 해당하는 목록을 출력 -->
 		<div class="page-header text-info">
 				<c:if test="${listType == 1}">
 	       				<h3>모든 회원 목록</h3>
@@ -130,7 +149,6 @@
 	       		<c:if test="${listType == 4}">
 	       				<h3>정지된 회원 목록</h3>
 	       		</c:if>
-	       		
 	    </div>
 
 	    <ul class="nav nav-tabs">
@@ -154,7 +172,7 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-								<option value="0" ${ search.searchCondition eq '0' ? 'selected' : '' }>닉네임</option>
+								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
 					</select>
 				  </div>
 				  
@@ -164,7 +182,7 @@
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-default">검색</button>
+				  <button type="button" name="search" class="btn btn-default">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
@@ -178,7 +196,6 @@
 			<form>
 			<thead>
 				<tr>
-
 					<th align="center">No</th>
 					<th align="center">이메일</th>
 					<th align="center">닉네임</th>
@@ -207,7 +224,7 @@
 				<c:set var="i" value="0" />
 				<c:forEach var="user" items="${list}">
 					<c:set var="i" value="${ i+1 }" />
-					<tr>
+					<tr id="trRemove">
 						<td align="center">${ i }</td>
 						<td align="left">
 							<div class="user">${user.email}</div>
@@ -234,9 +251,6 @@
 								<input type="hidden" name="email" value="${user.email}" />
 							</td>
 						</c:if>
-
-
-
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -244,8 +258,9 @@
 		</table>
 
 	</div>
-	
+	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/pageNavigator_new.jsp"/>
-
+	<!-- PageNavigation End... -->
+	
 </body>
 </html>

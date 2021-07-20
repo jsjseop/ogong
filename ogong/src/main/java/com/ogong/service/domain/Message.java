@@ -12,5 +12,5 @@ public class Message {
 	private String sendDate;
 	private User receiver;
 	private User sender;
-
+	private String messageCategory;
 }

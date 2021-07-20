@@ -18,6 +18,10 @@
 <script type="text/javascript">
 
 	$( function (){
+		$("a:contains('스터디룸 메인')").on("click", function(){
+			self.location = "/studyroom/getStudyroom?studyNo="+${studyNo}
+		});
+		
 		$("a:contains('스터디룸 정보조회')").on("click", function(){
 			self.location = "/studyroom/getStudyroomInfo?studyNo="+${studyNo}
 		});
