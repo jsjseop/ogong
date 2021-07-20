@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -89,82 +90,64 @@ public class UserController {
 
 		return "index";
 	}
-	
-	//비밀번호 찾기
-	/*
-	 * @GetMapping("/getPassword") public @ResponseBody Map<String, Boolean>
-	 * pw_find(String email, String nickname){ Map<String,Boolean> json = new
-	 * HashMap<>(); boolean pwFindCheck = userService.getPassword(email, nickname);
-	 * 
-	 * System.out.println(pwFindCheck); json.put("check", pwFindCheck); return json;
-	 * }
-	 */
-	
-	 
-
-
-
-	 
-	
 
 	
 	  // 비밀번호 변경 화면이동
 	  
 	 
-	  @GetMapping("UpdatePassword") 
-	  public String UpdatePassword() throws Exception {
-	    	  
-	  return "/userView/UpdatePassword"; }
-	  
-	  //비밀번호 변경
-	  
-		@RequestMapping( value="updatePassword", method=RequestMethod.POST )
-		public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
-
-			System.out.println("/user/updateUser : POST");
-			//Business Logic
-			userService.updatePassword(user);
+		
+		@GetMapping("Changedpassword")
+		public String Changedpassword() throws Exception{
 			
-			String sessionId=((User)session.getAttribute("user")).getEmail();
-			if(sessionId.equals(user.getEmail())){
-				session.setAttribute("user", user);
-			}
-			
-			return "redirect:/userView/getUser?email="+user.getEmail();
+			return "/userView/Changedpassword";
 		}
-	  
+		
+		 
+		 
+		 @GetMapping("updateProfile") 
+		  public String updateProfile(HttpServletRequest request) throws Exception {
+		   
+			  HttpSession session = request.getSession();
+			  String email = (String) session.getAttribute(getProfile());
+			  
+		  return "/userView/updateProfile"; }
+		 
+		 
+		 
+
 	  
 		
+		  
+		  
+		  
+		 
+		 //프로필 수정 
+		  
+		  @RequestMapping( value="updateProfile", method=RequestMethod.POST )
+			public String updateProfile( @ModelAttribute("user") User user , Model model, HttpSession session ) throws Exception{
 
+				System.out.println("/user/updateUser : POST");
+				//Business Logic
+				userService.updateProfile(user);
+				
+				
+				
+				  String sessionId=((User)session.getAttribute("user")).getEmail();
+				  if(sessionId.equals(user.getEmail())){ session.setAttribute("user", user); }
+				 
+				 
+				
+				return "index";
+			}
+		  
+		  //프로필 보기
 	  
-	  
-		/*
-		 * @RequestMapping(value="/UpdatePassword", method = RequestMethod.POST) public
-		 * String UpdatePassword(User user, HttpSession session, RequestMethod ra)
-		 * throws Exception{
-		 * 
-		 * userService.updatePassword(user); session.setAttribute("UpdatePassword",
-		 * "user" );
-		 * 
-		 * return "index" ; }
-		 */
-	  
-	  // 비밀번호 변경
-	  
-		/*
-		 * @PostMapping("updatePassword") public String
-		 * updatePassword(@ModelAttribute("user") User user , Model model, HttpSession
-		 * session) throws Exception{
-		 * 
-		 * userService.updatePassword(user);
-		 * 
-		 * String sessionId=((User)session.getAttribute("user")).getEmail();
-		 * 
-		 * 
-		 * if(sessionId.equals(user.getEmail())) { session.setAttribute("user", user); }
-		 * 
-		 * return "index"; }
-		 */
+		  
+		  @GetMapping("getProfile") 
+		  public String getProfile() throws Exception {
+		    	  
+		  return "/userView/getProfile"; }
+		  
 	 
 
 	/* 이메일 인증 */
@@ -231,110 +214,56 @@ public String idCheck(String nickname) throws Exception{
 	}		
 }
 }
- // memberIdChkPOST() 종료
-
-
-
-/*
- * @RequestMapping( value="addUser", method=RequestMethod.POST ) public String
- * addUser( @ModelAttribute("user") User user ) throws Exception {
- * 
- * System.out.println("/user/addUser : POST"); //Business Logic
- * userService.addUser(user);
- * 
- * return "redirect:/user/loginView"; }
- * 
- * 
- * @PostMapping("userView/addUser")
- */
-//	public String addUser() throws {
-
-/*
- * @RequestMapping(value="/adduser", method=RequestMethod.POST) public String
- * joinPOST(User user) throws Exception{
- * 
- * String rawPw = ""; // 인코딩 전 비밀번호 String encodePw = ""; // 인코딩 후 비밀번호
- * 
- * rawPw = member.getMemberPw(); // 비밀번호 데이터 얻음 encodePw =
- * pwEncoder.encode(rawPw); // 비밀번호 인코딩 member.setMemberPw(encodePw); // 인코딩된
- * 비밀번호 member객체에 다시 저장
- * 
- * 회원가입 쿼리 실행 userServce.addUser(user);
- * 
- * return "redirect:/main";
- */
-
-/*
- * @PostMapping("userView/checkDuplication") public String
- * checkDuplication(@ModelAttribute("user") User user) throws Exception {
- * 
- * System.out.println("userView/checkDuplication : POST");
- * 
- * userServce.checkDuplication(user);
- * 
- * return "userView/checkDuplication"; }
- */
-
-/*
- * @RequestMapping( value="userView/checkDuplication", method=RequestMethod.POST
- * ) public String checkDuplication( @RequestParam("userId") String userId ,
- * Model model ) throws Exception{
- * 
- * System.out.println("/user/checkDuplication : POST"); //Business Logic boolean
- * result=UserService.checkDuplication(email); // Model 과 View 연결
- * model.addAttribute("result", new Boolean(result));
- * model.addAttribute("userId", userId);
- * 
- * return "forward:/user/checkDuplication"; }
- */
 
 /*
  * 
- * public UserController(){ System.out.println(this.getClass()); }
+ * // 닉네임 수정
  * 
- */
-
-/*
- * @GetMapping("userView/addUser") public String addUser() throws Exception{
+ * @RequestMapping("updateNickname") public String
+ * updateNickname( @RequestParam("email") String email,
  * 
- * System.out.println("/UserView/adduser : GET");
+ * @RequestParam("nickname") String nickname,
  * 
- * return "userView/addUser"; }
- */
-/*
+ * @ModelAttribute("user") User user) throws Exception {
+ * System.out.println("닉네임수정"); userService.updateNickname(user); return
+ * "user/updatenickname"; }
  * 
- * @PostMapping("addUserView") public String addUser(@ModelAttribute("user")
- * User user ) throws Exception{
+ * // 관심사 수정
  * 
- * System.out.println("/user/addUser : POST"); //Business Logic
- * userService.addUser(user);
+ * @RequestMapping("updateInterest") public String
+ * updateInterest( @RequestParam("email") String email,
  * 
- * return "/userView/loginView";
+ * @RequestParam("studyInterest1") String studyInterest1,
  * 
- * }
+ * @RequestParam("studyInterest2") String studyInterest2,
  * 
+ * @RequestParam("studyInterest3") String studyInterest3,
  * 
+ * @ModelAttribute("user") User user) throws Exception {
+ * System.out.println("관심사수정"); userService.updatestudyInterest(user); return
+ * "user/updateInterest"; } // 이름 수정
  * 
+ * @RequestMapping("updatename") public String
+ * updatename( @RequestParam("email") String email,
  * 
- * @RequestMapping( value="getUser", method=RequestMethod.GET ) public String
- * getUser( @RequestParam("userId") String userId , Model model ) throws
- * Exception {
+ * @RequestParam("name") String name,
  * 
- * System.out.println("/user/getUser : GET"); //Business Logic User user =
- * userService.getUser(userId); // Model 과 View 연결 model.addAttribute("user",
- * user);
+ * @ModelAttribute("user") User user) throws Exception {
+ * System.out.println("이름수정"); userService.updatename(user); return
+ * "user/updatename"; }
  * 
- * return "forward:/user/getUser.jsp"; }
+ * // 생년월일
  * 
+ * @RequestMapping("updatebirth") public String
+ * updatebirth( @RequestParam("email") String email,
  * 
+ * @RequestParam("name") String name,
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ * @ModelAttribute("user") User user) throws Exception {
+ * System.out.println("이름수정"); userService.updatename(user); return
+ * "user/updatename"; }
  * 
  * }
  */
+
+// 

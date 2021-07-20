@@ -42,8 +42,7 @@
 	
 	
 	
-	
-	<!-- SQL : INSERT  회원가입-->
+
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
     EMAIL,
@@ -94,7 +93,30 @@
     #{studyInterest2:VARCHAR},
     #{studyInterest3:VARCHAR}
 )
+
+
+
+	 
+
+
 	 </insert>
+	 
+	 	<!--SQL : 프로필 (수정)  -->    
+	 <update	id="updateProfile"	parameterType="user" >
+	   	UPDATE users
+	   	<set>
+  		USER_IMAGE =  #{userImage:VARCHAR},
+	   		NICKNAME = #{nickname:VARCHAR},
+	   		NAME =  #{name:VARCHAR}, 
+   			BIRTH =  #{birth:DATE},
+   		 	GENDER =  #{gender:VARCHAR},
+    		GOAL =  #{goal:VARCHAR},
+    		STUDY_INTEREST1 = #{studyInterest1:VARCHAR},
+    		STUDY_INTEREST2 = #{studyInterest2:VARCHAR},
+    		STUDY_INTEREST3 = #{studyInterest3:VARCHAR} 
+	   	</set>
+	   	WHERE EMAIL = #{email:VARCHAR}
+	 </update> 
 	 
 	  	 <!--로그인  -->  	  
 	  <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
@@ -105,88 +127,32 @@ where EMAIL= #{email:VARCHAR}
 AND PASSWORD = #{password:VARCHAR}
   	  	  </select> 
 	
+	  
 	 
-	 	 <!-- 비밀번호 변경 	  -->
-	 
-	   <update id="updatePassword" parameterType="user">
+	   <update id="Changedpassword" parameterType="user">
     update USERS
-         NICKNAME= #{nickname}
-     set PASSWORD= #{password},
+     set
+     PASSWORD= #{password} 
     where EMAIL= #{email:VARCHAR}
-    
-    
-
-    
+ 
   </update>
-  
-    	<!-- 아이디 중복검사 -->
-  	<select id="idCheck" resultType="int">
+   
+<!--   	<select id="nicknameCheck" parameterType="String" resultType="int">
   	
-  		select *
-  		from users 
-  		where 
-  		email = #{memberId}
+SELECT count(*)
+		FROM users
+		WHERE NICKNAME = #{nickname};
   
 	 </select>
+	  -->
 	 
 	 
-	 
-		<!--프로필 보기  --> 
-	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
-		SELECT
-		user_Image AS userImage,
-		nickname AS nickname,
-		name AS name,
-		birth AS birth,
-		gender AS gender,
-		goal AS goal,
+ 	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
+		SELECT *
 		form users
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
 		
-		
-	 
-	<!--SQL : 프로필 (수정)  -->    
-	 <update	id="updateProfile"	parameterType="user" >
-	   	UPDATE users
-	   	set
-	   		  		 name =  #{name} ,
-   		 birth =  #{birth} ,
-   		 gender =  #{gender} ,
-   		 USERIMAGE =  #{user_image} ,
-    		goal =  #{goal} ,
-	   	set
-	   	WHERE email = #{email}
-	 </update> 
-	 
-
-
-	  	
-	 <!-- SQL : 비밀번호 찾기	 
-	 	   <select id="getPassword" parameterType="String" resultType="String">
-	  	select *  from user where email=#{email}
-	  	</select> -->
-	  	
-	  	
-
-
-
-
-
-  
-		 <!-- 이메일 중복확인   
-
-  	  	  <select id="emailCheck" parameterType="String" resultMap="user">
-  	  	  select count(*)
-  	  	  form users
-  	  	  where email=#{email}
-  	  	  </select> -->
-  	  	  
-  	  	  
- 
-  	  	   
-  	  	  
-
-	 
+	
 
 </mapper>

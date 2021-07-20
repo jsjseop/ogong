@@ -21,104 +21,22 @@
 
 <script type="text/javascript">
 
-function count_ck(obj){
-    var chkbox = document.getElementsByName("chk");
-    var chkCnt = 0;
-    for(var i = 0; i < chkbox.length; i++){
-        if(chkbox[i].checked){
-            chkCnt++;
-        }
-    }
-    if(chkCnt>3){
-    	showMessage("3개 이상 선택할 수 없습니다.");
-        obj.checked = false;
-        return false;
-    }
-}
-
-function showMessage(text) {
-    swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 3000
-      })({
-          type:'error',
-          title: text
-      });
-}
-
-function showPopup(title, cont, type) {
-    swal(title,
-         cont,
-         type);
-}
 
 
 	$(function(){
 		$ ( "#btn1").on("click", function(){
-			fncAddStudy();
+			fncupdateProfile();
 		});
 	});
 	
-	function fncAddStudy() {
-		$("form").attr("method","POST").attr("action","/study/addStudy").submit();
+	function fncupdateProfile() {
+		$("form").attr("method","POST").attr("action","/user/updateProfile").submit();
 	}
 	
-	$( function() {
-		$('#sdate, #sdate1').datepicker();
-		
-		$('#sdate').datepicker("option", "maxDate", $("#edate").val());
-		
-		$('#sdate1').datepicker("option", "maxDate", $("#edate1").val());
-		
-		$('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
-			$("#edate").datepicker( "option", "minDate", selectedDate );
-		});
-		
-		$('#sdate1').datepicker("option", "onClose", function ( selectedDate ) {
-			$("#edate1").datepicker( "option", "minDate", selectedDate );
-		});
-		$('#edate, #edate1').datepicker();
-		
-		$('#edate').datepicker("option", "minDate", $("#sdate").val());
-		
-		$('#edate1').datepicker("option", "minDate", $("#sdate1").val());
-		
-		$('#edate').datepicker("option", "onClose", function ( selectedDate ) {
-			$("#sdate").datepicker( "option", "maxDate", selectedDate );
-		});
-		
-		$('#edate1').datepicker("option", "onClose", function ( selectedDate ) {
-			$("#sdate1").datepicker( "option", "maxDate", selectedDate );
-		});
-		
-		
+
 	
-	});
-	$.datepicker.regional['ko'] = {
-	        closeText: '닫기',
-	        prevText: '이전달',
-	        nextText: '다음달',
-	        currentText: '오늘',
-	        monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
-	        '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
-	        monthNamesShort: ['1월','2월','3월','4월','5월','6월',
-	        '7월','8월','9월','10월','11월','12월'],
-	        dayNames: ['일','월','화','수','목','금','토'],
-	        dayNamesShort: ['일','월','화','수','목','금','토'],
-	        dayNamesMin: ['일','월','화','수','목','금','토'],
-	        weekHeader: 'Wk',
-	        dateFormat: 'yy-mm-dd',
-	        firstDay: 0,
-	        isRTL: false,
-	        showMonthAfterYear: true,
-	        yearSuffix: '',
-	        changeMonth: true,
-	        changeYear: true,
-	        yearRange: 'c-99:c+99',
-	};
-	$.datepicker.setDefaults($.datepicker.regional['ko']);
+	
+	
 </script>
 
 <style>
@@ -220,29 +138,21 @@ function showPopup(title, cont, type) {
 
 </style>
 
-
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+	
+   	<!-- ToolBar End /////////////////////////////////////-->
 
 </head>
 <body>
 	<div class="container">
-	
-		<h1 class="bg-info text-center">스터디 개설</h1>
+	<br>><br/>
+		<h1 class="bg-info text-center">내 프로필 수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
-		  <input type="hidden" name="currentMember"	value="1"/>
-		  <input type="hidden" name="maxMember"	value="5"/>
-		  <input type="hidden" name="email"	value="user07"/>
-		  <input type="hidden" name="studyRole" value="3"/>
-		
-				   <div class="form-group">
-		    <label for="studyThumbnail" class="col-sm-offset-1 col-sm-3 control-label">프로필 사진</label>
-		    <div class="col-xs-3">
-		      <input type="text" id="studyThumbnail" name="studyThumbnail">
-		    </div>
-		  </div>
-		
-		
+
+
 		
 		
 		  <div class="form-group">
@@ -259,7 +169,7 @@ function showPopup(title, cont, type) {
 		    </div>
 		  </div>
 		 
-		 <div class="radio">
+ 		 <div class="radio">
   <label>
     <input type="radio" name="gender" id="gender" value="${user.gender}" checked>
     남성
@@ -269,7 +179,7 @@ function showPopup(title, cont, type) {
   <label>
     <input type="radio" name="gender" id="gender" value="${user.gender}">
     여성
-  </label>
+  </label> 
 </div>
 <div class="radio disabled">
 
@@ -277,26 +187,88 @@ function showPopup(title, cont, type) {
 		 
 		 
 		  
-		  <div class="form-group">
-		  	<label for="studyHashtag" class="col-sm-offset-1 col-sm-3 control-label">모집 기간</label>
-		    <span class="col-sm-4">
-		      <input type="text" class="form-control" id="sdate" name="recruitmentStartDate" placeholder="모집 시작일자">
-		    </span>
-		  </div>
-		  
 
 		  
-		  
 
-		  
-		  <div class="form-group">
-		    <label for="studyInterest" class="col-sm-offset-1 col-sm-3 control-label">관 심 사</label>
-		    <div class="col-xs-3">
-		      <input type="text" id="studyInterest" name="studyInterest">
+		  		  <div class="form-group">
+		    <label for="groupStudyInfo" class="col-sm-offset-1 col-sm-3 control-label">목표와 각오</label>
+		    <div class="col-sm-4">
+		    <textarea style="height:100px; resize:none;" class="form-control" id="goal" name="goal"  placeholder="목표와 각오">${user.goal}</textarea>
+		    </div>
+		  </div> 
+	 	  
+		<div class="form-group">
+			<label for="interest" class="col-sm-offset-1 col-sm-3 control-label">관심사</label>
+			<span class="col-sm-1">
+				
+				
+	 			<select name="studyInterest1"> 
+						<option>관심사1</option>
+						<option value="1">어학</option>
+						<option value="2">공무원</option>
+						<option value="3">자격증</option>
+						<option value="4">취업</option>
+						<option value="5">자기계발</option>
+						<option value="6">독서</option>
+						<option value="7">임용</option>
+						<option value="8">기타</option>
+
+				</select> 
+				
+				<select name="studyInterest2">
+						<option>관심사2</option>
+						<option value="1">어학</option>
+						<option value="2">공무원</option>
+						<option value="3">자격증</option>
+						<option value="4">취업</option>
+						<option value="5">자기계발</option>
+						<option value="6">독서</option>
+						<option value="7">임용</option>
+						<option value="8">기타</option>
+				</select> 
+				
+				<select name="studyInterest3"> 
+						<option>관심사3</option>
+						<option value="1">어학</option>
+						<option value="2">공무원</option>
+						<option value="3">자격증</option>
+						<option value="4">취업</option>
+						<option value="5">자기계발</option>
+						<option value="6">독서</option>
+						<option value="7">임용</option>
+						<option value="8">기타</option>
+				</select>   
+				
+				
+				
+				
+				
+				  		  <div class="form-group">
+		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		      <button type="button" id="btn1" class="btn btn-info"  >프로필 수정</button>
+			  <a class="btn btn-info btn" href="/" role="button">취&nbsp;소</a>
 		    </div>
 		  </div>
+		</form>
+				
+				
+				
+				
+			</span>
+		</div>
+		
 		  
+
+		
+
+	
+</body>
+</html>
+
+
+
 		  
+		<!--   
 		               <div class="col-sm-10 container-box">
                 <div class="inner-container-box">
                     <h3>관심 분야 설정</h3>
@@ -332,20 +304,14 @@ function showPopup(title, cont, type) {
             </div>
         </div>
     </div>
- </div>
+ </div> -->
 		  
 		  
 		  
 		  
 		  
 		  
-		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" id="btn1" class="btn btn-info"  >등 &nbsp;록</button>
-			  <a class="btn btn-info btn" href="/" role="button">취&nbsp;소</a>
-		    </div>
-		  </div>
-		</form>
+
 		<!-- form Start /////////////////////////////////////-->
 		
  	</div>

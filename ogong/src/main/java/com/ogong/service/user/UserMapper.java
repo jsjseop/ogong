@@ -16,7 +16,7 @@ public interface UserMapper {
 	void addUser(User user);
 	
 	//로그인
-	User getUser(User user);
+	User getUser(User email);
 //	User getUser (String email);
 	
 	//프로필보기
@@ -26,7 +26,7 @@ public interface UserMapper {
 	void updateProfile(User user);
 	
 	//비밀번호 변경
-	void updatePassword(User user);
+	void Changedpassword(User user);
 	
 	//비밀번호 찾기
 	User getPassword(String email);
@@ -36,4 +36,28 @@ public interface UserMapper {
 
 	
 
+	
+	
+	
+	
+	
+// 프로필 수정 ㅜㅜ 개많아
+	
+	
+	// 닉네임
+	void updateNickname(User user) throws Exception;
+	// 관심사
+	void updatestudyInterest(User user) throws Exception;
+	// 이름
+	void updatename(User user) throws Exception;
+	// 생년월일
+	void updatebirth(User user) throws Exception;
+	// 성별
+	void updategender(User user) throws Exception;
+	// 목표와 각오
+	void updategoal(User user) throws Exception;
+	
+	
+	
+	
 }

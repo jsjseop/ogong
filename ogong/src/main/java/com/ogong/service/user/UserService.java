@@ -13,7 +13,7 @@ public interface UserService {
 	
 	
 	  //로그인? 
-	  public User getUser(User user)throws Exception;
+	  public User getUser(User email)throws Exception;
 		
 	  
 //	public User getUser(String email)throws Exception;
@@ -26,11 +26,12 @@ public interface UserService {
 	  
 	   
 	  //비밀번호 변경 
-	   public void updatePassword(User user) throws Exception;
+	   public void Changedpassword(User user) throws Exception;
 	  
-	  //비밀번호 찾기
-	   public User getPassword() throws Exception;
 	  
+		  //비밀번호 찾기
+		User getPassword(String email) throws Exception;
+	   
 	 // 회원탈퇴
 	  
 	  
@@ -40,9 +41,21 @@ public interface UserService {
 		public int idCheck(String email) throws Exception;
 
 
+// 프로필수정
 
-
-		
+	//이름
+		// 닉네임
+		public void updateNickname(User user) throws Exception;
+		// 관심사
+		public void updatestudyInterest(User user) throws Exception;
+		// 이름
+		public void updatename(User user) throws Exception;
+		// 생년월일
+		public void updatebirth(User user) throws Exception;
+		// 성별
+		public void updategender(User user) throws Exception;
+		// 목표와 각오
+		public void updategoal(User user) throws Exception;
 
 
 
