@@ -1,5 +1,7 @@
 package com.ogong.web.user;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -87,39 +89,83 @@ public class UserController {
 
 		return "index";
 	}
-
+	
+	//비밀번호 찾기
 	/*
-	 * // 비밀번호 변경 화면이동
+	 * @GetMapping("/getPassword") public @ResponseBody Map<String, Boolean>
+	 * pw_find(String email, String nickname){ Map<String,Boolean> json = new
+	 * HashMap<>(); boolean pwFindCheck = userService.getPassword(email, nickname);
 	 * 
-	 * 
-	 * @GetMapping("updatePasswordView") public String updatePasswordView() throws
-	 * Exception {
-	 * 
-	 * 
-	 * User user = userService.getUser(email)
-	 * 
-	 * Model.addAttribute()
-	 * 
-	 * 
-	 * return "/userView/updatePasswordView"; }
-	 * 
-	 * 
-	 * 
-	 * // 비밀번호 변경
-	 * 
-	 * @PostMapping("updatePassword") public String
-	 * updatePassword(@ModelAttribute("user") User user , Model model, HttpSession
-	 * session) throws Exception{
-	 * 
-	 * userService.updatePassword(user);
-	 * 
-	 * String sessionId=((User)session.getAttribute("user")).getEmail();
-	 * 
-	 * 
-	 * if(sessionId.equals(user.getEmail())) { session.setAttribute("user", user); }
-	 * 
-	 * return "index"; }
+	 * System.out.println(pwFindCheck); json.put("check", pwFindCheck); return json;
+	 * }
 	 */
+	
+	 
+
+
+
+	 
+	
+
+	
+	  // 비밀번호 변경 화면이동
+	  
+	 
+	  @GetMapping("UpdatePassword") 
+	  public String UpdatePassword() throws Exception {
+	    	  
+	  return "/userView/UpdatePassword"; }
+	  
+	  //비밀번호 변경
+	  
+		@RequestMapping( value="updatePassword", method=RequestMethod.POST )
+		public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
+
+			System.out.println("/user/updateUser : POST");
+			//Business Logic
+			userService.updatePassword(user);
+			
+			String sessionId=((User)session.getAttribute("user")).getEmail();
+			if(sessionId.equals(user.getEmail())){
+				session.setAttribute("user", user);
+			}
+			
+			return "redirect:/userView/getUser?email="+user.getEmail();
+		}
+	  
+	  
+		
+
+	  
+	  
+		/*
+		 * @RequestMapping(value="/UpdatePassword", method = RequestMethod.POST) public
+		 * String UpdatePassword(User user, HttpSession session, RequestMethod ra)
+		 * throws Exception{
+		 * 
+		 * userService.updatePassword(user); session.setAttribute("UpdatePassword",
+		 * "user" );
+		 * 
+		 * return "index" ; }
+		 */
+	  
+	  // 비밀번호 변경
+	  
+		/*
+		 * @PostMapping("updatePassword") public String
+		 * updatePassword(@ModelAttribute("user") User user , Model model, HttpSession
+		 * session) throws Exception{
+		 * 
+		 * userService.updatePassword(user);
+		 * 
+		 * String sessionId=((User)session.getAttribute("user")).getEmail();
+		 * 
+		 * 
+		 * if(sessionId.equals(user.getEmail())) { session.setAttribute("user", user); }
+		 * 
+		 * return "index"; }
+		 */
+	 
 
 	/* 이메일 인증 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -136,10 +182,10 @@ public class UserController {
 		logger.info("인증번호 " + checkNum);
 
 		/* 이메일 보내기 */
-		String setFrom = "abcd960141@gmail.com";
+		String setFrom = "flower9822@naver.com";
 		String toMail = email;
 		String title = "회원가입 인증 이메일 입니다.";
-		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+		String content = "오늘의 공부 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 
 		try {
@@ -160,7 +206,34 @@ public class UserController {
 
 		return num;
 	}
+
+
+// 아이디 중복 검사
+@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+@ResponseBody
+public String idCheck(String nickname) throws Exception{
+	
+	
+	logger.info("idCheck() 진입");
+	
+	int result = userService.idCheck(nickname);
+	
+	logger.info("결과값 = " + result);
+	
+	if(result != 0) {
+		
+		return "fail";	// 중복 아이디가 존재
+		
+	} else {
+		
+		return "success";	// 중복 아이디 x
+		
+	}		
 }
+}
+ // memberIdChkPOST() 종료
+
+
 
 /*
  * @RequestMapping( value="addUser", method=RequestMethod.POST ) public String

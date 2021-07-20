@@ -33,10 +33,15 @@
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
-		<result property="certified" 			column="certified" 			jdbcType="VARCHAR" />
 		
 		
 	</resultMap> 
+	
+	
+
+	
+	
+	
 	
 	<!-- SQL : INSERT  회원가입-->
 	<insert 	id="addUser"		parameterType="user" >
@@ -63,8 +68,7 @@
     LEARING_TYPE,
     STUDY_INTEREST1,
     STUDY_INTEREST2,
-    STUDY_INTEREST3,
-    CERTIFIED
+    STUDY_INTEREST3
 ) VALUES (
     #{email:VARCHAR},
     #{nickname:VARCHAR},
@@ -88,8 +92,7 @@
     #{learingType:VARCHAR},
     #{studyInterest1:VARCHAR},
     #{studyInterest2:VARCHAR},
-    #{studyInterest3:VARCHAR},
-    #{certified:VARCHAR}
+    #{studyInterest3:VARCHAR}
 )
 	 </insert>
 	 
@@ -98,8 +101,8 @@
   	  	  
   	  	  select *
 from users
-where EMAIL=#{email}
-AND PASSWORD = #{password}
+where EMAIL= #{email:VARCHAR}
+AND PASSWORD = #{password:VARCHAR}
   	  	  </select> 
 	
 	 
@@ -107,10 +110,12 @@ AND PASSWORD = #{password}
 	 
 	   <update id="updatePassword" parameterType="user">
     update USERS
-     set password= #{newPassword}
-    where EMAIL = #{email}
+         NICKNAME= #{nickname}
+     set PASSWORD= #{password},
+    where EMAIL= #{email:VARCHAR}
     
     
+
     
   </update>
   
@@ -126,17 +131,22 @@ AND PASSWORD = #{password}
 	 
 	 
 	 
-	<!-- SQL : 프로필 보기 
+		<!--프로필 보기  --> 
 	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
 		SELECT
-		userImage, nickname , userName , birth ,  gender ,  goal , uInterest		
-		FROM users 
-		WHERE EMAIL = #{EMAIL}
-	 </select> -->
+		user_Image AS userImage,
+		nickname AS nickname,
+		name AS name,
+		birth AS birth,
+		gender AS gender,
+		goal AS goal,
+		form users
+		where EMAIL= #{email:VARCHAR}
+	 </select> 
 		
 		
 	 
-	<!--  SQL : 프로필 (수정)  
+	<!--SQL : 프로필 (수정)  -->    
 	 <update	id="updateProfile"	parameterType="user" >
 	   	UPDATE users
 	   	set
@@ -147,7 +157,7 @@ AND PASSWORD = #{password}
     		goal =  #{goal} ,
 	   	set
 	   	WHERE email = #{email}
-	 </update> -->
+	 </update> 
 	 
 
 
