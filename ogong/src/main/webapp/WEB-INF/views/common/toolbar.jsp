@@ -83,7 +83,7 @@
 	             	<ul class="nav navbar-nav navbar-right">
 	             	
 	             	<!-- 알림 툴바 -->
-	             	<c:if test="${sessionScope.user.role == '1'}">
+	             	
 						<li class="dropdown-toggle" id="noticeCount">
 							<a href="#" data-toggle="dropdown" role="button" aria-expanded="false"> 
 								<span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
@@ -93,7 +93,7 @@
 								<div align="right"><a href="javascript:deleteNoticeAll('user01')">전체삭제</a></div>
 							</ul>
 						</li>
-					</c:if>
+					
 					<!-- 알림 툴바 END -->	
 					<!-- 프로필 툴바 -->
 						<li class="dropdown">
@@ -128,6 +128,7 @@
    		
    	
 	   	var email = "${user.email}";
+	   	
 	   	
 	   	function noticeCount() {
 	   		
@@ -183,11 +184,11 @@
 	 				  } ,
 	 				  
 	 				  success : function(JSONData, status){
-	 					 $('.notice '+noticeNo).remove();
+	 					
 	 				  }
 	 			
 	   		});
-	   		
+	   	 $('.notice'+noticeNo).remove();
 	   	}
 	   	
 	   	
@@ -204,10 +205,10 @@
 	 				  } ,
 	 				  
 	 				  success : function(JSONData, status){
-	 					 $('.notice ').remove();
+	 					 
 	 				  }	
-	   		});
-	   		
+	   			});
+	   		$('.notice').remove();
 	   	}
    		
 	 	
@@ -287,7 +288,7 @@
 	 							}
 	 							
 	 						} else {
-	 							display = "<li style='height: 40px'>알림이 존재하지 않습니다.</li>";
+	 							display = "<li style='height: 40px'>도착한 알림이 없습니다..</li>";
 	 							$('#noticeList').append(display);
 	 						}
 	 						noticeCount();	

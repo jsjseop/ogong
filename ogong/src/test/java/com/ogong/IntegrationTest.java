@@ -28,19 +28,20 @@ public class IntegrationTest {
 		User receiver = new User();
 		User sender = new User();
 		Message message = new Message();
-		receiver.setEmail("user01");
+		receiver.setEmail("user02");
 		message.setReceiver(receiver);
-		sender.setEmail("user02");
+		sender.setEmail("user01");
 		message.setSender(sender);
 		message.setMessageContents("쪽지 보내기 이거 맞나 모르겠다.");
 		
 		System.out.println(message);
 		
 		integrationService.addSendMessage(message);
+		integrationService.addSendMessage2(message);
 		
 	}
 	
-	//@Test
+	@Test
 	@DisplayName("받은 쪽지 목록")
 	void testlistReceiveMessage() throws Exception{
 		

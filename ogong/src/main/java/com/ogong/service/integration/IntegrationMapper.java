@@ -23,8 +23,11 @@ public interface IntegrationMapper {
 	//보낸 쪽지 조회
 	List<Message> getlistSendMessage(HashMap<String, Object> map);
 	
-	//쪽지 보내기
+	//쪽지 보내기(1)
 	public int addSendMessage(Message message);
+	
+	//쪽지 보내기(2)
+	public int addSendMessage2(Message message);
 	
 	//쪽지 삭제
 	public void deleteMessage(int messageNo);
