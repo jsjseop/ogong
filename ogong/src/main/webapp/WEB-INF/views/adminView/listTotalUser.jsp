@@ -38,10 +38,8 @@
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
-		alert(currentPage);
 		
 		if(${listType == 1}){
-			alert($("#searchCondition").val());
 			$("#currentPage").val(currentPage)
 			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=1").submit();
 		}
@@ -71,23 +69,25 @@
 		
 		//정지한 회원 목록에서만 가능한 회원 복구 기능
 		$( "td:contains('복구')").on("click",function(){
-			var email = $(this).find('input').val()
-			alert(email);
-			//fncupdateRestoreUser();
-			$.ajax({
-			
-			url : "/admin/json/updateUserRestore/"+email,
-			method : "GET" ,
-			dataType : "json" ,
-			headers : {
-				"Accept" : "application/json",
-				"Content-Type" : "application/json"
-			},
-			success : function(JSONData, status){
+				var email = $(this).find('input').val()
+				/* alert(email); */
+				//fncupdateRestoreUser();
+				$.ajax({
 				
-			}
-		})
-			/* $('#test').remove(); */
+					url : "/admin/json/updateUserRestore/"+email,
+					method : "GET" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					success : function(JSONData, status){
+					
+					}
+				})
+				$("#trRemove").remove();
+			
+			
 		})
 		
 	 	$( "a:contains('모든 회원 목록')" ).on("click" , function() {
@@ -122,7 +122,8 @@
 			success : function(JSONData, status){
 				
 			}
-		})
+		});
+		
 		
 	}
 	
@@ -148,7 +149,6 @@
 	       		<c:if test="${listType == 4}">
 	       				<h3>정지된 회원 목록</h3>
 	       		</c:if>
-	       		
 	    </div>
 
 	    <ul class="nav nav-tabs">
@@ -196,7 +196,6 @@
 			<form>
 			<thead>
 				<tr>
-
 					<th align="center">No</th>
 					<th align="center">이메일</th>
 					<th align="center">닉네임</th>
@@ -225,7 +224,7 @@
 				<c:set var="i" value="0" />
 				<c:forEach var="user" items="${list}">
 					<c:set var="i" value="${ i+1 }" />
-					<tr>
+					<tr id="trRemove">
 						<td align="center">${ i }</td>
 						<td align="left">
 							<div class="user">${user.email}</div>
@@ -252,9 +251,6 @@
 								<input type="hidden" name="email" value="${user.email}" />
 							</td>
 						</c:if>
-
-
-
 					</tr>
 				</c:forEach>
 			</tbody>

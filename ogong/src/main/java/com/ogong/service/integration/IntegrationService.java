@@ -18,8 +18,11 @@ public interface IntegrationService {
 	//보낸 쪽지 조회
 	public Map<String, Object> getlistSendMessage(HashMap<String, Object> map) throws Exception;
 	
-	//쪽지 보내기
+	//쪽지 보내기 (1)
 	public void addSendMessage(Message message) throws Exception;
+	
+	//쪽지 보내기 (2)
+	public void addSendMessage2(Message message) throws Exception;
 	
 	//쪽지 삭제
 	public void deleteMessage(int messageNo) throws Exception;

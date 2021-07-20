@@ -51,6 +51,12 @@ public class IntegrationServiceImpl implements IntegrationService {
 
 		integrationMapper.addSendMessage(message);
 	}
+	
+	@Override
+	public void addSendMessage2(Message message) throws Exception {
+
+		integrationMapper.addSendMessage2(message);
+	}
 
 	@Override
 	public void deleteMessage(int messageNo) throws Exception {
