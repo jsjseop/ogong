@@ -96,6 +96,8 @@ public class BoardController {
 	public String updateBoard(@ModelAttribute("board") Board board, Model model) throws Exception {
 
 		
+		boardService.updateBoard(board);
+		
 		return "redirect:/board/getBoard?boardNo="+board.getBoardNo();
 	}
 	

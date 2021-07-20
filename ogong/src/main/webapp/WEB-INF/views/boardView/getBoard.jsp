@@ -95,7 +95,7 @@ pre {
 				<strong>³» ¿ë</strong>
 			</div>
 			<div class="col-xs-8 col-md-4">
-				<pre style="width: 200px; height: 150px;">${board.board.boardContents}</pre>
+				<pre style="width: 450px; height: 150px;">${board.board.boardContents}</pre>
 			</div>
 		</div>
 

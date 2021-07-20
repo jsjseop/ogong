@@ -121,6 +121,9 @@ public class AdminController {
 		
 		System.out.println("/listUserReport 시작");
 		
+		System.out.println(search.getSearchCondition()+"확인합시당");
+		System.out.println(search.getSearchKeyword()+"확인합시당");	
+		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
@@ -152,12 +155,15 @@ public class AdminController {
 		int pageUnit = 5;
 		
 		System.out.println("/listTotalUser 시작");
+
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 		
+		System.out.println(search.getSearchCondition()+"확인합시당");
+		System.out.println(search.getSearchKeyword()+"확인합시당");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
