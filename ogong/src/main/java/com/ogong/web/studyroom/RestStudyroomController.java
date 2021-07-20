@@ -1,13 +1,17 @@
 package com.ogong.web.studyroom;
 
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ogong.service.domain.GroupStudyMember;
-import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
 import com.ogong.service.studyroom.StudyroomService;
 
@@ -26,7 +30,7 @@ public class RestStudyroomController {
 		System.out.println(this.getClass());
 	}
 	
-	@PostMapping("json/studyroom/applyParticipation")
+	@PostMapping("json/applyParticipation")
 	public GroupStudyMember updateApproval(	@RequestBody GroupStudyMember gsm) throws Exception{
 		
 		studyroomService.applyParticipation(gsm.getMember().getEmail());
@@ -34,10 +38,27 @@ public class RestStudyroomController {
 		return gsm;
 	}
 	
-	@PostMapping("json/studyroom/rejectParticipation")
+	@PostMapping("json/rejectParticipation")
 	public void rejectApproval ( @RequestBody GroupStudyMember gsm) throws Exception{
 		
 		studyroomService.rejectParticipation(gsm.getGroupStudyMemberNo());
 	}
+	
+	@PostMapping("json/addAttendance")
+	public String addAttendance ( @RequestParam("email") String email,
+								@RequestParam("studyNo") int studyNo) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("studyNo", studyNo);
+		
+		String a =studyroomService.checkAttendance(map);
+		if(a == null) {
+			studyroomService.addAttendance(map);
+		}	
+		
+		
+		return a;
+	} 
 	
 }
