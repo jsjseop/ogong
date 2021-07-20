@@ -27,8 +27,9 @@
    	
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
+		alert($("#searchCondition").val());
 		$("#currentPage").val(currentPage)
-		$("form").attr("method" , "POST").attr("action" , "/adminView/listUserReport").submit();
+		$("form").attr("method" , "POST").attr("action" , "/admin/listUserReport").submit();
 	}
 	
 
@@ -36,7 +37,7 @@
 	$(function(){
 
 
-		$( "td.ct_btn01:contains('검색')").on("click", function(){
+		$("button[name='search']").on("click", function(){
 			fncGetList(1);
 		});	
 		
@@ -96,7 +97,7 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-								<option value="0" ${ search.searchCondition eq '0' ? 'selected' : '' }>닉네임</option>
+								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
 					</select>
 				  </div>
 				  
@@ -106,7 +107,7 @@
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-default">검색</button>
+				  <button type="button" name="search" class="btn btn-default">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>

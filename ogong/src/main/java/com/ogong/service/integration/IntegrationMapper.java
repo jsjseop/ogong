@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
@@ -26,7 +27,10 @@ public interface IntegrationMapper {
 	public int addSendMessage(Message message);
 	
 	//쪽지 삭제
-	public void deleteMessage(int[] messageNo);
+	public void deleteMessage(int messageNo);
+	
+	//쪽지 삭제 테스트
+	public void deleteTest(Message message);
 	
 	//알림
 	public void addNotice(Notice notice);
@@ -38,10 +42,10 @@ public interface IntegrationMapper {
 	List<User> listBananaRanking(HashMap<String, Object> map);
 	
 	//채택수 랭킹
-	List<User> listChooseCountRanking(HashMap<String, Object> map);
+	List<Answer> listChooseCountRanking(HashMap<String, Object> map);
 	
 	//알림 목록
-	Notice getlistNotice(String email);
+	List<Notice> getlistNotice(String email);
 	
 	//알림 조회
 	Notice getNotice(int noticeNo);

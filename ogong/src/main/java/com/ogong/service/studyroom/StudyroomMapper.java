@@ -37,4 +37,6 @@ public interface StudyroomMapper {
 	void updateCalendar(Calendar calendar);
 	
 	void deleteCalendar(int calendarNo);
+	
+	String checkAttendance(Map<String, Object> map);
 }

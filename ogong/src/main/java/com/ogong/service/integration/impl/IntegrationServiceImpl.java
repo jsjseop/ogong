@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ogong.common.Search;
+import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
@@ -52,7 +53,7 @@ public class IntegrationServiceImpl implements IntegrationService {
 	}
 
 	@Override
-	public void deleteMessage(int[] messageNo) throws Exception {
+	public void deleteMessage(int messageNo) throws Exception {
 
 		integrationMapper.deleteMessage(messageNo);
 	}
@@ -71,32 +72,24 @@ public class IntegrationServiceImpl implements IntegrationService {
 
 	
 	@Override
-	public Map<String, Object> listBananaRanking(HashMap<String, Object> map) throws Exception {
+	public List<User> listBananaRanking(HashMap<String, Object> map) throws Exception {
 		
 		List<User> list = integrationMapper.listBananaRanking(map);
 		
-		
-		Map<String, Object> result = new HashMap<String, Object>();
-		map.put("list", list);
-		
-		
-		return result;
+
+		return list;
 	}
 
 	@Override
-	public Map<String, Object> listChooseCountRanking(HashMap<String, Object> map) throws Exception {
-		List<User> list = integrationMapper.listChooseCountRanking(map);
+	public List<Answer> listChooseCountRanking(HashMap<String, Object> map) throws Exception {
 		
+		List<Answer> list = integrationMapper.listChooseCountRanking(map);
 		
-		Map<String, Object> result = new HashMap<String, Object>();
-		map.put("list", list);
-		
-		
-		return result;
+		return list;
 	}
 
 	@Override
-	public Notice getlistNotice(String email) throws Exception {
+	public List<Notice> getlistNotice(String email) throws Exception {
 
 		return integrationMapper.getlistNotice(email);
 	}
@@ -131,5 +124,9 @@ public class IntegrationServiceImpl implements IntegrationService {
 		integrationMapper.updateNotice(email);
 	}
 	
+	@Override
+	public void deleteTest(Message message) throws Exception{
+		integrationMapper.deleteTest(message);
+	}
 
 }
