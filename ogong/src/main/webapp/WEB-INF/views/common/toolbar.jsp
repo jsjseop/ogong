@@ -54,6 +54,7 @@
 	                         <li><a href="#">자유게시판</a></li>
 	                         <li><a href="#">합격후기게시판</a></li>
 	                     </ul>
+	                  <li><a href="#">파일공유게시판</a></li>    
 	               </li>
 	                 
 	              <!-- 관리자기능 DrowDown  -->
@@ -143,7 +144,8 @@
 		
 	 	//=============  모집게시판 Event  처리 =============
 	 	$( "a:contains('모집게시판')").on("click", function(){
-	 		location.href = "/";
+	 		//location.href = "/board/listBoard?boardCategory="+'5';
+	 		location.href = "/board/listBoard?boardCategory=5";
 	 	});
 
 	 	//=============  그룹스터디 Event  처리 =============
@@ -154,35 +156,29 @@
 	 	//=============  정보공유게시판 Event  처리 =============
 	 	$( "a:contains('정보공유게시판')").on("click", function(){
 
-	 		location.href = "/;
+	 		location.href = "/board/listBoard?boardCategory="+'1';
 	 	});	
 	 	
 	 	//=============  Q&A게시판 Event  처리 =============
 	 	$( "a:contains('Q&A게시판')").on("click", function(){
-	 		location.href = "listQaBoard";
+	 		location.href = "/board/listBoard?boardCategory="+'2';
 	 	});	 	 	
 		
 	 	//=============  자유게시판 Event  처리 =============
 	 	$( "a:contains('자유게시판')").on("click", function(){
-	 		location.href = "listBoard";
 
-	 		location.href = "/";
+	 		location.href = "/board/listBoard?boardCategory="+'4';
 	 	});	
-	 	
-	 	//=============  Q&A게시판 Event  처리 =============
-	 	$( "a:contains('Q&A게시판')").on("click", function(){
-	 		location.href = "/";
-	 	});	 	 	
-		
-	 	//=============  자유게시판 Event  처리 =============
-	 	$( "a:contains('자유게시판')").on("click", function(){
-	 		location.href = "/";
-
-	 	});
 	 	
 	 	//=============  합격후기게시판 Event  처리 =============
 	 	$( "a:contains('합격후기게시판')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/board/listBoard?boardCategory="+'3';
+	 	});	 
+	 	
+	 	//=============  파일공유 게시판 Event  처리 =============
+	 	$( "a:contains('파일공유게시판')").on("click", function(){
+	 		location.href = "/board/listBoard?boardCategory="+'6';
+	 		
 	 	});	 
 
 	 	//=============  신고조회 Event  처리 =============

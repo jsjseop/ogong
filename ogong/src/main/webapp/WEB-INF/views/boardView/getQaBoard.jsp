@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>ê²Œì‹œíŒ</title>
+<title>°Ô½ÃÆÇ</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,22 +29,19 @@
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 
-<!-- css, JS -->
-<script type="text/javascript" src="resources/css/fileUpload.css"></script>
-<script type="text/javascript" src="resources/javascript/fileUpload.js"></script>
-
 
 
 <script>
 	let boardNo = "<c:out value='${board.boardNo}'/>";
 	let boardCategory = "<c:out value='${board.boardCategory}'/>";
-
+	let boardTitle = "<c:out value='${board.boardTitle}'/>";
+	
 	let currentPage = 1;
 	let pageSize = 10;
 	
 	function fncDeleteBoard() {
 
-		if (confirm("ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+		if (confirm("»èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?")) {
 
 			location.href = "/board/deleteBoard?boardNo="+`${board.boardNo}`+"&boardCategory="+`${board.boardCategory}`; 
 		}
@@ -88,19 +85,19 @@
 					var record = list[i];
 					var li = $("<li>");
 
-					var commentContents = $("<div class='commentContents'>");
+					var commenContents = $("<div class='commenContents'>");
 					var commentRegDate = $("<div class='commentRegDate'>");
 					var nickname = $("<div class='nickname'>");
-					var button = $("<style='padding-right:5px'>")
-					commentContents.text(record.commentContents);
+					
+
+					commenContents.text(record.commentContents);
 					commentRegDate.text(record.commentRegDate);
 					nickname.text(record.nickname);
-					button.text("ìˆ˜ì •");
+				
 
-					commentContents.appendTo(li);
+					commenContents.appendTo(li);
 					commentRegDate.appendTo(li);
 					nickname.appendTo(li);
-					button.appendTo(li);
 					
 					li.appendTo(ul);
 				}
@@ -114,39 +111,11 @@
 		$.ajax({
 			url:'/board/addComment',
 			type:'post',
-			data: JSON.stringify({
-				'boardNo': boardNo,
-				'commentContents': commentContents
-			}),
-			headers : {
-				"Accept" : "application/json",
-				"Content-Type" : "application/json"
-			},
-			dateType:'json',
-			success:function(res){
-				if (res) {
-					var ul = $('#listComment');
-					ul.children('li').remove();
-					$('#comment').val("");
-					
-					getCommentList();
-				} else{
-					alert('ì‹¤íŒ¨');
-				}
-			}
-		});
-	}
-	
-	
-	function updateComment() {
-		var commentContents = $('#comment').val();
-		currentPage = 1; 
-		$.ajax({
-			url:'/board/updateComment',
-			type:'get',
 			data: {
-				comment: commentNo,
-				commentContents: commentContents
+				'boardNo': boardNo,
+				'currentPage': currentPage,
+				'pageSize': pageSize,
+				'commentContents': commentContents
 			},
 			dateType:'json',
 			success:function(res){
@@ -156,13 +125,11 @@
 					
 					getCommentList();
 				} else{
-					alert('ì‹¤íŒ¨');
+					alert('½ÇÆĞ');
 				}
 			}
 		});
 	}
-	
-	
 	
 	function more() {
 		getCommentList('M');
@@ -171,18 +138,22 @@
 	$(function() {
 		getCommentList();
 		
+		$('button:contains("´äº¯µî·Ï")').on('click', function() {
+
+			location.href = "/board/addBoard?boardCategory=" + boardCategory +"&boardTitle=" +boardTitle;
+		})
 		
-		$('button:contains("ìˆ˜ ì •")').on('click', function() {
+		$('button:contains("¼ö Á¤")').on('click', function() {
 
 			location.href = "/board/updateBoard?boardNo=" + boardNo;
 		})
 
-		$('button:contains("ì‚­ ì œ")').on('click', function() {
+		$('button:contains("»è Á¦")').on('click', function() {
 
 			fncDeleteBoard();
 		})
 
-		$('button:contains("ëª© ë¡")').on('click', function() {
+		$('button:contains("¸ñ ·Ï")').on('click', function() {
 
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
@@ -192,7 +163,7 @@
 </script>
 <style>
 body{
-	padding-top: 30px;
+	padding-top: 20px;
 }
 
 pre {
@@ -207,12 +178,12 @@ pre {
 
 	<div class="container">
 		<div class="page-header">
-			<h3 class=" text-default">ìƒì„¸ë³´ê¸°</h3>
+			<h3 class=" text-default">Q&A »ó¼¼º¸±â</h3>
 		</div>
 
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
-				<strong>ë“±ë¡ì¼ì</strong>
+				<strong>µî·ÏÀÏÀÚ</strong>
 			</div>
 			<div class="col-xs-8 col-md-4">${board.boardRegDate}</div>
 		</div>
@@ -220,7 +191,7 @@ pre {
 		<hr />
 		<div class="row">
 			<div class="col-xs-1 col-md-1">
-				<strong>ì¡°íšŒìˆ˜</strong>
+				<strong>Á¶È¸¼ö</strong>
 			</div>
 			<div class="col-xs-8 col-md-3">${board.viewCount}</div>
 		</div>
@@ -229,7 +200,7 @@ pre {
 		
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
-				<strong>ì œ ëª©</strong>
+				<strong>Á¦ ¸ñ</strong>
 			</div>
 			<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
 		</div>
@@ -238,7 +209,7 @@ pre {
 
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
-				<strong>ë‚´ ìš©</strong>
+				<strong>³» ¿ë</strong>
 			</div>
 			<div class="col-xs-8 col-md-4">
 				<pre style="width: 450px; height: 150px;">${board.boardContents}</pre>
@@ -250,45 +221,21 @@ pre {
 
 
 		<div align="right">
-			<div id="recommend" class="btn btn-danger" onclick="recommend()" style="width: 60px;">ì¶” ì²œ <span id="cnt">0</span></div>
+			<div id="recommend" class="btn btn-default" onclick="recommend()" style="width: 60px;">Ãß Ãµ <span id="cnt">0 </span></div>
 			
-<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
-				<c:if test="${user.userId == board.email}"> --%>
+			<c:if test="${user.userId == board.writer.email || user.role == 'admin'}">
+				<c:if test="${user.userId == board.writer.email}"> 
 				
 				
-					<button type="button" class="btn btn-warning" style="width: 60px;">ìˆ˜ ì •</button>
-<%-- 				</c:if> --%>
-				<button type="button" class="btn btn-warning" style="width: 60px;">ì‚­ ì œ</button>
-<%-- 			</c:if> --%>
-			<button type="button" class="btn btn-warning" style="width: 60px;">ëª© ë¡</button>
+					<button type="button" class="btn btn-default" style="width: 80px;">´äº¯µî·Ï</button>
+					
+					<button type="button" class="btn btn-default" style="width: 60px;">¼ö Á¤</button>
+				</c:if> 
+				<button type="button" class="btn btn-default" style="width: 60px;">»è Á¦</button>
+ 			</c:if> 
+			<button type="button" class="btn btn-default" style="width: 60px;">¸ñ ·Ï</button>
 		</div>
 	</div>
 
-<div class="container">
-			<div>
-				<div>
-					<span><strong>comment</strong></span> <span id="cnt"></span>
-				</div>
-				<div>
-					<table class="table">
-						<tr>
-							<td><textarea style="width: 1100px" rows="3" cols="30"
-									id="comment" placeholder="ëŒ“ê¸€ì„ ì…ë ¥í•˜ì„¸ìš”"></textarea>
-								<br>
-								<div>
-									<a href='#' onClick="addComment()"
-										class="btn pull-right btn-danger">ë“±ë¡</a>
-								</div></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-	</div>
-	<ul id="listComment">
-	
-
-	</ul>
-	
-	<button type="button" class="btn btn-danger" onclick="more()" style="width: 60px;">ë”ë³´ê¸°</button>
 </body>
 </html>

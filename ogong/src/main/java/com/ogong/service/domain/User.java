@@ -26,7 +26,6 @@ public class User {
 	private int userTargetTime;
 	private String regDate;
 	private int bananaCount;
-	private String learingType;
 	private String suspendStartDate;
 	private String suspendEndDate;
 	private String studyInterest1;
