@@ -33,7 +33,7 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
-	//private JavaMailSender mailSender;
+	private JavaMailSender mailSender;
 
 	// 회원가입 페이지 진입
 	@GetMapping("addUser")

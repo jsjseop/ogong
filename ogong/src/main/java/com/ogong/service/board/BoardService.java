@@ -30,7 +30,7 @@ public interface BoardService {
 		public Boolean addComment(Comment comment) throws Exception;
 		
 		//댓글 수정
-		public void updateComment(Comment comment) throws Exception;
+		public Boolean updateComment(Comment comment) throws Exception;
 		
 		//댓글 삭제
 		public void deleteComment(int commentNo) throws Exception;

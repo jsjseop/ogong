@@ -91,11 +91,11 @@
 					var commentContents = $("<div class='commentContents'>");
 					var commentRegDate = $("<div class='commentRegDate'>");
 					var nickname = $("<div class='nickname'>");
-					var button = $("<style='padding-right:5px'>")
+					var commentNo = $("<input type='hidden' class='commentNo'>");
+					var button = $("<button type='button' id='updatebtn' class='btn btn-primary'>수정</button>")
 					commentContents.text(record.commentContents);
 					commentRegDate.text(record.commentRegDate);
 					nickname.text(record.nickname);
-					button.text("수정");
 
 					commentContents.appendTo(li);
 					commentRegDate.appendTo(li);
@@ -140,12 +140,13 @@
 	
 	function updateComment() {
 		var commentContents = $('#comment').val();
+		var commentNo = $('.commentNo').val();
 		currentPage = 1; 
 		$.ajax({
 			url:'/board/updateComment',
-			type:'get',
+			type:'POST',
 			data: {
-				comment: commentNo,
+				commentNo: commentNo,
 				commentContents: commentContents
 			},
 			dateType:'json',
@@ -186,6 +187,12 @@
 
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
+		
+		$('#updatebtn').on('click', function() {
+
+			updateComment();
+		})
+		
 	})
 	
 	
@@ -219,10 +226,10 @@ pre {
 
 		<hr />
 		<div class="row">
-			<div class="col-xs-1 col-md-1">
+			<div class="col-xs-4 col-md-2">
 				<strong>조회수</strong>
 			</div>
-			<div class="col-xs-8 col-md-3">${board.viewCount}</div>
+			<div class="col-xs-8 col-md-4">${board.viewCount}</div>
 		</div>
 
 		<hr />
@@ -240,7 +247,7 @@ pre {
 			<div class="col-xs-4 col-md-2">
 				<strong>내 용</strong>
 			</div>
-			<div class="col-xs-8 col-md-4">
+			<div class="col-xs-6 col-md-4">
 				<pre style="width: 450px; height: 150px;">${board.boardContents}</pre>
 			</div>
 		</div>
@@ -283,11 +290,20 @@ pre {
 					</table>
 				</div>
 			</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-md-2">
+			<strong>제 목</strong>
+		</div>
+		<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
 	</div>
 	<ul id="listComment">
 	
 
 	</ul>
+</div>
+	
 	
 	<button type="button" class="btn btn-danger" onclick="more()" style="width: 60px;">더보기</button>
 </body>

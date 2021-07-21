@@ -146,7 +146,7 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
-                            <div class="badge bg-dark " style="top: 0.5rem; right: 0.5rem">new</div>
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">new</div>
                             <!-- Product image-->
                             <img class="card-img-top" src="/resources/images/studythumb.jpg" alt="..." />
                             <!-- Product details-->

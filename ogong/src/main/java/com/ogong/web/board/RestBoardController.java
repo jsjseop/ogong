@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,24 +57,30 @@ public class RestBoardController {
 	}  
     
     @PostMapping("addComment")
-	public Boolean addComment(HttpServletRequest request, @RequestBody Comment comment) throws Exception {
-	
-    	User user = new User();
-		user.setEmail("user10");
+	public Boolean addComment(HttpServletRequest request, HttpSession session, @RequestBody Comment comment) throws Exception {
+    	
+    	
+    	
+    	
+    	User user = (User)session.getAttribute("user");
 		
 		comment.setCommentWriter(user);
 		
 		return boardService.addComment(comment);
     }
     
-    @GetMapping("updateComment")
+    @PostMapping("updateComment")
     
-	public Boolean updateComment(HttpServletRequest request, @RequestParam("commentNo") int commentNo,
-			@RequestBody Comment comment) throws Exception {	
+	public Boolean updateComment(HttpServletRequest request, @PathVariable("boardNo") int boardNo, @PathVariable("commentContents")
+	String commentContents) throws Exception {	
     	
-    	boardService.updateComment(comment);
+    	Comment comment = new Comment();
     	
-		return true;
+    	comment.setBoardNo(boardNo);
+    	comment.setCommentContents(commentContents);
+
+    	
+		return boardService.updateComment(comment);
     }
     
     @PostMapping("deleteComment")
