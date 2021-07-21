@@ -9,7 +9,9 @@
 <div class="navbar  navbar-inverse navbar-fixed-top">
 	
 	<div class="container">
+	
 	       
+		
 		<a class="navbar-brand" >오공</a>
 		
 		<!-- toolBar Button Start //////////////////////// -->
@@ -109,6 +111,7 @@
 								<li><a href="#">나의 게시글</a></li>
 								<li><a href="#">바나나 조회</a></li>
 								<li><a href="#">회원 탈퇴</a></li>
+								<li><a id="report" data-toggle="modal" data-target="#exampleModal2">신고</a></li>
 							</ul>
 						</li>						
 					<!-- 프로필 툴바 END -->								             		
@@ -300,6 +303,7 @@
 	 };
 	 	
    	</script>
+ 
    	
    	
    	<script type="text/javascript">
@@ -409,10 +413,38 @@
 	 	$( "a:contains('회원탈퇴')").on("click", function(){
 	 		location.href = "/";
 	 	});	 	 	
-	 	
-	 	
-	 	
-	 	
+
+
+	</script>
+	
+	
+	<script>
+    var ws = new WebSocket("ws://localhost:5050/");
+
+
+    ws.onopen = function () {
+        console.log('Info: connection opened.');
+        setTimeout( function(){ connect(); }, 1000); // retry connection!!
+    };
+
+
+    ws.onmessage = function (event) {
+        console.log(event.data+'\n');
+    };
+
+
+    ws.onclose = function (event) { console.log('Info: connection closed.'); };
+    ws.onerror = function (event) { console.log('Info: connection closed.'); };
+    
+    $('#btnSend').on('click', function(evt) {
+	  evt.preventDefault();
+  if (socket.readyState !== 1) return;
+    	  let msg = $('input#msg').val();
+    	  ws.send(msg);
+    });
+
+	
+	
 	</script>  
 	
 	

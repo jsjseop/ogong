@@ -253,6 +253,13 @@ public class AdminController {
 	}
 	
 	
+	@GetMapping("reportModal")
+	public String reportModal() {
+		
+		return "/adminView/addReport";
+	}
+	
+	
 }
 
 

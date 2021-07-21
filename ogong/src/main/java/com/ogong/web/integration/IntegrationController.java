@@ -73,6 +73,7 @@ public class IntegrationController {
 		User user = (User)session.getAttribute("user"); 
 		message.setSender(user);
 		
+		System.out.println("message 확인 ::: " +message);
 		System.out.println("session user 확인 :::"+session.getAttribute("user"));
 		
 		// 알림 처리를 위해 알림 insert부터 해 볼까요
@@ -80,6 +81,9 @@ public class IntegrationController {
 		notice.setSender(user);
 		notice.setNoticeCategory("7");
 		notice.setNoticeCondition("2");
+		
+		
+		
 		integrationService.addNotice(notice);
 		
 		
@@ -201,8 +205,9 @@ public class IntegrationController {
 		
 		
 	}
+
 	
-	//@Scheduled(fixedDelay=1000)
+
 	@GetMapping("mainPage")
 	public String mainPage(Model model, Answer answer, User user, HttpSession session) throws Exception{
 		

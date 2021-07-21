@@ -30,49 +30,21 @@
 		$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/integration/listReceiveMessage").submit();
 	}
 	
-	function fncAddSendMessage(){
-		//Form 유효성 검증
-
-		var sender = "${message.sender.email}";
-		var receiver = $("textarea[name='receiver.email']").val();
-		var messageContents = $("textarea[name='messageContents']").val();
 		
-		
-		if(receiver == null || receiver.length<1){
-			alert("수신자 이메일은 반드시 입력해야 합니다.");
-			return;
-		}
-		
-		if(messageContents == null || messageContents.length<1){
-			alert("보낼 내용은 반드시 입력해야 합니다.");
-			return;
-		} 
-		
-		alert("쪽지를 성공적으로 보냈습니다.");
-		
-		$("form").attr("method", "POST").attr("action", "/integration/addSendMessage").submit();
-		
-	}
-	
-	
-	
 	$(function(){
 		
-		// 쪽지 전송
-		$( "#btn1" ).on("click" , function() {
-			fncAddSendMessage();
+		$("ul li:nth-child(2)").on("click", function(){
+			$("#myModal2").find('#receiver').val($(this).find('input').val());
 		});
 		
+
 	 	$( "a:contains('보낸쪽지함')" ).on("click" , function() {
 	 		location.href = "/integration/listSendMessage";
 		});
 	 	$( "a:contains('받은쪽지함')" ).on("click" , function() {
 	 		location.href = "/integration/listReceiveMessage";
 		});
-	 	
-	 	/* $( "a:contains('쪽지보내기')" ).on("click" , function() {
-	 		location.href = "/integration/addSendMessage";
-	 	}); */
+	
 
  		$("#deletebtn").on("click" , function() {
  		 	
@@ -104,8 +76,9 @@
  		
  		$("#deletebtn2").on("click" , function() {
  			
-			var messageDelete = $(this).val()
-			
+			/* var messageDelete = $(this).val() */
+			var messageDelete = $(".deleteMessage").val()
+
  			
 			$.ajax({
 				
@@ -133,6 +106,9 @@
 <body>
 	
 	<jsp:include page="../common/toolbar.jsp" />
+	<jsp:include page="../integrationView/addSendMessage.jsp" />
+	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+	<jsp:include page="../adminView/addReport.jsp" />
 	
 	<div class="contatiner">
 	
@@ -143,6 +119,7 @@
 	    <ul class="nav nav-tabs">
   			<li role="presentation"><a href="#">보낸쪽지함</a></li>
   			<li role="presentation"><a href="#">받은쪽지함</a></li>
+  			<li role="presentation"><a href="#" data-toggle="modal" data-target="#myModalReport" >신고하기</a></li>
   			
 		</ul>
 
@@ -189,17 +166,30 @@
 											});
 										</script>
 								</div>
-					</th>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
+				  <c:if test="${ ! empty list}">
 					<c:set var="i" value="0" />
 					<c:forEach var="message" items="${list}">
 						<c:set var="i" value="${ i+1 }" />
 						<tr id="trRemove">
 							<td align="center">${ i }</td>
 							<td align="left">${message.messageContents}</td>
-							<td align="left">${message.sender.email}</td>
+							<td align="left">
+								<div class="dropdown">
+									<a id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+										${message.sender.email}
+									</a>
+									  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">프로필보기</a></li>
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
+									    <input type="hidden" value="${message.sender.email}" /></a></li>
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">신고하기</a></li>
+									  </ul>									
+								</div>
+							</td>
 							<td align="left">${message.sendDate}</td>
 				  			<td align="left">
 				  				<div class="checkBox">
@@ -213,53 +203,30 @@
 							</td>
 							<td align="left">
 								<div class="delete">
-		    						<button type="button" class="deleteMessage" name="deleteMessage"  value="${message.messageNo}">삭제</button>
+		    						<button type="button" class="deleteMessage" name="deleteMessage"  value="${message.messageNo}" data-toggle="modal" data-target="#exampleModal2">삭제</button>
 		   						</div>
 				  			</td>
 						</tr>
 					</c:forEach>
+				  </c:if>
+				  <c:if test="${empty list }">
+				  	<tr>
+				  		<td align="center">	</td>
+				  		<td align="center"></td>
+				  		<td align="center"> 쪽지가 없습니다. </td>
+				  	</tr>
+				  </c:if>
 				</tbody>
 
 			</table>
+			
 		 <ul class="nav nav-tabs" name='send' style="float: right;">
 	  				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 					  쪽지보내기
 					</button>
 		</ul>
 		
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">쪽지 보내기</h4>
-		      </div>
-		      <div class="modal-body">
-		        <form>
-		        	<input type="hidden" name="studyNo" value="">     
-		        	<div class = "form-group">
-		        		<label>발신자 이메일</label>
-		        		<label type="hidden" class="form-control" id="message.sender.email" name="sender.email"  maxLength="512" style="height:30px" >
-		        			${message.sender.email}
-		        		</label>
-		        	</div>
-		        	<div class = "form-group">
-		        		<label>수신자 이메일</label>
-		        		<textarea type="text" class="form-control" id="message.receiver.email" name="receiver.email" maxLength="512" style="height:30px" placeholder="받는 사람 이메일을 입력하세요"></textarea>
-		        	</div>		        	
-		        	<div class = "form-group">
-		        		<label>내용</label>
-		        		<textarea type="text" class="form-control" id="messageContents" name="messageContents" maxLength="2048" style="height:180px" placeholder="내용을 입력해 주세요."></textarea>
-		        	</div>
-		        </form>
-		      </div>
-		      <div class="modal-footer">
-		      	<button id="btn1" class="btn btn-default" >전송하기</button>
-		        <button type="button" class="btn btn-default" data-dismiss="modal">닫 기</button>
-		      </div>
-		    </div>
-		  </div>
-		 </div>		
+	
 
 		 <!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
