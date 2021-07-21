@@ -78,16 +78,13 @@
 	
 <form class="form-horizontal" method="post" name="addReport" >
 
-
-  
-  
-  <!-- 신고사유 -->
-  <div class="form-group">
-    <label for="reportReason" class="col-sm-offset-1 col-sm-3 control-label">신 고 사 유</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="reportReason" name="reportReason" placeholder="신고 사유를 작성하세요">
-    </div>
-  </div> 
+		  <!-- 신고사유 -->
+		  <div class="form-group">
+		    <label for="reportReason" class="col-sm-offset-1 col-sm-3 control-label">신 고 사 유</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="reportReason" name="reportReason" placeholder="신고 사유를 작성하세요">
+		    </div>
+		  </div> 
   
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">

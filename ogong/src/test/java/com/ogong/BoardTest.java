@@ -125,7 +125,7 @@ class BoardTest {
 		board.setBoardNo(10003);
 		user.setEmail("user07");
 		user.setNickname("꼬미");
-		comment.setCommentBoard(board);
+		//comment.setCommentBoard(board);
 		comment.setCommentWriter(user);
 		comment.setCommentRegDate(Date.valueOf("2021-07-22"));
 		comment.setCommentContents("뽀글아 안녕~");
@@ -141,7 +141,7 @@ class BoardTest {
 		Board board = new Board();
 		Comment comment = new Comment();
 		board.setBoardNo(10004);
-		comment.setCommentBoard(board);
+		//comment.setCommentBoard(board);
 		comment.setCommentContents("댓글수정 완료");
 
 		boardService.updateComment(comment);

@@ -46,6 +46,7 @@
 			groupstudy_member g, users u
 		WHERE
 			g.email = u.email
+		AND NVL(g.studyrole,'0') in ('4','0')
 		AND	study_no = #{studyNo}
 		ORDER BY groupstudy_member_no
 		
@@ -55,16 +56,19 @@
 	
 		SELECT COUNT(*)
 		FROM ( 	SELECT
-				groupstudy_member_no,
-				study_no, 
-				email, 
-				participation_reason, 
-				determination, 
-				approval_flag
-			FROM
-				groupstudy_member 
-			WHERE
-				study_no = #{studyNo}
+			g.groupstudy_member_no,
+			g.study_no, 
+			g.email, 
+			g.participation_reason, 
+			g.determination, 
+			g.approval_flag,
+			u.nickname
+		FROM
+			groupstudy_member g, users u
+		WHERE
+			g.email = u.email
+		AND NVL(g.studyrole,'0') in ('4','0')
+		AND	study_no = #{studyNo}
 		) count_table
 	
 	</select>
@@ -96,7 +100,7 @@
 			g.email,
 			u.nickname,
 			s.study_end_date-s.study_start_date,
-			TRUNC((count.c/(s.study_end_date-s.study_start_date))*100,1) attendance_rate
+			TRUNC((count.c/((SYSDATE+1)-s.study_start_date))*100,1) attendance_rate
 		FROM groupstudy_member g, users u, study s, 
 			(select email, study_no, count(*) c
                 FROM attendance
@@ -149,6 +153,17 @@
 			SYSDATE
 		)
 	 </insert>
+	 
+	 <select id="checkAttendance" parameterType="map" resultType="String">
+		SELECT
+			attendance_date
+		FROM
+			attendance
+		WHERE
+			study_no= #{studyNo}
+		AND email = #{email}
+		AND TO_CHAR(attendance_date,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd') 
+	 </select>
 	 
 	 <insert id="addCalendar"	parameterType="calendar">
 	 	
