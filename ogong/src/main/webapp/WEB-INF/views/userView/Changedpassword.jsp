@@ -25,12 +25,12 @@
 
 	$(function(){
 		$ ( "#btn1").on("click", function(){
-			fncupdateProfile();
+			fncChangedpassword();
 		});
 	});
 	
-	function fncupdateProfile() {
-		$("form").attr("method","POST").attr("action","/user/updateProfile").submit();
+	function fncChangedpassword() {
+		$("form").attr("method","POST").attr("action","/user/Changedpassword").submit();
 	}
 	
 
@@ -158,6 +158,7 @@
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 
+		  <input type="hidden" name="email"	value="${user.email}"/>
 
 		
 		

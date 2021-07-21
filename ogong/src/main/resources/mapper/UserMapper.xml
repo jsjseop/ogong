@@ -64,7 +64,6 @@
     USER_TARGET_TIME,
     reg_Date,
     BANANA_COUNT,
-    LEARING_TYPE,
     STUDY_INTEREST1,
     STUDY_INTEREST2,
     STUDY_INTEREST3
@@ -88,7 +87,6 @@
     #{userTargetTime:NUMERIC},
     sysdate,
     #{bananaCount:NUMERIC},
-    #{learingType:VARCHAR},
     #{studyInterest1:VARCHAR},
     #{studyInterest2:VARCHAR},
     #{studyInterest3:VARCHAR}

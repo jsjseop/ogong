@@ -1,6 +1,7 @@
 package com.ogong.web.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -23,7 +24,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ogong.common.Page;
+import com.ogong.common.Search;
+import com.ogong.service.admin.impl.AdminServiceImpl;
+import com.ogong.service.board.BoardService;
+import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
+import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
 @Controller
@@ -38,6 +45,16 @@ public class UserController {
 	@Autowired
 	private JavaMailSender mailSender;
 
+	@Autowired
+	private BoardService boardService;
+	
+	@Autowired	
+	private StudyService studyService;
+	
+	/*
+	 * @Autowired private StudyService
+	 */
+	
 	// 회원가입 페이지 진입
 	@GetMapping("addUser")
 	public String addUser() throws Exception {
@@ -50,6 +67,8 @@ public class UserController {
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
 
 		userService.addUser(user);
+		
+		
 
 		return "/userView/loginView";
 
@@ -102,28 +121,29 @@ public class UserController {
 			return "/userView/Changedpassword";
 		}
 		
-		 
-		 
-		 @GetMapping("updateProfile") 
-		  public String updateProfile(HttpServletRequest request) throws Exception {
-		   
-			  HttpSession session = request.getSession();
-			  String email = (String) session.getAttribute(getProfile());
+		@PostMapping("Changedpassword")
+		public String Changedpassword(User user , HttpSession session) throws Exception{
+			
+			
+			userService.Changedpassword(user);			
+			
+			return "index";
+		}
+
+		//프로필 수정 진입
+		  
+		  @GetMapping("updateProfile") public String updateProfile(HttpSession session,
+				 Model model
+		  ) throws Exception {
+
+		  model.addAttribute("user", (User)session.getAttribute("user"));
 			  
 		  return "/userView/updateProfile"; }
+		  
 		 
-		 
-		 
+		//프로필 수정
 
-	  
-		
-		  
-		  
-		  
-		 
-		 //프로필 수정 
-		  
-		  @RequestMapping( value="updateProfile", method=RequestMethod.POST )
+		@RequestMapping( value="updateProfile", method=RequestMethod.POST )
 			public String updateProfile( @ModelAttribute("user") User user , Model model, HttpSession session ) throws Exception{
 
 				System.out.println("/user/updateUser : POST");
@@ -213,57 +233,76 @@ public String idCheck(String nickname) throws Exception{
 		
 	}		
 }
+
+
+@RequestMapping("Mypostlist")
+public String Mypostlist(@ModelAttribute("search") Search search, Model model,
+		 HttpServletRequest request) throws Exception {
+
+	if (search.getCurrentPage() == 0) {
+		search.setCurrentPage(1);
+	}
+	search.setPageSize(5);
+	
+	search.setSearchKeyword("");
+	search.setSearchCondition("");
+	
+
+	Board board = new Board();
+	board.setBoardCategory("1");
+	
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("search", search);
+	map.put("board",board);
+	
+	List<Board> list = boardService.listBoard(map);
+	map.get("totalCount");
+
+	
+		
+	model.addAttribute("list", list);
+	model.addAttribute("search", search);
+	
+	return "/userView/Mypostlist";
 }
 
-/*
- * 
- * // 닉네임 수정
- * 
- * @RequestMapping("updateNickname") public String
- * updateNickname( @RequestParam("email") String email,
- * 
- * @RequestParam("nickname") String nickname,
- * 
- * @ModelAttribute("user") User user) throws Exception {
- * System.out.println("닉네임수정"); userService.updateNickname(user); return
- * "user/updatenickname"; }
- * 
- * // 관심사 수정
- * 
- * @RequestMapping("updateInterest") public String
- * updateInterest( @RequestParam("email") String email,
- * 
- * @RequestParam("studyInterest1") String studyInterest1,
- * 
- * @RequestParam("studyInterest2") String studyInterest2,
- * 
- * @RequestParam("studyInterest3") String studyInterest3,
- * 
- * @ModelAttribute("user") User user) throws Exception {
- * System.out.println("관심사수정"); userService.updatestudyInterest(user); return
- * "user/updateInterest"; } // 이름 수정
- * 
- * @RequestMapping("updatename") public String
- * updatename( @RequestParam("email") String email,
- * 
- * @RequestParam("name") String name,
- * 
- * @ModelAttribute("user") User user) throws Exception {
- * System.out.println("이름수정"); userService.updatename(user); return
- * "user/updatename"; }
- * 
- * // 생년월일
- * 
- * @RequestMapping("updatebirth") public String
- * updatebirth( @RequestParam("email") String email,
- * 
- * @RequestParam("name") String name,
- * 
- * @ModelAttribute("user") User user) throws Exception {
- * System.out.println("이름수정"); userService.updatename(user); return
- * "user/updatename"; }
- * 
- * }
- */
 
-// 
+
+@RequestMapping("Mystudylist")
+public String Mystudylist ( @ModelAttribute("search") Search search,
+							Model model) throws Exception{
+	
+	System.out.println("/study/listStudy 실행");
+	
+	if(search.getCurrentPage() ==0 ){
+		search.setCurrentPage(1);
+	}
+	
+	search.setPageSize(10);
+	
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	map.put("search", search);
+	map.put("studyType", "group");
+	
+	Map<String, Object> result = studyService.getStudyList(map);
+		
+	model.addAttribute("list", result.get("list"));
+	model.addAttribute("totalCount", result.get("totalCount"));
+	model.addAttribute("search", search);
+	model.addAttribute("studyType","group");
+	
+	return "/userView/Mystudylist";
+	
+}
+
+}
+
+
+
+
+
+ 
+ 
+
+
+
