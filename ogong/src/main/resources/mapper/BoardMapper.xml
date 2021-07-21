@@ -209,7 +209,7 @@
 		      			</otherwise>
 		      		</choose>
             
-	  		) a	
+	  		) a
 	  	WHERE
   			a.rnum BETWEEN #{search.startRowNum} AND #{search.endRowNum}
          	   	
