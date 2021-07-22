@@ -74,13 +74,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 댓글 수정
 	public Boolean updateComment(Comment comment) throws Exception {
-<<<<<<< HEAD
 		boardMapper.updateComment(comment);
 		return null;
-=======
-
-		return boardMapper.updateComment(comment);
->>>>>>> refs/remotes/origin/master
 	}
 
 	// 댓글 삭제
