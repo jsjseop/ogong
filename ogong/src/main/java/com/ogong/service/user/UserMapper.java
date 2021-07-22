@@ -1,7 +1,6 @@
 package com.ogong.service.user;
 
 import java.awt.datatransfer.Clipboard;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -34,11 +33,8 @@ public interface UserMapper {
 	
 	// 아이디 중복체크
 	public int idCheck(String email);
-	
 
-	/*
-	 * public List<Board> userboardList(Board board);
-	 */	
+	
 
 	
 	

@@ -1,5 +1,11 @@
 package com.ogong.web.user;
 
+<<<<<<< binbin
+=======
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+>>>>>>> 5aa6578 희빈 : 으흠 아직 미완성
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -88,6 +94,7 @@ public class UserController {
 		return "index";
 	}
 
+<<<<<<< binbin
 	/*
 	 * // 비밀번호 변경 화면이동
 	 * 
@@ -120,6 +127,67 @@ public class UserController {
 	 * 
 	 * return "index"; }
 	 */
+=======
+	
+	  // 비밀번호 변경 화면이동
+	  
+	 
+		
+		@GetMapping("Changedpassword")
+		public String Changedpassword() throws Exception{
+			
+			return "/userView/Changedpassword";
+		}
+		
+		@PostMapping("Changedpassword")
+		public String Changedpassword(User user , HttpSession session) throws Exception{
+			
+			
+			userService.Changedpassword(user);			
+			
+			return "index";
+		}
+
+		//프로필 수정 진입
+		  
+		  @GetMapping("updateProfile") public String updateProfile(HttpSession session,
+				 Model model
+		  ) throws Exception {
+
+		  model.addAttribute("user", (User)session.getAttribute("user"));
+			  
+		  return "/userView/updateProfile"; }
+		  
+		 
+		//프로필 수정
+
+		@RequestMapping( value="updateProfile", method=RequestMethod.POST )
+			public String updateProfile( @ModelAttribute("user") User user , Model model, HttpSession session ) throws Exception{
+
+				System.out.println("/user/updateUser : POST");
+				//Business Logic
+				userService.updateProfile(user);
+				
+				
+				
+				  String sessionId=((User)session.getAttribute("user")).getEmail();
+				  if(sessionId.equals(user.getEmail())){ session.setAttribute("user", user); }
+				 
+				 
+				
+				return "index";
+			}
+		  
+		  //프로필 보기
+	  
+		  
+		  @GetMapping("getProfile") 
+		  public String getProfile() throws Exception {
+		    	  
+		  return "/userView/getProfile"; }
+		  
+	 
+>>>>>>> 5aa6578 희빈 : 으흠 아직 미완성
 
 	/* 이메일 인증 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -221,6 +289,7 @@ public class UserController {
  * 
  */
 
+<<<<<<< binbin
 /*
  * @GetMapping("userView/addUser") public String addUser() throws Exception{
  * 
@@ -265,3 +334,45 @@ public class UserController {
  * 
  * }
  */
+=======
+
+
+@RequestMapping("Mystudylist")
+public String Mystudylist ( @ModelAttribute("search") Search search,
+							Model model) throws Exception{
+	
+	System.out.println("/study/listStudy 실행");
+	
+	if(search.getCurrentPage() ==0 ){
+		search.setCurrentPage(1);
+	}
+	
+	search.setPageSize(10);
+	
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	map.put("search", search);
+	map.put("studyType", "group");
+	
+	Map<String, Object> result = studyService.getStudyList(map);
+		
+	model.addAttribute("list", result.get("list"));
+	model.addAttribute("totalCount", result.get("totalCount"));
+	model.addAttribute("search", search);
+	model.addAttribute("studyType","group");
+	
+	return "/userView/Mystudylist";
+	
+}
+
+}
+
+
+
+
+
+ 
+ 
+
+
+
+>>>>>>> 5aa6578 희빈 : 으흠 아직 미완성

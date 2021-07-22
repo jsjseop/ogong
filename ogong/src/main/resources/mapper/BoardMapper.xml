@@ -70,6 +70,7 @@
 		INSERT
 		INTO board( board_no,
 					study_no,
+					email, 
 					nickname, 
 					board_category, 
 					board_title,
@@ -81,6 +82,7 @@
 					view_count)
 			VALUES( seq_board_no.nextval,
 					#{study.studyNo:NUMERIC}, 
+					#{writer.email},
 					#{writer.nickname:VARCHAR},
 					#{boardCategory},
 					#{boardTitle},
@@ -149,7 +151,9 @@
 	
 <!-- 게시판 목록 
 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 4.자유게시판 5.자율스터디 모집게시판 6.파일공유 게시판
+
 검색조건- 제목,내용,작성자
+
 정렬순- 기본정렬:최신순, 1.조회수, 2.추천수-->
 	
 	<select 	id="listBoard" parameterType="hashmap" resultMap="boardSelectMap">
@@ -220,7 +224,7 @@
 		      			</otherwise>
 		      		</choose>
             
-	  		) a	
+	  		) a
 	  	WHERE
   			a.rnum BETWEEN #{search.startRowNum} AND #{search.endRowNum}
          	   	
@@ -269,6 +273,7 @@
 	
 	<!-- 댓글 목록 -->
 <!-- 		<select 	id="listComment" parameterType="map" resultMap="boardSelectMap">
+
 		SELECT
 	  		a.*
 	  	FROM
@@ -285,6 +290,7 @@
                     board a
                 WHERE
                 	board_category = #{board.boardCategory}
+
                 ORDER BY board_no DESC
 	  		) a	
 	</select> 

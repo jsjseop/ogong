@@ -1,11 +1,8 @@
 package com.ogong.service.user.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 import com.ogong.service.user.UserMapper;
 import com.ogong.service.user.UserService;
@@ -104,12 +101,6 @@ public class UserServiceImpl implements UserService{
 
 		
 	}
-
-
-	/*
-	 * @Override public List<Board> userboardList(Board board) throws Exception { //
-	 * TODO Auto-generated method stub return userDAO.userboardList(board); }
-	 */
 
 	/*
 	 * @Override public User getUser(String email) throws Exception { // TODO
