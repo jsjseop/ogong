@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
     
-
+<!-- ìª½ì§€ ë³´ë‚´ê¸° JSP ì‹œì‘ -->
 
 	<script type="text/javascript">
 
 	
 	function fncAddSendMessage(){
-		//Form À¯È¿¼º °ËÁõ
+		//Form ìœ íš¨ì„± ê²€ì¦
 
 		var sender = "${message.sender.email}";
 		var receiver = $("textarea[name='receiver.email']").val();
@@ -20,16 +20,16 @@
 		alert(messageContents);
 		
 		if(receiver == null || receiver.length<1){
-			alert("¼ö½ÅÀÚ ÀÌ¸ŞÀÏÀº ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+			alert("ìˆ˜ì‹ ì ì´ë©”ì¼ì€ ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
 			return;
 		}
 		
 		if(messageContents == null || messageContents.length<1){
-			alert("º¸³¾ ³»¿ëÀº ¹İµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+			alert("ë³´ë‚¼ ë‚´ìš©ì€ ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
 			return;
 		} 
 		
-		alert("ÂÊÁö¸¦ ¼º°øÀûÀ¸·Î º¸³Â½À´Ï´Ù.");
+		alert("ìª½ì§€ë¥¼ ì„±ê³µì ìœ¼ë¡œ ë³´ëƒˆìŠµë‹ˆë‹¤.");
 		
 		$("form[name='addSendMessage']").attr("method", "POST").attr("action", "/integration/addSendMessage").submit();
 		
@@ -39,7 +39,7 @@
 	
 	$(function(){
 		
-		// ÂÊÁö Àü¼Û
+		// ìª½ì§€ ì „ì†¡
 		$( "#btn1" ).on("click" , function() {
 			fncAddSendMessage();
 		});
@@ -55,11 +55,11 @@
 	
 	
 	
-	<%-- <jsp:include page="../common/toolbar.jsp" /> --%>
+	
 
 
 <div class="contatiner">
-	<!-- Modal ÂÊÁö º¸³»±â-->
+	<!-- Modal ìª½ì§€ ë³´ë‚´ê¸°-->
 	<form name="addSendMessage">
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
@@ -70,35 +70,35 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">ÂÊÁö º¸³»±â1</h4>
+						<h4 class="modal-title" id="myModalLabel">ìª½ì§€ ë³´ë‚´ê¸°</h4>
 					</div>
 					<div class="modal-body">
 						<form>
 							<input type="hidden" name="studyNo" value="">
 							<div class="form-group">
-								<label>¹ß½ÅÀÚ ÀÌ¸ŞÀÏ</label> <label type="hidden" class="form-control"
+								<label>ë°œì‹ ì ì´ë©”ì¼</label> <label type="hidden" class="form-control"
 									id="message.sender.email" name="sender.email" maxLength="512"
 									style="height: 30px"> ${message.sender.email} </label>
 							</div>
 							<div class="form-group">
-								<label>¼ö½ÅÀÚ ÀÌ¸ŞÀÏ</label>
+								<label>ìˆ˜ì‹ ì ì´ë©”ì¼</label>
 								<textarea type="text" class="form-control"
 									id="message.receiver.email" name="receiver.email"
 									maxLength="512" style="height: 30px"
-									placeholder="¹Ş´Â »ç¶÷ ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä"></textarea>
+									placeholder="ë°›ëŠ” ì‚¬ëŒ ì´ë©”ì¼ì„ ì…ë ¥í•˜ì„¸ìš”"></textarea>
 							</div>
 							<div class="form-group">
-								<label>³»¿ë</label>
+								<label>ë‚´ìš©</label>
 								<textarea type="text" class="form-control" id="messageContents"
 									name="messageContents" maxLength="2048" style="height: 180px"
-									placeholder="³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."></textarea>
+									placeholder="ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”."></textarea>
 							</div>
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button id="btn1" class="btn btn-default">Àü¼ÛÇÏ±â</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">´İ
-							±â</button>
+						<button id="btn1" class="btn btn-default">ì „ì†¡í•˜ê¸°</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">ë‹«
+							ê¸°</button>
 					</div>
 				</div>
 			</div>
@@ -107,5 +107,5 @@
 </div>
 
 
+<!-- ìª½ì§€ ë³´ë‚´ê¸° JSP ë -->
 
-<%-- <jsp:include page="../common/pageNavigator_new.jsp"/> --%>

@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
     
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	
-	<!--  CSS Ãß°¡ : Åø¹Ù¿¡ È­¸é °¡¸®´Â Çö»ó ÇØ°á :  ÁÖ¼®Ã³¸® Àü, ÈÄ È®ÀÎ-->
+	<!--  CSS ì¶”ê°€ : íˆ´ë°”ì— í™”ë©´ ê°€ë¦¬ëŠ” í˜„ìƒ í•´ê²° :  ì£¼ì„ì²˜ë¦¬ ì „, í›„ í™•ì¸-->
 	<style>
         body {
             padding-top : 70px;
@@ -32,20 +32,32 @@
 	
 		
 	$(function(){
-		
+	
 		$("ul li:nth-child(2)").on("click", function(){
 			$("#myModal2").find('#receiver').val($(this).find('input').val());
 		});
-		
 
-	 	$( "a:contains('º¸³½ÂÊÁöÇÔ')" ).on("click" , function() {
+		$("ul li:nth-child(3)").on("click", function(){
+			$("#myModalReport").find('#receiveReporter').val($(this).find('input').val());
+		});		
+	
+	})	
+	
+	$(function(){
+	
+	 	$( "a:contains('ë³´ë‚¸ìª½ì§€í•¨')" ).on("click" , function() {
 	 		location.href = "/integration/listSendMessage";
 		});
-	 	$( "a:contains('¹ŞÀºÂÊÁöÇÔ')" ).on("click" , function() {
+	 	$( "a:contains('ë°›ì€ìª½ì§€í•¨')" ).on("click" , function() {
 	 		location.href = "/integration/listReceiveMessage";
 		});
 	
 
+	})
+	
+	
+	$(function(){
+	
  		$("#deletebtn").on("click" , function() {
  		 	
  		 	
@@ -64,13 +76,13 @@
 		   		   	 	 	if(result == 1){
 		    		 		 	location.href = "/integration/listSendMessage";
 		   		   	 	 	} else {
-		   		   	 	 		alert("»èÁ¦ ½ÇÆĞ")
+		   		   	 	 		alert("ì‚­ì œ ì‹¤íŒ¨")
 		   		   	 	 	}
 		   		   	 		
 		  		  	 	}
 		  		  	 	 
   		  		});
- 		  		alert("»èÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.")
+ 		  		alert("ì‚­ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.")
  		  		$("input[class='messageNo']:checked").parent().parent().parent().remove(); 
  		});
  		
@@ -94,7 +106,7 @@
 				}
 				
 			});
-			alert("»èÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.")
+			alert("ì‚­ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.")
 			$("#trRemove").remove();
  		});
 
@@ -113,27 +125,25 @@
 	<div class="contatiner">
 	
 		<div class="page-header text-info">
-	       		<h3>¹ŞÀº ÂÊÁö</h3>
+	       		<h3>ë°›ì€ ìª½ì§€</h3>
 	    </div>
 	    
 	    <ul class="nav nav-tabs">
-  			<li role="presentation"><a href="#">º¸³½ÂÊÁöÇÔ</a></li>
-  			<li role="presentation"><a href="#">¹ŞÀºÂÊÁöÇÔ</a></li>
-  			<li role="presentation"><a href="#" data-toggle="modal" data-target="#myModalReport" >½Å°íÇÏ±â</a></li>
-  			
+  			<li role="presentation"><a href="#">ë³´ë‚¸ìª½ì§€í•¨</a></li>
+  			<li role="presentation"><a href="#">ë°›ì€ìª½ì§€í•¨</a></li>
 		</ul>
 
 		
 			<div class="row">
 
 				<div class="col-md-6 text-left">
-					<p class="text-primary">ÀüÃ¼ ${resultPage.totalCount } °Ç¼ö, ÇöÀç ${resultPage.currentPage} ÆäÀÌÁö</p>
+					<p class="text-primary">ì „ì²´ ${resultPage.totalCount } ê±´ìˆ˜, í˜„ì¬ ${resultPage.currentPage} í˜ì´ì§€</p>
 				</div>
 
 			    <div class="col-md-6 text-right">
 				    <form class="form-inline" name="detailForm">
 				      
-					  <!-- PageNavigation ¼±ÅÃ ÆäÀÌÁö °ªÀ» º¸³»´Â ºÎºĞ -->
+					  <!-- PageNavigation ì„ íƒ í˜ì´ì§€ ê°’ì„ ë³´ë‚´ëŠ” ë¶€ë¶„ -->
 					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 					  
 					</form>
@@ -146,15 +156,15 @@
 				<thead>
 					<tr>
 						<th align="center">No</th>
-						<th align="left">ÂÊÁö³»¿ë</th>
-						<th align="left">¹ß½ÅÀÚ ÀÌ¸ŞÀÏ</th>
-						<th align="left">Àü¼ÛÀÏÀÚ</th>
+						<th align="left">ìª½ì§€ë‚´ìš©</th>
+						<th align="left">ë°œì‹ ì ì´ë©”ì¼</th>
+						<th align="left">ì „ì†¡ì¼ì</th>
 						<th align="left">
 	       						<div class="delBtn">
-	       							<button type="button" class="selectDelete_btn" data-toggle="modal" data-target="#exampleModal">¼±ÅÃ»èÁ¦</button>
+	       							<button type="button" class="selectDelete_btn" data-toggle="modal" data-target="#exampleModal">ì„ íƒì‚­ì œ</button>
 	       						</div>	       					
 	       						<div class="allCheck">
-									<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">¸ğµÎ ¼±ÅÃ</label>
+									<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">ëª¨ë‘ ì„ íƒ</label>
 										<script>
 											$("#allCheck").click(function() {
 												var chk = $("#allCheck").prop("checked");
@@ -183,10 +193,11 @@
 										${message.sender.email}
 									</a>
 									  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">ÇÁ·ÎÇÊº¸±â</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">ÂÊÁöº¸³»±â
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">í”„ë¡œí•„ë³´ê¸°</a></li>
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">ìª½ì§€ë³´ë‚´ê¸°
 									    <input type="hidden" value="${message.sender.email}" /></a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">½Å°íÇÏ±â</a></li>
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModalReport">ì‹ ê³ í•˜ê¸°
+									    <input type="hidden" value="${message.sender.email}" /></a></li>
 									  </ul>									
 								</div>
 							</td>
@@ -203,7 +214,7 @@
 							</td>
 							<td align="left">
 								<div class="delete">
-		    						<button type="button" class="deleteMessage" name="deleteMessage"  value="${message.messageNo}" data-toggle="modal" data-target="#exampleModal2">»èÁ¦</button>
+		    						<button type="button" class="deleteMessage" name="deleteMessage"  value="${message.messageNo}" data-toggle="modal" data-target="#exampleModal2">ì‚­ì œ</button>
 		   						</div>
 				  			</td>
 						</tr>
@@ -213,7 +224,7 @@
 				  	<tr>
 				  		<td align="center">	</td>
 				  		<td align="center"></td>
-				  		<td align="center"> ÂÊÁö°¡ ¾ø½À´Ï´Ù. </td>
+				  		<td align="center"> ìª½ì§€ê°€ ì—†ìŠµë‹ˆë‹¤. </td>
 				  	</tr>
 				  </c:if>
 				</tbody>
@@ -222,7 +233,7 @@
 			
 		 <ul class="nav nav-tabs" name='send' style="float: right;">
 	  				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-					  ÂÊÁöº¸³»±â
+					  ìª½ì§€ë³´ë‚´ê¸°
 					</button>
 		</ul>
 		
@@ -233,38 +244,38 @@
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">¼±ÅÃ»èÁ¦</h5>
+			        <h5 class="modal-title" id="exampleModalLabel">ì„ íƒì‚­ì œ</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			        ¼±ÅÃÇÑ ÂÊÁöÀ» Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?
+			        ì„ íƒí•œ ìª½ì§€ì„ ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?
 			      </div>
 			      <div class="modal-footer">
-			      	<button type="button" id="deletebtn" class="btn btn-primary" data-dismiss="modal">»èÁ¦ÇÏ±â</button>
-			       	<button type="button" class="btn btn-secondary" data-dismiss="modal">Ãë¼ÒÇÏ±â</button>
+			      	<button type="button" id="deletebtn" class="btn btn-primary" data-dismiss="modal">ì‚­ì œí•˜ê¸°</button>
+			       	<button type="button" class="btn btn-secondary" data-dismiss="modal">ì·¨ì†Œí•˜ê¸°</button>
 			      </div>
 			    </div>
 			  </div>
 			</div>		
 		
-		 <!-- Modal ÂÊÁö »èÁ¦-->
+		 <!-- Modal ìª½ì§€ ì‚­ì œ-->
 			<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel2">»èÁ¦</h5>
+			        <h5 class="modal-title" id="exampleModalLabel2">ì‚­ì œ</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			        ÂÊÁöÀ» Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?
+			        ìª½ì§€ì„ ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?
 			      </div>
 			      <div class="modal-footer">
-			      	<button type="button" id="deletebtn2" class="btn btn-primary" data-dismiss="modal">»èÁ¦ÇÏ±â</button>
-			       	<button type="button" class="btn btn-secondary" data-dismiss="modal">Ãë¼ÒÇÏ±â</button>
+			      	<button type="button" id="deletebtn2" class="btn btn-primary" data-dismiss="modal">ì‚­ì œí•˜ê¸°</button>
+			       	<button type="button" class="btn btn-secondary" data-dismiss="modal">ì·¨ì†Œí•˜ê¸°</button>
 			      </div>
 			    </div>
 			  </div>

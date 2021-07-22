@@ -3,7 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
-
+<!-- 쪽지 보내기 JSP 시작 -->
 
 	<script type="text/javascript">
 
@@ -56,7 +56,7 @@
 	
 	
 	
-	<%-- <jsp:include page="../common/toolbar.jsp" /> --%>
+	
 
 
 <div class="contatiner">
@@ -70,7 +70,7 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">쪽지 보내기2</h4>
+						<h4 class="modal-title" id="myModalLabel">쪽지 보내기</h4>
 					</div>
 					<div class="modal-body">
 						<form>
@@ -102,4 +102,4 @@
 
 
 
-<%-- <jsp:include page="../common/pageNavigator_new.jsp"/> --%>
+<!-- 쪽지 보내기 JSP 끝 -->

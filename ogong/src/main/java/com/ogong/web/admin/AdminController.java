@@ -61,22 +61,21 @@ public class AdminController {
 		//session에서 receiverRepoter 꺼낸 유저가 들어가고 sendeReporter는 ModelAttribute로 넘어온 값을 줌
 		
 		System.out.println("addReport/Post 시작");
-		User receiveReporter = new User();
-		User sendReporter = new User();
+		User user = new User();
+		user.setEmail("user02");
 		
-		receiveReporter.setEmail("user02");
-		sendReporter.setEmail("user01");
 		
-		report.setReceiveReporter(receiveReporter);
-		report.setSendReporter(sendReporter);
+		report.setSendReporter(user);
+		
+		System.out.println("report 확인 :::: "+report);
+
 		
 
 		
 		adminService.addReport(report);
 		
 		
-			
-		return "redirect:/admin/listUserReport?reportNo="+report.getReportNo();
+		return "index";
 		
 	}
 	
@@ -120,7 +119,7 @@ public class AdminController {
 	public String listUserReport(@ModelAttribute("search") Search search, Model model,
 			   HttpServletRequest request) throws Exception{
 		
-		int pageSize = 5;
+		int pageSize = 30;
 		int pageUnit = 5;
 		
 		HttpSession session = request.getSession();

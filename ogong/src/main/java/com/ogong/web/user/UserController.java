@@ -67,7 +67,9 @@ public class UserController {
 
 		HttpSession session = req.getSession();
 		User login = userService.getUser(user);
-
+		
+		System.out.println("도착 확인");
+		
 		if (login == null) {
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);

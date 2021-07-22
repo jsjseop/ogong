@@ -37,7 +37,7 @@ import com.ogong.service.domain.Recommend;
 		int addComment (Comment comment);
 		
 		//댓글 수정
-		void updateComment (Comment comment);
+		Boolean updateComment (Comment comment);
 		
 		//댓글 삭제
 		void deleteComment (int commentNo);
