@@ -74,6 +74,7 @@ public class BoardServiceImpl implements BoardService {
 
 	// 댓글 수정
 	public Boolean updateComment(Comment comment) throws Exception {
+
 		return boardMapper.updateComment(comment);
 	}
 

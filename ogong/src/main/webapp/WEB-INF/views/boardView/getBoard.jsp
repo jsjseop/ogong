@@ -36,9 +36,9 @@
 
 
 <script>
-	let boardNo = "<c:out value='${board.boardNo}'/>";
+    let boardNo = "<c:out value='${board.boardNo}'/>";
 	let boardCategory = "<c:out value='${board.boardCategory}'/>";
-
+	
 	let currentPage = 1;
 	let pageSize = 10;
 	
@@ -188,12 +188,16 @@
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
 		
+		$('button:contains("신 고")').on('click', function() {
+			$("#myModalReport").find('#sendReporter').val($(this).find('input').val());
+		})		
+		
 		$('#updatebtn').on('click', function() {
 
 			updateComment();
 		})
 		
-	})
+	}) 
 	
 	
 </script>
@@ -211,12 +215,22 @@ pre {
 
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
+	<jsp:include page="../adminView/addReport.jsp" /> 
 
 	<div class="container">
 		<div class="page-header">
 			<h3 class=" text-default">상세보기</h3>
 		</div>
-
+		
+		<input type="hidden" name="boardEmail" id="boardEmail" value="${board.writer.email}" />
+		
+		<div class="row">
+			<div class="col-xs-4 col-md-2">
+				<strong>게시글 작성자</strong>
+			</div>
+			<div class="col-xs-8 col-md-4">${board.writer.nickname}</div>
+		</div>
+		<hr />		
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
 				<strong>등록일자</strong>
@@ -262,10 +276,13 @@ pre {
 <%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
 				<c:if test="${user.userId == board.email}"> --%>
 				
-				
+						<button type="button" class="btn btn-warning" style="width: 60px;" data-toggle="modal" data-target="#myModalReport">신 고</button>
+						
 					<button type="button" class="btn btn-warning" style="width: 60px;">수 정</button>
 <%-- 				</c:if> --%>
-				<button type="button" class="btn btn-warning" style="width: 60px;">삭 제</button>
+				<button type="button" class="btn btn-warning" style="width: 60px;">삭 제
+					<input type="hidden" value="${message.sender.email}" />
+				</button>
 <%-- 			</c:if> --%>
 			<button type="button" class="btn btn-warning" style="width: 60px;">목 록</button>
 		</div>

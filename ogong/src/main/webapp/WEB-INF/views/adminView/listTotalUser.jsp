@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
     
 <!DOCTYPE html>
 <html>
@@ -9,6 +9,9 @@
 	<meta charset="EUC-KR">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+ <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>	
 	
 	<!--   jQuery , Bootstrap CDN  -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -23,12 +26,12 @@
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
   
-  	<!-- jQuery UI toolTip »ç¿ë CSS-->
+  	<!-- jQuery UI toolTip ì‚¬ìš© CSS-->
   	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  	<!-- jQuery UI toolTip »ç¿ë JS-->
+  	<!-- jQuery UI toolTip ì‚¬ìš© JS-->
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
-	<!--  CSS Ãß°¡ : Åø¹Ù¿¡ È­¸é °¡¸®´Â Çö»ó ÇØ°á :  ÁÖ¼®Ã³¸® Àü, ÈÄ È®ÀÎ-->
+	<!--  CSS ì¶”ê°€ : íˆ´ë°”ì— í™”ë©´ ê°€ë¦¬ëŠ” í˜„ìƒ í•´ê²° :  ì£¼ì„ì²˜ë¦¬ ì „, í›„ í™•ì¸-->
 	<style>
         body {
             padding-top : 50px;
@@ -62,13 +65,13 @@
 	}
 	
 	$(function(){
-		// °Ë»ö
+		// ê²€ìƒ‰
 		$("button[name='search']").on("click", function(){
 			fncGetList(1);
 		});	
 		
-		//Á¤ÁöÇÑ È¸¿ø ¸ñ·Ï¿¡¼­¸¸ °¡´ÉÇÑ È¸¿ø º¹±¸ ±â´É
-		$( "td:contains('º¹±¸')").on("click",function(){
+		//ì •ì§€í•œ íšŒì› ëª©ë¡ì—ì„œë§Œ ê°€ëŠ¥í•œ íšŒì› ë³µêµ¬ ê¸°ëŠ¥
+		$( "td:contains('ë³µêµ¬')").on("click",function(){
 				var email = $(this).find('input').val()
 				/* alert(email); */
 				//fncupdateRestoreUser();
@@ -90,19 +93,19 @@
 			
 		})
 		
-	 	$( "a:contains('¸ğµç È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 	$( "a:contains('ëª¨ë“  íšŒì› ëª©ë¡')" ).on("click" , function() {
 	 		location.href = "/admin/listTotalUser?listType=1";
 		});
 		
-	 	$( "a:contains('Å»ÅğÇÑ È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 	$( "a:contains('íƒˆí‡´í•œ íšŒì› ëª©ë¡')" ).on("click" , function() {
 	 		location.href = "/admin/listTotalUser?listType=2";
 		});
 	 	
-	 	$( "a:contains('º¹±ÍÇÑ È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 	$( "a:contains('ë³µê·€í•œ íšŒì› ëª©ë¡')" ).on("click" , function() {
 	 		location.href = "/admin/listTotalUser?listType=3";
 		});
 	 	
-	 	$( "a:contains('Á¤ÁöµÈ È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 	$( "a:contains('ì •ì§€ëœ íšŒì› ëª©ë¡')" ).on("click" , function() {
 	 		location.href = "/admin/listTotalUser?listType=4";
 		});	 
 	 	
@@ -133,29 +136,30 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../common/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
+
 	<div class="contatiner">
 	
-	<!-- °¢ ¸ñ·Ï¿¡ Å¸ÀÔÀ» ÁöÁ¤ÇÏ¿© ÇØ´çÇÏ´Â ¸ñ·ÏÀ» Ãâ·Â -->
+	<!-- ê° ëª©ë¡ì— íƒ€ì…ì„ ì§€ì •í•˜ì—¬ í•´ë‹¹í•˜ëŠ” ëª©ë¡ì„ ì¶œë ¥ -->
 		<div class="page-header text-info">
 				<c:if test="${listType == 1}">
-	       				<h3>¸ğµç È¸¿ø ¸ñ·Ï</h3>
+	       				<h3>ëª¨ë“  íšŒì› ëª©ë¡</h3>
 	       		</c:if>						
 	       		<c:if test="${listType == 2}">
-	       				<h3>Å»ÅğÇÑ È¸¿ø ¸ñ·Ï</h3>
+	       				<h3>íƒˆí‡´í•œ íšŒì› ëª©ë¡</h3>
 	       		</c:if>
 	       		<c:if test="${listType == 3}">
-	       				<h3>º¹±ÍÇÑ È¸¿ø ¸ñ·Ï</h3>
+	       				<h3>ë³µê·€í•œ íšŒì› ëª©ë¡</h3>
 	       		</c:if>
 	       		<c:if test="${listType == 4}">
-	       				<h3>Á¤ÁöµÈ È¸¿ø ¸ñ·Ï</h3>
+	       				<h3>ì •ì§€ëœ íšŒì› ëª©ë¡</h3>
 	       		</c:if>
 	    </div>
 
 	    <ul class="nav nav-tabs">
-  			<li role="presentation"><a href="#">¸ğµç È¸¿ø ¸ñ·Ï</a></li>
-  			<li role="presentation"><a href="#">Å»ÅğÇÑ È¸¿ø ¸ñ·Ï</a></li>
-  			<li role="presentation"><a href="#">º¹±ÍÇÑ È¸¿ø ¸ñ·Ï</a></li>
-  			<li role="presentation"><a href="#">Á¤ÁöµÈ È¸¿ø ¸ñ·Ï</a></li>
+  			<li role="presentation"><a href="#">ëª¨ë“  íšŒì› ëª©ë¡</a></li>
+  			<li role="presentation"><a href="#">íƒˆí‡´í•œ íšŒì› ëª©ë¡</a></li>
+  			<li role="presentation"><a href="#">ë³µê·€í•œ íšŒì› ëª©ë¡</a></li>
+  			<li role="presentation"><a href="#">ì •ì§€ëœ íšŒì› ëª©ë¡</a></li>
 		</ul>
 
 	    
@@ -163,7 +167,7 @@
 	    
 	    	<div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    		ÀüÃ¼  ${resultPage.totalCount } °Ç¼ö, ÇöÀç ${resultPage.currentPage}  ÆäÀÌÁö
+		    		ì „ì²´  ${resultPage.totalCount } ê±´ìˆ˜, í˜„ì¬ ${resultPage.currentPage}  í˜ì´ì§€
 		    	</p>
 		    </div>
 		    
@@ -172,19 +176,19 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>´Ğ³×ÀÓ</option>
+								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>ë‹‰ë„¤ì„</option>
 					</select>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="sr-only" for="searchKeyword">°Ë»ö¾î</label>
-				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="°Ë»ö¾î"
+				    <label class="sr-only" for="searchKeyword">ê²€ìƒ‰ì–´</label>
+				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="ê²€ìƒ‰ì–´"
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" name="search" class="btn btn-default">°Ë»ö</button>
+				  <button type="button" name="search" class="btn btn-default">ê²€ìƒ‰</button>
 				  
-				  <!-- PageNavigation ¼±ÅÃ ÆäÀÌÁö °ªÀ» º¸³»´Â ºÎºĞ -->
+				  <!-- PageNavigation ì„ íƒ í˜ì´ì§€ ê°’ì„ ë³´ë‚´ëŠ” ë¶€ë¶„ -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
 				</form>
@@ -197,25 +201,25 @@
 			<thead>
 				<tr>
 					<th align="center">No</th>
-					<th align="center">ÀÌ¸ŞÀÏ</th>
-					<th align="center">´Ğ³×ÀÓ</th>
+					<th align="center">ì´ë©”ì¼</th>
+					<th align="center">ë‹‰ë„¤ì„</th>
 					<c:if test="${listType == 1}">
-						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
+						<th align="left">ê°€ì… ì¼ì</th>
 					</c:if>
 					<c:if test="${listType == 2}">
-						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
-						<th align="left">Å»Åğ ÀÏÀÚ</th>
-						<th align="left">Å»Åğ »çÀ¯</th>
+						<th align="left">ê°€ì… ì¼ì</th>
+						<th align="left">íƒˆí‡´ ì¼ì</th>
+						<th align="left">íƒˆí‡´ ì‚¬ìœ </th>
 					</c:if>
 					<c:if test="${listType == 3}">
-						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
-						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
-						<th align="left">º¹±¸ ÀÏÀÚ</th>
+						<th align="left">ê°€ì… ì¼ì</th>
+						<th align="left">ê°€ì… ì¼ì</th>
+						<th align="left">ë³µêµ¬ ì¼ì</th>
 					</c:if>
 					<c:if test="${listType == 4}">
-						<th align="left">Á¤Áö½ÃÀÛÀÏÀÚ</th>
-						<th align="left">Á¤ÁöÁ¾·áÀÏÀÚ</th>
-						<th align="left">»óÅÂ</th>
+						<th align="left">ì •ì§€ì‹œì‘ì¼ì</th>
+						<th align="left">ì •ì§€ì¢…ë£Œì¼ì</th>
+						<th align="left">ìƒíƒœ</th>
 					</c:if>
 				</tr>
 			</thead>
@@ -247,7 +251,7 @@
 						<c:if test="${listType == 4}">
 							<td align="left">${user.suspendStartDate}</td>
 							<td align="left">${user.suspendEndDate}</td>
-							<td align="left">º¹±¸ 
+							<td align="left">ë³µêµ¬ 
 								<input type="hidden" name="email" value="${user.email}" />
 							</td>
 						</c:if>
@@ -256,7 +260,7 @@
 			</tbody>
 			</form>
 		</table>
-
+		
 	</div>
 	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/pageNavigator_new.jsp"/>
