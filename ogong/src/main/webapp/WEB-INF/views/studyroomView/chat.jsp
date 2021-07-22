@@ -28,7 +28,7 @@ button,button:hover{border:none;color:#fff;padding:10px}.chat__messages,.chat__s
       <div class="chat__footer">
         <form id="message-form">
           <input type="hidden" id="studyNo" value="${studyNo}">
-          <input type="hidden" id="email" value="${email}">
+          <input type="hidden" id="email" value="${user.email}">
           <input id="messageInput" name="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
           <button id="submit-btn">전송</button>
         </form>
@@ -40,12 +40,12 @@ button,button:hover{border:none;color:#fff;padding:10px}.chat__messages,.chat__s
   </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="http://localhost:82/socket.io/socket.io.js"></script>
+<script src="https://git.heroku.com/ogong-chat.git/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 	
 
 	
-	var socket = io("http://localhost:82");
+	var socket = io("https://git.heroku.com/ogong-chat.git/");
 	var studyNo= $("#studyNo").val();
 	var email = $("#email").val();
 	

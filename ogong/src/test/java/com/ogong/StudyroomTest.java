@@ -79,7 +79,7 @@ class StudyroomTest {
 	//@DisplayName("스터디 참가신청 거절")
 	void testRejectParticipation() throws Exception {
 		
-		studyroomService.rejectParticipation(1);
+		studyroomService.rejectParticipation("user01");
 			
 	}
 	
