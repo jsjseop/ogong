@@ -73,8 +73,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 댓글 수정
-	public void updateComment(Comment comment) throws Exception {
-		boardMapper.updateComment(comment);
+	public Boolean updateComment(Comment comment) throws Exception {
+		return boardMapper.updateComment(comment);
 	}
 
 	// 댓글 삭제
@@ -149,5 +149,13 @@ public class BoardServiceImpl implements BoardService {
 		int recommendCount = boardMapper.recommendCount(board);
 		return recommendCount;
 	}
+	
+	
+	// 답변 목록
+	public List<Answer> listAnswer(int boardNo) throws Exception {
+	
+		return boardMapper.listAnswer(boardNo);
+	}
+
 
 }

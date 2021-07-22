@@ -37,7 +37,7 @@ import com.ogong.service.domain.Recommend;
 		int addComment (Comment comment);
 		
 		//댓글 수정
-		void updateComment (Comment comment);
+		Boolean updateComment (Comment comment);
 		
 		//댓글 삭제
 		void deleteComment (int commentNo);
@@ -46,6 +46,10 @@ import com.ogong.service.domain.Recommend;
 		List<Comment> listComment(Map<String, Object> map) ;
 		
 		int listCommentCount(Map<String, Object> map);
+		
+		//답변 목록
+		List<Answer> listAnswer(int boardNo) ;
+		
 		
 		int getTotalCount(Map<String, Object> map);
 		
