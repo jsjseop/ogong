@@ -40,11 +40,11 @@
 	 
 	 <select id="getLearningHistoryList" parameterType="hashmap" resultMap="learningHistorySelectMap">
 	 
-	 	SELECT    TO_CHAR (TRUNC (total / 3600), 'fm00')
+	 	SELECT    TO_CHAR (TRUNC (NVL(total,'0') / 3600), 'fm00')
 		       || ':'
-		       || TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
+		       || TO_CHAR (TRUNC (ABS (MOD (NVL(total,'0'), 3600)) / 60), 'fm00')
 		       || ':'
-		       || TO_CHAR (MOD (total, 60), 'fm00') learning_time, learning_type, learning_date
+		       || TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') learning_time, learning_type, learning_date
 		FROM (SELECT SUM (
 		                    TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
 		                  + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
@@ -60,11 +60,11 @@
 	 
 	 <select	id="getTodayLearningTime"	parameterType="string" resultType="string">
 	 
-	 	SELECT    TO_CHAR (TRUNC (total / 3600), 'fm00')
+	 	SELECT    TO_CHAR (TRUNC (NVL(total,'0') / 3600), 'fm00')
 	       || ':'
-	       || TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
+	       || TO_CHAR (TRUNC (ABS (MOD (NVL(total,'0'), 3600)) / 60), 'fm00')
 	       || ':'
-	       || TO_CHAR (MOD (total, 60), 'fm00') time
+	       || TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') time
 		FROM (SELECT SUM (
  	                   TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
  	                 + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
@@ -76,11 +76,11 @@
 	 
 	 <select	id="getAverageLearningTime"	parameterType="string" resultType="string">
 	 
-	 	SELECT    TO_CHAR (TRUNC (total / 3600), 'fm00')
+	 	SELECT    TO_CHAR (TRUNC (NVL(total,'0') / 3600), 'fm00')
 	       || ':'
-	       || TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
+	       || TO_CHAR (TRUNC (ABS (MOD (NVL(total,'0'), 3600)) / 60), 'fm00')
 	       || ':'
-	       || TO_CHAR (MOD (total, 60), 'fm00') time, month
+	       || TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') time, month
 		FROM (SELECT AVG (
 	                    TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
 	                  + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
@@ -93,11 +93,11 @@
 	 
 	 <select	id="getTotalLearningTime"	parameterType="string" resultType="string">
 	 
-	 	SELECT    TO_CHAR (TRUNC (total / 3600), 'fm00')
+	 	SELECT    TO_CHAR (TRUNC (NVL(total,'0') / 3600), 'fm00')
 	       || ':'
-	       || TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
+	       || TO_CHAR (TRUNC (ABS (MOD (NVL(total,'0'), 3600)) / 60), 'fm00')
 	       || ':'
-	       || TO_CHAR (MOD (total, 60), 'fm00') time
+	       || TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') time
 		FROM (SELECT SUM (
 	                    TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
 	                  + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60

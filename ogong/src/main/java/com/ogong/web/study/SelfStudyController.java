@@ -183,7 +183,7 @@ public class SelfStudyController {
 		
 		if((studyService.getStudy(studyNo)).getStudyType().equals("self")) {
 			studyService.leaveStudy(studyNo);
-			learningHistory.setEmail("http://127.0.0.1:5050/user/loginView");
+			learningHistory.setEmail("http://127.0.0.1:5050/integration/mainPage");
 		}else {
 			learningHistory.setEmail("location:main");
 		}

@@ -45,7 +45,7 @@
 		'00:00:00',
 		'공부',
 		SYSDATE,
-		#{totalLearningTime:VARCHAR}
+		'00:00:00'
 		)
 	 </insert>
 	 

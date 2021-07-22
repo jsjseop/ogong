@@ -294,23 +294,6 @@
    	</script>
    	
    	<script type="text/javascript">
-	/* //============= logout Event  처리 =============	
-		 $(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$("a:contains('로그아웃')").on("click" , function() {
-				$(self.location).attr("href","/user/logout");
-				//self.location = "/user/logout"
-			}); 
-		 });
-		
-		//============= 회원정보조회 Event  처리 =============
-		 $(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$("a:contains('회원정보조회')").on("click" , function() {
-				//$(self.location).attr("href","/user/logout");
-				self.location = "/user/listUser"
-			}); 
-		 }); */
 		
 		//=============  자율스터디목록 Event  처리 =============
 	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
