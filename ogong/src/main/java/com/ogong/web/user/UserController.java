@@ -323,10 +323,12 @@ public String Mypostlist(@ModelAttribute("search") Search search, Model model,
 	map.put("search", search);
 	map.put("board",board);
 	
-	List<Board> list = (List<Board>) boardService.listBoard(map);
+	List<Board> listBoard = (List<Board>) boardService.listBoard(map);
+	List<Board> list = listBoard;
 	map.get("totalCount");
-
+	boardService.listBoard(map);
 	
+	boardService.listBoard(map);
 		
 	model.addAttribute("list", list);
 	model.addAttribute("search", search);

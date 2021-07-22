@@ -9,7 +9,7 @@
 
 	<meta charset="EUC-KR"><!-- 1 -->
 	
-	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
+	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 2 -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -42,18 +42,18 @@
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript"><!-- 12 -->
 		
-		//============= íšŒì›ì •ë³´ìˆ˜ì • Event  ì²˜ë¦¬ =============	
+		//============= È¸¿øÁ¤º¸¼öÁ¤ Event  Ã³¸® =============	
 		$(function() {
-			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button[name='êµ¬ë§¤']" ).on("click" , function() {
-					alert("ì¶”í›„ì—…ë°ì´íŠ¸")	
+			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			 $( "button[name='±¸¸Å']" ).on("click" , function() {
+					alert("ÃßÈÄ¾÷µ¥ÀÌÆ®")	
 				});
 			
 		});
 		
 		 $(function() {
-		//	 $( "button[name='ì´ì „']" ).on("click" , function() {
-			$( "button[name='ì´ì „']"  ).on("click" , function() {	 
+		//	 $( "button[name='ÀÌÀü']" ).on("click" , function() {
+			$( "button[name='ÀÌÀü']"  ).on("click" , function() {	 
 				
 				 self.location = "/product/listProduct?menu=search";
 				});
@@ -69,48 +69,48 @@
 	
    	<!-- ToolBar End /////////////////////////////////////-->
 	
-	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
+	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
 	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">ìŠ¤í„°ë””ë³´ê¸°</h3>
+	       <h3 class=" text-info">½ºÅÍµğº¸±â</h3>
 	    </div>
 	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>í”„ë¡œí•„ì‚¬ì§„</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ÇÁ·ÎÇÊ»çÁø</strong></div>
 			<div class="col-xs-8 col-md-4">${product.prodNo}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ë‹‰ë„¤ì„</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>´Ğ³×ÀÓ</strong></div>
 			<div class="col-xs-8 col-md-4">${user.nickname}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ì´ë¦„</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ÀÌ¸§</strong></div>
 			<div class="col-xs-8 col-md-4">${user.name}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ìƒë…„ì›”ì¼</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>»ı³â¿ùÀÏ</strong></div>
 			<div class="col-xs-8 col-md-4">${user.birth}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ëª©í‘œì™€ ê°ì˜¤</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>¸ñÇ¥¿Í °¢¿À</strong></div>
 			<div class="col-xs-8 col-md-4">${user.goal}</div>
 		</div>
 		
 				<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ê´€ì‹¬ì‚¬</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>°ü½É»ç</strong></div>
 			<div class="col-xs-8 col-md-4">${user.studyInterest1}</div>
 			<div class="col-xs-8 col-md-4">${user.studyInterest2}</div>
 			<div class="col-xs-8 col-md-4">${user.studyInterest3}</div>
@@ -126,7 +126,7 @@
 		<br/>
 		
  	</div>
- 	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
+ 	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
 </form>
 </body>
 

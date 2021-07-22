@@ -29,13 +29,13 @@
 		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
 		<result property="regDate" 				column="reg_date" 			jdbcType="DATE" />
 		<result property="bananaCount" 			column="banana_count" 		jdbcType="NUMERIC" />
+		<result property="learingType" 			column="learing_type" 		jdbcType="VARCHAR" />
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
 		
 		
 	</resultMap> 
-	
 	
 
 	
@@ -63,7 +63,6 @@
     USER_TARGET_TIME,
     reg_Date,
     BANANA_COUNT,
-    LEARING_TYPE,
     STUDY_INTEREST1,
     STUDY_INTEREST2,
     STUDY_INTEREST3
@@ -116,7 +115,8 @@
 	   	WHERE EMAIL = #{email:VARCHAR}
 	 </update> 
 	 
-	  	 <!--로그인  -->  	  
+
+		  	 <!--로그인  -->  	  
 	  <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
   	  	  
   	  	  select *
@@ -124,7 +124,6 @@ from users
 where EMAIL= #{email:VARCHAR}
 AND PASSWORD = #{password:VARCHAR}
   	  	  </select> 
-	
 	  
 	 
 	   <update id="Changedpassword" parameterType="user">
@@ -150,6 +149,15 @@ SELECT count(*)
 		form users
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
+		
+<!-- 	 	       <select id="userboardList" resultType="boardSelectMap">
+            SELECT
+               BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT
+             FROM board
+             where EMAIL= #{email:VARCHAR}
+                  
+        </select>  -->
+		
 		
 	
 
