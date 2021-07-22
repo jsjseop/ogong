@@ -179,7 +179,7 @@ class BoardTest {
 		user.setEmail("user09");
 		user.setNickname("비트캠프");
 		answer.setAnswerContents("답변 등록 성공");
-		answer.setBoard(board);
+//		answer.setBoard(board);
 		answer.setAnswerWriter(user);
 		answer.setAdoptionFlag("2");
 
