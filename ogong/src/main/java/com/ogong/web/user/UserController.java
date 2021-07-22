@@ -1,11 +1,8 @@
 package com.ogong.web.user;
 
-<<<<<<< binbin
-=======
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
->>>>>>> 5aa6578 희빈 : 으흠 아직 미완성
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -94,7 +91,6 @@ public class UserController {
 		return "index";
 	}
 
-<<<<<<< binbin
 	/*
 	 * // 비밀번호 변경 화면이동
 	 * 
@@ -127,7 +123,6 @@ public class UserController {
 	 * 
 	 * return "index"; }
 	 */
-=======
 	
 	  // 비밀번호 변경 화면이동
 	  
@@ -187,7 +182,6 @@ public class UserController {
 		  return "/userView/getProfile"; }
 		  
 	 
->>>>>>> 5aa6578 희빈 : 으흠 아직 미완성
 
 	/* 이메일 인증 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -289,7 +283,6 @@ public class UserController {
  * 
  */
 
-<<<<<<< binbin
 /*
  * @GetMapping("userView/addUser") public String addUser() throws Exception{
  * 
@@ -334,7 +327,6 @@ public class UserController {
  * 
  * }
  */
-=======
 
 
 @RequestMapping("Mystudylist")
@@ -375,4 +367,3 @@ public String Mystudylist ( @ModelAttribute("search") Search search,
 
 
 
->>>>>>> 5aa6578 희빈 : 으흠 아직 미완성
