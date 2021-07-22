@@ -27,25 +27,64 @@
    	
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
+		/* alert($("#searchCondition").val()); */
 		$("#currentPage").val(currentPage)
-		$("form").attr("method" , "POST").attr("action" , "/adminView/listUserReport").submit();
+		$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listUserReport").submit();
 	}
 	
+	
+	function fncupdateUserSuspend(email){
+		
+		
+		$("form[name='updateSuspendUser']").attr("method", "POST").attr("action", "/admin/updateSuspendUser").submit();
+		}
+		
+		$('.radio-value').on('click', function() {
+		    var suspendType = $('.radio-value:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
+		    
+		    if ( suspendType == '1' ) {
+		        $('.radio-value-detail').attr('suspendType', 1);
+		        $('.radio-value-detail').focus(); 
+		    } else if ( suspendType == '2' ) {
+		        $('.radio-value-detail').attr('suspendType', 2); 
+		        $('.radio-value-detail').focus();
+		    } else if ( suspendType == '3' ) {
+		        $('.radio-value-detail').attr('suspendType', 3);
+		        $('.radio-value-detail').focus(); 
+		    }
+		});	
 
 	
 	$(function(){
-
-
-		$( "td.ct_btn01:contains('검색')").on("click", function(){
+	
+		// 정지 
+ 		$( "#btn1" ).on("click" , function() {
+			var email = $('#email2').val()
+			/* alert(email);	 */		
+			fncupdateUserSuspend(email)
+		}); 
+		
+		// 기억해_
+	    $('tr td:nth-child(5)').on("click", function(){
+	    	$('#email').val($(this).find('input').val());	    	
+	    })
+		
+		
+ 		$('#modal').modal("hide"); //닫기 
+		 
+		$('#modal').modal("show"); //열기 
+		
+		
+		$("button[name='search']").on("click", function(){
 			fncGetList(1);
 		});	
 		
-		$("td:contains('정지')").on("click", function(){
-			/* fncupdateUserSuspend() */
+	/*$("td:contains('정지')").on("click", function(){
+			 fncupdateUserSuspend() 
 			var email = $(this).find('input').val()
 			alert(email);
 			location.href = "/admin/updateSuspendUser?receiveReporter="+$(this).attr('email');
-		});
+		});*/ 
 		
 	 	$( "a:contains('신고된 사용자 목록')" ).on("click" , function() {
 	 		location.href = "/admin/listUserReport";
@@ -96,7 +135,7 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-								<option value="0" ${ search.searchCondition eq '0' ? 'selected' : '' }>닉네임</option>
+								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
 					</select>
 				  </div>
 				  
@@ -106,7 +145,7 @@
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-default">검색</button>
+				  <button type="button" name="search" class="btn btn-default">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
@@ -138,12 +177,14 @@
 		  			<td align="left">${report.reportDate}</td>
 		  			<td align="left" email="${report.receiveReporter.email}">
 		  			<c:if test="${report.receiveReporter.condition eq '1'}">
-		  				정지
+						<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+						  <input type="hidden" name="email2" id="email2" value="${report.receiveReporter.email}"/>
+						   정지
+						</button>
 		  			</c:if>
 		  			<c:if test="${report.receiveReporter.condition eq '2'}">
 		  				정지완료
 		  			</c:if>
-		  			<input type="hidden" name="email" value="${report.receiveReporter.email}"/>
 		  			</td>
 		  			</tr>
 		  		</c:forEach>
@@ -151,6 +192,38 @@
 	    	
 	    </table>
 	    
+	    
+	    
+	    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">사용자 정지</h4>
+		      </div>
+		      <div class="modal-body">
+		        <form class="form-horizontal" method="post" name="updateSuspendUser">
+		        	<input type="hidden" id="email" name="email" value="${report.receiveReporter.email}"/>   
+		        	<div class = "form-group">
+					  <fieldset>
+			   				 <legend>정지 일자 선택 </legend>
+			   				 <label for="radio-1 ">7일</label>
+			    			 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="1">
+			   				 <label for="radio-2">30일</label>
+			   				 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="2">
+			   				 <label for="radio-3">영구정지</label>
+			    			 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="3">
+			  			</fieldset>
+		        	</div>
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		      	<button id="btn1" class="btn btn-default" >정 지</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫 기</button>
+		      </div>
+		    </div>
+		  </div>
+		 </div>	
 	</div>
 	
 	<jsp:include page="../common/pageNavigator_new.jsp"/>

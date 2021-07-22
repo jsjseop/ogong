@@ -65,7 +65,7 @@ class BoardTest {
 
 		Board board = new Board();
 		board.setBoardNo(10021);
-		Map<String, Object> map = boardService.getBoard(board);
+		Map<String, Object> map = (Map<String, Object>) boardService.getBoard(board);
 
 		System.out.println(map);
 
@@ -110,13 +110,9 @@ class BoardTest {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board", board);
 		map.put("search", search);
-		List<Board> listBoard = boardService.listBoard(map);
+		Map<String, Object> listBoard = boardService.listBoard(map);
 
 		Integer totalCount = (Integer) map.get("totalCount");
-
-		for (Board b : listBoard) {
-			System.out.println(b);
-		}
 
 	}
 
@@ -130,7 +126,7 @@ class BoardTest {
 		board.setBoardNo(10003);
 		user.setEmail("user07");
 		user.setNickname("꼬미");
-		comment.setCommentBoard(board);
+		//comment.setCommentBoard(board);
 		comment.setCommentWriter(user);
 		comment.setCommentRegDate(Date.valueOf("2021-07-22"));
 		comment.setCommentContents("뽀글아 안녕~");
@@ -146,7 +142,7 @@ class BoardTest {
 		Board board = new Board();
 		Comment comment = new Comment();
 		board.setBoardNo(10004);
-		comment.setCommentBoard(board);
+		//comment.setCommentBoard(board);
 		comment.setCommentContents("댓글수정 완료");
 
 		boardService.updateComment(comment);
@@ -166,7 +162,7 @@ class BoardTest {
 	@DisplayName("댓글 목록")
 	void listComment() throws Exception {
 
-		Map<String, Object> map = boardService.listComment(10004);
+		Map<String, Object> map = boardService.listComment(10004, null);
 
 		System.out.println(map.get("list"));
 		System.out.println(map.get("totalCount"));

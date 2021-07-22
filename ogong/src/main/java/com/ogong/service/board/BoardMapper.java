@@ -11,6 +11,7 @@ import com.ogong.common.Search;
 import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
+import com.ogong.service.domain.Recommend;
 
 
 	@Repository
@@ -33,7 +34,7 @@ import com.ogong.service.domain.Comment;
 		List<Board> listBoard(Map<String, Object> map) ;
 		
 		//댓글 등록
-		void addComment (Comment comment);
+		int addComment (Comment comment);
 		
 		//댓글 수정
 		void updateComment (Comment comment);
@@ -42,9 +43,11 @@ import com.ogong.service.domain.Comment;
 		void deleteComment (int commentNo);
 		
 		//댓글 목록
-		List<Comment> listComment(int boardNo) ;
+		List<Comment> listComment(Map<String, Object> map) ;
 		
-		int getTotalCount(Search search);
+		int listCommentCount(Map<String, Object> map);
+		
+		int getTotalCount(Map<String, Object> map);
 		
 		//Q&A 답변 등록
 		void addAnswer(Answer answer);
@@ -54,4 +57,21 @@ import com.ogong.service.domain.Comment;
 		
 		//Q&A 답변 삭제
 		void deleteAnswer (int answerNo);
+		
+		//조회수
+		void updateViewcnt(int boardNo);
+		
+		//추천수
+		void addRecommend(Board board);
+		
+		//추천수
+		void deleteRecommend(int recommendNo);
+		
+		//추천수
+		int recommendCount(Board board);
+		
+		//추천수
+		Recommend getRecommendNo(Board board);
+		
+		
 	}

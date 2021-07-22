@@ -28,15 +28,16 @@ public class IntegrationTest {
 		User receiver = new User();
 		User sender = new User();
 		Message message = new Message();
-		receiver.setEmail("user01");
+		receiver.setEmail("user02");
 		message.setReceiver(receiver);
-		sender.setEmail("user02");
+		sender.setEmail("user01");
 		message.setSender(sender);
 		message.setMessageContents("쪽지 보내기 이거 맞나 모르겠다.");
 		
 		System.out.println(message);
 		
 		integrationService.addSendMessage(message);
+		integrationService.addSendMessage2(message);
 		
 	}
 	
@@ -113,12 +114,26 @@ public class IntegrationTest {
 	void testDeleteMessage() throws Exception{
 		
 		Message message = new Message();
-		int[] messageNo = {10000,10001,10002};
+		int messageNo = 10032;
 		
 		
 		
 				
 		integrationService.deleteMessage(messageNo);
+	}
+	
+	//@Test
+	@DisplayName("쪽지 삭제 테스트")
+	void testDeleteTest() throws Exception{
+		
+		Message message = new Message();
+		User user = new User();
+		
+		user.setEmail("user01");
+		message.setReceiver(user);
+		message.setMessageNo(10033);
+		
+		integrationService.deleteTest(message);
 	}
 	
 	//@Test
@@ -129,7 +144,7 @@ public class IntegrationTest {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		Map<String, Object> result = integrationService.listBananaRanking(map);
+		//Map<String, Object> result = integrationService.listBananaRanking(map);
 		List<Object> list = (List<Object>)map.get("list");
 		
 		
@@ -148,7 +163,7 @@ public class IntegrationTest {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		Map<String, Object> result = integrationService.listChooseCountRanking(map);
+		Map<String, Object> result = (Map<String, Object>) integrationService.listChooseCountRanking(map);
 		List<Object> list = (List<Object>)map.get("list");
 		
 		

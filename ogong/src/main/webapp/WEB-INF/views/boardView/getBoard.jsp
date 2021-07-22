@@ -1,56 +1,201 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>°Ô½ÃÆÇ</title>
+<title>ê²Œì‹œíŒ</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+ -->
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>  
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap Dropdown Hover CSS -->
 <link href="/css/animate.min.css" rel="stylesheet">
 <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-<script>
-	let boardNo = "<c:out value='${board.board.boardNo}'/>";
 
+<!-- css, JS -->
+<script type="text/javascript" src="resources/css/fileUpload.css"></script>
+<script type="text/javascript" src="resources/javascript/fileUpload.js"></script>
+
+
+
+<script>
+	let boardNo = "<c:out value='${board.boardNo}'/>";
+	let boardCategory = "<c:out value='${board.boardCategory}'/>";
+
+	let currentPage = 1;
+	let pageSize = 10;
+	
 	function fncDeleteBoard() {
 
-		if (confirm("»èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+		if (confirm("ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
 
-			location.href = "/board/deleteBoard?boardNo=" + boardNo;
+			location.href = "/board/deleteBoard?boardNo="+`${board.boardNo}`+"&boardCategory="+`${board.boardCategory}`; 
 		}
 	}
 
-	$(function() {
+	
+	function recommend() {
+		var cnt = $('#cnt');
+		$.ajax({
+			url:'/board/updateRecommend',
+			type:'post',
+			data: {
+				'boardNo': boardNo
+			},
+			dateType:'json',
+			success:function(res){
+				cnt.text(res);
+			}
+		});
+	}
+	
+	
+	function getCommentList(type) {
+		if('M' === type){
+			currentPage = currentPage+1; 
+		}
+		$.ajax({
+			url:'/board/listComment',
+			type:'get',
+			data: {
+				'boardNo': boardNo,
+				'currentPage': currentPage,
+				'pageSize': pageSize
+			},
+			dateType:'json',
+			success:function(res){
+				var list = res.list;
+				var ul = $('#listComment');
+				
+				for(var i=0 ; i<list.length ; i++){
+					var record = list[i];
+					var li = $("<li>");
 
-		$('button:contains("¼ö Á¤")').on('click', function() {
+					var commentContents = $("<div class='commentContents'>");
+					var commentRegDate = $("<div class='commentRegDate'>");
+					var nickname = $("<div class='nickname'>");
+					var commentNo = $("<input type='hidden' class='commentNo'>");
+					var button = $("<button type='button' id='updatebtn' class='btn btn-primary'>ìˆ˜ì •</button>")
+					commentContents.text(record.commentContents);
+					commentRegDate.text(record.commentRegDate);
+					nickname.text(record.nickname);
+
+					commentContents.appendTo(li);
+					commentRegDate.appendTo(li);
+					nickname.appendTo(li);
+					button.appendTo(li);
+					
+					li.appendTo(ul);
+				}
+			}
+		});
+	}
+	
+	function addComment() {
+		var commentContents = $('#comment').val();
+		currentPage = 1; 
+		$.ajax({
+			url:'/board/addComment',
+			type:'post',
+			data: JSON.stringify({
+				'boardNo': boardNo,
+				'commentContents': commentContents
+			}),
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			dateType:'json',
+			success:function(res){
+				if (res) {
+					var ul = $('#listComment');
+					ul.children('li').remove();
+					$('#comment').val("");
+					
+					getCommentList();
+				} else{
+					alert('ì‹¤íŒ¨');
+				}
+			}
+		});
+	}
+	
+	
+	function updateComment() {
+		var commentContents = $('#comment').val();
+		var commentNo = $('.commentNo').val();
+		currentPage = 1; 
+		$.ajax({
+			url:'/board/updateComment',
+			type:'POST',
+			data: {
+				commentNo: commentNo,
+				commentContents: commentContents
+			},
+			dateType:'json',
+			success:function(res){
+				if (res) {
+					var ul = $('#listComment');
+					ul.children('li').remove();
+					
+					getCommentList();
+				} else{
+					alert('ì‹¤íŒ¨');
+				}
+			}
+		});
+	}
+	
+	
+	
+	function more() {
+		getCommentList('M');
+	}
+	
+	$(function() {
+		getCommentList();
+		
+		
+		$('button:contains("ìˆ˜ ì •")').on('click', function() {
 
 			location.href = "/board/updateBoard?boardNo=" + boardNo;
 		})
 
-		$('button:contains("»è Á¦")').on('click', function() {
+		$('button:contains("ì‚­ ì œ")').on('click', function() {
 
 			fncDeleteBoard();
 		})
 
-		$('button:contains("¸ñ ·Ï")').on('click', function() {
+		$('button:contains("ëª© ë¡")').on('click', function() {
 
-			location.href = "/board/listBoard";
+			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
+		
+		$('#updatebtn').on('click', function() {
+
+			updateComment();
+		})
+		
 	})
+	
+	
 </script>
 <style>
 body{
@@ -69,79 +214,97 @@ pre {
 
 	<div class="container">
 		<div class="page-header">
-			<h3 class=" text-default">»ó¼¼º¸±â</h3>
+			<h3 class=" text-default">ìƒì„¸ë³´ê¸°</h3>
 		</div>
 
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
-				<strong>µî·ÏÀÏÀÚ</strong>
+				<strong>ë“±ë¡ì¼ì</strong>
 			</div>
-			<div class="col-xs-8 col-md-4">${board.board.boardRegDate}</div>
+			<div class="col-xs-8 col-md-4">${board.boardRegDate}</div>
+		</div>
+
+		<hr />
+		<div class="row">
+			<div class="col-xs-4 col-md-2">
+				<strong>ì¡°íšŒìˆ˜</strong>
+			</div>
+			<div class="col-xs-8 col-md-4">${board.viewCount}</div>
 		</div>
 
 		<hr />
 		
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
-				<strong>Á¦ ¸ñ</strong>
+				<strong>ì œ ëª©</strong>
 			</div>
-			<div class="col-xs-8 col-md-4">${board.board.boardTitle}</div>
+			<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
 		</div>
 
 		<hr />
 
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
-				<strong>³» ¿ë</strong>
+				<strong>ë‚´ ìš©</strong>
 			</div>
-			<div class="col-xs-8 col-md-4">
-				<pre style="width: 450px; height: 150px;">${board.board.boardContents}</pre>
+			<div class="col-xs-6 col-md-4">
+				<pre style="width: 450px; height: 150px;">${board.boardContents}</pre>
 			</div>
 		</div>
 
 		<hr />
+		
+
 
 		<div align="right">
-			<c:if test="${user.userId == board.userId || user.role == 'admin'}">
-				<c:if test="${user.userId == board.userId}">
-					<button type="button" class="btn btn-default" style="width: 60px;">¼ö Á¤</button>
-				</c:if>
-				<button type="button" class="btn btn-default" style="width: 60px;">»è Á¦</button>
-			</c:if>
-			<button type="button" class="btn btn-default" style="width: 60px;">¸ñ ·Ï</button>
+			<div id="recommend" class="btn btn-danger" onclick="recommend()" style="width: 60px;">ì¶” ì²œ <span id="cnt">0</span></div>
+			
+<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
+				<c:if test="${user.userId == board.email}"> --%>
+				
+				
+					<button type="button" class="btn btn-warning" style="width: 60px;">ìˆ˜ ì •</button>
+<%-- 				</c:if> --%>
+				<button type="button" class="btn btn-warning" style="width: 60px;">ì‚­ ì œ</button>
+<%-- 			</c:if> --%>
+			<button type="button" class="btn btn-warning" style="width: 60px;">ëª© ë¡</button>
 		</div>
 	</div>
 
-
 <div class="container">
-		<form id="commentForm" name="commentForm" method="post">
-			<br> <br>
 			<div>
 				<div>
-					<span><strong>Comments</strong></span> <span id="cCnt"></span>
+					<span><strong>comment</strong></span> <span id="cnt"></span>
 				</div>
 				<div>
 					<table class="table">
 						<tr>
 							<td><textarea style="width: 1100px" rows="3" cols="30"
-									id="comment" name="comment" placeholder="´ñ±ÛÀ» ÀÔ·ÂÇÏ¼¼¿ä"></textarea>
+									id="comment" placeholder="ëŒ“ê¸€ì„ ì…ë ¥í•˜ì„¸ìš”"></textarea>
 								<br>
 								<div>
-									<a href='#' onClick="comment('${result.code }')"
-										class="btn pull-right btn-success">µî·Ï</a>
+									<a href='#' onClick="addComment()"
+										class="btn pull-right btn-danger">ë“±ë¡</a>
 								</div></td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<input type="hidden" id="b_code" name="b_code"
-				value="${result.code }" />
-		</form>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-md-2">
+			<strong>ì œ ëª©</strong>
+		</div>
+		<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
 	</div>
-	<div class="container">
-		<form id="commentList" name="commentList" method="post">
-			<div id="commentList"></div>
-		</form>
-	</div>
+	<ul id="listComment">
+	
+
+	</ul>
+</div>
+	
+	
+	<button type="button" class="btn btn-danger" onclick="more()" style="width: 60px;">ë”ë³´ê¸°</button>
 </body>
 </html>

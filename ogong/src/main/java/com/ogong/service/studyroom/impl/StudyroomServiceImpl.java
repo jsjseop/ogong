@@ -91,6 +91,12 @@ public class StudyroomServiceImpl implements StudyroomService {
 			// TODO Auto-generated method stub
 			studyroomMapper.deleteCalendar(calendarNo);
 		}
+
+		@Override
+		public String checkAttendance(Map<String, Object> map) throws Exception {
+			// TODO Auto-generated method stub
+			return studyroomMapper.checkAttendance(map);
+		}
 		
 		
 }
