@@ -96,10 +96,10 @@ public class RestBoardController {
 		return boardService.addComment(comment);
     }
     
-    @GetMapping("listAnswer/{boardNo}")
-	public List<Answer> listAnswer(@PathVariable("boardNo") int boardNo) throws Exception {
-		
-    	return boardService.listAnswer(boardNo);
-    		
-	}  
+//    @GetMapping("listAnswer/{boardNo}")
+//	public List<Answer> listAnswer(@PathVariable("boardNo") int boardNo) throws Exception {
+//		
+//    	return boardService.listAnswer(boardNo);
+//    		
+//	}  
 }

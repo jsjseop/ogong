@@ -43,33 +43,22 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <!-- 드롭다운 시작 -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">자율스터디</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">자율스터디 목록</a></li>
-                                <li><a class="dropdown-item" href="#!">모집게시판</a></li>          
-                            </ul>
-                     <!-- 드롭다운 끝 -->       
-                     
-                        <li class="nav-item"><a class="nav-link" href="#!">그룹스터디</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">정보공유게시판</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Q&A게시판</a></li>
-                    <!-- 드롭다운 시작 -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">쉼터게시판</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">자율스터디 목록</a></li>
-                                <li><a class="dropdown-item" href="#!">모집게시판</a></li>          
-                            </ul>
-                     <!-- 드롭다운 끝 -->    
-                     <li class="nav-item"><a class="nav-link" href="#!">파일공유 게시판</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <!-- dropdown -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">관리자</a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">신고조회</a></li>
-                                <li><a class="dropdown-item" href="#!">회원조회</a></li>
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                                 
                             </ul>
                         </li>
@@ -90,8 +79,6 @@
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">자율스터디 모집게시판</h1>
                     <p class="lead fw-normal text-white-50 mb-0">함께 공부할 친구들을 모집 해 보세요!</p>
-                    <br/>
-                      <a class="btn btn-secondary btn-xl" href="/board/addBoard?boardCategory=5">모집 등록</a>
                 </div>
             </div>
         </header>
