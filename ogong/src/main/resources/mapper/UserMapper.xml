@@ -159,6 +159,45 @@ SELECT count(*)
         </select>  -->
 		
 		
-	
+	 
+	<!--  SQL : 프로필 (수정)  
+	 <update	id="updateProfile"	parameterType="user" >
+	   	UPDATE users
+	   	set
+	   		  		 name =  #{name} ,
+   		 birth =  #{birth} ,
+   		 gender =  #{gender} ,
+   		 USERIMAGE =  #{user_image} ,
+    		goal =  #{goal} ,
+	   	set
+	   	WHERE email = #{email}
+	 </update> -->
+	 
+
+
+	  	
+	 <!-- SQL : 비밀번호 찾기	 
+	 	   <select id="getPassword" parameterType="String" resultType="String">
+	  	select *  from user where email=#{email}
+	  	</select> -->
+	  	
+	  	
+
+
+
+
+
+  
+		 <!-- 이메일 중복확인   
+
+  	  	  <select id="emailCheck" parameterType="String" resultMap="user">
+  	  	  select count(*)
+  	  	  form users
+  	  	  where email=#{email}
+  	  	  </select> -->
+  	  	  
+  	  	  
+
+	 
 
 </mapper>
