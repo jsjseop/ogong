@@ -47,15 +47,17 @@ public class StudyController {
 	
 	@PostMapping("addStudy")
 	public String addStudy( @ModelAttribute("study") Study study,
-							@ModelAttribute("user") User user,
+							HttpSession session,
+							User user,
 							GroupStudyMember gsm,
 							Calendar calendar) throws Exception{
 		
 		System.out.println("/study/addStudy : POST");
 		
 		
-		study.setStudyMaker(user);
+		user = ((User)session.getAttribute("user"));
 		
+		study.setStudyMaker(user);
 		studyService.addStudy(study);
 		
 		
@@ -63,7 +65,6 @@ public class StudyController {
 		if(study.getStudyType().equals("group")) {				
 			gsm.setStudy(study);
 			gsm.setMember(user);
-			gsm.setStudyRole("3");
 			gsm.setApprovalFlag("1");
 			studyService.addParticipation(gsm);
 			
@@ -117,9 +118,10 @@ public class StudyController {
 	@PostMapping("addParticipation")
 	public String addParticipation ( @ModelAttribute("study") Study study,
 										@ModelAttribute("GSMember") GroupStudyMember gsm,
+										User user,
 										HttpSession session) throws Exception {
-		User user = new User();
-		user.setEmail("user09");
+		
+		user = (User)session.getAttribute("user");
 		gsm.setMember(user);
 		gsm.setStudy(study);
 		

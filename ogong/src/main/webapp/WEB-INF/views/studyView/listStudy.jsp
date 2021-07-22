@@ -15,8 +15,11 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+<style type="text/css">
+body {
+    padding-top : 50px;
+}
+</style>
 <script type="text/javascript">
    function fncGetList(currentPage) {
       $('#currentPage').val(currentPage);
@@ -54,16 +57,12 @@
           });
       });
 </script>
-<style>
-body {
-   padding-top: 30px;
-}
-</style>
 </head>
 
 <body>
 
-
+	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+	
    <div class="container">
 
       <div class="page-header text-default">
