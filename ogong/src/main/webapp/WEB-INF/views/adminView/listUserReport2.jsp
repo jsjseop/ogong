@@ -1,88 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
     
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset = "EUC-KR">
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta charset="EUC-KR">
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<!--   jQuery , Bootstrap CDN  -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="resources/css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 
-   
-   
-   <!-- jQuery UI toolTip 사용 CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip 사용 JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<!--  CSS 추가 : 툴바에 화면 가리는 현상 해결 :  주석처리 전, 후 확인-->
 	<style>
         body {
-            padding-top : 50px;
+            padding-top : 70px;
         }
    	</style>
-   
-   	<!--  ///////////////////////// JavaScript ////////////////////////// -->
+   	
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
-		$("input[name='currentPage']").val(currentPage)
-		if(${reportType == 1}){
-			$("#currentPage").val(currentPage)
-			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listReport?reportType=1").submit();
-		}
-		else if(${reportType == 2}){
-			$("#currentPage").val(currentPage)
-			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listReport?reportType=2").submit();
-		}
-		else if(${reportType == 3}){
-			$("#currentPage").val(currentPage)
-			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listReport?reportType=3").submit();
-		}
+		/* alert($("#searchCondition").val()); */
+		$("#currentPage").val(currentPage)
+		$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listUserReport").submit();
 	}
+	
 	
 	function fncupdateUserSuspend(email){
+		
+		
 		$("form[name='updateSuspendUser']").attr("method", "POST").attr("action", "/admin/updateSuspendUser").submit();
-	}
-	
-	$('.radio-value').on('click', function() {
-	    var suspendType = $('.radio-value:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
-	    
-	    if ( suspendType == '1' ) {
-	        $('.radio-value-detail').attr('suspendType', 1);
-	        $('.radio-value-detail').focus(); 
-	    } else if ( suspendType == '2' ) {
-	        $('.radio-value-detail').attr('suspendType', 2); 
-	        $('.radio-value-detail').focus();
-	    } else if ( suspendType == '3' ) {
-	        $('.radio-value-detail').attr('suspendType', 3);
-	        $('.radio-value-detail').focus(); 
-	    }
-	});	
+		}
+		
+		$('.radio-value').on('click', function() {
+		    var suspendType = $('.radio-value:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
+		    
+		    if ( suspendType == '1' ) {
+		        $('.radio-value-detail').attr('suspendType', 1);
+		        $('.radio-value-detail').focus(); 
+		    } else if ( suspendType == '2' ) {
+		        $('.radio-value-detail').attr('suspendType', 2); 
+		        $('.radio-value-detail').focus();
+		    } else if ( suspendType == '3' ) {
+		        $('.radio-value-detail').attr('suspendType', 3);
+		        $('.radio-value-detail').focus(); 
+		    }
+		});	
+
 	
 	$(function(){
-		// 검색
-		$("button[name='search']").on("click", function(){
-			fncGetList(1);
-		});	
-		
+	
 		// 정지 
  		$( "#btn1" ).on("click" , function() {
 			var email = $('#email2').val()
-			/* alert(email); */			
+			/* alert(email);	 */		
 			fncupdateUserSuspend(email)
 		}); 
 		
 		// 기억해_
-	    $('tr td:nth-child(6)').on("click", function(){
+	    $('tr td:nth-child(5)').on("click", function(){
 	    	$('#email').val($(this).find('input').val());	    	
 	    })
 		
@@ -91,7 +77,18 @@
 		 
 		$('#modal').modal("show"); //열기 
 		
-	 	
+		
+		$("button[name='search']").on("click", function(){
+			fncGetList(1);
+		});	
+		
+	/*$("td:contains('정지')").on("click", function(){
+			 fncupdateUserSuspend() 
+			var email = $(this).find('input').val()
+			alert(email);
+			location.href = "/admin/updateSuspendUser?receiveReporter="+$(this).attr('email');
+		});*/ 
+		
 	 	$( "a:contains('신고된 사용자 목록')" ).on("click" , function() {
 	 		location.href = "/admin/listUserReport";
 		});
@@ -107,7 +104,6 @@
 	 	$( "a:contains('신고된 댓글 목록')" ).on("click" , function() {
 	 		location.href = "/admin/listReport?reportType="+3;
 		});	
-		
 	})
 	
 	</script>   	
@@ -119,17 +115,7 @@
 	<div class="contatiner">
 	
 		<div class="page-header text-info">
-		
-	       		<c:if test="${reportType == 1}">
-	       				<h3>신고된 게시글 목록</h3>
-	       		</c:if>
-	       		<c:if test="${reportType == 2}">
-	       				<h3>신고된 답변 목록</h3>
-	       		</c:if>
-	       		<c:if test="${reportType == 3}">
-	       				<h3>신고된 댓글 목록</h3>
-	       		</c:if>
-	       		
+	       		<h3>신고된 사용자 목록 조회</h3>
 	    </div>
 	    
 	    <ul class="nav nav-tabs">
@@ -152,7 +138,7 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-								<option value="0" ${ search.searchCondition eq '0' ? 'selected' : '' }>닉네임</option>
+								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
 					</select>
 				  </div>
 				  
@@ -177,43 +163,21 @@
 	    	<thead>
 	    		<tr>	       		
 	       					<th align="center">No</th>
-	       				<c:if test="${reportType == 1}">
-	       					<th align="left">게시글제목</th>
-	       				</c:if>
-	       				<c:if test="${reportType == 2}">
-	       					<th align="left">답변내용</th>
-	       				</c:if>
-	       				<c:if test="${reportType == 3}">
-	       					<th align="left">댓글내용</th>
-	       				</c:if>
 	       					<th align="left">신고사유</th>
 	       					<th align="left">닉네임</th>
 	       					<th align="left">신고일자</th>
 	       					<th align="left">정지</th>
 	    		</tr>
 	    	</thead>
-	    	
 	    	<tbody class="ct_list_pop">
 		 	 	<c:set var="i" value="0" />
 		  		<c:forEach var="report" items="${list}">
 		  			<c:set var="i" value="${ i+1 }" />
 		  			<tr>
 		  			<td align="center">${ i }</td>
-		  			<td align="left">
-		  			<c:if test="${reportType == 1}">
-		  				<div class="report"	reportNo="${report.reportNo}">${report.reportBoard.boardTitle}</div>
-		  			</c:if>
-		  			<c:if test="${reportType == 2}">
-		  				<div class="report"	reportNo="${report.reportNo}">${report.reportAnswer.answerContents}</div>
-		  			</c:if>
-		  			<c:if test="${reportType == 3}">
-		  				<div class="report"	reportNo="${report.reportNo}">${report.reportComment.commentContents}</div>
-		  			</c:if>		  					  			
-		  			</td>
 		  			<td align="left">${report.reportReason}</td>
-		  			<td align="left">${report.sendReporter.nickname}</td>
+		  			<td align="left">${report.receiveReporter.nickname}</td>
 		  			<td align="left">${report.reportDate}</td>
-		  			
 		  			<td align="left" email="${report.receiveReporter.email}">
 		  			<c:if test="${report.receiveReporter.condition eq '1'}">
 						<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -225,12 +189,14 @@
 		  				정지완료
 		  			</c:if>
 		  			</td>
-		  				
 		  			</tr>
 		  		</c:forEach>
 	    	</tbody>
 	    	
 	    </table>
+	    
+	    
+	    
 	    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">

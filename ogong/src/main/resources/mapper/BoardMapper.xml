@@ -18,14 +18,18 @@
 		<result property="boardRegBanana" 		column="board_reg_banana" 		jdbcType="NUMERIC" />
 		<result property="fileFlag" 			column="file_flag" 				jdbcType="NUMERIC" /> 
 		<result property="answerCount" 			column="answer_count" 			jdbcType="NUMERIC" />
+
 		
 		
 <!-- 	<association property="StudyNo"  javaType="study">
 			<id property="studyNo" column="study_no" jdbcType="NUMERIC"/>
 		</association> -->
 		
-		<association property="writer"  javaType="user">
-			<id property="nickname" column="nickname" jdbcType="VARCHAR"/>
+
+ 		<association property="writer"  javaType="user">
+			<id property="email" column="email" jdbcType="VARCHAR"/>
+			<result property="nickname" column="nickname" jdbcType="VARCHAR"/>			
+
 		</association>
 
 	</resultMap>
@@ -46,11 +50,11 @@
 	<resultMap id="answerSelectMap" 	type="answer">
 		<result property="answerNo" 			column="answer_no" 				jdbcType="NUMERIC" />
 		<result property="boardNo" 				column="board_no" 				jdbcType="NUMERIC"/>
-		<result property="email" 				column="email" 					jdbcType="VARCHAR" />
+		<result property="answerWriter.email" 	column="email" 					jdbcType="VARCHAR" />
 		<result property="answerContents"		column="answer_contents" 		jdbcType="VARCHAR" />
 		<result property="adoptionFlag" 		column="adoption_flag" 			jdbcType="NUMERIC" />  
-		<result property="answerRegDate" 		column="answer_reg_dage" 		jdbcType="DATE" /> 
-		<result property="nickname" 			column="nickname" 				jdbcType="VARCHAR" />
+		<result property="answerRegDate" 		column="answer_reg_date" 		jdbcType="DATE" /> 
+		<result property="answerWriter.nickname" column="nickname" 				jdbcType="VARCHAR" />
 		<result property="adoptionDate" 		column="adoption_date" 			jdbcType="DATE" />
 
 	</resultMap>
@@ -113,6 +117,9 @@
 				(SELECT COUNT(*)
                      FROM comment_info c
                      WHERE c.board_no = #{boardNo}) comment_count,
+                (SELECT COUNT(*)
+                     FROM answer a
+                     WHERE a.board_no = #{boardNo}) answer_count,
 				file_flag
 			FROM 
 				board
@@ -392,7 +399,26 @@
 			board_no = #{boardNo}
 	</select> 
 	
-
+	
+	
+	<!-- 답변 리스트 -->
+	
+	<select id="listAnswer" parameterType="int" resultMap="answerSelectMap">
+		SELECT		
+			 answer_no
+			,board_no
+			,email
+			,answer_contents
+			,adoption_flag
+			,answer_reg_date
+			,nickname
+			,adoption_date
+		FROM
+			answer
+		WHERE 
+			board_no = #{boardNo}
+						
+	</select>
 
 	<!-- Q&A 게시판 답변 등록 -->
 	

@@ -112,7 +112,7 @@ body {
 						<option value="3">글내용</option>
 					</select>
 				</div>
-				<div class="col-md-7">
+				<div class="col-md-8">
 					<input type="text" name="findKeyword" class="form-control"
 						placeholder="검색어를 입력하세요">
 				</div>
@@ -127,7 +127,7 @@ body {
 
 		<table class="table table-condensed table-striped">
 			<tr>
-				<th>글번호</th>
+				<th>&nbsp;&nbsp;&nbsp; 글번호</th>
 				<th>제목</th>
 				<th>글쓴이</th>
 				<th>조회수</th>
@@ -153,14 +153,15 @@ body {
 				</td>
 				<td colspan="2">총게시물수: <span class="text-danger"
 					style="font-weight: bold">${page.totalCount}개</span> <br> <span
-					class="text-danger" style="font-weight: bold">${page.cpage}</span>
+					class="text-danger" style="font-weight: bold">${page.pageUnit
+					}</span>
 					/${page.pageCount} pages
 				</td>
 			</tr>
 		</table>
 		
 				<div align="right">
-			<button type="button" class="btn btn-default" style="width: 80px;"
+			<button type="button" class="btn btn-warning" style="width: 80px;"
 				onclick="javascript:fncWrite('${writer.email}')">글쓰기</button>
 		</div>
 	</div>
