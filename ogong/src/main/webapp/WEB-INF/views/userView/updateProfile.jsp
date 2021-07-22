@@ -22,7 +22,7 @@
 <script type="text/javascript">
 
 
-
+/////////////////////////////////////////////////////////// 관심사 
 	$(function(){
 		$ ( "#btn1").on("click", function(){
 			fncupdateProfile();
@@ -157,7 +157,7 @@
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 
-		  <input type="hidden" name="email"	value="${user.email}"/>
+		  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 
 		
 		
@@ -176,7 +176,7 @@
 		  </div>
 		 
  		 <div class="radio">
-  <label>
+<%--   <label>
     <input type="radio" name="gender" id="gender" value="${user.gender}" checked>
     남성
   </label>
@@ -187,7 +187,7 @@
     여성
   </label> 
 </div>
-<div class="radio disabled">
+<div class="radio disabled"> --%>
 
 </div>
 		 
@@ -274,7 +274,7 @@
 
 
 		  
-		   
+	<!--    
 		               <div class="col-sm-10 container-box">
                 <div class="inner-container-box">
                     <h3>관심 분야 설정</h3>
@@ -310,7 +310,7 @@
             </div>
         </div>
     </div>
- </div> 
+ </div>  -->
 		  
 		  
 		  

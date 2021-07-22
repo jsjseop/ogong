@@ -1,57 +1,123 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>boardList</title>
+<title>³» °Ô½Ã¹°º¸±â</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Dropdown Hover CSS -->
+<link href="/css/animate.min.css" rel="stylesheet">
+<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+
+<!-- Bootstrap Dropdown Hover JS -->
+<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+<script type="text/javascript">
+	function fncGetList(currentPage) {
+
+		$('#currentPage').val(currentPage);
+		$('form').attr('action','/user/Mypostlist/').attr('method','POST').submit();
+	}
+	
+	function fncWrite(user) {
+
+
+		location.href = "/board/addBoard";
+	}
+
+	$(function() {
+
+		$('tbody td:nth-child(2)').on('click', function() {
+
+			let boardNo = $(this).children('input').val();
+			location.href = "/board/getBoard?boardNo=" + boardNo;
+		})
+		
+		$('button:contains("°Ë»ö")').on('click', function(){
+			
+			fncGetList('1');
+		})
+		
+	})
+	
+	$(function(){
+			
+			 $("#searchKeyword").keydown(function (key) {
+			 
+		        if(key.keyCode == 13){
+		        	fncGetList('1');
+		        }
+		    });
+		});
+</script>
+<style>
+body {
+	padding-top: 30px;
+}
+</style>
 </head>
+
 <body>
-<div class="page-wrapper">
-    <div class="container-fluid">
-        <div class="col-lg-8"><!--ê²Œì‹œíŒ ë„“ì´ -->
-            <div class="col-lg-12">
-                <h1 class="page-header">ë‚´ê²Œì‹œë¬¼ ë³´ê¸°</h1>
-            </div>
-            <div class="row">
-                  <div class="col-lg-12">
-                  </div>
-              </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">ê³µì§€ì‚¬í•­ </div>
-                <div class="panel-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>No.1</th>
-                                <th>ì œëª©</th>
-                                <th>ì‘ì„±ì</th>
-                                <th>ì‘ì„±ì¼</th>
-                                <th>ì¡°íšŒìˆ˜</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${list}" var="boardVO">
-                            <tr>
-                                <td>${Board.board_no}</td>
-                                <td>${Board.board_title}</td>
-                                <td>${Board.board_reg_date}</td>
-                                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${Board.board_reg_date}"/></td>
-                                <td>${Board.view_count}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<jsp:include page="../common/toolbar.jsp" />
+
+	<div class="container">
+
+		<div class="page-header text-default">
+			<h3>³» °Ô½Ã¹° º¸±â</h3>
+		</div>
+
+		<!-- table À§ÂÊ °Ë»ö Start /////////////////////////////////////-->
+		<div class="row">
+
+			<div class="col-md-6 text-left">
+				<p class="text-default">ÀüÃ¼ ${resultPage.totalCount } °Ç¼ö, ÇöÀç
+					${resultPage.currentPage} ÆäÀÌÁö</p>
+			</div>
+
+			<div class="col-md-6 text-right">
+				<form class="form-inline" name="detailForm">
+
+				
+
+
+					<input type="hidden" id="currentPage" name="currentPage" value="" />
+				</form>
+			</div>
+		</div>
+
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th align="center">No</th>
+					<th align="left">Á¦¸ñ</th>
+					<th align="left">ÀÛ¼ºÀÚ</th>
+					<th align="left">µî·ÏÀÏ</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<c:forEach var="board" items="${list}">
+					<tr>
+						<td align="center">${board.boardNo}</td>
+						<td align="left">${board.boardTitle}<input type="hidden"
+							value="${board.boardNo}" /></td>
+						<td align="left">${writer.email}</td>
+						<td align="left">${board.boardRegDate}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<!--  table End /////////////////////////////////////-->
+				<jsp:include page="../common/pageNavigator.jsp" />
+	</div>
 </body>
 </html>
-

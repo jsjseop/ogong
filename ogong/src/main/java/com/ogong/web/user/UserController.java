@@ -1,5 +1,7 @@
 package com.ogong.web.user;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
@@ -17,11 +20,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ogong.common.Page;
@@ -111,6 +116,23 @@ public class UserController {
 	}
 
 	
+	// 비밀번호 찾기 입장이요
+	@GetMapping("getPassword")
+	public String getPassword() {
+		
+		return "/userView/getPassword";
+	}
+	
+	// 비밀번호 찾기
+	@PostMapping("getPassword")
+	public String getPassword(HttpSession session,User user) throws Exception{
+		
+		userService.getProfile(getPassword());
+		return "/userView/Changedpassword";
+	}
+	
+
+	
 	  // 비밀번호 변경 화면이동
 	  
 	 
@@ -121,6 +143,9 @@ public class UserController {
 			return "/userView/Changedpassword";
 		}
 		
+		// 비밀번호 변경
+		
+		
 		@PostMapping("Changedpassword")
 		public String Changedpassword(User user , HttpSession session) throws Exception{
 			
@@ -130,6 +155,49 @@ public class UserController {
 			return "index";
 		}
 
+		
+		/* 비밀번호찾기 이메일 인증 */
+		@RequestMapping(value = "/mailpswCheck", method = RequestMethod.GET)
+		@ResponseBody
+		public String maipswlCheckGET(String email) throws Exception {
+			
+			/* 뷰(View)로부터 넘어온 데이터 확인 */
+			logger.info("이메일 데이터 전송 확인");
+			logger.info("이메일 : " + email);
+
+			/* 인증번호(난수) 생성 */
+			Random random = new Random();
+			int checkNum = random.nextInt(888888) + 111111;
+			logger.info("인증번호 " + checkNum);
+
+			/* 이메일 보내기 */
+			String setFrom = "flower9822@naver.com";
+			String toMail = email;
+			String title = "회원가입 인증 이메일 입니다.";
+			String content = "오늘의 공부 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+					+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+
+			try {
+
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+				helper.setFrom(setFrom);
+				helper.setTo(toMail);
+				helper.setSubject(title);
+				helper.setText(content, true);
+				mailSender.send(message);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			String num = Integer.toString(checkNum);
+
+			return num;
+		}
+		
+	   
+		
 		//프로필 수정 진입
 		  
 		  @GetMapping("updateProfile") public String updateProfile(HttpSession session,
@@ -268,32 +336,31 @@ public String Mypostlist(@ModelAttribute("search") Search search, Model model,
 
 
 
-@RequestMapping("Mystudylist")
-public String Mystudylist ( @ModelAttribute("search") Search search,
-							Model model) throws Exception{
-	
-	System.out.println("/study/listStudy 실행");
-	
-	if(search.getCurrentPage() ==0 ){
-		search.setCurrentPage(1);
-	}
-	
-	search.setPageSize(10);
-	
-	HashMap<String, Object> map = new HashMap<String, Object>();
-	map.put("search", search);
-	map.put("studyType", "group");
-	
-	Map<String, Object> result = studyService.getStudyList(map);
-		
-	model.addAttribute("list", result.get("list"));
-	model.addAttribute("totalCount", result.get("totalCount"));
-	model.addAttribute("search", search);
-	model.addAttribute("studyType","group");
-	
-	return "/userView/Mystudylist";
-	
-}
+
+  @RequestMapping("Mystudylist") public String Mystudylist
+  ( @ModelAttribute("search") Search search, Model model) throws Exception{
+  
+  System.out.println("/study/listStudy 실행");
+  
+  if(search.getCurrentPage() ==0 ){ search.setCurrentPage(1); }
+  
+  search.setPageSize(10);
+ 
+  HashMap<String, Object> map = new HashMap<String, Object>();
+  map.put("search", search); map.put("studyType", "group");
+ 
+  Map<String, Object> result = studyService.getStudyList(map);
+  
+  model.addAttribute("list", result.get("list"));
+  model.addAttribute("totalCount", result.get("totalCount"));
+  model.addAttribute("search", search);
+  model.addAttribute("studyType","group");
+  
+  return "/userView/Mystudylist";
+  
+  }
+ 
+
 
 }
 

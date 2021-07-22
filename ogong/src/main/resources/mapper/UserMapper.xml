@@ -37,7 +37,6 @@
 		
 	</resultMap> 
 	
-	
 
 	
 	
@@ -150,6 +149,18 @@ SELECT count(*)
 		form users
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
+	 
+	 <!-- 회원정보 조회 -->
+	 
+		
+<!-- 	 	       <select id="userboardList" resultType="boardSelectMap">
+            SELECT
+               BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT
+             FROM board
+             where EMAIL= #{email:VARCHAR}
+                  
+        </select>  -->
+		
 		
 	
 
