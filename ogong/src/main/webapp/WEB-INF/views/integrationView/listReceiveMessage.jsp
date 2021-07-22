@@ -27,7 +27,7 @@
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
 		$("#currentPage").val(currentPage)
-		$("form").attr("method" , "POST").attr("action" , "/integration/listReceiveMessage").submit();
+		$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/integration/listReceiveMessage").submit();
 	}
 	
 	function fncAddSendMessage(){
@@ -38,20 +38,17 @@
 		var messageContents = $("textarea[name='messageContents']").val();
 		
 		
-	/* 	if(receiver == null || receiver.length<1){
+		if(receiver == null || receiver.length<1){
 			alert("수신자 이메일은 반드시 입력해야 합니다.");
-			alert(receiver);
 			return;
 		}
 		
 		if(messageContents == null || messageContents.length<1){
 			alert("보낼 내용은 반드시 입력해야 합니다.");
-			alert(messageContents);
 			return;
-		} */
-		alert(sender);
-		alert(receiver);
-		alert(messageContents);
+		} 
+		
+		alert("쪽지를 성공적으로 보냈습니다.");
 		
 		$("form").attr("method", "POST").attr("action", "/integration/addSendMessage").submit();
 		
@@ -77,37 +74,38 @@
 	 		location.href = "/integration/addSendMessage";
 	 	}); */
 
- 		$(".selectDelete_btn").on("click" , function() {
- 		 	var confirm_val = confirm("정말 삭제하시겠습니까?");
- 		 	/* var messageNo = $("input[name='chBox']").val(); */
+ 		$("#deletebtn").on("click" , function() {
  		 	
-  			if(confirm_val) {
- 			  var messageArr = new Array();
-   				
+ 		 	
+			  var messageArr = new Array();
+				
  		 	 $("input[class='messageNo']:checked").each(function(){
  		 		messageArr.push($(this).val());
-   				alert(messageArr);
+   				
  			 });
  		 	 
  		  		$.ajax({
-  			 	 url : "/integration/deleteTest",
-	  		  	 type : "POST",
-  		  	 	 data : { messageNo : messageArr },
-    		 	 success : function(result){
-   		   	 	 	if(result == 1){
-    		 		 	location.href = "/integration/listSendMessage";
-   		   	 	 	} else {
-   		   	 	 		alert("삭제 실패")
-   		   	 	 	}
-  		  	 	}
+		  			 	 url : "/integration/deleteTest",
+			  		  	 type : "POST",
+		  		  	 	 data : { messageNo : messageArr },
+		    		 	 success : function(result){
+		   		   	 	 	if(result == 1){
+		    		 		 	location.href = "/integration/listSendMessage";
+		   		   	 	 	} else {
+		   		   	 	 		alert("삭제 실패")
+		   		   	 	 	}
+		   		   	 		
+		  		  	 	}
+		  		  	 	 
   		  		});
- 		   } 
+ 		  		alert("삭제가 완료되었습니다.")
+ 		  		$("input[class='messageNo']:checked").parent().parent().parent().remove(); 
  		});
  		
- 		$(".deleteMessage").on("click" , function() {
- 			alert("asd");
+ 		$("#deletebtn2").on("click" , function() {
+ 			
 			var messageDelete = $(this).val()
-			alert(messageDelete);
+			
  			
 			$.ajax({
 				
@@ -119,15 +117,14 @@
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData, status){
-					
+						
 				}
+				
 			});
- 			$('.deleteMessage').remove();
+			alert("삭제가 완료되었습니다.")
+			$("#trRemove").remove();
  		});
 
-		$('#modal').modal("hide"); //닫기 
-		 
-		$('#modal').modal("show"); //열기
 
 	})
 	
@@ -177,7 +174,7 @@
 						<th align="left">전송일자</th>
 						<th align="left">
 	       						<div class="delBtn">
-	       							<button type="button" class="selectDelete_btn">선택삭제</button>
+	       							<button type="button" class="selectDelete_btn" data-toggle="modal" data-target="#exampleModal">선택삭제</button>
 	       						</div>	       					
 	       						<div class="allCheck">
 									<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
@@ -199,7 +196,7 @@
 					<c:set var="i" value="0" />
 					<c:forEach var="message" items="${list}">
 						<c:set var="i" value="${ i+1 }" />
-						<tr>
+						<tr id="trRemove">
 							<td align="center">${ i }</td>
 							<td align="left">${message.messageContents}</td>
 							<td align="left">${message.sender.email}</td>
@@ -263,8 +260,48 @@
 		    </div>
 		  </div>
 		 </div>		
+
+		 <!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">선택삭제</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        선택한 쪽지을 정말 삭제하시겠습니까?
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" id="deletebtn" class="btn btn-primary" data-dismiss="modal">삭제하기</button>
+			       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>		
 		
-		
+		 <!-- Modal 쪽지 삭제-->
+			<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel2">삭제</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        쪽지을 정말 삭제하시겠습니까?
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" id="deletebtn2" class="btn btn-primary" data-dismiss="modal">삭제하기</button>
+			       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>		
 
 	</div>
 	

@@ -1,6 +1,7 @@
 package com.ogong.web.admin;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +29,7 @@ import com.ogong.common.Search;
 import com.ogong.service.admin.AdminService;
 import com.ogong.service.domain.Report;
 import com.ogong.service.domain.User;
+
 
 @Controller
 @RequestMapping("/admin/*")
@@ -192,10 +198,14 @@ public class AdminController {
 		
 		System.out.println("/updateSuspendUser/POST");
 		
+		
 		User receiveReport = new User();
+		
 		receiveReport.setEmail(email);
 		
 		report.setReceiveReporter(receiveReport);
+		
+
 		report.setSuspendType(suspendType);
 		
 		System.out.println(receiveReport+"여기는...");
@@ -210,6 +220,7 @@ public class AdminController {
 		
 	}
 	
+	
 	@GetMapping("updateSuspendUser")
 	public String updateSuspendUser(@RequestParam("receiveReporter") String email,
 									Model model) throws Exception {
@@ -222,6 +233,7 @@ public class AdminController {
 		return "/adminView/updateSuspendUser";
 		
 	}
+	
 	
 	@PostMapping("updateRestoreUser")
 	public String updateRestoreUser(@ModelAttribute("report")Report report,Model model,

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,13 +62,18 @@ public class IntegrationController {
 		
 	}*/
 	
+	@Transactional
 	@PostMapping("addSendMessage")
 	public String addSendMessage( @ModelAttribute("message") Message message,
 								  HttpSession session, 
 								  Notice notice) throws Exception{
 		
-		User user = (User)session.getAttribute("user"); 
+		System.out.println("message 시작");
 		
+		User user = (User)session.getAttribute("user"); 
+		message.setSender(user);
+		
+		System.out.println("session user 확인 :::"+session.getAttribute("user"));
 		
 		// 알림 처리를 위해 알림 insert부터 해 볼까요
 		notice.setNoticeUser(message.getReceiver());
@@ -79,6 +86,7 @@ public class IntegrationController {
 		// 이제 쪽지 전송처리를 합시다.
 		System.out.println("message : : : "+message);
 		integrationService.addSendMessage(message);
+		integrationService.addSendMessage2(message);
 		System.out.println(message.getSender().getEmail());
 		
 		return "redirect:/integration/listSendMessage?sender.email="+message.getSender().getEmail();
@@ -132,6 +140,7 @@ public class IntegrationController {
 		
 		User email = (User)session.getAttribute("user");
 		message.setReceiver(email);
+		message.setSender(email);
 		
 		
 		//쪽지 전송으로 session END....		
@@ -163,8 +172,8 @@ public class IntegrationController {
 	
 	
 	@PostMapping("deleteTest")
-	public int deleteTest(@RequestParam(value = "messageNo[]") List<String> messageArr, 
-						  @ModelAttribute("message") Message message, Model model) throws Exception{
+	public void deleteTest(@RequestParam(value = "messageNo[]") List<String> messageArr, 
+						  Message message) throws Exception{
 			
 		System.out.println("테스트 삭제 실행");
 			
@@ -189,14 +198,17 @@ public class IntegrationController {
 					
 			}
 		
-		return result;
+		
 		
 	}
 	
+	//@Scheduled(fixedDelay=1000)
 	@GetMapping("mainPage")
-	public String mainPage(Model model, Answer answer, User user) throws Exception{
+	public String mainPage(Model model, Answer answer, User user, HttpSession session) throws Exception{
 		
 		System.out.println("mainPage 메소드가 실행되는지 확인합시다."); 
+		
+		User email = (User)session.getAttribute("user");
 		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -205,9 +217,9 @@ public class IntegrationController {
 		map.put("banana", banana);
 		map.put("choose", choose);
 		
-		System.out.println("여기 맵 확인 :::::"+map);
 		
 		
+		model.addAttribute("user", session.getAttribute("user"));
 		model.addAttribute("list2", map.get("banana"));
 		model.addAttribute("list", map.get("choose"));
 		
@@ -217,20 +229,24 @@ public class IntegrationController {
 	
 	
 	
-	/*public void updateTimeTask() throws Exception {
+	public void updateTimeTask() throws Exception {
 		
-		User suspendDate = new User();
+		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("listType", 4);
 		Map<String,Object> result = adminService.getlistTotalUser(map);
-		suspendDate.getSuspendEndDate();
+		List<Object> list = (List<Object>)map.get("list");
+		
+		map.get(list);
+		User user = new User();
+		user.getSuspendEndDate();
 		
 		
 		Timer timer = new Timer();
 		timer.schedule(null, null);
 		
-	}*/
+	}
 	
 	
 }

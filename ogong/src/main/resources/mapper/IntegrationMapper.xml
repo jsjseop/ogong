@@ -12,6 +12,7 @@
 		<result property="sendDate"						column="SEND_DATE"			jdbcType="VARCHAR"/>
 		<result property="receiver.email"				column="RECEIVER_EMAIL"		jdbcType="VARCHAR"/>
 		<result property="sender.email"					column="SENDER_EMAIL"		jdbcType="VARCHAR"/>
+		<result property="messageCategory"				column="MESSAGE_CATEGORY"	jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<resultMap id="NoticeSelectMap" type="notice" >
@@ -52,20 +53,41 @@
 		<result property="adoptionCount"				 column="adoption_count" 	 jdbcType="NUMERIC"/>
 	</resultMap>
 	
-	<!-- 쪽지 보내기 -->
+	<!-- 쪽지 보내기 (1) -->
 	<insert id="addSendMessage"		parameterType="message">
 		INSERT
 		INTO message(message_no, 
 					 receiver_email, 
 					 sender_email, 
 					 message_contents, 
-					 send_date)
+					 send_date,
+					 message_category)
 		VALUES(seq_message_no.nextVal, 
 			   #{receiver.email}, 
 			   #{sender.email}, 
 			   #{messageContents:VARCHAR}, 
-			   SYSDATE)	
+			   SYSDATE,
+			   '1')	
 	</insert>
+	
+	<!-- 쪽지 보내기 (2) -->
+	<insert id="addSendMessage2"		parameterType="message">
+		INSERT
+		INTO message(message_no, 
+					 receiver_email, 
+					 sender_email, 
+					 message_contents, 
+					 send_date,
+					 message_category)
+		VALUES(seq_message_no.nextVal, 
+			   #{receiver.email}, 
+			   #{sender.email}, 
+			   #{messageContents:VARCHAR}, 
+			   SYSDATE,
+			   '2')	
+	</insert>
+	
+	
 	
 	<!-- 받은 쪽지 목록 -->
 	<select id="getlistReceiveMessage" parameterType="hashmap"	resultMap="MessageSelectMap">
@@ -73,11 +95,13 @@
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT message_no,
 											 message_contents,
+											 message_category,
 											 receiver_email,
 											 sender_email,
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
-											 WHERE receiver_email = #{message.receiver.email}		      									
+											 WHERE receiver_email = #{message.receiver.email}
+											 AND   message_category = 1		      									
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
@@ -89,11 +113,13 @@
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT message_no,
 											 message_contents,
+											 message_category,
 											 sender_email,
 											 receiver_email,
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
-											 WHERE sender_email = #{message.sender.email}		      									
+											 WHERE sender_email = #{message.sender.email}
+											 AND   message_category = 2		      									
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
@@ -232,6 +258,7 @@
 											 send_date
 											 FROM message
 											 WHERE receiver_email = #{message.receiver.email}
+											 AND   message_category = 1	
 											 ) countTable
 	</select>
 	<select id="getTotalCount2"		parameterType="hashmap"		resultType="int">
@@ -241,6 +268,7 @@
 											 send_date
 											 FROM message
 											 WHERE sender_email = #{message.sender.email}
+											 AND   message_category = 2
 											 ) countTable
 	</select>
 
