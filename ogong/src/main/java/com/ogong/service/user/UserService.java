@@ -37,16 +37,15 @@ public interface UserService {
 	   
 	 // 회원탈퇴
 	  
+		void withdrawreason(User user) throws Exception;
 	  
 	 // 회원복구
-	  
-	 //  유저 이메일 중복확인 
-		public int idCheck(String email) throws Exception;
 		
 	// 내 게시판 리스트	
 		public List<Board> userboardList(Board board) throws Exception;
-
-
+		
+	// 닉네임 중복확인
+		public int idCheck(String nickname) throws Exception;
 // 프로필수정
 
 	//이름

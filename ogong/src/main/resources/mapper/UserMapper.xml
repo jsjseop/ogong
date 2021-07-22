@@ -134,14 +134,29 @@ AND PASSWORD = #{password:VARCHAR}
  
   </update>
    
-<!--   	<select id="nicknameCheck" parameterType="String" resultType="int">
+   
+   <!-- 회원탈퇴 -->
+   	 <update	id="withdrawreason"	parameterType="user" >
+   DELETE FROM USERS
+   WHERE EMAIL =#{email},
+   AND PASSWORD =#{password}
+   
+   
+   
+   
+   	
+   
+   
+   </update>
+   
+   	<select id="nicknameCheck" parameterType="String" resultType="int">
   	
 SELECT count(*)
 		FROM users
 		WHERE NICKNAME = #{nickname};
   
 	 </select>
-	  -->
+	  
 	 
 	 
  	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
@@ -157,6 +172,12 @@ SELECT count(*)
              where EMAIL= #{email:VARCHAR}
                   
         </select>  -->
+        
+        <select id = "idCheck" parameterType = "String" resultType = "int">
+		SELECT *
+		form users
+		where NICKNAME= #{nickname:VARCHAR}
+</select>
 		
 		
 	

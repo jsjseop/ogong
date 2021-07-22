@@ -95,13 +95,14 @@ public class UserController {
 		HttpSession session = req.getSession();
 		User login = userService.getUser(user);
 
+		
 		if (login == null) {
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
 			return "/userView/loginView";
 		} else {
 			session.setAttribute("user", login);
-		}
+		} 
 
 		return "redirect:/integration/mainPage";
 	}
@@ -128,6 +129,8 @@ public class UserController {
 	public String getPassword(HttpSession session,User user) throws Exception{
 		
 		userService.getProfile(getPassword());
+		
+		
 		return "/userView/Changedpassword";
 	}
 	
@@ -151,8 +154,10 @@ public class UserController {
 			
 			
 			userService.Changedpassword(user);			
+			session.invalidate();
 			
-			return "index";
+			
+			return "redirect:/";
 		}
 
 		
@@ -237,6 +242,31 @@ public class UserController {
 		  return "/userView/getProfile"; }
 		  
 	 
+		  
+		  //회원탈퇴 이동
+		  @GetMapping("withdrawreason")
+		  public String Withdrawal() throws Exception{
+			  
+			  return "/userView/withdrawreason";
+		  }
+		  
+		  // 회원탈퇴
+		  @PostMapping("withdrawreason")
+			public String Withdrawal(User user , HttpSession session) throws Exception{
+				
+				
+				userService.withdrawreason(user);			
+				session.invalidate();
+
+				
+				
+				return "redirect:/";
+			}
+		  
+		  
+		  
+		  
+		  
 
 	/* 이메일 인증 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -279,28 +309,7 @@ public class UserController {
 	}
 
 
-// 아이디 중복 검사
-@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
-@ResponseBody
-public String idCheck(String nickname) throws Exception{
-	
-	
-	logger.info("idCheck() 진입");
-	
-	int result = userService.idCheck(nickname);
-	
-	logger.info("결과값 = " + result);
-	
-	if(result != 0) {
-		
-		return "fail";	// 중복 아이디가 존재
-		
-	} else {
-		
-		return "success";	// 중복 아이디 x
-		
-	}		
-}
+
 
 
 @RequestMapping("Mypostlist")
@@ -328,7 +337,6 @@ public String Mypostlist(@ModelAttribute("search") Search search, Model model,
 	map.get("totalCount");
 	boardService.listBoard(map);
 	
-	boardService.listBoard(map);
 		
 	model.addAttribute("list", list);
 	model.addAttribute("search", search);
@@ -362,6 +370,34 @@ public String Mypostlist(@ModelAttribute("search") Search search, Model model,
   
   }
  
+	// 닉네임 중복 검사
+	@RequestMapping(value = "idCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public String idCheck(String nickname) throws Exception{
+		
+		/* logger.info("memberIdChk() 진입"); */
+		
+		logger.info("idCheck() 진입");
+		
+		int result = userService.idCheck(nickname);
+		
+		logger.info("결과값 = " + result);
+		
+		if(result != 0) {
+			
+			return "fail";	// 중복 닉네임 존재
+			
+		} else {
+			
+			return "success";	// 중복 닉네임 x
+			
+		}		
+		
+	} // memberIdChkPOST() 종료	
+  
+  
+  
+  
 
 
 }

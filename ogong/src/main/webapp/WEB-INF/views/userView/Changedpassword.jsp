@@ -30,8 +30,54 @@
 	});
 	
 	function fncupdateProfile() {
-		$("form").attr("method","POST").attr("action","/user/updateProfile").submit();
+		$("form").attr("method","POST").attr("action","/user/Changedpassword").submit();
 	}
+	
+	
+	var pw = $('.pw_input').val();				// 비밀번호 입력란
+
+	
+	/* 비밀번호 유효성 검사 */
+	if(pw == ""){
+		$('.final_pw_ck').css('display','block');
+		pwCheck = false;
+	}else{
+		$('.final_pw_ck').css('display', 'none');
+		pwCheck = true;
+	}
+	
+	/* 비밀번호 확인 유효성 검사 */
+	if(pwck == ""){
+		$('.final_pwck_ck').css('display','block');
+		pwckCheck = false;
+	}else{
+		$('.final_pwck_ck').css('display', 'none');
+		pwckCheck = true;
+	}
+	
+	
+	
+	
+	
+	$('.pwck_input').on("propertychange change keyup paste input", function(){
+		
+		var pw = $('.pw_input').val();
+		var pwck = $('.pwck_input').val();
+		$('.final_pwck_ck').css('display', 'none');
+		
+		if(pw == pwck){
+			$('.pwck_input_re_1').css('display','block');
+			$('.pwck_input_re_2').css('display','none');
+			pwckcorCheck = true;
+		}else{
+			$('.pwck_input_re_1').css('display','none');
+			$('.pwck_input_re_2').css('display','block');
+			pwckcorCheck = false;
+		}
+		
+		
+	});
+	
 	
 
 	
@@ -151,13 +197,17 @@
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 
-		  <input type="hidden" name="email"	value="${user.email}"/>
 
 		
 				<h1 class="bg-info text-center">비밀번호 변경</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
+	
+			  <input type="hidden" name="email"	value="${user.email}"/>
+	
+	
+	
 
 
 		

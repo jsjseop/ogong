@@ -49,12 +49,7 @@ public class UserServiceImpl implements UserService{
 	  
 	  }
 	 
-	/* 아이디 중복 검사 */
-	@Override
-	public int idCheck(String email) throws Exception {
-		
-		return userDAO.idCheck(email);
-	}
+
 
 	@Override
 	public User getPassword(String email) throws Exception {
@@ -107,9 +102,25 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
+	public int idCheck(String nickname) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.idCheck(nickname);
+	}
+
+
+
+
+	@Override
 	public List<Board> userboardList(Board board) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	//회원탈퇴
+	@Override
+	public void withdrawreason(User user) throws Exception {
+		userDAO.withdrawreason(user);
+		
 	}
 
 	/*

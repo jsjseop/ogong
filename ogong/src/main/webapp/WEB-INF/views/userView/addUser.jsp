@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 가입</title>
 <link rel="stylesheet" href="/resources/css/join.css">
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
@@ -19,10 +19,13 @@
 			<div class="subjecet">
 				<span>회원가입</span>
 			</div>
+			
+			
+			
 			<div class="id_wrap">
 				<div class="id_name">닉네임</div>
 				<div class="id_input_box">
-					<input class="id_input" name="nickname">
+					<input class="id_input"  name="nickname">
 				</div>
 				<span class="id_input_re_1">사용 가능한 닉네임입니다.</span>
 				<span class="id_input_re_2">닉네임이 이미 존재합니다.</span>	
@@ -31,14 +34,14 @@
 			<div class="pw_wrap">
 				<div class="pw_name">비밀번호</div>
 				<div class="pw_input_box">
-					<input class="pw_input" name="password">
+					<input class="pw_input" type="password" name="password">
 				</div>
 				<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
 			</div>
 			<div class="pwck_wrap">
 				<div class="pwck_name">비밀번호 확인</div>
 				<div class="pwck_input_box">
-					<input class="pwck_input">
+					<input class="pwck_input" type="password">
 				</div>
 				<span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
 				<span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
@@ -92,6 +95,10 @@ $(document).ready(function(){
 			$("#join_form").attr("action", "addUser");
 			$("#join_form").submit();
 		})
+		
+		
+
+		
 		
 		
 		
@@ -161,8 +168,8 @@ $('.id_input').on("propertychange change keyup paste input", function(){
 
 	/* console.log("keyup 테스트"); */
 	
-	var memberId = $('.id_input').val();			// .id_input에 입력되는 값
-	var data = {memberId : memberId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+	var nickname = $('.id_input').val();			// .id_input에 입력되는 값
+	var data = {nickname : nickname}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
 	
 	$.ajax({
 		type : "post",
@@ -259,6 +266,9 @@ $('.pwck_input').on("propertychange change keyup paste input", function(){
 	
 	
 });
+
+
+
 
 
  /* 입력 이메일 형식 유효성 검사 */

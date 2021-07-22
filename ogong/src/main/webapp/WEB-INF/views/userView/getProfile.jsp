@@ -76,10 +76,14 @@
 	       <h3 class=" text-info">스터디보기</h3>
 	    </div>
 	
-		<div class="row">
+			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
+	
+	
+	
+<%-- 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>프로필사진</strong></div>
 			<div class="col-xs-8 col-md-4">${product.prodNo}</div>
-		</div>
+		</div> --%>
 		
 		<hr/>
 		
