@@ -37,22 +37,19 @@ public class StudyroomController {
 	
 	@GetMapping("getStudyRoom")
 	public String getStudyRoom ( @RequestParam("studyNo") String studyNo,
-								@RequestParam("email") String email,
 								Model model, HttpSession session) throws Exception{
 		
 		model.addAttribute("studyNo", studyNo);
-		model.addAttribute("email", email);
 		
 		return "/studyroomView/getStudyRoom";
 	}
 	
 //	
 	@GetMapping("chat")
-	public String chat( @RequestParam("email") String email,
-						@RequestParam("studyNo") String studyNo,
+	public String chat(	@RequestParam("studyNo") String studyNo,
+						HttpSession session,
 						Model model) throws Exception{
 		model.addAttribute("studyNo", studyNo);
-		model.addAttribute("email", email);
 		return "/studyroomView/chat";
 	}
 	
@@ -90,6 +87,7 @@ public class StudyroomController {
 		
 		
 		model.addAttribute("study", studyService.getStudy(studyNo));
+		model.addAttribute("studyNo", studyNo);
 		
 		return "/studyroomView/getStudyRoomInfo";
 	}

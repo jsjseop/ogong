@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Q&A 답변 쓰기</title>
+<title>스터디 모집글 쓰기</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Dropdown Hover CSS -->
+<!-- Bootstrap Dropdown Hover CSS --> 
 <link href="/css/animate.min.css" rel="stylesheet">
 <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
 
@@ -28,18 +28,10 @@
 </script>
 
 <script type="text/javascript">
-
-let boardTitle = "<c:out value='${board.boardTitle}'/>";
-
 	function fncAddBoard() {
 
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
-
-		if (name == null || name.length < 1) {
-			alert("제목을 입력해주세요.");
-			return;
-		}
 
 		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory="+`${boardCategory}`)
 				.submit();
@@ -90,34 +82,58 @@ body {
 	       		<c:if test="${boardCategory == '6'}">
 	       				<h3>파일공유 게시판</h3>
 	       		</c:if>
-	       		
-	 <form action='<c:url value='/board/addQaBoard'/>' method="post">
-	 
-	 	<div class="page-header">
-			<h3 class=" text-default">답변등록</h3>
 		</div>
-	 	<input type="hidden" name="userId" value="${writer.email}" />
-	 	
+		<div class="container">
+
+      <h2>스터디 모집</h2>
+
+      <form role="form">
+      
+      	<input type="hidden" name="userId" value="${writer.email}" />
+
         <div class="form-group">
-              <label for="exampleFormControlInput1">제목</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" value="${boardTitle}">
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">내용</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" name="contents" rows="10"></textarea>
-          </div>
-        <button type="submit" class="btn btn-info">등 록</button>
-        <button type="button" class="btn btn-secondary">목 록</button>
+
+          <label for="boardTitle">제목:</label>
+
+          <input type="boardTitle" class="form-control" id="boardTitle" >
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="boardContents">내용:</label>
+
+          <input type="boardContents" class="form-control" id="boardContents" placeholder="내용을 입력해주세요."
+          style="width:1140px; height:180px;">
+
+        </div>
+        
+          	<label for="boardTitle">모집날짜</label>
+			   <h5>모집 날짜를 선택 해 주세요.</h5>
+			   
+		    <form name="studyStart" action="" method="post">
+		     <input type='date' name='studyStart' value='yyyy-mm-dd'/> -  <input type='date' name='studyStart' value='yyyy-mm-dd'/>
     </form>
+    
 
-</div>
+
+        <div class="checkbox">
 
 
+        </div>
+
+        <button type="submit" class="btn btn-default">등 록</button>
+
+      </form>
+
+    </div>
+		
+		
 <%-- 		<form>
 			<input type="hidden" name="userId" value="${writer.email}" />
 
 			<div class="page-header">
-				<h3 class=" text-default">답변 등록</h3>
+				<h3 class=" text-default">스터디 모집 등록</h3>
 			</div>
 
 			<div class="row">
@@ -141,14 +157,16 @@ body {
 						style="width: 500px; height:300px;" />
 				</div>
 			</div>
-
+ --%>
 			<hr />
 
-			<div align="center">
-				<button type="button" class="btn btn-warning" style="width: 60px;">등 록</button>
-			</div>
+<!-- 			<div align="right">
+				<button type="button" class="btn btn-default" style="width: 60px;">등 록</button> 
+				<button type="button" class="btn btn-default" style="width: 60px;">취 소</button>
+			</div> -->
+			
 		</form>
-	</div> --%>
+	</div>
 	
 </body>
 </html>

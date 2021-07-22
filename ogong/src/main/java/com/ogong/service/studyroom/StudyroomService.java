@@ -13,7 +13,7 @@ public interface StudyroomService {
 	
 	public void applyParticipation(String email) throws Exception;
 	
-	public void rejectParticipation(int gmsNo) throws Exception;
+	public void rejectParticipation(String email) throws Exception;
 	
 	public List<GroupStudyMember> getGSMemberList (int studyNo) throws Exception;
 	
@@ -32,4 +32,6 @@ public interface StudyroomService {
 	public void deleteCalendar(int calendarNo) throws Exception;
 	
 	public String checkAttendance(Map<String, Object> map ) throws Exception;
+	
+	public GroupStudyMember getGSMember(GroupStudyMember gsm) throws Exception;
 }
