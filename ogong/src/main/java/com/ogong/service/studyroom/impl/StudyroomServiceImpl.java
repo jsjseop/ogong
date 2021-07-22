@@ -40,9 +40,9 @@ public class StudyroomServiceImpl implements StudyroomService {
 		}
 
 		@Override
-		public void rejectParticipation(int gmsNo) throws Exception {
+		public void rejectParticipation(String email) throws Exception {
 			// TODO Auto-generated method stub
-			studyroomMapper.rejectParticipation(gmsNo);
+			studyroomMapper.rejectParticipation(email);
 		}
 
 		@Override
@@ -96,6 +96,12 @@ public class StudyroomServiceImpl implements StudyroomService {
 		public String checkAttendance(Map<String, Object> map) throws Exception {
 			// TODO Auto-generated method stub
 			return studyroomMapper.checkAttendance(map);
+		}
+
+		@Override
+		public GroupStudyMember getGSMember(GroupStudyMember gsm) throws Exception {
+			// TODO Auto-generated method stub
+			return studyroomMapper.getGSMember(gsm);
 		}
 		
 		

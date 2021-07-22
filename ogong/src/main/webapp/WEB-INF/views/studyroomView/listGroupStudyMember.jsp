@@ -17,10 +17,11 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Dropdown Hover CSS -->
-
-
-<!-- Bootstrap Dropdown Hover JS -->
+<style type="text/css">
+body {
+    padding-top : 50px;
+}
+</style>
 <script type="text/javascript">
 
 
@@ -28,6 +29,8 @@
 </head>
 <body>
      
+     <jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+     <jsp:include page="../layout/sidebar.jsp"/>
      <div class="container"> 
      <input type="hidden" value="${studyNo}"></intput>
   
@@ -36,7 +39,6 @@
       	</div>
 
 		<div class="row">
-			<jsp:include page="../layout/sidebar.jsp"/>
 				<div class="col-md-9 text-left">
 			<table class="table table-hover table-striped">
              	<thead>
