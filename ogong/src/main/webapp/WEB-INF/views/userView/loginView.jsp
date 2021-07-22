@@ -28,14 +28,16 @@
                     <button class="submit">Login</button>
                 </form>
                 <form id="register" action="" class="input-group">
-                    <input type="email" class="input-field" placeholder="이메일" required>
+                    <input type="email" class="input-field" placeholder="이메일" required><p>
+  <button type="button" class="btn btn-default btn-xs">이메일 인증</button>
+</p>
                     <input type="email" class="input-field" placeholder="인증번호" required>
+                    <input type="text" class="input-field" placeholder="이메일" required><p>
                     
-                    <input type="password" class="input-field" placeholder="Enter Password" required>
-                    <input type="password" class="input-field" placeholder="Enter Password" required>
+                    <input type="password" class="input-field" placeholder="패스워드" required>
+                    <input type="password" class="input-field" placeholder="패스워드 확인" required>
                    
                    
-                    <input type="checkbox" class="checkbox"><span>Terms and conditions</span>
                     <button class="submit">회원가입</button>
                 </form>
             </div>
