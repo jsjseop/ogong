@@ -22,22 +22,17 @@
 <script type="text/javascript">
 
 
-/////////////////////////////////////////////////////////// 관심사 
+
 	$(function(){
 		$ ( "#btn1").on("click", function(){
 			fncupdateProfile();
-			
-			
 		});
 	});
 	
 	function fncupdateProfile() {
 		$("form").attr("method","POST").attr("action","/user/updateProfile").submit();
-		
-		
 	}
 	
-
 
 	
 	
@@ -157,7 +152,6 @@
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 
-		  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 
 		
 		
@@ -176,7 +170,7 @@
 		  </div>
 		 
  		 <div class="radio">
-<%--   <label>
+  <label>
     <input type="radio" name="gender" id="gender" value="${user.gender}" checked>
     남성
   </label>
@@ -187,7 +181,7 @@
     여성
   </label> 
 </div>
-<div class="radio disabled"> --%>
+<div class="radio disabled">
 
 </div>
 		 
@@ -210,39 +204,39 @@
 				
 	 			<select name="studyInterest1"> 
 						<option>관심사1</option>
-						<option value="어학">어학</option>
-						<option value="공무원">공무원</option>
-						<option value="자격증">자격증</option>
-						<option value="취업">취업</option>
-						<option value="자기계발">자기계발</option>
-						<option value="독서">독서</option>
-						<option value="임용">임용</option>
-						<option value="기타">기타</option>
+						<option value="1">어학</option>
+						<option value="2">공무원</option>
+						<option value="3">자격증</option>
+						<option value="4">취업</option>
+						<option value="5">자기계발</option>
+						<option value="6">독서</option>
+						<option value="7">임용</option>
+						<option value="8">기타</option>
 
 				</select> 
 				
 				<select name="studyInterest2">
 						<option>관심사2</option>
-						<option value="어학">어학</option>
-						<option value="공무원">공무원</option>
-						<option value="자격증">자격증</option>
-						<option value="취업">취업</option>
-						<option value="자기계발">자기계발</option>
-						<option value="독서">독서</option>
-						<option value="임용">임용</option>
-						<option value="기타">기타</option>
+						<option value="1">어학</option>
+						<option value="2">공무원</option>
+						<option value="3">자격증</option>
+						<option value="4">취업</option>
+						<option value="5">자기계발</option>
+						<option value="6">독서</option>
+						<option value="7">임용</option>
+						<option value="8">기타</option>
 				</select> 
 				
 				<select name="studyInterest3"> 
 						<option>관심사3</option>
-						<option value="어학">어학</option>
-						<option value="공무원">공무원</option>
-						<option value="자격증">자격증</option>
-						<option value="취업">취업</option>
-						<option value="자기계발">자기계발</option>
-						<option value="독서">독서</option>
-						<option value="임용">임용</option>
-						<option value="기타">기타</option>
+						<option value="1">어학</option>
+						<option value="2">공무원</option>
+						<option value="3">자격증</option>
+						<option value="4">취업</option>
+						<option value="5">자기계발</option>
+						<option value="6">독서</option>
+						<option value="7">임용</option>
+						<option value="8">기타</option>
 				</select>   
 				
 				
@@ -274,7 +268,7 @@
 
 
 		  
-	<!--    
+		<!--   
 		               <div class="col-sm-10 container-box">
                 <div class="inner-container-box">
                     <h3>관심 분야 설정</h3>
@@ -310,7 +304,7 @@
             </div>
         </div>
     </div>
- </div>  -->
+ </div> -->
 		  
 		  
 		  

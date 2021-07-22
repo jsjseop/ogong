@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,29 +10,33 @@
 <head>
 <title>글 쓰기</title>
 
+<!-- css -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/fileUpload.css">
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
+<!-- summerNote  -->
 <script src="/summernote/summernote-lite.js"></script>
 <script src="/summernote/lang/summernote-ko-KR.js"></script>
-
 <link rel="stylesheet" href="/summernote/summernote-lite.css">
 
 <!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
 <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+<link href="/css/animate.min.css" rel="stylesheet">
 
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-<script type="text/javascript" src="../javascript/calendar.js">
-	
-</script>
+<script type="text/javascript" src="../javascript/calendar.js"></script>
+
+<!-- JS -->
+<script src="/js/fileUpload.js"></script>
+
 
 <script type="text/javascript">
 	function fncAddBoard() {
@@ -52,7 +58,7 @@
 	}
 
 	$(function() {
-
+		
 		$('button:contains("등 록")').on('click', function() {
 			
 			fncAddBoard();
@@ -78,6 +84,7 @@ body {
 	<div class="container">
 		<form>
 			<input type="hidden" name="userId" value="${writer.email}" />
+			<input type="hidden" name="boardCategory" value="${boardCategory}">
 
 			<div class="page-header">
 				<h3 class=" text-default">글 쓰기</h3>
@@ -103,8 +110,8 @@ body {
 						
 				</div>
 				
-			</div>
-
+			<!-- </div>
+ -->
 			<hr />
 
 			<div align="right">
@@ -124,7 +131,40 @@ $('.summernote').summernote({
 		sendFile(files[0], editor, welEditable);
 		}
 });
-</script>	
-	
+
+
+//이미지 파일 업로드
+
+function uploadSummernoteImageFile(file, editor) {
+	data = new FormData();
+	data.append("file", file);
+	$.ajax({
+		data : data,
+		type : "POST",
+		url : "/uploadSummernoteImageFile",
+		contentType : false,
+		processData : false,
+		success : function(data) {
+			//항상 업로드된 파일의 url이 있어야 한다.
+			$(editor).summernote('insertImage', data.url);
+	}
+	});
+}
+
+//서머노트 초기화
+$('#board_content').val("${board_data.BOARD_CONTENT}");
+ $('#board_content').summernote({
+	 	placeholder: '최대 500자 작성 가능합니다.',
+        height: 300,
+        lang: 'ko-KR',
+        callbacks: {
+        	onImageUpload: function(files, editor, welEditable) {
+        		for(var i = files.length -1; i>=0; i--) {
+        			sendFile(files[i], this);
+        		}
+        	}
+        }
+ });
+	</script>	
 </body>
 </html>

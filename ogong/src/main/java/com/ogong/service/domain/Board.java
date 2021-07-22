@@ -18,7 +18,7 @@ public class Board {
 	private int commentCount;
 	private int recommendCount;
 	private int answerCount;
-	private int ViewCount;
+	private int viewCount;
 	private String boardInterest;
 	private String fileFlag;
 	private Study study;

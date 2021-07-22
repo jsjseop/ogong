@@ -37,6 +37,7 @@
 		
 	</resultMap> 
 	
+	
 
 	
 	
@@ -63,6 +64,7 @@
     USER_TARGET_TIME,
     reg_Date,
     BANANA_COUNT,
+    LEARING_TYPE,
     STUDY_INTEREST1,
     STUDY_INTEREST2,
     STUDY_INTEREST3
@@ -86,6 +88,7 @@
     #{userTargetTime:NUMERIC},
     sysdate,
     #{bananaCount:NUMERIC},
+    #{learingType:VARCHAR},
     #{studyInterest1:VARCHAR},
     #{studyInterest2:VARCHAR},
     #{studyInterest3:VARCHAR}
@@ -149,18 +152,6 @@ SELECT count(*)
 		form users
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
-	 
-	 <!-- 회원정보 조회 -->
-	 
-		
-<!-- 	 	       <select id="userboardList" resultType="boardSelectMap">
-            SELECT
-               BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT
-             FROM board
-             where EMAIL= #{email:VARCHAR}
-                  
-        </select>  -->
-		
 		
 	
 

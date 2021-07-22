@@ -70,11 +70,6 @@
 			});
 		});
 		
-		$( function() {
-		$("a[href='@' ]").on("click" , function() {
-			self.location = "getPassword"
-		});
-	});
 	</script>		
 	
 </head>
@@ -125,7 +120,6 @@
 					    <div class="col-sm-offset-4 col-sm-6 text-center">
 					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
 					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
-					      <a class="btn btn-primary btn" href="getPassword" role="button">비밀번호 찾기</a>
 					    </div>
 					  </div>
 			

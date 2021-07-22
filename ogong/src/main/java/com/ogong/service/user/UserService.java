@@ -1,10 +1,7 @@
 package com.ogong.service.user;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
-import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 
 @Service
@@ -42,11 +39,7 @@ public interface UserService {
 	  
 	 //  유저 이메일 중복확인 
 		public int idCheck(String email) throws Exception;
-		
-	// 내 게시판 리스트	
-	/*
-	 * public List<Board> userboardList(Board board) throws Exception;
-	 */
+
 
 // 프로필수정
 

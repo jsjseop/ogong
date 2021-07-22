@@ -30,11 +30,10 @@
 
 	</resultMap>
 	
-	
-	
+		
 	<resultMap id="commentSelectMap" 	type="comment">
 		<result property="commentNo" 				column="comment_no" 			jdbcType="NUMERIC" />
-		<result property="commentBoard.boardNo" 	column="board_no" 				jdbcType="NUMERIC"/>
+		<result property="boardNo" 					column="board_no" 				jdbcType="NUMERIC"/>
 		<result property="commentWriter.email" 		column="email" 					jdbcType="VARCHAR" />
 		<result property="nickname" 				column="nickname" 				jdbcType="VARCHAR"/>
 		<result property="commentContents" 			column="comment_contents" 		jdbcType="VARCHAR"/>
@@ -56,7 +55,13 @@
 
 	</resultMap>
 	
-
+	
+	<resultMap id="recommendSelectMap" 	type="recommend">
+		<result property="recommendNo" 				column="recommend_no" 			jdbcType="NUMERIC" />
+	</resultMap>
+	
+	
+	
 <!-- 게시판 등록 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 
 4.자유게시판5.자율스터디 모집게시판 6.파일공유 게시판-->
 
@@ -65,6 +70,7 @@
 		INSERT
 		INTO board( board_no,
 					study_no,
+					email, 
 					nickname, 
 					board_category, 
 					board_title,
@@ -76,6 +82,7 @@
 					view_count)
 			VALUES( seq_board_no.nextval,
 					#{study.studyNo:NUMERIC}, 
+					#{writer.email},
 					#{writer.nickname:VARCHAR},
 					#{boardCategory},
 					#{boardTitle},
@@ -96,6 +103,7 @@
 			SELECT
 				board_no,
 				nickname,
+				email,
 				board_category,
 				board_title,
 				board_contents,
@@ -132,8 +140,10 @@
 	
 		<delete id="deleteBoard" parameterType="board" >
 			DELETE
-			FROM board
-			WHERE board_no = #{boardNo}
+			FROM 
+				board
+			WHERE
+				 board_no = #{boardNo}
 		</delete> 
 		 
 		
@@ -141,7 +151,9 @@
 	
 <!-- 게시판 목록 
 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 4.자유게시판 5.자율스터디 모집게시판 6.파일공유 게시판
+
 검색조건- 제목,내용,작성자
+
 정렬순- 기본정렬:최신순, 1.조회수, 2.추천수-->
 	
 	<select 	id="listBoard" parameterType="hashmap" resultMap="boardSelectMap">
@@ -162,19 +174,26 @@
                      a.board_interest,
                      a.board_reg_date,
                      a.view_count,
-                     (SELECT COUNT(*)
-                FROM 
-                	 comment_info c
-               WHERE c.board_no = #{board.boardNo}) commentCount,
+                     (
+                     	SELECT COUNT(*)
+                		FROM 
+                	 		comment_info c
+               			WHERE 
+               				c.board_no = #{board.boardNo}
+               		 ) commentCount,
                      a.board_reg_banana,
                      a.file_flag,
-					 (SELECT COUNT(*)
-                     FROM ANSWER a
-                     WHERE a.board_no = #{board.boardNo}) answerCount,
-                     (SELECT COUNT(*)
-               FROM
-               		 recommend r
-               WHERE r.board_no = #{board.boardNo}) recommendCount
+					 (
+					 	SELECT COUNT(*)
+                     	FROM ANSWER a
+                     	WHERE a.board_no = #{board.boardNo}
+                     ) 	answerCount,
+                     (
+                     	SELECT COUNT(*)
+               			FROM
+               		 		recommend r
+               			WHERE r.board_no = #{board.boardNo}
+               		) recommendCount
                 FROM 
                     board a
                 WHERE
@@ -219,10 +238,9 @@
 		INTO comment_info 
 		VALUES (
 				seq_comment_no.nextval,
-				 	#{commentBoard.boardNo}, 
+				 	#{boardNo}, 
 				 	#{commentWriter.email},
 				 	#{commentContents},
-				 	#{commentWriter.nickname},
 				 	SYSDATE
 				)
 	</insert>
@@ -236,7 +254,7 @@
 			SET
 				comment_contents = #{commentContents}			
 			WHERE 
-				board_no = #{commentBoard.boardNo}
+				board_no = #{boardNo}
 			
 	</update>
 	
@@ -255,6 +273,7 @@
 	
 	<!-- 댓글 목록 -->
 <!-- 		<select 	id="listComment" parameterType="map" resultMap="boardSelectMap">
+
 		SELECT
 	  		a.*
 	  	FROM
@@ -271,13 +290,14 @@
                     board a
                 WHERE
                 	board_category = #{board.boardCategory}
+
                 ORDER BY board_no DESC
 	  		) a	
 	</select> 
 	 -->
 	 <select	id="getTotalCount"	parameterType="search"		resultType="int">
 		SELECT
-	  		a.*
+	  		COUNT(*)
 	  	FROM
 	  		(
                 SELECT 
@@ -292,10 +312,26 @@
                      a.board_interest,
                      a.board_reg_date,
                      a.view_count,
-                     a.comment_count,
+                     (
+                     	SELECT COUNT(*)
+                		FROM 
+                	 		comment_info c
+               			WHERE 
+               				c.board_no = #{board.boardNo}
+               		 ) commentCount,
                      a.board_reg_banana,
                      a.file_flag,
-                     a.answer_count 
+					 (
+					 	SELECT COUNT(*)
+                     	FROM ANSWER a
+                     	WHERE a.board_no = #{board.boardNo}
+                     ) 	answerCount,
+                     (
+                     	SELECT COUNT(*)
+               			FROM
+               		 		recommend r
+               			WHERE r.board_no = #{board.boardNo}
+               		) recommendCount
                 FROM 
                     board a
                 WHERE
@@ -319,22 +355,43 @@
 	 </select>	
 	
 	
-		<select id="listComment" parameterType="int" resultMap="commentSelectMap">
-		SELECT 
-			 c.comment_No,
-			 c.board_No,
-			 c.email,
-			 c.comment_Contents,		
-			 c.comment_reg_date,
+	<select id="listComment" parameterType="map" resultMap="commentSelectMap">
+		SELECT		
+			 c.*,
 			 u.nickname
 		FROM
-			 comment_info c,
-			 users u
-		WHERE
-			c.email = u.email
-		AND	
-			board_No = #{value}	 
+			(
+				SELECT
+					 rownum AS rnum,
+					 c.comment_no,
+					 c.board_no,
+					 c.email,
+					 c.comment_contents,		
+					 c.comment_reg_date
+				FROM
+					comment_info c
+				WHERE	
+					c.board_no = #{boardNo}
+				ORDER BY 
+					comment_no DESC
+			) c		 
+		LEFT JOIN 
+			users u 
+		ON  c.email = u.email 
+		WHERE 
+			c.rnum BETWEEN #{startRowNum} AND #{endRowNum}
+						
 	</select>
+
+	<select id="listCommentCount" parameterType="map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			comment_info
+		WHERE	
+			board_no = #{boardNo}
+	</select> 
+	
 
 
 	<!-- Q&A 게시판 답변 등록 -->
@@ -382,5 +439,66 @@
 			answer_no = #{value}
 	</delete>
 	
+	
+	
+<!-- 게시판 조회수 -->	
+	
+	<update id="updateViewcnt" parameterType="int">
+		UPDATE
+			 board 
+		SET 
+			view_count = view_count + 1 
+		where 
+			board_no = #{value}
+	</update>
+	
+	
+	<!-- 게시판 추천수 -->	
+	
+	
+	<insert id="addRecommend" parameterType="board">
+		INSERT
+		INTO recommend	
+		VALUES (
+			seq_recommend_no.nextval,
+			#{boardNo},
+			#{writer.email}
+			)					
+	</insert>
+	
+		
+	<delete id="deleteRecommend" parameterType="int" >
+		DELETE
+		FROM 
+			recommend
+		WHERE
+			recommend_no = #{value}
+	</delete>
+	
+	
+	<select id="getRecommendNo" parameterType="board" resultMap="recommendSelectMap">
+		SELECT		
+			recommend_no		
+		FROM 
+			recommend
+		WHERE 
+			email = #{writer.email}
+		AND	board_no = #{boardNo}  		 
+	</select> 
+	
+	
+	<select id="recommendCount" parameterType="board" resultType="int">
+		SELECT		
+			count(*)		
+		FROM 
+			recommend
+		WHERE 
+			board_no = #{boardNo}  		 
+	</select> 
+	
+	
+	
+	
 
+	
 </mapper>
