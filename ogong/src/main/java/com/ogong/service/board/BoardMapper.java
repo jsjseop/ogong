@@ -47,6 +47,10 @@ import com.ogong.service.domain.Recommend;
 		
 		int listCommentCount(Map<String, Object> map);
 		
+		//답변 목록
+		List<Answer> listAnswer(int boardNo) ;
+		
+		
 		int getTotalCount(Map<String, Object> map);
 		
 		//Q&A 답변 등록

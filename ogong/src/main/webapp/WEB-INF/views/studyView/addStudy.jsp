@@ -18,7 +18,11 @@
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
+<style type="text/css">
+body {
+    padding-top : 50px;
+}
+</style>
 <script type="text/javascript">
 	$(function(){
 		$ ( "#btn1").on("click", function(){
@@ -88,6 +92,9 @@
 
 </head>
 <body>
+
+	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+	
 	<div class="container">
 	
 		<h1 class="bg-info text-center">스터디 개설</h1>
@@ -96,8 +103,8 @@
 		<form class="form-horizontal" enctype="multipart/form-data">
 		  <input type="hidden" name="currentMember"	value="1"/>
 		  <input type="hidden" name="maxMember"	value="5"/>
-		  <input type="hidden" name="email"	value="user07"/>
-		  <input type="hidden" name="studyRole" value="3"/>
+		  <input type="hidden" name="email"	value="${user.email}"/>
+		  <input type="hidden" name="studyRole" value="1"/>
 		
 		  <div class="form-group">
 		    <label for="studyName" class="col-sm-offset-1 col-sm-3 control-label">스 터 디 명</label>

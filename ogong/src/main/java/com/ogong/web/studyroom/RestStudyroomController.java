@@ -1,17 +1,25 @@
 package com.ogong.web.studyroom;
 
-import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ogong.service.domain.Calendar;
 import com.ogong.service.domain.GroupStudyMember;
+import com.ogong.service.domain.Study;
+import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
 import com.ogong.service.studyroom.StudyroomService;
 
@@ -30,35 +38,106 @@ public class RestStudyroomController {
 		System.out.println(this.getClass());
 	}
 	
-	@PostMapping("json/applyParticipation")
-	public GroupStudyMember updateApproval(	@RequestBody GroupStudyMember gsm) throws Exception{
+	@GetMapping("json/applyParticipation/{email}")
+	public String updateApproval( @PathVariable String email) throws Exception{
 		
-		studyroomService.applyParticipation(gsm.getMember().getEmail());
+		studyroomService.applyParticipation(email);
 		
-		return gsm;
+		return "성공";
 	}
 	
-	@PostMapping("json/rejectParticipation")
-	public void rejectApproval ( @RequestBody GroupStudyMember gsm) throws Exception{
+	@GetMapping("json/rejectParticipation/{email}")
+	public String rejectApproval ( @PathVariable String email) throws Exception{
 		
-		studyroomService.rejectParticipation(gsm.getGroupStudyMemberNo());
+		studyroomService.rejectParticipation(email);
+		
+		return "성공";
 	}
 	
-	@PostMapping("json/addAttendance")
-	public String addAttendance ( @RequestParam("email") String email,
-								@RequestParam("studyNo") int studyNo) throws Exception {
+	@GetMapping("json/addAttendance/{studyNo}")
+	public String addAttendance (  @PathVariable int studyNo,
+									HttpSession session) throws Exception {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("email", email);
+		map.put("email", ((User)session.getAttribute("user")).getEmail());
 		map.put("studyNo", studyNo);
 		
-		String a =studyroomService.checkAttendance(map);
-		if(a == null) {
+		String result = studyroomService.checkAttendance(map);
+		if(result == null) {
 			studyroomService.addAttendance(map);
-		}	
+		}
+		return result;
+	}
+	
+	@PostMapping("json/checkDuplication")
+	public boolean checkDuplication ( @RequestBody Study study,
+										GroupStudyMember gsm,
+										HttpSession session) throws Exception{
+		
+		gsm.setStudy(study);
+		gsm.setMember((User)session.getAttribute("user"));
+			
+		boolean result = studyroomService.getGSMember(gsm) != null ? true : false;
+		//System.out.println("여기까지 잘 왔니??");
+		return result;
+	}
+	
+	
+	@GetMapping("json/getCalendarList/{studyNo}")
+	public List<Calendar> getCalendarList ( @PathVariable int studyNo) throws Exception{
+
+	
+		return studyroomService.getCalendarList(studyNo);
+	}
+	
+	@PostMapping("json/updateCalendar")
+	public Boolean updateCalendar (@RequestBody Calendar cal)throws Exception{
+		Boolean result = false;
+		cal.setCalendarStartDate(cal.getCalendarStartDate().substring(0,10));
+		cal.setCalendarEndDate(cal.getCalendarEndDate().substring(0,10));		
+		
+		if(cal !=null) {
+			studyroomService.updateCalendar(cal);
+			result = true;
+		}
+		return result;
+	}
+	
+	@GetMapping("json/deleteCalendar/{calendarNo}")
+	public Boolean deleteCalendar (@PathVariable("calendarNo") int calendarNo)throws Exception{
+		Boolean result = false;
+		
+		if(calendarNo != 0) {
+			studyroomService.deleteCalendar(calendarNo);
+			result = true;
+		}
 		
 		
-		return a;
-	} 
+		return result;
+	}
+	
+	@PostMapping("json/addCalendar")
+	public Boolean addCalendar(@RequestBody List<Map<String,String>> list,
+								Calendar calendar, Study study) throws Exception{
+		Boolean result = false;
+		
+		System.out.println(list);
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		String jasonCalendar = objectMapper.writeValueAsString(list.get(0));
+		String jsonStudy = objectMapper.writeValueAsString(list.get(1));
+		
+		calendar = objectMapper.readValue(jasonCalendar, Calendar.class);
+		
+		calendar.setStudy(objectMapper.readValue(jsonStudy, Study.class));
+		System.out.println("calendar : : :"+calendar);
+		
+		  if(calendar != null) { 
+			  studyroomService.addCalendar(calendar); result = true;
+		  }
+		 
+		
+		return result;
+	}
 	
 }

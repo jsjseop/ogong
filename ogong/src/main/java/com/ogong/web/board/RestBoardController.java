@@ -1,5 +1,6 @@
 package com.ogong.web.board;
  
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ogong.common.Search;
 import com.ogong.service.board.BoardService;
+import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
 import com.ogong.service.domain.User;
@@ -93,4 +95,11 @@ public class RestBoardController {
 		
 		return boardService.addComment(comment);
     }
+    
+//    @GetMapping("listAnswer/{boardNo}")
+//	public List<Answer> listAnswer(@PathVariable("boardNo") int boardNo) throws Exception {
+//		
+//    	return boardService.listAnswer(boardNo);
+//    		
+//	}  
 }

@@ -18,6 +18,17 @@
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
+<style type="text/css">
+body {
+    padding-top : 50px;
+}
+/* .container {
+  background-color: orange;
+  width: 400px;
+  border: 1px solid red;
+} */
+</style>
+
 <script type="text/javascript">
 	$( function(){
 		
@@ -33,6 +44,10 @@
 </head>
 <body>
 
+	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+	
+	<jsp:include page="../layout/sidebar.jsp"/>
+	
 	<div class="container">
 	
 		<div class="page-header">
@@ -42,6 +57,7 @@
 		<hr/>
 		
 		<div class="row">
+			<input type="hidden" name="studyNo" value="${study.studyNo}"/>
 	  		<div class="col-xs-4 col-md-2 "><strong>스 터 디 명</strong></div>
 			<div class="col-xs-8 col-md-4">${study.studyName}</div>
 		</div>

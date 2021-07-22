@@ -9,11 +9,10 @@ public class Answer {
 
 	private int answerNo;
 	private String answerContents;
-	private String answerTitle;
 	private boolean adoption;
-	private Date answerDate;
+	private Date answerRegDate;
 	private User answerWriter;
-	private Board board;
+	private int boardNo;
 	private String adoptionFlag;
 	private Date adoptionDate;
 	private int adoptionCount;
