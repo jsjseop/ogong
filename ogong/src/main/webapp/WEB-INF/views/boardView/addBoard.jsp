@@ -1,5 +1,4 @@
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -105,9 +104,8 @@ body {
 			<div class="row">
 					<strong>내 용</strong>
 				</div>
-					<textarea class="summernote" name="boardContents"></textarea>
-						
-						
+					<textarea id="summernote" name="boardContents"></textarea>
+		
 				</div>
 				
 			<!-- </div>
@@ -122,16 +120,28 @@ body {
 	</div>
 	<script>
 	//여기 아래 부분
-$('.summernote').summernote({
-	height: 300,
-	minHeight: null,
-	maxHeight: null,
-	lang : 'ko-KR',
-	onImageUpload: function(files, editor, welEditable) {
-		sendFile(files[0], editor, welEditable);
-		}
-});
-
+$('#summernote').summernote({
+				height: 300,                 // 에디터 높이
+				minHeight: null,             // 최소 높이
+				maxHeight: null,             // 최대 높이
+				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				lang: "ko-KR",					// 한글 설정
+				placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+					onImageUpload : function(files) {
+						uploadSummernoteImageFile(files[0],this);
+					},
+					onPaste: function (e) {
+						var clipboardData = e.originalEvent.clipboardData;
+						if (clipboardData && clipboardData.items && clipboardData.items.length) {
+							var item = clipboardData.items[0];
+							if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+								e.preventDefault();
+							}
+						}
+					}
+				}
+	});
 
 //이미지 파일 업로드
 
@@ -141,7 +151,7 @@ function uploadSummernoteImageFile(file, editor) {
 	$.ajax({
 		data : data,
 		type : "POST",
-		url : "/uploadSummernoteImageFile",
+		url : "/board/uploadSummernoteImageFile",
 		contentType : false,
 		processData : false,
 		success : function(data) {
@@ -150,21 +160,6 @@ function uploadSummernoteImageFile(file, editor) {
 	}
 	});
 }
-
-//서머노트 초기화
-$('#board_content').val("${board_data.BOARD_CONTENT}");
- $('#board_content').summernote({
-	 	placeholder: '최대 500자 작성 가능합니다.',
-        height: 300,
-        lang: 'ko-KR',
-        callbacks: {
-        	onImageUpload: function(files, editor, welEditable) {
-        		for(var i = files.length -1; i>=0; i--) {
-        			sendFile(files[i], this);
-        		}
-        	}
-        }
- });
 	</script>	
 </body>
 </html>
