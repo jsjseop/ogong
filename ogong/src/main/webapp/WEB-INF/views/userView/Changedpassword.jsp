@@ -151,6 +151,7 @@
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 
+		  <input type="hidden" name="email"	value="${user.email}"/>
 
 		
 				<h1 class="bg-info text-center">비밀번호 변경</h1>
