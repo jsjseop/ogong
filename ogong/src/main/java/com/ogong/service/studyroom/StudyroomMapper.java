@@ -20,7 +20,7 @@ public interface StudyroomMapper {
 	
 	void applyParticipation(String email);
 	
-	void rejectParticipation(int gsmNo);
+	void rejectParticipation(String email);
 	
 	List<GroupStudyMember> getGSMemberList(int studyNo);
 	
@@ -39,4 +39,6 @@ public interface StudyroomMapper {
 	void deleteCalendar(int calendarNo);
 	
 	String checkAttendance(Map<String, Object> map);
+	
+	GroupStudyMember getGSMember(GroupStudyMember gsm);
 }

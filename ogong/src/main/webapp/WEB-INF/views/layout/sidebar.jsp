@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,26 +16,35 @@
 
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+    padding-top : 100px;
+    align:left;
+}
 
+</style>
 <script type="text/javascript">
 
-	$( function (){
-		$("a:contains('½ºÅÍµğ·ë ¸ŞÀÎ')").on("click", function(){
-			self.location = "/studyroom/getStudyroom?studyNo="+${studyNo}
+	$(function (){
+		
+		
+		$("a:contains('ìŠ¤í„°ë””ë£¸ ë©”ì¸')").on("click", function(){
+			self.location = "/studyroom/getStudyRoom?studyNo="+${studyNo}
 		});
 		
-		$("a:contains('½ºÅÍµğ·ë Á¤º¸Á¶È¸')").on("click", function(){
+		$("a:contains('ìŠ¤í„°ë””ë£¸ ì •ë³´ì¡°íšŒ')").on("click", function(){
 			self.location = "/studyroom/getStudyroomInfo?studyNo="+${studyNo}
-		});
+		})
 		
-		$("a:contains('Âü°¡½ÅÃ»')").on("click", function(){
+		$("a:contains('ì°¸ê°€ì‹ ì²­')").on("click", function(){
 			self.location = "/studyroom/listParticipation?studyNo="+${studyNo}
-		});
+		})
 		
-		$("a:contains('½ºÅÍµğ¿ø')").on("click", function(){
+		$("a:contains('ìŠ¤í„°ë””ì›')").on("click", function(){
 			self.location = "/studyroom/listGSMember?studyNo="+${studyNo}
-		});
+		})
 	});
+
 </script>
 
 </head>
@@ -43,11 +54,19 @@
         <div class="col-sm-2 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <!-- <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li> -->
-            <li><a href="#">½ºÅÍµğ·ë ¸ŞÀÎ</a></li>
-            <li><a href="#">½ºÅÍµğ·ë Á¤º¸Á¶È¸</a></li>
-            <li><a href="#">ÆÄÀÏ °øÀ¯ °Ô½ÃÆÇ</a></li>
-            <li><a href="#">Âü°¡½ÅÃ» È¸¿ø ¸ñ·Ï</a></li>
-            <li><a href="#">½ºÅÍµğ¿ø ¸ñ·Ï </a></li>
+            <li><a href="#">ìŠ¤í„°ë””ë£¸ ë©”ì¸</a></li>
+            
+            <li><a href="#">ìŠ¤í„°ë””ë£¸ ì •ë³´ì¡°íšŒ</a></li>
+            
+            <li><a href="#">íŒŒì¼ ê³µìœ  ê²Œì‹œíŒ
+            ${user.email}  //  ${study.studymaker.email}</a></li>
+            
+            <c:if test="${user.email == study.studymaker.email}">
+            	<li><a href="#">ì°¸ê°€ì‹ ì²­ íšŒì› ëª©ë¡</a></li>
+            	
+             </c:if> 
+            
+            <li><a href="#">ìŠ¤í„°ë””ì› ëª©ë¡ </a></li>
           </ul>
 
         </div>
