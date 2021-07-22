@@ -76,7 +76,7 @@ public class UserController {
 			session.setAttribute("user", login);
 		}
 
-		return "index";
+		return "redirect:/integration/mainPage";
 	}
 
 	// 로그아웃

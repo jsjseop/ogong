@@ -30,4 +30,6 @@ public interface StudyroomService {
 	public void updateCalendar(Calendar calendar) throws Exception;
 	
 	public void deleteCalendar(int calendarNo) throws Exception;
+	
+	public String checkAttendance(Map<String, Object> map ) throws Exception;
 }

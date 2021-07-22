@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html; charset=EUC-KR" 
 	pageEncoding="UTF-8"%>
 
@@ -54,6 +55,7 @@
 	                         <li><a href="#">자유게시판</a></li>
 	                         <li><a href="#">합격후기게시판</a></li>
 	                     </ul>
+	                  <li><a href="#">파일공유게시판</a></li>    
 	               </li>
 	                 
 	              <!-- 관리자기능 DrowDown  -->
@@ -114,7 +116,182 @@
 	</div>
 </div>
 		<!-- ToolBar End /////////////////////////////////////-->
- 	
+ 	  	<script type="text/javascript">
+   		
+   	
+	   	var email = "${user.email}";
+	   	
+	   	
+	   	function noticeCount() {
+	   		
+	   		
+	   		
+	   			$.ajax(
+	   					{
+ 					url : "/integration/json/getNoticeCount/"+email ,
+ 					method : "GET" ,
+ 					dataType : "json" ,
+ 					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"	 						
+ 					} ,
+	   				success : function(JSONData, status){
+	   					/* alert(JSONData); */
+	   						if (JSONData != 0){
+								let display = "<span id='test' style='background: red;'>"+JSONData+"</span>";
+								$('#noticeCount > a > span').append(display); 
+	   						}
+	   				}
+	   			});	   		
+	   	};
+	   	
+	   	$('#noticeCount').on('click', function(){
+	   		$.ajax(
+	   				{
+	   			url : "/integration/json/updateNotice/"+email ,
+	   			method : "GET" ,
+	   			dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"	 						
+				} ,
+				success : function(JSONData, status){
+					
+				}
+	   		})
+	   		$('#test').remove();
+	   	})
+	   	
+	   	
+	   	function deleteNotice(noticeNo)	{
+	   		
+	   		$.ajax(
+	   				{
+	   				  url : "/integration/json/deleteNotice/"+noticeNo ,
+	   				  method : "GET" ,
+	   				  dataType : "json" ,
+	 				  headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"	 						
+	 				  } ,
+	 				  
+	 				  success : function(JSONData, status){
+	 					
+	 				  }
+	 			
+	   		});
+	   	 $('.notice'+noticeNo).remove();
+	   	}
+	   	
+	   	
+	   	function deleteNoticeAll(){
+	   		
+	   		$.ajax(
+	   				{
+	   				  url : "/integration/json/deleteNoticeAll/"+email ,
+	   				  method : "GET" ,
+	   				  dataType : "json" ,
+	 				  headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"	 						
+	 				  } ,
+	 				  
+	 				  success : function(JSONData, status){
+	 					 
+	 				  }	
+	   			});
+	   		$('.notice').remove();
+	   	}
+   		
+	 	
+	 		
+	 	
+	 	
+	 if( email != ''){
+	 		
+	 		
+	 		$.ajax(
+	 				{
+	 					url : "/integration/json/getlistNotice/"+email ,
+	 					method : "GET" ,
+	 					dataType : "json" ,
+	 					headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"	 						
+	 					} ,
+	 					
+	 					
+	 					success : function(JSONData, status){
+	 						
+	 						var display = '';
+	 						if(JSONData.length > 0){
+	 							for(var i = 0; i < JSONData.length; i++){
+	 		 						
+	 		 						if(JSONData[i].noticeCategory == '1'){
+	 			 						display = "<div style='height: 40px' class='notice'>"
+	 			 								+ "<span>"+JSONData[i].noticeBoard.boardTitle+"에 댓글이 달렸습니다.</span>"
+	 			 								+ "</div>"
+	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+	 			 					}
+	 		 						else if (JSONData[i].noticeCategory == '2'){
+		 		 						display = "<div style='height: 40px' class='notice'>"
+		 		 								+ JSONData[i].noticeBoard.boardTitle+"에 답변이 달렸습니다."
+		 		 								+ "</div>"
+	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 					}
+	 		 						else if (JSONData[i].noticeCategory == '3'){
+		 		 						display = "<div style='height: 40px' class='notice'>"
+		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 답변이 채택되었습니다."
+		 		 								+ "</div>"
+	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 					}
+	 		 						else if (JSONData[i].noticeCategory == '4'){
+		 		 						display = "<div style='height: 40px' class='notice'>"
+		 		 								+ JSONData[i].noticeStudy.studyName+"에 참가신청이 도착했습니다."
+		 		 								+ "</div>"
+	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 					}
+	 		 						else if (JSONData[i].noticeCategory == '5' && JSONData[i].noticeGroupMember.approvalFlag == '1'){
+		 		 						display = "<div style='height: 40px' class='notice'>"
+	 		 								+ JSONData[i].noticeStudy.studyName+"에 참가신청이 승인 되었습니다."
+	 		 								+ "</div>"
+ 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 					}
+	 		 						else if (JSONData[i].noticeCategory == '5' && JSONData[i].noticeGroupMember.approvalFlag == '2'){
+		 		 						display = "<div style='height: 40px' class='notice'>"
+	 		 								+ JSONData[i].noticeStudy.studyName+"에 참가신청이 거절 되었습니다."
+	 		 								+ "</div>"
+ 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 					}
+	 		 						else if (JSONData[i].noticeCategory == '6'){
+		 		 						display = "<div style='height: 40px' class='notice'>"
+		 		 								+ "개인별 목표시간이 완료되었습니다."
+		 		 								+ "</div>"
+	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 					}
+	 		 						else if (JSONData[i].noticeCategory == '7'){
+		 		 						display = "<div style='height: 40px' class='notice'>"
+		 		 								+ JSONData[i].sender.email+"에게 쪽지가 도착하였습니다."
+		 		 								+ "</div>"
+	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+	 		 						}
+	 		 						 /* alert(display); */
+	 		 						$('#noticeList').append(display); 
+	 							}
+	 							
+	 						} else {
+	 							display = "<li style='height: 40px'>도착한 알림이 없습니다..</li>";
+	 							$('#noticeList').append(display);
+	 						}
+	 						noticeCount();	
+	 					}
+	 		})
+	 		
+		 
+	 	
+	 };
+	 	
+   	</script>
    	
    	<script type="text/javascript">
 
@@ -138,12 +315,13 @@
 		
 		//=============  자율스터디목록 Event  처리 =============
 	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
-	 		location.href = "/";
+	 		location.href = "/selfStudy/listStudy?studyType=self";
 		});
 		
 	 	//=============  모집게시판 Event  처리 =============
 	 	$( "a:contains('모집게시판')").on("click", function(){
-	 		location.href = "/";
+	 		//location.href = "/board/listBoard?boardCategory="+'5';
+	 		location.href = "/board/listBoard?boardCategory=5";
 	 	});
 
 	 	//=============  그룹스터디 Event  처리 =============
@@ -154,35 +332,29 @@
 	 	//=============  정보공유게시판 Event  처리 =============
 	 	$( "a:contains('정보공유게시판')").on("click", function(){
 
-	 		location.href = "/;
+	 		location.href = "/board/listBoard?boardCategory="+'1';
 	 	});	
 	 	
 	 	//=============  Q&A게시판 Event  처리 =============
 	 	$( "a:contains('Q&A게시판')").on("click", function(){
-	 		location.href = "listQaBoard";
+	 		location.href = "/board/listBoard?boardCategory="+'2';
 	 	});	 	 	
 		
 	 	//=============  자유게시판 Event  처리 =============
 	 	$( "a:contains('자유게시판')").on("click", function(){
-	 		location.href = "listBoard";
 
-	 		location.href = "/";
+	 		location.href = "/board/listBoard?boardCategory="+'4';
 	 	});	
-	 	
-	 	//=============  Q&A게시판 Event  처리 =============
-	 	$( "a:contains('Q&A게시판')").on("click", function(){
-	 		location.href = "/";
-	 	});	 	 	
-		
-	 	//=============  자유게시판 Event  처리 =============
-	 	$( "a:contains('자유게시판')").on("click", function(){
-	 		location.href = "/";
-
-	 	});
 	 	
 	 	//=============  합격후기게시판 Event  처리 =============
 	 	$( "a:contains('합격후기게시판')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/board/listBoard?boardCategory="+'3';
+	 	});	 
+	 	
+	 	//=============  파일공유 게시판 Event  처리 =============
+	 	$( "a:contains('파일공유게시판')").on("click", function(){
+	 		location.href = "/board/listBoard?boardCategory="+'6';
+	 		
 	 	});	 
 
 	 	//=============  신고조회 Event  처리 =============
@@ -236,4 +408,8 @@
 	 	});	 	 	
 	
 	</script>  
+
+
+	
+
 	

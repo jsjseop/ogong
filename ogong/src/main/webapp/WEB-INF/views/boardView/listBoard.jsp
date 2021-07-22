@@ -25,13 +25,15 @@
 	function fncGetList(currentPage) {
 
 		$('#currentPage').val(currentPage);
-		$('form').attr('action','/board/listBoard/').attr('method','POST').submit();
+		$('form').attr('action', '/board/listBoard?boardCategory='+`${boardCategory}`).attr('method', 'POST')
+				.submit();
 	}
-	
+
 	function fncWrite(user) {
 
-
-		location.href = "/board/addBoard";
+		boardNo = location.search.substring(15);
+		alert(boardNo);
+		location.href = "/board/addBoard?boardCategory=" + `${boardCategory}`;
 	}
 
 	$(function() {
@@ -41,24 +43,26 @@
 			let boardNo = $(this).children('input').val();
 			location.href = "/board/getBoard?boardNo=" + boardNo;
 		})
-		
-		$('button:contains("검색")').on('click', function(){
-			
+
+		$('button:contains("검색")').on('click', function() {
+
 			fncGetList('1');
 		})
-		
+
 	})
-	
-	$(function(){
-			
-			 $("#searchKeyword").keydown(function (key) {
-			 
-		        if(key.keyCode == 13){
-		        	fncGetList('1');
-		        }
-		    });
+
+	$(function() {
+
+		$("#searchKeyword").keydown(function(key) {
+
+			if (key.keyCode == 13) {
+				fncGetList('1');
+			}
 		});
+	});
 </script>
+
+
 <style>
 body {
 	padding-top: 30px;
@@ -72,14 +76,28 @@ body {
 	<div class="container">
 
 		<div class="page-header text-default">
-			<h3>자유게시판</h3>
+			<c:if test="${boardCategory == '1'}">
+				<h3>정보공유 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '3'}">
+				<h3>합격후기 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '4'}">
+				<h3>자유 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '5'}">
+				<h3>자율스터디 모집 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '6'}">
+				<h3>파일공유 게시판</h3>
+			</c:if>
 		</div>
 
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		<div class="row">
 
 			<div class="col-md-6 text-left">
-				<p class="text-default">전체 ${resultPage.totalCount } 건수, 현재
+				<p class="text-default">전체 ${resultPage.totalCount} 건수, 현재
 					${resultPage.currentPage} 페이지</p>
 			</div>
 
@@ -118,6 +136,7 @@ body {
 					<th align="center">No</th>
 					<th align="left">제목</th>
 					<th align="left">작성자</th>
+					<th align="left">조회수</th>
 					<th align="left">등록일</th>
 				</tr>
 			</thead>
@@ -126,20 +145,20 @@ body {
 				<c:forEach var="board" items="${list}">
 					<tr>
 						<td align="center">${board.boardNo}</td>
-						<td align="left">${board.boardTitle}<input type="hidden"
-							value="${board.boardNo}" /></td>
-						<td align="left">${writer.email}</td>
+						<td align="left">${board.boardTitle}<input type="hidden" value="${board.boardNo}" /></td>
+						<td align="left">${board.writer.nickname}</td>
+						<td align="left">${board.viewCount}</td>
 						<td align="left">${board.boardRegDate}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div align="right">
-			<button type="button"  class="btn btn-default" style="width: 80px;"
+			<button type="button" class="btn btn-default" style="width: 80px;"
 				onclick="javascript:fncWrite('${writer.email}')">글쓰기</button>
 		</div>
 		<!--  table End /////////////////////////////////////-->
-				<jsp:include page="../common/pageNavigator.jsp" />
+		<jsp:include page="../common/pageNavigator.jsp" />
 	</div>
 </body>
 </html>
