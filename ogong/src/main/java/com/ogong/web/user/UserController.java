@@ -91,6 +91,7 @@ public class UserController {
 		return "index";
 	}
 
+<<<<<<< binbin
 	/*
 	 * // 비밀번호 변경 화면이동
 	 * 
@@ -123,6 +124,8 @@ public class UserController {
 	 * 
 	 * return "index"; }
 	 */
+=======
+>>>>>>> 5aa6578 희빈 : 으흠 아직 미완성
 	
 	  // 비밀번호 변경 화면이동
 	  
@@ -356,6 +359,38 @@ public String Mystudylist ( @ModelAttribute("search") Search search,
 	
 }
 
+<<<<<<< binbin
+=======
+
+
+@RequestMapping("Mystudylist")
+public String Mystudylist ( @ModelAttribute("search") Search search,
+							Model model) throws Exception{
+	
+	System.out.println("/study/listStudy 실행");
+	
+	if(search.getCurrentPage() ==0 ){
+		search.setCurrentPage(1);
+	}
+	
+	search.setPageSize(10);
+	
+	HashMap<String, Object> map = new HashMap<String, Object>();
+	map.put("search", search);
+	map.put("studyType", "group");
+	
+	Map<String, Object> result = studyService.getStudyList(map);
+		
+	model.addAttribute("list", result.get("list"));
+	model.addAttribute("totalCount", result.get("totalCount"));
+	model.addAttribute("search", search);
+	model.addAttribute("studyType","group");
+	
+	return "/userView/Mystudylist";
+	
+}
+
+>>>>>>> 5aa6578 희빈 : 으흠 아직 미완성
 }
 
 
