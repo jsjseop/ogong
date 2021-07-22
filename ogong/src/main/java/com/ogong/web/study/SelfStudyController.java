@@ -6,23 +6,32 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ogong.common.Search;
 import com.ogong.service.domain.Calendar;
+import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.GroupStudyMember;
+import com.ogong.service.domain.LearningHistory;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
+import com.ogong.service.learningHistory.LearningHistoryService;
+import com.ogong.service.study.CamStudyService;
 import com.ogong.service.study.TestStudyService;
 import com.ogong.service.studyroom.StudyroomService;
 
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/selfStudy/*")
 public class SelfStudyController {
@@ -32,6 +41,12 @@ public class SelfStudyController {
 	
 	@Autowired
 	private StudyroomService studyroomService;
+	
+	@Autowired
+	private CamStudyService camStudyService;
+	
+	@Autowired
+	private LearningHistoryService learningHistoryService;
 	
 	public SelfStudyController(){
 		System.out.println(this.getClass());
@@ -103,11 +118,18 @@ public class SelfStudyController {
 	}
 	
 	@GetMapping("entranceStudy")
-	public String entranceStudy(@RequestParam("studyNo") int studyNo) throws Exception{
+	public String entranceStudy(@RequestParam("studyNo") int studyNo, HttpSession session) throws Exception{
+		
+		CamStudyMember csm = new CamStudyMember();
+		User user = ((User)session.getAttribute("user"));
+		csm.setEmail(user.getEmail());
+		csm.setNickname(user.getNickname());
+		csm.setStudyNo(studyNo);
 		
 		studyService.entranceStudy(studyNo);
+		camStudyService.addCamStudyMember(csm);
 		
-		return "redirect:https://wnstjqtest.herokuapp.com/"+ studyNo+"/"+"user01";
+		return "redirect:https://wnstjqtest.herokuapp.com/"+ studyNo+"/"+user.getEmail();
 	}
 	
 	@RequestMapping("listStudy")
@@ -134,6 +156,39 @@ public class SelfStudyController {
 		model.addAttribute("search", search);
 		
 		return "/studyView/listSelfStudy";
+	}
+	
+	@Transactional
+	@PostMapping("leaveStudy")
+	@ResponseBody
+	public LearningHistory leaveStudy(@RequestBody LearningHistory learningHistory) throws Exception{
+				
+		int userTargetTime = (camStudyService.getUser(learningHistory.getEmail())).getUserTargetTime();
+		String todayLearningTime = (learningHistoryService.getTodayLearningTime(learningHistory.getEmail())).substring(1, 2);
+		
+		if(Integer.parseInt(todayLearningTime) < userTargetTime) {
+			learningHistoryService.addLearningHistory(learningHistory);
+			String todayLearningTimePlus = (learningHistoryService.getTodayLearningTime(learningHistory.getEmail())).substring(1, 2);
+			
+			if(Integer.parseInt(todayLearningTimePlus) >= userTargetTime) {
+				//바나나 1개 update, 바나나기록 insert
+			}
+		} else {
+			learningHistoryService.addLearningHistory(learningHistory);
+		}
+		
+		camStudyService.deleteCamStudyMember(learningHistory);
+		
+		int studyNo = learningHistory.getStudyNo();
+		
+		if((studyService.getStudy(studyNo)).getStudyType().equals("self")) {
+			studyService.leaveStudy(studyNo);
+			learningHistory.setEmail("http://127.0.0.1:5050/user/loginView");
+		}else {
+			learningHistory.setEmail("location:main");
+		}
+		
+		return learningHistory;
 	}
 	
 }

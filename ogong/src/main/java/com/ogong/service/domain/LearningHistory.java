@@ -8,7 +8,8 @@ import lombok.Data;
 public class LearningHistory {
 
 	private int learningHistoryNo;
-	private User user;
+	private int studyNo;
+	private String email;
 	private String learningTime;
 	private String learningType;
 	private Date learningDate;

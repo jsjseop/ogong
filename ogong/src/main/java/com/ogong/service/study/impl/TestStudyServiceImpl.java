@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.Study;
+import com.ogong.service.domain.User;
 import com.ogong.service.study.TestStudyMapper;
 import com.ogong.service.study.TestStudyService;
 
@@ -36,9 +38,15 @@ public class TestStudyServiceImpl implements TestStudyService {
 	@Override
 	public void entranceStudy(int studyNo) throws Exception {
 		
-		studyMapper.updateMember(studyNo);
+		studyMapper.updateMember(studyNo, 1);
 	}
 	
+	@Override
+	public void leaveStudy(int studyNo) throws Exception {
+		// TODO Auto-generated method stub
+		studyMapper.updateMember(studyNo, -1);
+	}
+
 	@Override
 	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception {
 		
@@ -52,5 +60,4 @@ public class TestStudyServiceImpl implements TestStudyService {
 		return result;
 	}
 
-	
 }

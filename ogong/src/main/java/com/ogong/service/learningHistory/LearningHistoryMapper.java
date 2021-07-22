@@ -12,6 +12,8 @@ import com.ogong.service.domain.LearningHistory;
 @Mapper
 public interface LearningHistoryMapper {
 	
+	void addLearningHistory(LearningHistory learningHistory);
+	
 	List<LearningHistory> getLearningHistoryList(HashMap<String, Object> map);
 	
 	String getTodayLearningTime(String email);

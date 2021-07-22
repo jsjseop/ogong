@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ogong.service.domain.Study;
@@ -21,5 +22,6 @@ public interface TestStudyMapper {
 	
 	int getTotalCount(Map<String, Object> map);
 	
-	void updateMember(int StudyNo);
+	void updateMember(@Param("studyNo") int StudyNo,@Param("num") int num);
+	
 }

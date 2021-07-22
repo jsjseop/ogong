@@ -12,6 +12,8 @@ public interface TestStudyService {
 	
 	public void entranceStudy(int studyNo) throws Exception;
 	
-	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception;
+	public void leaveStudy(int studyNo) throws Exception;
 	
+	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception;
+
 }
