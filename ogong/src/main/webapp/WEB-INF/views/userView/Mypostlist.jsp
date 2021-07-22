@@ -1,57 +1,267 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>boardList</title>
+	<meta charset="EUC-KR">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--   jQuery , Bootstrap CDN  -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+  
+  	<!-- jQuery UI toolTip »ç¿ë CSS-->
+  	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  	<!-- jQuery UI toolTip »ç¿ë JS-->
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<!--  CSS Ãß°¡ : Åø¹Ù¿¡ È­¸é °¡¸®´Â Çö»ó ÇØ°á :  ÁÖ¼®Ã³¸® Àü, ÈÄ È®ÀÎ-->
+	<style>
+        body {
+            padding-top : 50px;
+        }
+   	</style>
+   
+   	<!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script type="text/javascript">
+	function fncGetList(currentPage) {
+		
+		if(${listType == 1}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=1").submit();
+		}
+		else if(${listType == 2}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=2").submit();
+		}
+		else if(${listType == 3}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=3").submit();
+		}
+		else if(${listType == 4}){
+			$("#currentPage").val(currentPage)
+			$("form[name='detailForm']").attr("method" , "POST").attr("action" , "/admin/listTotalUser?listType=4").submit();
+		}
+	}
+	
+	function fncupdateRestoreUser(){
+		$('form').attr("method", "POST").attr("action", "admin/updateRestoreUser").submit();
+	}
+	
+	$(function(){
+		// °Ë»ö
+		$("button[name='search']").on("click", function(){
+			fncGetList(1);
+		});	
+		
+		//Á¤ÁöÇÑ È¸¿ø ¸ñ·Ï¿¡¼­¸¸ °¡´ÉÇÑ È¸¿ø º¹±¸ ±â´É
+		$( "td:contains('º¹±¸')").on("click",function(){
+				var email = $(this).find('input').val()
+				/* alert(email); */
+				//fncupdateRestoreUser();
+				$.ajax({
+				
+					url : "/admin/json/updateUserRestore/"+email,
+					method : "GET" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					success : function(JSONData, status){
+					
+					}
+				})
+				$("#trRemove").remove();
+			
+			
+		})
+		
+	 	$( "a:contains('¸ğµç È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 		location.href = "/admin/listTotalUser?listType=1";
+		});
+		
+	 	$( "a:contains('Å»ÅğÇÑ È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 		location.href = "/admin/listTotalUser?listType=2";
+		});
+	 	
+	 	$( "a:contains('º¹±ÍÇÑ È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 		location.href = "/admin/listTotalUser?listType=3";
+		});
+	 	
+	 	$( "a:contains('Á¤ÁöµÈ È¸¿ø ¸ñ·Ï')" ).on("click" , function() {
+	 		location.href = "/admin/listTotalUser?listType=4";
+		});	 
+	 	
+	})
+	
+	function updateUserRestore(){
+		
+		$.ajax({
+			
+			url : "/admin/json/updateUserRestore/"+email,
+			method : "GET" ,
+			dataType : "json" ,
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			success : function(JSONData, status){
+				
+			}
+		});
+		
+		
+	}
+	
+	</script>   	
 </head>
 <body>
-<div class="page-wrapper">
-    <div class="container-fluid">
-        <div class="col-lg-8"><!--ê²Œì‹œíŒ ë„“ì´ -->
-            <div class="col-lg-12">
-                <h1 class="page-header">ë‚´ê²Œì‹œë¬¼ ë³´ê¸°</h1>
-            </div>
-            <div class="row">
-                  <div class="col-lg-12">
-                  </div>
-              </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">ê³µì§€ì‚¬í•­ </div>
-                <div class="panel-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>No.1</th>
-                                <th>ì œëª©</th>
-                                <th>ì‘ì„±ì</th>
-                                <th>ì‘ì„±ì¼</th>
-                                <th>ì¡°íšŒìˆ˜</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${list}" var="boardVO">
-                            <tr>
-                                <td>${Board.board_no}</td>
-                                <td>${Board.board_title}</td>
-                                <td>${Board.board_reg_date}</td>
-                                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${Board.board_reg_date}"/></td>
-                                <td>${Board.view_count}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="../common/toolbar.jsp" />
+	<!-- ToolBar End /////////////////////////////////////-->
+	<div class="contatiner">
+	
+	<!-- °¢ ¸ñ·Ï¿¡ Å¸ÀÔÀ» ÁöÁ¤ÇÏ¿© ÇØ´çÇÏ´Â ¸ñ·ÏÀ» Ãâ·Â -->
+		<div class="page-header text-info">
+				<c:if test="${listType == 1}">
+	       				<h3>¸ğµç È¸¿ø ¸ñ·Ï</h3>
+	       		</c:if>						
+	       		<c:if test="${listType == 2}">
+	       				<h3>Å»ÅğÇÑ È¸¿ø ¸ñ·Ï</h3>
+	       		</c:if>
+	       		<c:if test="${listType == 3}">
+	       				<h3>º¹±ÍÇÑ È¸¿ø ¸ñ·Ï</h3>
+	       		</c:if>
+	       		<c:if test="${listType == 4}">
+	       				<h3>Á¤ÁöµÈ È¸¿ø ¸ñ·Ï</h3>
+	       		</c:if>
+	    </div>
+
+	    <ul class="nav nav-tabs">
+  			<li role="presentation"><a href="#">¸ğµç È¸¿ø ¸ñ·Ï</a></li>
+  			<li role="presentation"><a href="#">Å»ÅğÇÑ È¸¿ø ¸ñ·Ï</a></li>
+  			<li role="presentation"><a href="#">º¹±ÍÇÑ È¸¿ø ¸ñ·Ï</a></li>
+  			<li role="presentation"><a href="#">Á¤ÁöµÈ È¸¿ø ¸ñ·Ï</a></li>
+		</ul>
+
+	    
+	    <div class="row">
+	    
+	    	<div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    		ÀüÃ¼  ${resultPage.totalCount } °Ç¼ö, ÇöÀç ${resultPage.currentPage}  ÆäÀÌÁö
+		    	</p>
+		    </div>
+		    
+		    <div class="col-md-6 text-right">
+			    <form class="form-inline" name="detailForm">
+			    
+				  <div class="form-group">
+				    <select class="form-control" name="searchCondition" >
+								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>´Ğ³×ÀÓ</option>
+					</select>
+				  </div>
+				  
+				  <div class="form-group">
+				    <label class="sr-only" for="searchKeyword">°Ë»ö¾î</label>
+				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="°Ë»ö¾î"
+				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+				  </div>
+				  
+				  <button type="button" name="search" class="btn btn-default">°Ë»ö</button>
+				  
+				  <!-- PageNavigation ¼±ÅÃ ÆäÀÌÁö °ªÀ» º¸³»´Â ºÎºĞ -->
+				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+				  
+				</form>
+	    	</div>		    
+	    	
+	    </div>
+
+		<table class="table table-hover table-striped">
+			<form>
+			<thead>
+				<tr>
+					<th align="center">No</th>
+					<th align="center">ÀÌ¸ŞÀÏ</th>
+					<th align="center">´Ğ³×ÀÓ</th>
+					<c:if test="${listType == 1}">
+						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
+					</c:if>
+					<c:if test="${listType == 2}">
+						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
+						<th align="left">Å»Åğ ÀÏÀÚ</th>
+						<th align="left">Å»Åğ »çÀ¯</th>
+					</c:if>
+					<c:if test="${listType == 3}">
+						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
+						<th align="left">°¡ÀÔ ÀÏÀÚ</th>
+						<th align="left">º¹±¸ ÀÏÀÚ</th>
+					</c:if>
+					<c:if test="${listType == 4}">
+						<th align="left">Á¤Áö½ÃÀÛÀÏÀÚ</th>
+						<th align="left">Á¤ÁöÁ¾·áÀÏÀÚ</th>
+						<th align="left">»óÅÂ</th>
+					</c:if>
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:set var="i" value="0" />
+				<c:forEach var="user" items="${list}">
+					<c:set var="i" value="${ i+1 }" />
+					<tr id="trRemove">
+						<td align="center">${ i }</td>
+						<td align="left">
+							<div class="user">${user.email}</div>
+						</td>
+						<td align="left">
+							<div class="user">${user.nickname}</div>
+						</td>
+						<c:if test="${listType == 1}">
+							<td align="left">${user.regDate}</td>
+						</c:if>
+						<c:if test="${listType == 2}">
+							<td align="left">${user.regDate}</td>
+							<td align="left">${user.withdrawDate}</td>
+							<td align="left">${user.withdrawReason}</td>
+						</c:if>
+						<c:if test="${listType == 3}">
+							<td align="left">${user.regDate}</td>
+							<td align="left">${user.restoreDate}</td>
+						</c:if>
+						<c:if test="${listType == 4}">
+							<td align="left">${user.suspendStartDate}</td>
+							<td align="left">${user.suspendEndDate}</td>
+							<td align="left">º¹±¸ 
+								<input type="hidden" name="email" value="${user.email}" />
+							</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</tbody>
+			</form>
+		</table>
+
+	</div>
+	<!-- PageNavigation Start... -->
+	<jsp:include page="../common/pageNavigator_new.jsp"/>
+	<!-- PageNavigation End... -->
+	
 </body>
 </html>
 
