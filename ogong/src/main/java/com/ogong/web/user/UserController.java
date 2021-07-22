@@ -1,9 +1,15 @@
 package com.ogong.web.user;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
@@ -14,13 +20,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ogong.common.Page;
+import com.ogong.common.Search;
+import com.ogong.service.admin.impl.AdminServiceImpl;
+import com.ogong.service.board.BoardService;
+import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
+import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
 @Controller
@@ -35,6 +50,16 @@ public class UserController {
 	@Autowired
 	private JavaMailSender mailSender;
 
+	@Autowired
+	private BoardService boardService;
+	
+	@Autowired	
+	private StudyService studyService;
+	
+	/*
+	 * @Autowired private StudyService
+	 */
+	
 	// 회원가입 페이지 진입
 	@GetMapping("addUser")
 	public String addUser() throws Exception {
@@ -47,6 +72,8 @@ public class UserController {
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
 
 		userService.addUser(user);
+		
+		
 
 		return "/userView/loginView";
 
@@ -88,38 +115,128 @@ public class UserController {
 		return "index";
 	}
 
-	/*
-	 * // 비밀번호 변경 화면이동
-	 * 
-	 * 
-	 * @GetMapping("updatePasswordView") public String updatePasswordView() throws
-	 * Exception {
-	 * 
-	 * 
-	 * User user = userService.getUser(email)
-	 * 
-	 * Model.addAttribute()
-	 * 
-	 * 
-	 * return "/userView/updatePasswordView"; }
-	 * 
-	 * 
-	 * 
-	 * // 비밀번호 변경
-	 * 
-	 * @PostMapping("updatePassword") public String
-	 * updatePassword(@ModelAttribute("user") User user , Model model, HttpSession
-	 * session) throws Exception{
-	 * 
-	 * userService.updatePassword(user);
-	 * 
-	 * String sessionId=((User)session.getAttribute("user")).getEmail();
-	 * 
-	 * 
-	 * if(sessionId.equals(user.getEmail())) { session.setAttribute("user", user); }
-	 * 
-	 * return "index"; }
-	 */
+	
+	// 비밀번호 찾기 입장이요
+	@GetMapping("getPassword")
+	public String getPassword() {
+		
+		return "/userView/getPassword";
+	}
+	
+	// 비밀번호 찾기
+	@PostMapping("getPassword")
+	public String getPassword(HttpSession session,User user) throws Exception{
+		
+		userService.getProfile(getPassword());
+		return "/userView/Changedpassword";
+	}
+	
+
+	
+	  // 비밀번호 변경 화면이동
+	  
+	 
+		
+		@GetMapping("Changedpassword")
+		public String Changedpassword() throws Exception{
+			
+			return "/userView/Changedpassword";
+		}
+		
+		// 비밀번호 변경
+		
+		
+		@PostMapping("Changedpassword")
+		public String Changedpassword(User user , HttpSession session) throws Exception{
+			
+			
+			userService.Changedpassword(user);			
+			
+			return "index";
+		}
+
+		
+		/* 비밀번호찾기 이메일 인증 */
+		@RequestMapping(value = "/mailpswCheck", method = RequestMethod.GET)
+		@ResponseBody
+		public String maipswlCheckGET(String email) throws Exception {
+			
+			/* 뷰(View)로부터 넘어온 데이터 확인 */
+			logger.info("이메일 데이터 전송 확인");
+			logger.info("이메일 : " + email);
+
+			/* 인증번호(난수) 생성 */
+			Random random = new Random();
+			int checkNum = random.nextInt(888888) + 111111;
+			logger.info("인증번호 " + checkNum);
+
+			/* 이메일 보내기 */
+			String setFrom = "flower9822@naver.com";
+			String toMail = email;
+			String title = "회원가입 인증 이메일 입니다.";
+			String content = "오늘의 공부 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+					+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+
+			try {
+
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+				helper.setFrom(setFrom);
+				helper.setTo(toMail);
+				helper.setSubject(title);
+				helper.setText(content, true);
+				mailSender.send(message);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			String num = Integer.toString(checkNum);
+
+			return num;
+		}
+		
+	   
+		
+		//프로필 수정 진입
+		  
+		  @GetMapping("updateProfile") public String updateProfile(HttpSession session,
+				 Model model
+		  ) throws Exception {
+
+		  model.addAttribute("user", (User)session.getAttribute("user"));
+			  
+		  return "/userView/updateProfile"; }
+		  
+		 
+		//프로필 수정
+
+		@RequestMapping( value="updateProfile", method=RequestMethod.POST )
+			public String updateProfile( @ModelAttribute("user") User user , Model model, HttpSession session ) throws Exception{
+
+				System.out.println("/user/updateUser : POST");
+				//Business Logic
+				userService.updateProfile(user);
+				
+				
+				
+				  String sessionId=((User)session.getAttribute("user")).getEmail();
+				  if(sessionId.equals(user.getEmail())){ session.setAttribute("user", user); }
+				 
+				 
+				
+				return "index";
+			}
+		  
+		  //프로필 보기
+	  
+		  
+		  @GetMapping("getProfile") 
+		  public String getProfile() throws Exception {
+		    	  
+		  return "/userView/getProfile"; }
+		  
+	 
 
 	/* 이메일 인증 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -136,10 +253,10 @@ public class UserController {
 		logger.info("인증번호 " + checkNum);
 
 		/* 이메일 보내기 */
-		String setFrom = "abcd960141@gmail.com";
+		String setFrom = "flower9822@naver.com";
 		String toMail = email;
 		String title = "회원가입 인증 이메일 입니다.";
-		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+		String content = "오늘의 공부 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 
 		try {
@@ -160,108 +277,97 @@ public class UserController {
 
 		return num;
 	}
+
+
+// 아이디 중복 검사
+@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+@ResponseBody
+public String idCheck(String nickname) throws Exception{
+	
+	
+	logger.info("idCheck() 진입");
+	
+	int result = userService.idCheck(nickname);
+	
+	logger.info("결과값 = " + result);
+	
+	if(result != 0) {
+		
+		return "fail";	// 중복 아이디가 존재
+		
+	} else {
+		
+		return "success";	// 중복 아이디 x
+		
+	}		
 }
 
-/*
- * @RequestMapping( value="addUser", method=RequestMethod.POST ) public String
- * addUser( @ModelAttribute("user") User user ) throws Exception {
- * 
- * System.out.println("/user/addUser : POST"); //Business Logic
- * userService.addUser(user);
- * 
- * return "redirect:/user/loginView"; }
- * 
- * 
- * @PostMapping("userView/addUser")
- */
-//	public String addUser() throws {
 
-/*
- * @RequestMapping(value="/adduser", method=RequestMethod.POST) public String
- * joinPOST(User user) throws Exception{
- * 
- * String rawPw = ""; // 인코딩 전 비밀번호 String encodePw = ""; // 인코딩 후 비밀번호
- * 
- * rawPw = member.getMemberPw(); // 비밀번호 데이터 얻음 encodePw =
- * pwEncoder.encode(rawPw); // 비밀번호 인코딩 member.setMemberPw(encodePw); // 인코딩된
- * 비밀번호 member객체에 다시 저장
- * 
- * 회원가입 쿼리 실행 userServce.addUser(user);
- * 
- * return "redirect:/main";
- */
+@RequestMapping("Mypostlist")
+public String Mypostlist(@ModelAttribute("search") Search search, Model model,
+		 HttpServletRequest request) throws Exception {
 
-/*
- * @PostMapping("userView/checkDuplication") public String
- * checkDuplication(@ModelAttribute("user") User user) throws Exception {
- * 
- * System.out.println("userView/checkDuplication : POST");
- * 
- * userServce.checkDuplication(user);
- * 
- * return "userView/checkDuplication"; }
- */
+	if (search.getCurrentPage() == 0) {
+		search.setCurrentPage(1);
+	}
+	search.setPageSize(5);
+	
+	search.setSearchKeyword("");
+	search.setSearchCondition("");
+	
 
-/*
- * @RequestMapping( value="userView/checkDuplication", method=RequestMethod.POST
- * ) public String checkDuplication( @RequestParam("userId") String userId ,
- * Model model ) throws Exception{
- * 
- * System.out.println("/user/checkDuplication : POST"); //Business Logic boolean
- * result=UserService.checkDuplication(email); // Model 과 View 연결
- * model.addAttribute("result", new Boolean(result));
- * model.addAttribute("userId", userId);
- * 
- * return "forward:/user/checkDuplication"; }
- */
+	Board board = new Board();
+	board.setBoardCategory("1");
+	
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("search", search);
+	map.put("board",board);
+	
+	List<Board> listBoard = (List<Board>) boardService.listBoard(map);
+	List<Board> list = listBoard;
+	map.get("totalCount");
+	boardService.listBoard(map);
+	
+	boardService.listBoard(map);
+		
+	model.addAttribute("list", list);
+	model.addAttribute("search", search);
+	
+	return "/userView/Mypostlist";
+}
 
-/*
- * 
- * public UserController(){ System.out.println(this.getClass()); }
- * 
- */
 
-/*
- * @GetMapping("userView/addUser") public String addUser() throws Exception{
- * 
- * System.out.println("/UserView/adduser : GET");
- * 
- * return "userView/addUser"; }
- */
-/*
- * 
- * @PostMapping("addUserView") public String addUser(@ModelAttribute("user")
- * User user ) throws Exception{
- * 
- * System.out.println("/user/addUser : POST"); //Business Logic
- * userService.addUser(user);
- * 
- * return "/userView/loginView";
- * 
- * }
- * 
- * 
- * 
- * 
- * @RequestMapping( value="getUser", method=RequestMethod.GET ) public String
- * getUser( @RequestParam("userId") String userId , Model model ) throws
- * Exception {
- * 
- * System.out.println("/user/getUser : GET"); //Business Logic User user =
- * userService.getUser(userId); // Model 과 View 연결 model.addAttribute("user",
- * user);
- * 
- * return "forward:/user/getUser.jsp"; }
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * }
- */
+
+
+  @RequestMapping("Mystudylist") public String Mystudylist
+  ( @ModelAttribute("search") Search search, Model model) throws Exception{
+  
+  System.out.println("/study/listStudy 실행");
+  
+  if(search.getCurrentPage() ==0 ){ search.setCurrentPage(1); }
+  
+  search.setPageSize(10);
+ 
+  HashMap<String, Object> map = new HashMap<String, Object>();
+  map.put("search", search); map.put("studyType", "group");
+ 
+  Map<String, Object> result = studyService.getStudyList(map);
+  
+  model.addAttribute("list", result.get("list"));
+  model.addAttribute("totalCount", result.get("totalCount"));
+  model.addAttribute("search", search);
+  model.addAttribute("studyType","group");
+  
+  return "/userView/Mystudylist";
+  
+  }
+ 
+
+
+}
+
+
+
+
+
+ 

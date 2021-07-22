@@ -73,8 +73,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 댓글 수정
-	public void updateComment(Comment comment) throws Exception {
+	public Boolean updateComment(Comment comment) throws Exception {
 		boardMapper.updateComment(comment);
+		return null;
 	}
 
 	// 댓글 삭제
