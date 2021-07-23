@@ -115,7 +115,7 @@
                   
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="자유스터디">
-                            <img class="img-fluid" src="resources/images/1.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">누구나 자유롭게 참여가 가능한</div>
                                 <div class="project-name">자유스터디</div>
@@ -124,7 +124,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="그룹스터디">
-                            <img class="img-fluid" src="resources/images/2.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">체계적인 시스템으로 공부효율 up</div>
                                 <div class="project-name">그룹스터디</div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="스터디모집">
-                            <img class="img-fluid" src="resources/images/333.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/333.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50">내가 직접 만드는 스터디</div>
                                 <div class="project-name">스터디모집</div>
@@ -160,7 +160,6 @@
                         <p class="text-muted mb-5">오공은 즐겁게 공부할 수 있는 방법을 제공합니다.</br>
                         	오류 및 서비스와 관련된 불편사항은 이곳으로 연락 주세요.</p>
                     </div>
-                </div>
                 </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-4 text-center mb-5 mb-lg-0">

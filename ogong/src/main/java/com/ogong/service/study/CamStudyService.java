@@ -2,6 +2,8 @@ package com.ogong.service.study;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.LearningHistory;
 import com.ogong.service.domain.User;
@@ -11,6 +13,8 @@ public interface CamStudyService {
 	public User getUser(String email) throws Exception;
 	
 	public void addCamStudyMember(CamStudyMember csm) throws Exception;
+	
+	public CamStudyMember getCamStudyMember(int studyNo, String email) throws Exception;
 	
 	public List<CamStudyMember> getCamStudyMemberList(int studyNo) throws Exception;
 	

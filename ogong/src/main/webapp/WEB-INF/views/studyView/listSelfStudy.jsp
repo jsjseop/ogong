@@ -26,14 +26,7 @@
       $('#currentPage').val(currentPage);
       $('form').attr('action','/selfStudy/listStudy?studyType=${studyType}').attr('method','POST').submit();
    }
-/*    function fncWrite(user) {
-      console.log("확인용 : " + user);
-      if (user == null || user == "") {
-         alert("로그인 후 이용 가능합니다.");
-         return;
-      }
-      location.href = "/board/addBoard";
-   } */
+
    $(function() {
 	   
 	  $('img').on('click', function() {
