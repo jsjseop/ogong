@@ -215,7 +215,6 @@ public class IntegrationController {
 		
 		User email = (User)session.getAttribute("user");
 		
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<User> banana = integrationService.listBananaRanking(map);
 		List<Answer> choose = integrationService.listChooseCountRanking(map);

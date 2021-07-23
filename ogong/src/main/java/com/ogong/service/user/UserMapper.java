@@ -34,6 +34,4 @@ public interface UserMapper {
 	// 아이디 중복체크
 	public int idCheck(String email);
 
-	
-
 }

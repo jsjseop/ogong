@@ -1,0 +1,25 @@
+package com.ogong.service.banana;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.ogong.service.domain.Banana;
+import com.ogong.service.domain.User;
+
+public interface BananaService {
+
+	// 바나나 인서트
+	public void addBanana(Banana banana) throws Exception;
+	
+	// 획득처 리스트
+	public Map<String, Object> getlistAcquireBanana(HashMap<String, Object> map) throws Exception;
+	
+	// 사용처 리스트
+	public Map<String, Object> getlistUseBanana(HashMap<String, Object> map) throws Exception;
+
+	// 바나나 - 빼기
+	public void updateAcquireBanana(User user) throws Exception;	
+	
+	// 바나나 - 빼기
+	public void updateUseBanana(User user) throws Exception;
+}
