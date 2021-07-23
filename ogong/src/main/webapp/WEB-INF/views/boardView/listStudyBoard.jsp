@@ -48,22 +48,22 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">자율스터디</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#!">자율스터디 목록</a></li>
-                                <li><a class="dropdown-item" href="#!">모집게시판</a></li>          
+                                <li><a class="dropdown-item" href="/board/listBoard?boardCategory=5">모집게시판</a></li>          
                             </ul>
                      <!-- 드롭다운 끝 -->       
                      
                         <li class="nav-item"><a class="nav-link" href="#!">그룹스터디</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">정보공유게시판</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Q&A게시판</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/board/listBoard?boardCategory=1">정보공유게시판</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/board/listBoard?boardCategory=2">Q&A게시판</a></li>
                     <!-- 드롭다운 시작 -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">쉼터게시판</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">자율스터디 목록</a></li>
-                                <li><a class="dropdown-item" href="#!">모집게시판</a></li>          
+                                <li><a class="dropdown-item" href="#!">자유게시판</a></li>
+                                <li><a class="dropdown-item" href="/board/listBoard?boardCategory=5">합격후기 게시판</a></li>          
                             </ul>
                      <!-- 드롭다운 끝 -->    
-                     <li class="nav-item"><a class="nav-link" href="#!">파일공유 게시판</a></li>
+                     <li class="nav-item"><a class="nav-link" href="/board/listBoard?boardCategory=6">파일공유 게시판</a></li>
                         <!-- dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">관리자</a>

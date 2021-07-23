@@ -16,13 +16,13 @@
         <!-- SimpleLightbox plugin CSS-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="resources/css/style.css" rel="stylesheet" />
+        <link href="../resources/css/style.css" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-            <a href="/"><img src="resources/images/logo.png" alt="ogong_logo" /></a>
+            <a href="/"><img src="../resources/images/logo.png" alt="ogong_logo" /></a>
                 <!--  <a class="navbar-brand" href="#page-top">오늘의 공부</a> -->
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -109,7 +109,7 @@
                   
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="자유스터디">
-                            <img class="img-fluid" src="resources/images/1.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">누구나 자유롭게 참여가 가능한</div>
                                 <div class="project-name">자유스터디</div>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="그룹스터디">
-                            <img class="img-fluid" src="resources/images/2.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">체계적인 시스템으로 공부효율 up</div>
                                 <div class="project-name">그룹스터디</div>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="스터디모집">
-                            <img class="img-fluid" src="resources/images/333.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/333.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50">내가 직접 만드는 스터디</div>
                                 <div class="project-name">스터디모집</div>
@@ -173,7 +173,7 @@
         <!-- SimpleLightbox plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <!-- Core theme JS-->
-        <script src="resources/javascript/scripts.js"></script>
+        <script src="../resources/javascript/scripts.js"></script>
        
        
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
