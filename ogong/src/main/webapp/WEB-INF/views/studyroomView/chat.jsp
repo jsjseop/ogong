@@ -40,15 +40,14 @@ button,button:hover{border:none;color:#fff;padding:10px}.chat__messages,.chat__s
   </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="https://git.heroku.com/ogong-chat.git/socket.io/socket.io.js"></script>
+<script src="https://ogong-chat.herokuapp.com/socket.io-client/socket.io.js"></script>
 <script type="text/javascript">
 	
 
 	
-	var socket = io("https://git.heroku.com/ogong-chat.git/");
+	var socket = io("https://ogong-chat.herokuapp.com/");
 	var studyNo= $("#studyNo").val();
 	var email = $("#email").val();
-	
 	
 	
 	function scrollToBottom() {

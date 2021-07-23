@@ -53,9 +53,6 @@ public interface BoardService {
 		//조회수
 		public int recommend(Board board) throws Exception;
 		
-		//답변 목록
-		public List<Answer> listAnswer(int boardNo) throws Exception;
-		
 		
 		
 }

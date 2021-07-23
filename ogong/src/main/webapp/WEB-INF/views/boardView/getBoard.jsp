@@ -36,9 +36,9 @@
 
 
 <script>
-	let boardNo = "<c:out value='${board.boardNo}'/>";
+    let boardNo = "<c:out value='${board.boardNo}'/>";
 	let boardCategory = "<c:out value='${board.boardCategory}'/>";
-
+	
 	let currentPage = 1;
 	let pageSize = 10;
 	
@@ -91,7 +91,8 @@
 					var commentContents = $("<div class='commentContents'>");
 					var commentRegDate = $("<div class='commentRegDate'>");
 					var nickname = $("<div class='nickname'>");
-					var button = $("<style='padding-right:5px'>");
+					var commentNo = $("<input type='hidden' class='commentNo'>");
+					var button = $("<button type='button' id='updatebtn' class='btn btn-primary'>수정</button>")
 					commentContents.text(record.commentContents);
 					commentRegDate.text(record.commentRegDate);
 					nickname.text(record.nickname);
@@ -139,12 +140,13 @@
 	
 	function updateComment() {
 		var commentContents = $('#comment').val();
+		var commentNo = $('.commentNo').val();
 		currentPage = 1; 
 		$.ajax({
 			url:'/board/updateComment',
-			type:'get',
+			type:'POST',
 			data: {
-				comment: commentNo,
+				commentNo: commentNo,
 				commentContents: commentContents
 			},
 			dateType:'json',
@@ -185,7 +187,17 @@
 
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
-	})
+		
+		$('button:contains("신 고")').on('click', function() {
+			$("#myModalReport").find('#sendReporter').val($(this).find('input').val());
+		})		
+		
+		$('#updatebtn').on('click', function() {
+
+			updateComment();
+		})
+		
+	}) 
 	
 	
 </script>
@@ -203,43 +215,53 @@ pre {
 
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
+	<jsp:include page="../adminView/addReport.jsp" /> 
 
 	<div class="container">
 		<div class="page-header">
 			<h3 class=" text-default">상세보기</h3>
 		</div>
-
+		
+		<input type="hidden" name="boardEmail" id="boardEmail" value="${board.writer.email}" />
+		
 		<div class="row">
-			<div class="col-xs-2 col-md-1">
+			<div class="col-xs-4 col-md-2">
+				<strong>게시글 작성자</strong>
+			</div>
+			<div class="col-xs-8 col-md-4">${board.writer.nickname}</div>
+		</div>
+		<hr />		
+		<div class="row">
+			<div class="col-xs-4 col-md-2">
 				<strong>등록일자</strong>
 			</div>
-			<div class="col-xs-4 col-md-4">${board.boardRegDate}</div>
+			<div class="col-xs-8 col-md-4">${board.boardRegDate}</div>
 		</div>
 
 		<hr />
 		<div class="row">
-			<div class="col-xs-2 col-md-1">
+			<div class="col-xs-4 col-md-2">
 				<strong>조회수</strong>
 			</div>
-			<div class="col-xs-4 col-md-4">${board.viewCount}</div>
+			<div class="col-xs-8 col-md-4">${board.viewCount}</div>
 		</div>
 
 		<hr />
 		
 		<div class="row">
-			<div class="col-xs-2 col-md-1">
+			<div class="col-xs-4 col-md-2">
 				<strong>제 목</strong>
 			</div>
-			<div class="col-xs-4 col-md-4">${board.boardTitle}</div>
+			<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
 		</div>
 
 		<hr />
 
 		<div class="row">
-			<div class="col-xs-2 col-md-1">
+			<div class="col-xs-4 col-md-2">
 				<strong>내 용</strong>
 			</div>
-			<div class="col-xs-4 col-md-4">
+			<div class="col-xs-6 col-md-4">
 				<pre style="width: 450px; height: 150px;">${board.boardContents}</pre>
 			</div>
 		</div>
@@ -254,10 +276,13 @@ pre {
 <%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
 				<c:if test="${user.userId == board.email}"> --%>
 				
-				
+						<button type="button" class="btn btn-warning" style="width: 60px;" data-toggle="modal" data-target="#myModalReport">신 고</button>
+						
 					<button type="button" class="btn btn-warning" style="width: 60px;">수 정</button>
 <%-- 				</c:if> --%>
-				<button type="button" class="btn btn-warning" style="width: 60px;">삭 제</button>
+				<button type="button" class="btn btn-warning" style="width: 60px;">삭 제
+					<input type="hidden" value="${message.sender.email}" />
+				</button>
 <%-- 			</c:if> --%>
 			<button type="button" class="btn btn-warning" style="width: 60px;">목 록</button>
 		</div>
@@ -276,19 +301,27 @@ pre {
 								<br>
 								<div>
 									<a href='#' onClick="addComment()"
-										class="btn btn-danger">등록</a>
+										class="btn pull-right btn-danger">등록</a>
 								</div></td>
 						</tr>
-						
 					</table>
-						<ul id="listComment">
+				</div>
+			</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-md-2">
+			<strong>제 목</strong>
+		</div>
+		<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
+	</div>
+	<ul id="listComment">
 	
 
 	</ul>
+</div>
 	
-	<button type="button" class="btn btn-primary btn-xs" onclick="more()">더보기</button>
-				</div>
-			</div>
-	</div>
+	
+	<button type="button" class="btn btn-danger" onclick="more()" style="width: 60px;">더보기</button>
 </body>
 </html>

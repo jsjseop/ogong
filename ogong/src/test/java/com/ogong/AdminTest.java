@@ -38,7 +38,7 @@ public class AdminTest {
 	
 	*/
 	
-	@Test
+	//@Test
 	@DisplayName("회원 복구")
 	void updateRestoreUser() throws Exception{
 		
@@ -50,13 +50,14 @@ public class AdminTest {
 		adminService.updateUserRestore(email);
 	}
 	
-	//@Test
+	@Test
 	@DisplayName("신고하기")
 	void testaddReport() throws Exception{
 		
 		User receiveReporter = new User();
 		User sendReporter = new User();
 		Report report = new Report();
+		
 		receiveReporter.setEmail("user07");
 		sendReporter.setEmail("user02");
 		

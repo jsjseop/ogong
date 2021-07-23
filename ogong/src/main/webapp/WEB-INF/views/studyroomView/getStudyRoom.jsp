@@ -402,7 +402,7 @@ $(function () {
     	
     	
     	$("#chat").on("click", function (){
-    		popWin = window.open("/studyroom/chat?studyNo="+studyNo+"&email="+email,
+    		popWin = window.open("https://ogong-chat.herokuapp.com/chat?studyNo="+studyNo+"&email="+email,
 					"popWin",
 					"left=600, top=700, width=770, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
     	

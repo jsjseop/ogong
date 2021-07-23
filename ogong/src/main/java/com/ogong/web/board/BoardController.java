@@ -43,7 +43,7 @@ public class BoardController {
 	@Value("5")
 	int pageUnit;
 	
-	@Value("7")
+	@Value("3")
 	int pageSize;
 
 	@Autowired
@@ -56,22 +56,16 @@ public class BoardController {
 		if(boardCategory.equals("2")) {
 			return "boardView/addQaBoard";
 		}
-		if (boardCategory.equals("5")){
-			return "boardView/addStudyBoard";
-		}
 		return "/boardView/addBoard";
 	}
-	
 
 	@PostMapping("addBoard")
-	public String addBoard(HttpSession session, @ModelAttribute("board") Board board, @RequestParam ("boardCategory") String boardCategory,
-			Model model)
+	public String addBoard(@ModelAttribute("board") Board board, @RequestParam ("boardCategory") String boardCategory,
+			@ModelAttribute("user") User user, Model model)
 			throws Exception {
 
-		
-		User user = (User)session.getAttribute("user");
-						
-		board.setWriter(user);
+		user.setEmail("user01");
+		board.setWriter(user);;
 		board.setBoardInterest("2");
 		board.setFileFlag("2");
 		board.setBoardCategory(boardCategory);
@@ -83,11 +77,9 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("boardCategory", boardCategory);
 		
-		System.out.println("출력출력출력 =========");
-		System.out.println(board.getBoardNo());
-		/*if(boardCategory.equals("2")) {
-			return "redirect:/board/getBoard?boardNo=" + board.getBoardNo();
-		}*/
+		if(boardCategory.equals("2")) {
+			return "redirect:board/getBoard/getBoard?boardNo=" + board.getBoardNo();
+		}
 
 		return "redirect:/board/getBoard?boardNo=" + board.getBoardNo();
 	}
@@ -120,6 +112,7 @@ public class BoardController {
 		board.setFileFlag("2");
 		board.setBoardCategory(boardCategory);
 		
+		
 		boardService.addBoard(board);
 		System.out.println(board);
 
@@ -128,28 +121,41 @@ public class BoardController {
 		model.addAttribute("boardCategory", boardCategory);
 		
 		if(boardCategory.equals("2")) {
-			return "redirect:board/getBoard/getBoard?boardNo=" + board.getBoardNo()+board;
+			return "redirect:board/getBoard/getBoard?boardNo=" + board.getBoardNo();
 		}
 
 		return "redirect:/board/getBoard?boardNo=" + board.getBoardNo();
 	}
 	
 	
+	
+	
+	
+	
 	@GetMapping("getBoard")
-	public String getBoard(@RequestParam("boardNo") int boardNo,  Model model) throws Exception {
+	public String getBoard(@RequestParam("boardNo") int boardNo, HttpSession session, Model model) throws Exception {
 		//, @RequestParam("boardCategory") String boardCategory
 		System.out.println("boardNo" + boardNo);
-
+		
+		
+		User user = (User)session.getAttribute("user");
+		
 		boardService.updateViewcnt(boardNo);
 		
 		Board board = new Board();
 		board.setBoardNo(boardNo);
 		//board.setBoardCategory(null);
 		
+		
+		
 		board = boardService.getBoard(board); 
 		
-		model.addAttribute("board", board);
+		System.out.println("board 확인 :::"+board);
+		System.out.println("user 확인 :::"+user);
 		
+		model.addAttribute("board", board);
+		model.addAttribute("user", session.getAttribute("user"));
+
 		
 		if (board.getBoardCategory().equals("2")) {
 			
@@ -230,7 +236,7 @@ public class BoardController {
 		}
 		if (boardCategory.equals("5")) {
 
-			return "/boardView/listStudyBoard";
+			return "/boardView/studyBoard";
 		}
 			
 		return "/boardView/listBoard";
@@ -257,7 +263,7 @@ public class BoardController {
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/board/summernoteImage/"+savedFileName);
+			jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 				
 		} catch (IOException e) {

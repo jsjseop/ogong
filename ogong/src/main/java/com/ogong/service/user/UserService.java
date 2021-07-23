@@ -15,9 +15,7 @@ public interface UserService {
 	  //로그인? 
 	  public User getUser(User user)throws Exception;
 		
-	  
-//	public User getUser(String email)throws Exception;
-	  
+	  	  
 	   //프로필 보기
 	   public   User getProfile(String email)throws Exception;
 	  

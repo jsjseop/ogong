@@ -24,6 +24,7 @@ class BoardTest {
 	private BoardService boardService;
 
 
+	//@Test
 	@Test
 	@DisplayName("게시글 등록")
 	void addBoard() throws Exception {
@@ -179,7 +180,11 @@ class BoardTest {
 		user.setEmail("user09");
 		user.setNickname("비트캠프");
 		answer.setAnswerContents("답변 등록 성공");
+<<<<<<< HEAD
 		// answer.setBoard(board);
+=======
+//		answer.setBoard(board);
+>>>>>>> refs/remotes/origin/master
 		answer.setAnswerWriter(user);
 		answer.setAdoptionFlag("2");
 
