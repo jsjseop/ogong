@@ -4,14 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 
-
+<!-- ==============================================신고 function Start=============================================== -->
 <script type="text/javascript">
 
-	
-	function fncAddReport(){
-		//Form 유효성 검증
 
-		/* var sendReporter = "${report.receiveReporter}"; */
+	function fncAddReport(){
+		
 		var receiveReporter = $("input[name='receiveReporter.email']").val();
 		if($("input[name='reportBoard.boardNo']").val() == null){
 			var reportBoard = null
@@ -40,36 +38,24 @@
 		
 	}
 	
-	
-	
 	$(function(){
-		
 		// 신고
 		$( "#btn3" ).on("click" , function() {
 			fncAddReport();
 		});
 		
-
-
 	})
 	
 	
-	</script>   	
-
-	
-
+	</script>
+<!-- ==============================================신고 function END=============================================== -->	
 	
 	
-	
-	<%-- <jsp:include page="../common/toolbar.jsp" /> --%>
-
-
+<!-- ==================================================Modal 신고 하기 Start===================================================-->
 <div class="contatiner">
-	<!-- Modal 신고 하기-->
+	
 	<form name="addReport">
-	  
-
-	 
+	  	 
 		<%-- <input type="hidden" class="receiveReporter" name="receiveReporter" value="${report.receiveReporter.email}"/> --%>
 		<div class="modal fade" id="myModalReport" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
@@ -84,12 +70,13 @@
 					<div class="modal-body">
 						<form>
 						
-
+		<!-- 필수) 작성자 이메일은 기본적으로 나옴 신고 받는 사람의 이메일 -->
 						<div class="form-group" >
 							<label>작성자 이메일</label>
 							<input type="text" class="form-control" id="receiveReporter" name="receiveReporter.email" 
 							maxLength="512" style="height: 30px" value="${board.writer.email}" ></input>
 						</div>
+		<!-- 각 테이블마다 신고 출력과 삽입이 다르기 때문에 if문으로 구분 -->				
 						<div class="form-group" >
 							<c:if test = "${!empty board.boardTitle}">
 							<input type="hidden" id="boardEmail" name="reportBoard.boardEmail"  value="${board.writer.email}" />
@@ -104,33 +91,13 @@
 							maxLength="512" style="height: 30px" value="${answer.answerTitle}" readonly></input>
 							</c:if>							
 						</div>						
-						
-						
-<%-- 						<c:if test = "${ !empty board.boarTitle }">
-							<div class="form-group" >
-								<label>게시글 제목</label>
-								<input type="text" class="form-control" id="boardTitle" name="baord.boardTitle" 
-								maxLength="512" style="height: 30px" value="" readonly></input>
-							</div>
-						</c:if>
-						<c:if test = "${ !empty answer.answerTitle }">
-							<div class="form-group" >
-								<label>게시글 제목</label>
-								<input type="text" class="form-control" id="answerTitle" name="answer.answerTitle" 
-								maxLength="512" style="height: 30px" value="" readonly></input>
-							</div>
-						</c:if>
-						<c:if test = "${ !empty comment.commentContents }">
-							<div class="form-group" >
-								<label>댓글 내용</label>
-								<input type="text" class="form-control" id="commentContents" name="comment.commentContents" 
-								maxLength="512" style="height: 30px" value="" readonly></input>
-							</div>
-						</c:if> --%>													
+		<!-- 구분 END -->	
+		<!-- 필수) 신고사유 -->															
 						<div class="form-group">
 							<label>신고사유</label>
 							<textarea type="text" class="form-control" id="reportReason" name="reportReason" maxLength="2048" style="height: 180px" placeholder="신고사유를 입력해 주세요."></textarea>
 						</div>
+		<!-- 신고사유 END -->
 					</form>
 				</div>
 					<div class="modal-footer">
@@ -142,5 +109,6 @@
 		</div>
 	</form>
 </div>
+<!-- ==================================================Modal 신고 하기 END===================================================-->
 
 

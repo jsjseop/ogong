@@ -74,7 +74,7 @@
 		FROM ( SELECT 							
 			   inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT <if test="reportType == 1">
-											 r.send_reporter_email, 
+											 r.receive_reporter_email, 
 											 r.report_no, 
 											 b.board_title, 
 											 r.report_reason, 
@@ -86,7 +86,7 @@
 											 AND    b.board_no = r.board_no
 											 </if>
 											 <if test="reportType == 2">
-											 r.send_reporter_email, 
+											 r.receive_reporter_email, 
 											 r.report_no, 
 											 a.answer_contents, 
 											 u.nickname, 
@@ -98,7 +98,7 @@
 											 AND    a.answer_no = r.answer_no
 											 </if>
 											 <if test="reportType == 3">
-											 r.send_reporter_email, 
+											 r.receive_reporter_email, 
 											 r.report_no, 
 											 c.comment_contents, 
 											 u.nickname, 

@@ -8,9 +8,10 @@ import lombok.Data;
 public class Banana {
 
 	private int bananaNo;				
-	private User user;		
-	private String bananaAmount;		
+	private User bananaEmail;		
+	private int bananaAmount;		
 	private Date bananaHistoryDate;		
-	private String bananaHistory;		
+	private String bananaHistory;	
+	private String bananaCategory;
 	
 }

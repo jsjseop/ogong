@@ -228,7 +228,7 @@ public class IntegrationController {
 		model.addAttribute("list2", map.get("banana"));
 		model.addAttribute("list", map.get("choose"));
 		
-		return "index";
+		return "/index";
 	}
 	
 	

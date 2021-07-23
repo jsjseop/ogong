@@ -33,6 +33,7 @@
    
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
+//=====================================================각 타입마다 출력값이 다름으로 구분===========================================================	
 	function fncGetList(currentPage) {
 		$("input[name='currentPage']").val(currentPage)
 		if(${reportType == 1}){
@@ -49,10 +50,12 @@
 		}
 	}
 	
+//=====================================================사용자 정지를 하기위한 function===========================================================	
 	function fncupdateUserSuspend(email){
 		$("form[name='updateSuspendUser']").attr("method", "POST").attr("action", "/admin/updateSuspendUser").submit();
 	}
 	
+//=====================================================체크를 통하여 정지타입마다 정지일자가 구분됨===========================================================	
 	$('.radio-value').on('click', function() {
 	    var suspendType = $('.radio-value:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
 	    

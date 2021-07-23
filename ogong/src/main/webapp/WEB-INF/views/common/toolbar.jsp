@@ -374,7 +374,7 @@
 	 	
 	 	//=============  로그아웃 Event  처리 =============
 	 	$( "a:contains('로그아웃')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/logout";
 	 	});	 
 	 	
 	 	//=============  쪽지 Event  처리 =============
