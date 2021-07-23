@@ -17,6 +17,12 @@ public class LearningHistoryServiceImpl implements LearningHistoryService {
 	LearningHistoryMapper learningHistoryMapper;
 	
 	@Override
+	public void addLearningHistory(LearningHistory learningHistory) throws Exception {
+		// TODO Auto-generated method stub
+		learningHistoryMapper.addLearningHistory(learningHistory);
+	}
+	
+	@Override
 	public List<LearningHistory> getLearningHistoryList(HashMap<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
 		return learningHistoryMapper.getLearningHistoryList(map);

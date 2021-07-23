@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService{
 
 
 
-
 	@Override
 	public User getProfile(String email) throws Exception {
 		// TODO 자동 생성된 메소드 스텁

@@ -1,108 +1,146 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>    
-<html>
-<head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-	<link rel="stylesheet" href="/css/admin.css" type="text/css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  	<link rel="stylesheet" href="/resources/demos/style.css">	
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	<script type="text/javascript" src="../javascript/calendar.js"></script>
-	
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
-       body > div.container{
-        	border: 3px solid #D6CDB7;
-            margin-top: 10px;
-        }
-    </style>
-	
+
+
 <script type="text/javascript">
 
-
-
 	
-	 $(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#btn1" ).on("click" , function() {
-				fncAddReport();
-			});
-		});	
-		
-		//============= "Ãë¼Ò"  Event Ã³¸® ¹×  ¿¬°á =============
-		$(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("a[href='#' ]").on("click" , function() {
-				$("form")[0].reset();
-			});
-		});	
-		
-		function fncAddReport(){
-			//Form À¯È¿¼º °ËÁõ
-		 	//var name = document.detailForm.prodName.value;
-			//var detail = document.detailForm.prodDetail.value;
-			//var manuDate = document.detailForm.manuDate.value;
-			//var price = document.detailForm.price.value;
-		
-			var reportReason = $("input[name='reportReason']").val();
-			
-			if(reportReason == null || reportReason.length<1){
-				alert("½Å°í»çÀ¯ ¹İµå½Ã ÀÔ·ÂÇÏ¿©¾ß ÇÕ´Ï´Ù.");
-				return;
-			}
+	function fncAddReport(){
+		//Form ìœ íš¨ì„± ê²€ì¦
 
-		
-			$("form").attr("method", "POST").attr("action", "/admin/addReport").submit();
-			
+		/* var sendReporter = "${report.receiveReporter}"; */
+		var receiveReporter = $("input[name='receiveReporter.email']").val();
+		if($("input[name='reportBoard.boardNo']").val() == null){
+			var reportBoard = null
+		}else if($("input[name='reportBoard.boardNo']").val() != null){
+			var reportBoard = $("input[name='reportBoard.boardNo']").val();
 		}
-//	$( function() {
-//		    $( "#manuDate" ).datepicker();
-//	});
-
-
-</script>
-</head>
-
-<body>
-	
-	<jsp:include page="../common/toolbar.jsp" />
-
-	<div class="container">
+			
+		var reportReason = $("textarea[name='reportReason']").val();
 		
-		<h1 class="bg-primary text-center">½Å °í ÇÏ ±â</h1>
+		
+		alert(receiveReporter);
+		alert(reportBoard);
+		alert(reportReason);
+
+		
+
+		
+		if(reportReason == null || reportReason.length<1){
+			alert("ì‹ ê³  ì‚¬ìœ ëŠ” ë°˜ë“œì‹œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.");
+			return;
+		} 
+		
+		alert("ì‹ ê³ ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		
+		$("form[name='addReport']").attr("method", "POST").attr("action", "/admin/addReport").submit();
+		
+	}
 	
-<form class="form-horizontal" method="post" name="addReport" >
+	
+	
+	$(function(){
+		
+		// ì‹ ê³ 
+		$( "#btn3" ).on("click" , function() {
+			fncAddReport();
+		});
+		
 
-		  <!-- ½Å°í»çÀ¯ -->
-		  <div class="form-group">
-		    <label for="reportReason" class="col-sm-offset-1 col-sm-3 control-label">½Å °í »ç À¯</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="reportReason" name="reportReason" placeholder="½Å°í »çÀ¯¸¦ ÀÛ¼ºÇÏ¼¼¿ä">
-		    </div>
-		  </div> 
-  
-		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" id="btn1" class="btn btn-info"  >½Å &nbsp;°í</button>
-			  <a class="btn btn-info btn" href="#" role="button">Ãë&nbsp;¼Ò</a>
-		    </div>
-		  </div>
-</form>
 
+	})
+	
+	
+	</script>   	
+
+	
+
+	
+	
+	
+	<%-- <jsp:include page="../common/toolbar.jsp" /> --%>
+
+
+<div class="contatiner">
+	<!-- Modal ì‹ ê³  í•˜ê¸°-->
+	<form name="addReport">
+	  
+
+	 
+		<%-- <input type="hidden" class="receiveReporter" name="receiveReporter" value="${report.receiveReporter.email}"/> --%>
+		<div class="modal fade" id="myModalReport" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">ì‹ ê³  í•˜ê¸°</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+						
+
+						<div class="form-group" >
+							<label>ì‘ì„±ì ì´ë©”ì¼</label>
+							<input type="text" class="form-control" id="receiveReporter" name="receiveReporter.email" 
+							maxLength="512" style="height: 30px" value="${board.writer.email}" ></input>
+						</div>
+						<div class="form-group" >
+							<c:if test = "${!empty board.boardTitle}">
+							<input type="hidden" id="boardEmail" name="reportBoard.boardEmail"  value="${board.writer.email}" />
+							<input type="hidden" id="boardNo"    name="reportBoard.boardNo"  value="${board.boardNo}" />							
+							<label>ê²Œì‹œê¸€ ì œëª©</label>
+							<input type="text" class="form-control" id="boardTitle" name="reportBoard.boardTitle" 
+							maxLength="512" style="height: 30px" value="${board.boardTitle}" readonly></input>
+							</c:if>
+							<c:if test = "${!empty answer.answerTitle}">
+							<label>ê²Œì‹œê¸€ ì œëª©</label>
+							<input type="text" class="form-control" id="answerTitle" name="reportAnswer.answerTitle" 
+							maxLength="512" style="height: 30px" value="${answer.answerTitle}" readonly></input>
+							</c:if>							
+						</div>						
+						
+						
+<%-- 						<c:if test = "${ !empty board.boarTitle }">
+							<div class="form-group" >
+								<label>ê²Œì‹œê¸€ ì œëª©</label>
+								<input type="text" class="form-control" id="boardTitle" name="baord.boardTitle" 
+								maxLength="512" style="height: 30px" value="" readonly></input>
+							</div>
+						</c:if>
+						<c:if test = "${ !empty answer.answerTitle }">
+							<div class="form-group" >
+								<label>ê²Œì‹œê¸€ ì œëª©</label>
+								<input type="text" class="form-control" id="answerTitle" name="answer.answerTitle" 
+								maxLength="512" style="height: 30px" value="" readonly></input>
+							</div>
+						</c:if>
+						<c:if test = "${ !empty comment.commentContents }">
+							<div class="form-group" >
+								<label>ëŒ“ê¸€ ë‚´ìš©</label>
+								<input type="text" class="form-control" id="commentContents" name="comment.commentContents" 
+								maxLength="512" style="height: 30px" value="" readonly></input>
+							</div>
+						</c:if> --%>													
+						<div class="form-group">
+							<label>ì‹ ê³ ì‚¬ìœ </label>
+							<textarea type="text" class="form-control" id="reportReason" name="reportReason" maxLength="2048" style="height: 180px" placeholder="ì‹ ê³ ì‚¬ìœ ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”."></textarea>
+						</div>
+					</form>
+				</div>
+					<div class="modal-footer">
+						<button id="btn3" class="btn btn-default">ì‹ ê³ í•˜ê¸°</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">ë‹«ê¸°</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
-</body>
-</html>
-
-
-
-
-
-
-
 
 
