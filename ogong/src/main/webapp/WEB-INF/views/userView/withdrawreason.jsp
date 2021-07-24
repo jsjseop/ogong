@@ -119,8 +119,26 @@
 		      <input type="password" class="form-control" id="password2" name="password2" placeholder="변경비밀번호 확인">
 		    </div>
 		  </div>
+		  		  <div class="form-group">
+		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">탈퇴 사유</label>
+		    <div class="col-sm-4">
+	 			<select name="withdrawreason"> 
+						<option value="이용가능한 서비스 부족">이용가능한 서비스 부족</option>
+						<option value="불편한 인터페이스">불편한 인터페이스</option>
+						<option value="적은 사용자">적은 사용자</option>
+						<option value="접근성 부족">접근성 부족</option>
+						<option value="기타">기타</option>
+
+
+				</select> 		    </div>
+		  </div>
+		  
 
 		  </div>
+		  
+
+				
+				
 
 
 
