@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ogong.common.Search;
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
@@ -49,10 +48,10 @@ public class TestStudyServiceImpl implements TestStudyService {
 	}
 
 	@Override
-	public Map<String, Object> getStudyList(Search search) throws Exception {
+	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception {
 		
-		List<Study> list= studyMapper.getStudyList(search);
-		int totalCount = studyMapper.getTotalCount(search);
+		List<Study> list= studyMapper.getStudyList(map);
+		int totalCount = studyMapper.getTotalCount(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);

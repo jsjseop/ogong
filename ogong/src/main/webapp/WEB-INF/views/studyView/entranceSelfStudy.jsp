@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>OGong</title>
+<title>Insert title here</title>
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -17,32 +17,11 @@
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
 
-body, table, div, p, th, td{
-font-family: 'Do Hyeon', sans-serif;
-}
-</style>
 <script type="text/javascript">
 	$( function(){
 		$("#entrance").on("click", function(){
-			
-			$.ajax({
-    			url: "/selfStudy/entranceStudy/"+`${study.studyNo}`,
-    			method : "GET" ,
-    			dataType : "text",
-    			success: function (data, status){
-    				if(data == "success"){
-    					popWin = window.open("https://wnstjqtest.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
-        						"CamStudy",
-        						"height=" + screen.height + ",width=" + screen.width + "fullscreen=yes");
-    				}else{
-    					alert("이미 참여중입니다.");
-    				}
-    			}
-    		});			
-			
+			location.href = "/selfStudy/entranceStudy?studyNo="+`${study.studyNo}`;
 		});
 	});
 </script>
