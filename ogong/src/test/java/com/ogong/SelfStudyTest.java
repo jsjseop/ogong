@@ -63,12 +63,9 @@ public class SelfStudyTest {
 		search.setPageSize(3);
 		search.setSearchCondition("1");
 		search.setSearchKeyword("방");
+		search.setStudyType("self");
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("search", search);
-		map.put("studyType", "self");
-		
-		Map<String,Object> result = studyService.getStudyList(map);
+		Map<String,Object> result = studyService.getStudyList(search);
 		
 		List<Object> list = (List<Object>)result.get("list");
 		

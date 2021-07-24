@@ -141,8 +141,7 @@ public class SelfStudyController {
 	}
 	
 	@RequestMapping("listStudy")
-	public String listStudy(@ModelAttribute("search") Search search,
-										@RequestParam("studyType") String studyType, Model model) throws Exception{
+	public String listStudy(@ModelAttribute("search") Search search, Model model) throws Exception{
 		
 		System.out.println("/studyController/listStudy");
 		
@@ -151,16 +150,12 @@ public class SelfStudyController {
 		}
 		search.setPageSize(8);
 		
-		Map<String, Object> searchMap = new HashMap<String, Object>();
-		searchMap.put("search", search);
-		searchMap.put("studyType", studyType);
-		
-		Map<String, Object> map = studyService.getStudyList(searchMap);
+		Map<String, Object> map = studyService.getStudyList(search);
 		System.out.println("map : "+map);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
-		model.addAttribute("studyType", studyType);
+		model.addAttribute("studyType", search.getStudyType());
 		model.addAttribute("search", search);
 		
 		return "/studyView/listSelfStudy";

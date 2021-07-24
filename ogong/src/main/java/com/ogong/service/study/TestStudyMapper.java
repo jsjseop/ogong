@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 
 @Repository
@@ -18,9 +19,9 @@ public interface TestStudyMapper {
 	
 	Study getStudy(int studyNo);
 	
-	List<Study> getStudyList(Map<String, Object> map);
+	List<Study> getStudyList(Search search);
 	
-	int getTotalCount(Map<String, Object> map);
+	int getTotalCount(Search search);
 	
 	void updateMember(@Param("studyNo") int StudyNo,@Param("num") int num);
 	
