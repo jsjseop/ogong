@@ -49,14 +49,26 @@
 		)
 	 </insert>
 	 
+	 <select id="getCamStudyMember" parameterType="map" resultMap="camStudyMemberSelectMap">
+	 	SELECT
+		 	email, 
+			nickname, 
+			learning_time, 
+			learning_type, 
+			TO_CHAR(entrance_time,'YYYY/MM/DD HH:mm:ss') entrance_time,
+			total_learning_time
+	 	FROM camstudy_member
+	 	WHERE study_no = #{studyNo} AND email = #{email}
+	 </select>
+	 
 	 <select id="getCamStudyMemberList" parameterType="int" resultMap="camStudyMemberSelectMap">
 		SELECT
-		email, 
-		nickname, 
-		learning_time, 
-		learning_type, 
-		TO_CHAR(entrance_time,'YYYY/MM/DD HH:mm:ss') entrance_time,
-		total_learning_time
+			email, 
+			nickname, 
+			learning_time, 
+			learning_type, 
+			TO_CHAR(entrance_time,'YYYY/MM/DD HH:mm:ss') entrance_time,
+			total_learning_time
 		FROM camstudy_member
 		WHERE study_no = #{studyNo}
 	 </select>
