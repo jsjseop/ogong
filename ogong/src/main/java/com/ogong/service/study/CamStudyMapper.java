@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ogong.service.domain.CamStudyMember;
@@ -17,6 +18,8 @@ public interface CamStudyMapper {
 	User getUser(String email);
 	
 	void addCamStudyMember(CamStudyMember csm);
+	
+	CamStudyMember getCamStudyMember(@Param("studyNo") int studyNo, @Param("email") String email);
 	
 	List<CamStudyMember> getCamStudyMemberList(int studyNo);
 	

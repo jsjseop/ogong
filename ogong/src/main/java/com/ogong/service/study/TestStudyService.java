@@ -2,6 +2,7 @@ package com.ogong.service.study;
 
 import java.util.Map;
 
+import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 
 public interface TestStudyService {
@@ -14,6 +15,6 @@ public interface TestStudyService {
 	
 	public void leaveStudy(int studyNo) throws Exception;
 	
-	public Map<String, Object> getStudyList(Map<String, Object> map) throws Exception;
+	public Map<String, Object> getStudyList(Search search) throws Exception;
 
 }
