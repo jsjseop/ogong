@@ -35,6 +35,7 @@ public class RestStudyController {
 		search.setPageSize(6);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
+		map.put("studyType", "group");
 		
 		Map<String, Object> result = studyService.getStudyList(map);
 		
