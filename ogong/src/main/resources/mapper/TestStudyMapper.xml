@@ -116,7 +116,7 @@
 	 	
 	 </select>
 	 
-	 <select id="getStudyList"	parameterType="hashmap" resultMap="studySelectMap">
+	 <select id="getStudyList"	parameterType="search" resultMap="studySelectMap">
 	 
 	 	SELECT outer_table.*
 		FROM (  SELECT
@@ -147,65 +147,59 @@
       					<if test="studyType == 'group'">
       						AND study_type = 'group'
       					</if>
-      					<if test="search.studyInterest != null">
-      						<if test="search.studyInterest == 1">
+      					<if test="studyInterest != null">
+      						<if test="studyInterest == 1">
       						AND study_interest = '독서'
       						</if>
-      						<if test="search.studyInterest == 2">
+      						<if test="studyInterest == 2">
       						AND study_interest = '어학'
       						</if>
-      						<if test="search.studyInterest == 3">
+      						<if test="studyInterest == 3">
       						AND study_interest = '임용'
       						</if>
-      						<if test="search.studyInterest == 4">
+      						<if test="studyInterest == 4">
       						AND study_interest = '취업'
       						</if>
-      						<if test="search.studyInterest == 5">
+      						<if test="studyInterest == 5">
       						AND study_interest = '공무원'
       						</if>
-      						<if test="search.studyInterest == 6">
+      						<if test="studyInterest == 6">
       						AND study_interest = '자격증'
       						</if>
-      						<if test="search.studyInterest == 7">
+      						<if test="studyInterest == 7">
       						AND study_interest = '자기계발'
       						</if>
-      						<if test="search.studyInterest == 8">
+      						<if test="studyInterest == 8">
       						AND study_interest = '기타공부'
       						</if>		
       					</if>
-	      				<if test="search.searchCondition != null">
-			      			<if test="search.searchCondition == 1">
-			      				and study_name LIKE '%'||#{search.searchKeyword}||'%'
-			      			</if>
-			      			<if test="search.searchCondition == 2">
-			      			and study_hashtag LIKE '%'||#{search.searchKeyword}||'%'
-			      			</if>
+	      				<if test="searchKeyword != null">
+			      			AND (study_name LIKE '%'||#{searchKeyword}||'%'
+			      			OR study_hashtag LIKE '%'||#{searchKeyword}||'%')
 			      		</if>
 	      		</where>
+	      		ORDER BY studyroom_grade DESC
 	      		<choose>
-	      			<when test="search.searchSort == 1">
-	      				ORDER BY current_member ASC
+	      			<when test="searchSort == 1">
+	      				, study_no ASC
 	      			</when>
-	      			<when test="search.searchSort == 2">
-	      				ORDER BY current_member DESC
+	      			<when test="searchSort == 2">
+	      				, current_member DESC
 	      			</when>
-	      			<when test="search.searchSort == 3">
-	      				ORDER BY study_reg_date ASC
-	      			</when>
-	      			<when test="search.searchSort == 4">
-	      				ORDER BY study_reg_date DESC
+	      			<when test="searchSort == 3">
+	      				, current_member ASC
 	      			</when>
 	      			<otherwise>
-	      				ORDER BY studyroom_grade DESC, study_no
+	      				, study_no DESC
 	      			</otherwise>
 	      		</choose>
    				) inner_table
-   			WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
-		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+   			WHERE ROWNUM &lt;= #{endRowNum}) outer_table
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 
 	 </select>
 	 
-	 <select	id="getTotalCount"	parameterType="map"		resultType="int">
+	 <select	id="getTotalCount"	parameterType="search"		resultType="int">
 	 	 SELECT COUNT(*)
 	 	 FROM(	SELECT
       			study_no, email, study_name, study_hashtag, study_thumbnail, study_start_date, study_end_date, current_member, 
@@ -220,39 +214,35 @@
       					<if test="studyType == 'group'">
       						AND study_type = 'group'
       					</if>
-      					<if test="search.studyInterest != null">
-      						<if test="search.studyInterest == 1">
+      					<if test="studyInterest != null">
+      						<if test="studyInterest == 1">
       						AND study_interest = '독서'
       						</if>
-      						<if test="search.studyInterest == 2">
+      						<if test="studyInterest == 2">
       						AND study_interest = '어학'
       						</if>
-      						<if test="search.studyInterest == 3">
+      						<if test="studyInterest == 3">
       						AND study_interest = '임용'
       						</if>
-      						<if test="search.studyInterest == 4">
+      						<if test="studyInterest == 4">
       						AND study_interest = '취업'
       						</if>
-      						<if test="search.studyInterest == 5">
+      						<if test="studyInterest == 5">
       						AND study_interest = '공무원'
       						</if>
-      						<if test="search.studyInterest == 6">
+      						<if test="studyInterest == 6">
       						AND study_interest = '자격증'
       						</if>
-      						<if test="search.studyInterest == 7">
+      						<if test="studyInterest == 7">
       						AND study_interest = '자기계발'
       						</if>
-      						<if test="search.studyInterest == 8">
+      						<if test="studyInterest == 8">
       						AND study_interest = '기타공부'
       						</if>		
       					</if>
-	      				<if test="search.searchCondition != null">
-			      			<if test="search.searchCondition == 1">
-			      				and study_name LIKE '%'||#{search.searchKeyword}||'%'
-			      			</if>
-			      			<if test="search.searchCondition == 2">
-			      			and study_hashtag LIKE '%'||#{search.searchKeyword}||'%'
-			      			</if>
+	      				<if test="searchKeyword != null">
+			      			AND (study_name LIKE '%'||#{searchKeyword}||'%'
+			      			OR study_hashtag LIKE '%'||#{searchKeyword}||'%')
 			      		</if>
 	      		</where>
       			) countTable
@@ -263,79 +253,6 @@
 	 	UPDATE study
 	 	SET current_member = current_member + #{num}
 	 	WHERE study_no = #{studyNo}
-	 </update>
-	
-	
-	<select id="getUser" parameterType="string"	resultMap="userSelectMap">
-	  		select *
-			from users
-			where EMAIL=#{email}
-	</select> 
-	
-	
-	<insert 	id="addCamStudyMember" parameterType="CamStudyMember">
-	 	INSERT
-		INTO camstudy_member
-		( 
-		camstudy_member_no, email, study_no, nickname, learning_time,
-		learning_type, entrance_time, total_learning_time)
-		VALUES	 
-		(	
-		seq_camstudy_member_no.NEXTVAL, 
-		#{user.email},
-		#{studyNo},
-		#{user.nickname},
-		'00:00:00',
-		#{learningType:VARCHAR},
-		SYSDATE,
-		#{totalLearningTime:VARCHAR}
-		)
-	 </insert>
-	 
-	 <select id="getCamStudyMemberList" parameterType="int" resultMap="camStudyMemberSelectMap">
-		SELECT
-		email, nickname, learning_type, entrance_time, total_learning_time
-		FROM camstudy_member
-		WHERE study_no = #{studyNo}
-	 </select>
-	 
-	 <update id="updateCamStudyMember" parameterType="map">
-	 	UPDATE camstudy_member
-	 	SET learning_time = ( SELECT TO_CHAR (TRUNC (total / 3600), 'fm00')
-	       							|| ':'
-	       							|| TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
-	       							|| ':'
-	       							|| TO_CHAR (MOD (total, 60), 'fm00') time
-							  FROM (SELECT (
- 	                   				(TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
- 	                 				+ TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
- 	                 				+ TO_NUMBER (SUBSTR (learning_time, 7, 2)))+
- 	                 				(TO_NUMBER (SUBSTR (#{time}, 1, 2)) * 60 * 60
- 	                 				+ TO_NUMBER (SUBSTR (#{time}, 4, 2)) * 60
- 	                 				+ TO_NUMBER (SUBSTR (#{time}, 7, 2))) ) total
-									FROM camstudy_member
-									WHERE email = #{email} AND study_no = #{studyNo}) )
-	 	WHERE email = #{email} AND study_no = #{studyNo}
-	 </update>
-	 
-	 <update id="updateCamStudyMemberZero" parameterType="map">
-	 	UPDATE camstudy_member
-	 	SET learning_time = 0, learning_type = #{learningType},
-	 		total_learning_time = ( SELECT TO_CHAR (TRUNC (total / 3600), 'fm00')
-	       							|| ':'
-	       							|| TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
-	       							|| ':'
-	       							|| TO_CHAR (MOD (total, 60), 'fm00') time
-							  		FROM (SELECT (
-	 	                   				(TO_NUMBER (SUBSTR (total_learning_time, 1, 2)) * 60 * 60
-	 	                 				+ TO_NUMBER (SUBSTR (total_learning_time, 4, 2)) * 60
-	 	                 				+ TO_NUMBER (SUBSTR (total_learning_time, 7, 2)))+
-	 	                 				(TO_NUMBER (SUBSTR (#{time}, 1, 2)) * 60 * 60
-	 	                 				+ TO_NUMBER (SUBSTR (#{time}, 4, 2)) * 60
-	 	                 				+ TO_NUMBER (SUBSTR (#{time}, 7, 2))) ) total
-										FROM camstudy_member
-										WHERE email = #{email} AND study_no = #{studyNo}) )
-	 	WHERE email = #{email} AND study_no = #{studyNo}
 	 </update>
 	
 </mapper>
