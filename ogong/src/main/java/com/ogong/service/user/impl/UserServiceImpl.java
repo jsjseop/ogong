@@ -1,6 +1,7 @@
 package com.ogong.service.user.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,6 @@ public class UserServiceImpl implements UserService{
 	  return userDAO.getUser(email); }
 	 
 	
-
 
 
 
@@ -110,17 +110,32 @@ public class UserServiceImpl implements UserService{
 
 
 
-	@Override
-	public List<Board> userboardList(Board board) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/*
+	 * @Override public List<Board> userboardList(Board board) throws Exception { //
+	 * TODO Auto-generated method stub return null; }
+	 */
 	//회원탈퇴
 	@Override
 	public void withdrawreason(User user) throws Exception {
 		userDAO.withdrawreason(user);
 		
+	}
+
+
+
+
+
+	@Override
+	public List<Board> getList() {
+		// TODO Auto-generated method stub
+		return userDAO.getList();
+	}
+
+
+	@Override
+	public List<Board> myboardlist(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/*

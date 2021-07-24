@@ -38,8 +38,20 @@
 	</resultMap> 
 	
 
+	<resultMap id="boardSelectMap" 	type="board">
+		<result property="boardNo" 				column="board_no" 				jdbcType="NUMERIC"/>
+		<result property="boardCategory" 		column="board_category" 		jdbcType="VARCHAR" />
+		<result property="boardTitle" 			column="board_title" 			jdbcType="VARCHAR" />
+		<result property="boardContents"		column="board_contents" 		jdbcType="VARCHAR" />
+		<result property="boardInterest" 		column="board_interest" 		jdbcType="NUMERIC" />  
+		<result property="boardRegDate" 		column="board_reg_date" 		jdbcType="DATE" /> 
+		<result property="viewCount" 			column="view_count" 			jdbcType="NUMERIC" />
+		<result property="commentCount" 		column="comment_count" 			jdbcType="NUMERIC" />
+		<result property="boardRegBanana" 		column="board_reg_banana" 		jdbcType="NUMERIC" />
+		<result property="fileFlag" 			column="file_flag" 				jdbcType="NUMERIC" /> 
+		<result property="answerCount" 			column="answer_count" 			jdbcType="NUMERIC" />
 	
-	
+	</resultMap>
 	
 
 	<insert 	id="addUser"		parameterType="user" >
@@ -164,22 +176,70 @@ SELECT count(*)
 		form users
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
+	 
+	 <select id="getlist" parameterType="string" resultMap="boardSelectMap">
+	 select BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT 
+	 form board
+	 
+	 
+	 </select>
+	 
 		
-<!-- 	 	       <select id="userboardList" resultType="boardSelectMap">
+<!--  	 	       <select id="userboardList" parameterType ="hashmap" resultType="boardSelectMap">
             SELECT
                BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT
              FROM board
              where EMAIL= #{email:VARCHAR}
                   
-        </select>  -->
+        </select>   -->
         
         <select id = "idCheck" parameterType = "String" resultType = "int">
 		SELECT *
 		form users
 		where NICKNAME= #{nickname:VARCHAR}
 </select>
-		
-		
+
 	
+		
+	 
+	<!--  SQL : 프로필 (수정)  
+	 <update	id="updateProfile"	parameterType="user" >
+	   	UPDATE users
+	   	set
+	   		  		 name =  #{name} ,
+   		 birth =  #{birth} ,
+   		 gender =  #{gender} ,
+   		 USERIMAGE =  #{user_image} ,
+    		goal =  #{goal} ,
+	   	set
+	   	WHERE email = #{email}
+	 </update> -->
+	 
+
+
+	  	
+	 <!-- SQL : 비밀번호 찾기	 
+	 	   <select id="getPassword" parameterType="String" resultType="String">
+	  	select *  from user where email=#{email}
+	  	</select> -->
+	  	
+	  	
+
+
+
+
+
+  
+		 <!-- 이메일 중복확인   
+
+  	  	  <select id="emailCheck" parameterType="String" resultMap="user">
+  	  	  select count(*)
+  	  	  form users
+  	  	  where email=#{email}
+  	  	  </select> -->
+  	  	  
+  	  	  
+
+	 
 
 </mapper>

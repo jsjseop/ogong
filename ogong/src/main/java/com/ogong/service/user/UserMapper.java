@@ -2,6 +2,7 @@ package com.ogong.service.user;
 
 import java.awt.datatransfer.Clipboard;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -38,7 +39,7 @@ public interface UserMapper {
 	//회원탈퇴
 	void withdrawreason(User user);
 
-	public List<Board> userboardList(Board board);
+	public List<Board> getList();
 	
 
 	

@@ -1,64 +1,136 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page pageEncoding="EUC-KR"%>
 
-        <link rel="stylesheet" href="/resources/css/login.css">
 
-<html>
-    <head>
-        <title>로그인 / 회원가입 폼 템플릿</title>
-        
-    </head>
-    <body>
-        <div class="wrap">
-            <div class="form-wrap">
-                <div class="button-wrap">
-                    <div id="btn"></div>
-                    <button type="button" class="togglebtn" onclick="login()">로그인</button>
-                    <button type="button" class="togglebtn" onclick="register()">회원가입</button>
-                </div>
-                <div class="social-icons">
-                    <img src="img/fb.png" alt="facebook">
-                    <img src="img/tw.png" alt="twitter">
-                    <img src="img/gl.png" alt="google">
-                </div>
-                <form id="login" action="" class="input-group">
-                    <input type="text" class="input-field" placeholder="이메일" required>
-                    <input type="password" class="input-field" placeholder="패스워드" required>
-                    <input type="checkbox" class="checkbox"><span>Remember Password</span>
-                    <button class="submit">Login</button>
-                </form>
-                <form id="register" action="" class="input-group">
-                    <input type="email" class="input-field" placeholder="이메일" required><p>
-  <button type="button" class="btn btn-default btn-xs">이메일 인증</button>
-</p>
-                    <input type="email" class="input-field" placeholder="인증번호" required>
-                    <input type="text" class="input-field" placeholder="이메일" required><p>
-                    
-                    <input type="password" class="input-field" placeholder="패스워드" required>
-                    <input type="password" class="input-field" placeholder="패스워드 확인" required>
-                   
-                   
-                    <button class="submit">회원가입</button>
-                </form>
-            </div>
-        </div>
-        <script>
-            var x = document.getElementById("login");
-            var y = document.getElementById("register");
-            var z = document.getElementById("btn");
-            
-            
-            function login(){
-                x.style.left = "50px";
-                y.style.left = "450px";
-                z.style.left = "100";
-            }
+<!DOCTYPE html>
 
-            function register(){
-                x.style.left = "-400px";
-                y.style.left = "50px";
-                z.style.left = "110px";
-            }
-        </script>
-    </body>
-</html> 
+<html lang="ko">
+	
+<head>
+	<meta charset="EUC-KR">
+	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+
+	
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+    	 body >  div.container{ 
+        	border: 3px solid #D6CDB7;
+            margin-top: 10px;
+        }
+    </style>
+    
+    <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script type="text/javascript">
+
+		//============= "로그인"  Event 연결 =============
+		$( function() {
+			
+			$("#dfubef").focus();
+			
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("button").on("click" , function() {
+				var email=$("input:text").val();
+				var pw=$("input:password").val();
+				
+				if(email == null || email.length <1) {
+					alert('ID 를 입력하지 않으셨습니다.');
+					$("#email").focus();
+					return;
+				}
+				
+				if(pw == null || pw.length <1) {
+					alert('패스워드를 입력하지 않으셨습니다.');
+					$("#password").focus();
+					return;
+				}
+				
+				$("form").attr("method","POST").attr("action","loginView").attr("target","_parent").submit();
+			});
+		});	
+		
+		
+		//============= 회원원가입화면이동 =============
+		$( function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("a[href='#' ]").on("click" , function() {
+				self.location = "addUser"
+			});
+		});
+		
+		$( function() {
+		$("a[href='@' ]").on("click" , function() {
+			self.location = "getPassword"
+		});
+	});
+	</script>		
+	
+</head>
+
+<body>
+
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<div class="navbar  navbar-default">
+        <div class="container">
+        	<a class="navbar-brand" href="index">Model2 MVC Shop</a>
+   		</div>
+   	</div>
+   	<!-- ToolBar End /////////////////////////////////////-->	
+	
+	<!--  화면구성 div Start /////////////////////////////////////-->
+	<div class="container">
+		<!--  row Start /////////////////////////////////////-->
+		<div class="row">
+		
+			<div class="col-md-6">
+					<img src="/resources/images/logo.png" class="img-rounded" width="100%" />
+			</div>
+	   	 	
+	 	 	<div class="col-md-6">
+	 	 	
+		 	 	<br/><br/>
+				
+				<div class="jumbotron">	 	 	
+		 	 		<h1 class="text-center">로 &nbsp;&nbsp;그 &nbsp;&nbsp;인</h1>
+
+			        <form class="form-horizontal">
+		  
+					  <div class="form-group">
+					    <label for="email" class="col-sm-4 control-label">아 이 디</label>
+					    <div class="col-sm-6">
+					      <input type="text" class="form-control" name="email" id="email"  placeholder="아이디" >
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="password" class="col-sm-4 control-label">패 스 워 드</label>
+					    <div class="col-sm-6">
+					      <input type="password" class="form-control" name="password" id="password" placeholder="패스워드" >
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-offset-4 col-sm-6 text-center">
+					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
+					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
+					      <a class="btn btn-primary btn" href="getPassword" role="button">비밀번호 찾기</a>
+					    </div>
+					  </div>
+			
+					</form>
+			   	 </div>
+			
+			</div>
+			
+  	 	</div>
+  	 	<!--  row Start /////////////////////////////////////-->
+  	 	
+ 	</div>
+ 	<!--  화면구성 div end /////////////////////////////////////-->
+
+</body>
+
+</html>

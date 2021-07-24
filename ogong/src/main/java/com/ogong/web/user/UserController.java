@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,8 @@ import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
+import jdk.internal.org.jline.utils.Log;
+
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
@@ -55,6 +59,8 @@ public class UserController {
 	
 	@Autowired	
 	private StudyService studyService;
+
+
 	
 	/*
 	 * @Autowired private StudyService
@@ -307,68 +313,22 @@ public class UserController {
 
 		return num;
 	}
-
-
-
-
-
-@RequestMapping("Mypostlist")
-public String Mypostlist(@ModelAttribute("search") Search search, Model model,
-		 HttpServletRequest request) throws Exception {
-
-	if (search.getCurrentPage() == 0) {
-		search.setCurrentPage(1);
-	}
-	search.setPageSize(5);
 	
-	search.setSearchKeyword("");
-	search.setSearchCondition("");
-	
-
-	Board board = new Board();
-	board.setBoardCategory("1");
-	
-	Map<String, Object> map = new HashMap<String, Object>();
-	map.put("search", search);
-	map.put("board",board);
-	
-	List<Board> listBoard = (List<Board>) boardService.listBoard(map);
-	List<Board> list = listBoard;
-	map.get("totalCount");
-	boardService.listBoard(map);
-	
+	@GetMapping("Mypostlist")
+	public String Mypostlist(Model model) {
 		
-	model.addAttribute("list", list);
-	model.addAttribute("search", search);
+		Log.info("게시판 진입");
+		
+		model.addAttribute("list", userService.getList() );
+		
+			return "/userView/loginView";	
+	}
+
+
 	
-	return "/userView/Mypostlist";
-}
 
-
-
-
-  @RequestMapping("Mystudylist") public String Mystudylist
-  ( @ModelAttribute("search") Search search, Model model) throws Exception{
-  
-  System.out.println("/study/listStudy 실행");
-  
-  if(search.getCurrentPage() ==0 ){ search.setCurrentPage(1); }
-  
-  search.setPageSize(10);
  
-  HashMap<String, Object> map = new HashMap<String, Object>();
-  map.put("search", search); map.put("studyType", "group");
- 
-  Map<String, Object> result = studyService.getStudyList(map);
-  
-  model.addAttribute("list", result.get("list"));
-  model.addAttribute("totalCount", result.get("totalCount"));
-  model.addAttribute("search", search);
-  model.addAttribute("studyType","group");
-  
-  return "/userView/Mystudylist";
-  
-  }
+
  
 	// 닉네임 중복 검사
 	@RequestMapping(value = "idCheck", method = RequestMethod.POST)
@@ -390,17 +350,20 @@ public String Mypostlist(@ModelAttribute("search") Search search, Model model,
 		} else {
 			
 			return "success";	// 중복 닉네임 x
-			
-		}		
-		
-	} // memberIdChkPOST() 종료	
-  
-  
-  
-  
-
-
+		}
+	}
 }
+			
+				
+		
+	
+  
+  
+  
+  
+
+
+
 
 
 

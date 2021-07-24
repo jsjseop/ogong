@@ -32,8 +32,25 @@
 		<association property="studyMaker"  javaType="user">
 			<id property="email" column="email" jdbcType="VARCHAR"/>
 		</association>
-		
 	</resultMap>
+	
+	<resultMap id="userSelectMap" type="user">
+		<result property="email" 				column="email" 				jdbcType="VARCHAR"/>
+		<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
+	</resultMap> 
+	
+	<resultMap id="camStudyMemberSelectMap" type="CamStudyMember">
+		<result property="camstudyMemberNo" 	column="camstudy_member_no" jdbcType="NUMERIC"/>
+		<result property="studyNo" 				column="study_no" 			jdbcType="NUMERIC" />
+		<result property="learningTime" 		column="learning_time" 		jdbcType="VARCHAR" />
+		<result property="learningType" 		column="learning_type" 		jdbcType="VARCHAR" />
+		<result property="entranceTime" 		column="entrance_time" 		jdbcType="DATE" />
+		<result property="totalLearningTime" 	column="total_learning_time" jdbcType="VARCHAR" />
+		<association property="user"  javaType="user">
+			<id property="email" 		column="email" jdbcType="VARCHAR"/>
+			<result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+		</association>
+	</resultMap> 
 	
 	<insert 	id="addStudy"		parameterType="study" 
 	useGeneratedKeys="true" keyColumn="study_no" keyProperty="studyNo">
@@ -92,6 +109,7 @@
 			recruitment_start_date, 
 			recruitment_end_date, 
 			studyroom_grade, 
+			study_type,
 			study_interest
 		FROM study
 		WHERE study_no = #{value}
@@ -240,5 +258,84 @@
       			) countTable
 	 
 	 </select>
+	 
+	 <update id="updateMember" parameterType="map">
+	 	UPDATE study
+	 	SET current_member = current_member + #{num}
+	 	WHERE study_no = #{studyNo}
+	 </update>
+	
+	
+	<select id="getUser" parameterType="string"	resultMap="userSelectMap">
+	  		select *
+			from users
+			where EMAIL=#{email}
+	</select> 
+	
+	
+	<insert 	id="addCamStudyMember" parameterType="CamStudyMember">
+	 	INSERT
+		INTO camstudy_member
+		( 
+		camstudy_member_no, email, study_no, nickname, learning_time,
+		learning_type, entrance_time, total_learning_time)
+		VALUES	 
+		(	
+		seq_camstudy_member_no.NEXTVAL, 
+		#{user.email},
+		#{studyNo},
+		#{user.nickname},
+		'00:00:00',
+		#{learningType:VARCHAR},
+		SYSDATE,
+		#{totalLearningTime:VARCHAR}
+		)
+	 </insert>
+	 
+	 <select id="getCamStudyMemberList" parameterType="int" resultMap="camStudyMemberSelectMap">
+		SELECT
+		email, nickname, learning_type, entrance_time, total_learning_time
+		FROM camstudy_member
+		WHERE study_no = #{studyNo}
+	 </select>
+	 
+	 <update id="updateCamStudyMember" parameterType="map">
+	 	UPDATE camstudy_member
+	 	SET learning_time = ( SELECT TO_CHAR (TRUNC (total / 3600), 'fm00')
+	       							|| ':'
+	       							|| TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
+	       							|| ':'
+	       							|| TO_CHAR (MOD (total, 60), 'fm00') time
+							  FROM (SELECT (
+ 	                   				(TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
+ 	                 				+ TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
+ 	                 				+ TO_NUMBER (SUBSTR (learning_time, 7, 2)))+
+ 	                 				(TO_NUMBER (SUBSTR (#{time}, 1, 2)) * 60 * 60
+ 	                 				+ TO_NUMBER (SUBSTR (#{time}, 4, 2)) * 60
+ 	                 				+ TO_NUMBER (SUBSTR (#{time}, 7, 2))) ) total
+									FROM camstudy_member
+									WHERE email = #{email} AND study_no = #{studyNo}) )
+	 	WHERE email = #{email} AND study_no = #{studyNo}
+	 </update>
+	 
+	 <update id="updateCamStudyMemberZero" parameterType="map">
+	 	UPDATE camstudy_member
+	 	SET learning_time = 0, learning_type = #{learningType},
+	 		total_learning_time = ( SELECT TO_CHAR (TRUNC (total / 3600), 'fm00')
+	       							|| ':'
+	       							|| TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
+	       							|| ':'
+	       							|| TO_CHAR (MOD (total, 60), 'fm00') time
+							  		FROM (SELECT (
+	 	                   				(TO_NUMBER (SUBSTR (total_learning_time, 1, 2)) * 60 * 60
+	 	                 				+ TO_NUMBER (SUBSTR (total_learning_time, 4, 2)) * 60
+	 	                 				+ TO_NUMBER (SUBSTR (total_learning_time, 7, 2)))+
+	 	                 				(TO_NUMBER (SUBSTR (#{time}, 1, 2)) * 60 * 60
+	 	                 				+ TO_NUMBER (SUBSTR (#{time}, 4, 2)) * 60
+	 	                 				+ TO_NUMBER (SUBSTR (#{time}, 7, 2))) ) total
+										FROM camstudy_member
+										WHERE email = #{email} AND study_no = #{studyNo}) )
+	 	WHERE email = #{email} AND study_no = #{studyNo}
+	 </update>
 	
 </mapper>

@@ -1,10 +1,12 @@
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- ///////////////////////////// 로그인시 Forward  /////////////////////////////////////// -->
 <c:if test="${ ! empty user }">
  	<jsp:forward page="main.jsp"/>
- </c:if>
+</c:if>
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////// -->
     <head>
         <meta charset="utf-8" />
@@ -22,13 +24,13 @@
         <!-- SimpleLightbox plugin CSS-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="resources/css/style.css" rel="stylesheet" />
+        <link href="../resources/css/style.css" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-            <a href="/"><img src="resources/images/logo.png" alt="ogong_logo" /></a>
+            <a href="/"><img src="../resources/images/logo.png" alt="ogong_logo" /></a>
                 <!--  <a class="navbar-brand" href="#page-top">오늘의 공부</a> -->
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">

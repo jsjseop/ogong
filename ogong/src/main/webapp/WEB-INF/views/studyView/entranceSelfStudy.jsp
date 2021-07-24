@@ -21,7 +21,7 @@
 <script type="text/javascript">
 	$( function(){
 		$("#entrance").on("click", function(){
-			location.href = "https://wnstjqtest.herokuapp.com/"+${study.studyNo};
+			location.href = "/selfStudy/entranceStudy?studyNo="+`${study.studyNo}`;
 		});
 	});
 </script>

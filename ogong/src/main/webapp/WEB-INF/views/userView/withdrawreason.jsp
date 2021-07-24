@@ -119,11 +119,7 @@
 		      <input type="password" class="form-control" id="password2" name="password2" placeholder="변경비밀번호 확인">
 		    </div>
 		  </div>
-		  		  <div class="form-group">
-		    <label for="text" class="col-sm-offset-1 col-sm-3 control-label">비밀번호 확인</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="password2" name="password2" placeholder="변경비밀번호 확인">
-		    </div>
+
 		  </div>
 
 
