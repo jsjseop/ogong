@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +49,9 @@ public class SelfStudyController {
 	
 	@Autowired
 	private LearningHistoryService learningHistoryService;
+	
+	@Value("8")
+	int pageSize;
 	
 	public SelfStudyController(){
 		System.out.println(this.getClass());
@@ -117,42 +122,44 @@ public class SelfStudyController {
 		}	
 	}
 	
-	@GetMapping("entranceStudy")
-	public String entranceStudy(@RequestParam("studyNo") int studyNo, HttpSession session) throws Exception{
-		
+	@Transactional
+	@GetMapping("entranceStudy/{studyNo}")
+	@ResponseBody
+	public String entranceStudy(@PathVariable int studyNo, HttpSession session) throws Exception{
+				
 		CamStudyMember csm = new CamStudyMember();
 		User user = ((User)session.getAttribute("user"));
-		csm.setEmail(user.getEmail());
-		csm.setNickname(user.getNickname());
-		csm.setStudyNo(studyNo);
+				
+		if(camStudyService.getCamStudyMember(studyNo, user.getEmail()) == null) {
+			csm.setEmail(user.getEmail());
+			csm.setNickname(user.getNickname());
+			csm.setStudyNo(studyNo);
+			
+			studyService.entranceStudy(studyNo);
+			camStudyService.addCamStudyMember(csm);
+			
+			return "success";
+		}
 		
-		studyService.entranceStudy(studyNo);
-		camStudyService.addCamStudyMember(csm);
-		
-		return "redirect:https://wnstjqtest.herokuapp.com/"+ studyNo+"/"+user.getEmail();
+		return "fail";
 	}
 	
 	@RequestMapping("listStudy")
-	public String listStudy(@ModelAttribute("search") Search search,
-										@RequestParam("studyType") String studyType, Model model) throws Exception{
+	public String listStudy(@ModelAttribute("search") Search search, Model model) throws Exception{
 		
 		System.out.println("/studyController/listStudy");
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
-		search.setPageSize(8);
+		search.setPageSize(pageSize);
 		
-		Map<String, Object> searchMap = new HashMap<String, Object>();
-		searchMap.put("search", search);
-		searchMap.put("studyType", studyType);
-		
-		Map<String, Object> map = studyService.getStudyList(searchMap);
+		Map<String, Object> map = studyService.getStudyList(search);
 		System.out.println("map : "+map);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
-		model.addAttribute("studyType", studyType);
+		model.addAttribute("studyType", search.getStudyType());
 		model.addAttribute("search", search);
 		
 		return "/studyView/listSelfStudy";
@@ -161,34 +168,26 @@ public class SelfStudyController {
 	@Transactional
 	@PostMapping("leaveStudy")
 	@ResponseBody
-	public LearningHistory leaveStudy(@RequestBody LearningHistory learningHistory) throws Exception{
+	public void leaveStudy(@RequestBody LearningHistory learningHistory) throws Exception{
+		System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		String learningTime = (camStudyService.getCamStudyMember(learningHistory.getStudyNo(), learningHistory.getEmail())).getLearningTime();
+		if(!learningTime.equals("00:00:00")) {
+			int userTargetTime = (camStudyService.getUser(learningHistory.getEmail())).getUserTargetTime();
+			String todayLearningTime = (learningHistoryService.getTodayLearningTime(learningHistory.getEmail())).substring(1, 2);
+			if(Integer.parseInt(todayLearningTime) < userTargetTime) {
+				learningHistoryService.addLearningHistory(learningHistory);
+				String todayLearningTimePlus = (learningHistoryService.getTodayLearningTime(learningHistory.getEmail())).substring(1, 2);
 				
-		int userTargetTime = (camStudyService.getUser(learningHistory.getEmail())).getUserTargetTime();
-		String todayLearningTime = (learningHistoryService.getTodayLearningTime(learningHistory.getEmail())).substring(1, 2);
-		
-		if(Integer.parseInt(todayLearningTime) < userTargetTime) {
-			learningHistoryService.addLearningHistory(learningHistory);
-			String todayLearningTimePlus = (learningHistoryService.getTodayLearningTime(learningHistory.getEmail())).substring(1, 2);
-			
-			if(Integer.parseInt(todayLearningTimePlus) >= userTargetTime) {
-				//바나나 1개 update, 바나나기록 insert
+				if(Integer.parseInt(todayLearningTimePlus) >= userTargetTime) {
+					//바나나 1개 update, 바나나기록 insert
+				}
+			} else {
+				learningHistoryService.addLearningHistory(learningHistory);
 			}
-		} else {
-			learningHistoryService.addLearningHistory(learningHistory);
 		}
 		
 		camStudyService.deleteCamStudyMember(learningHistory);
-		
-		int studyNo = learningHistory.getStudyNo();
-		
-		if((studyService.getStudy(studyNo)).getStudyType().equals("self")) {
-			studyService.leaveStudy(studyNo);
-			learningHistory.setEmail("http://127.0.0.1:5050/integration/mainPage");
-		}else {
-			learningHistory.setEmail("location:main");
-		}
-		
-		return learningHistory;
+		studyService.leaveStudy(learningHistory.getStudyNo());
 	}
 	
 }
