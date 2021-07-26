@@ -242,9 +242,7 @@
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
 		
-		$('button:contains("신 고")').on('click', function() {
-			$("#myModalReport").find('#sendReporter').val($(this).find('input').val());
-		})		
+	
 		
 		$('#updatebtn').on('click', function() {
 
@@ -362,6 +360,7 @@ pre {
 						
 					<button type="button" class="btn-sm btn-warning" style="width: 60px;">수 정</button>
 <%-- 				</c:if> --%>
+
 				<button type="button" class="btn-sm btn-warning" style="width: 60px;">삭 제
 					<input type="hidden" value="${message.sender.email}" />
 				</button>

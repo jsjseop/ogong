@@ -21,22 +21,27 @@ public class AdminTest {
 	private AdminService adminService;
 	
 	
-	/*
+	
 	@Test
 	@DisplayName("회원 정지")
 	void updateSuspendUser() throws Exception{
 		
 		User user = new User();
+		User user2 = new User();
+		
+		user2.setEmail("user01");
 		user.setEmail("user02");
 		Report report = new Report();
 		report.setSuspendType("3");
-		report.setReportUser(user);
+		report.setSendReporter(user);
+		report.setReceiveReporter(user2);
 		
 		System.out.println(user);
 		System.out.println(report);
 		adminService.updateUserSuspend(report);
+	}
 	
-	*/
+	
 	
 	//@Test
 	@DisplayName("회원 복구")
@@ -50,7 +55,7 @@ public class AdminTest {
 		adminService.updateUserRestore(email);
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("신고하기")
 	void testaddReport() throws Exception{
 		

@@ -29,11 +29,9 @@
 		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
 		<result property="regDate" 				column="reg_date" 			jdbcType="DATE" />
 		<result property="bananaCount" 			column="banana_count" 		jdbcType="NUMERIC" />
-		<result property="learingType" 			column="learing_type" 		jdbcType="VARCHAR" />
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
-		<result property="certified" 			column="certified" 			jdbcType="VARCHAR" />
 		
 		
 	</resultMap> 
@@ -42,6 +40,8 @@
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
     EMAIL,
+    ROLE,
+    CONDITION,
     NICKNAME,
     PASSWORD,
     NAME,
@@ -60,13 +60,13 @@
     USER_TARGET_TIME,
     reg_Date,
     BANANA_COUNT,
-    LEARING_TYPE,
     STUDY_INTEREST1,
     STUDY_INTEREST2,
-    STUDY_INTEREST3,
-    CERTIFIED
+    STUDY_INTEREST3
 ) VALUES (
     #{email:VARCHAR},
+    '1',
+    '1',
     #{nickname:VARCHAR},
     #{password:VARCHAR},
     #{name:VARCHAR},
@@ -83,13 +83,11 @@
     #{suspendStartDate:DATE},
     #{suspendEndDate:DATE},
     #{userTargetTime:NUMERIC},
-    sysdate,
+    SYSDATE,
     #{bananaCount:NUMERIC},
-    #{learingType:VARCHAR},
     #{studyInterest1:VARCHAR},
     #{studyInterest2:VARCHAR},
-    #{studyInterest3:VARCHAR},
-    #{certified:VARCHAR}
+    #{studyInterest3:VARCHAR}
 )
 	 </insert>
 	 

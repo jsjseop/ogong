@@ -66,12 +66,7 @@ public class DatabaseConfiguration {
 	public PlatformTransactionManager txManager() throws Exception {
 		return new DataSourceTransactionManager(dataSource());
 	}
-    
-    @Bean
-    public ServerEndpointExporter serverEndpointExporter() {
-        return new ServerEndpointExporter();
-    }
-    
+        
     
     public static void main(String[] args) {
         SpringApplication.run(DatabaseConfiguration.class, args);

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ogong.service.banana.BananaService;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.User;
 import com.ogong.service.user.UserService;
 
@@ -31,9 +33,12 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
+	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private BananaService bananaService;
 
 	// 회원가입 페이지 진입
 	@GetMapping("addUser")
@@ -45,9 +50,22 @@ public class UserController {
 	// 회원가입
 	@PostMapping("addUser")
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
-
+		
+		
+		user.setBananaCount(10);
 		userService.addUser(user);
-
+		
+		
+		//===========바나나 적립 Start==================
+		String email = user.getEmail();
+		Banana banana = new Banana();
+		banana.setBananaEmail(user);
+		banana.setBananaAmount(10);
+		banana.setBananaHistory("회원가입으로 인한 바나나 적립");
+		banana.setBananaCategory("1");
+		bananaService.addBanana(banana);
+		//===========바나나 적립 END==================
+		
 		return "/userView/loginView";
 
 	}

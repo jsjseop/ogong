@@ -33,8 +33,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.JsonObject;
 import com.ogong.common.Page;
 import com.ogong.common.Search;
+import com.ogong.service.banana.BananaService;
 import com.ogong.service.board.BoardService;
 import com.ogong.service.domain.Answer;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 
@@ -50,6 +52,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private BananaService bananaService;	
 
 	@GetMapping("addBoard")
 	public String addBoard(@RequestParam("boardCategory") String boardCategory, Model model) throws Exception {
@@ -67,7 +72,58 @@ public class BoardController {
 		return "/boardView/addBoard";
 	}
 
-	
+
+	@PostMapping("addBoard")
+	public String addBoard(@ModelAttribute("board") Board board, @RequestParam ("boardCategory") String boardCategory,
+							Model model ,/*추가*/HttpSession session)
+			throws Exception {
+		
+		User user = (User)session.getAttribute("user");
+		board.setWriter(user);;
+		board.setBoardInterest("2");
+		board.setFileFlag("2");
+		board.setBoardCategory(boardCategory);
+		
+		boardService.addBoard(board, null);
+		System.out.println(board);
+		
+		//===========바나나 적립 및 소모 Start==================
+		Banana banana = new Banana();
+		if(boardCategory.equals("1")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(5);
+			banana.setBananaHistory("정보공유게시판 게시글 등록으로 인한 바나나 적립");
+			banana.setBananaCategory("1");
+			bananaService.addBanana(banana);
+		}else if(boardCategory.equals("2")) {
+			int regBanana = board.getBoardRegBanana();
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(-regBanana);
+			banana.setBananaHistory("Q&A 게시글 등록으로 바나나 소모");
+			banana.setBananaCategory("2");
+			bananaService.addBanana(banana);
+			user.setBananaCount(regBanana);
+			bananaService.updateUseBanana(user);
+		}else if(boardCategory.equals("3")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(3);
+			banana.setBananaHistory("합격후기게시판 게시글 등록으로 인한 바나나 적립");
+			banana.setBananaCategory("1");
+			bananaService.addBanana(banana);
+		}
+		//===========바나나 적립 및 소모 END==================
+		
+		// model.addAttribute("boardCategory", board.);
+		model.addAttribute("board", board);
+		model.addAttribute("boardCategory", boardCategory);
+		
+		if(boardCategory.equals("2")) {
+			return "redirect:board/getBoard/getBoard?boardNo=" + board.getBoardNo();
+		}
+
+		return "redirect:/board/getBoard?boardNo=" + board.getBoardNo();
+	}
+
 	@PostMapping("addBoard")
 	public String addBoard(HttpSession session, @ModelAttribute("board") Board board) throws Exception {
 		User user = new User();
