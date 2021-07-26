@@ -74,7 +74,8 @@
 		FROM ( SELECT 							
 			   inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT <if test="reportType == 1">
-											 r.receive_reporter_email, 
+											 r.receive_reporter_email,
+											 r.send_reporter_email, 
 											 r.report_no, 
 											 b.board_title, 
 											 r.report_reason, 
@@ -87,6 +88,7 @@
 											 </if>
 											 <if test="reportType == 2">
 											 r.receive_reporter_email, 
+											 r.send_reporter_email,
 											 r.report_no, 
 											 a.answer_contents, 
 											 u.nickname, 
@@ -99,6 +101,7 @@
 											 </if>
 											 <if test="reportType == 3">
 											 r.receive_reporter_email, 
+											 r.send_reporter_email,
 											 r.report_no, 
 											 c.comment_contents, 
 											 u.nickname, 
@@ -112,7 +115,7 @@
 											 <if test="search.searchCondition != null">
 											 	<choose>
 											 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
-											 			AND u.nickname LIKE '%'||#{search.searchKeyword}||'%'
+											 			AND  r.receive_reporter_email LIKE '%'||#{search.searchKeyword}||'%'
 											 		</when>
 											 	</choose>
 											 </if>
@@ -144,6 +147,7 @@
 		FROM ( SELECT 
 			   inner_table.* , ROWNUM AS row_seq
 						FROM		( SELECT r.receive_reporter_email,
+											 r.send_reporter_email,
 											 r.report_no,
 											 r.report_reason,
 											 u.nickname,
@@ -157,7 +161,7 @@
 											 <if test="search.searchCondition != null">
 											 	<choose>
 											 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
-											 			AND u.nickname LIKE '%'||#{search.searchKeyword}||'%'
+											 			AND  r.receive_reporter_email LIKE '%'||#{search.searchKeyword}||'%'
 											 		</when>
 											 	</choose>
 											 </if>
@@ -196,8 +200,8 @@
 											 TO_CHAR(suspend_end_date,'YYYY-MM-DD') suspend_end_date,
 											 condition
 											 FROM users
-											 <where>
-											 	<if test="listType == 1"></if>
+											 WHERE
+											 	<if test="listType == 1">email is NOT NULL</if>
 											 	<if test="listType == 2">   <!-- 탈퇴한 회원 목록 -->
 												 	withdraw_date is NOT NULL
 												 	AND withdraw_reason is NOT NULL
@@ -213,13 +217,14 @@
 												 </if>	
 												 <if test="searchCondition != null">
 												 	<choose>
-												 		<when test="searchCondition == 0 and searchKeyword !='' ">
-												 			AND nickname LIKE '%'||#{search.searchKeyword}||'%'
+												 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
+												 			AND email LIKE '%'||#{search.searchKeyword}||'%'
 												 		</when>
+												 		<when test="search.searchCondition == 1 and search.searchKeyword !='' ">
+												 			AND nickname LIKE '%'||#{search.searchKeyword}||'%'
+												 		</when>												 		
 												 	</choose>
 												 </if>										 
-											 </where>
-											 
 											 <choose>
 											 	<when test="search.searchSort == 1">
 											 		ORDER BY nickname ASC
@@ -271,36 +276,50 @@
 	</update>
 	
 	<select id="getReportTotalCount"		parameterType="hashmap"		resultType="int">
-		SELECT COUNT(*)
-		FROM (	SELECT r.receive_reporter_email,
-											 r.report_no,
-											 r.report_reason,
-											 u.nickname,
-											 a.answer_no,
-											 a.answer_contents,
-											 b.board_no,
-											 b.board_title,
-											 c.comment_contents,
-											 TO_CHAR(r.report_date,'YYYY-MM-DD') report_date,
+							SELECT COUNT(*)
+							FROM (	SELECT <if test="reportType == 1">
+											 r.receive_reporter_email,
+											 r.send_reporter_email, 
+											 r.report_no, 
+											 b.board_title, 
+											 r.report_reason, 
+											 u.nickname, 
+											 TO_CHAR(r.report_date,'YYYY-MM-DD') report_date, 
 											 u.condition
-											 FROM report r, users u, answer a, board b, comment_info c
-											 WHERE r.receive_reporter_email = u.email
-											 AND r.receive_reporter_email = a.email(+)
-											 AND r.receive_reporter_email = b.email(+)
-											 AND r.receive_reporter_email = c.email(+)
-											 <if test="reportType == 1">
-											 	AND r.board_no = b.board_no
+											 FROM BOARD b, REPORT r, USERS u
+											 WHERE   r.receive_reporter_email= u.email
+											 AND    b.board_no = r.board_no
 											 </if>
 											 <if test="reportType == 2">
-											 	AND a.answer_no = r.answer_no  
+											 r.receive_reporter_email, 
+											 r.send_reporter_email,
+											 r.report_no, 
+											 a.answer_contents, 
+											 u.nickname, 
+											 r.report_reason, 
+											 TO_CHAR(r.report_date,'YYYY-MM-DD') report_date, 
+											 u.condition
+											 FROM REPORT r, ANSWER a, USERS u
+											 WHERE r.receive_reporter_email = u.email
+											 AND    a.answer_no = r.answer_no
 											 </if>
 											 <if test="reportType == 3">
-											 	AND r.comment_no = c.comment_no
+											 r.receive_reporter_email, 
+											 r.send_reporter_email,
+											 r.report_no, 
+											 c.comment_contents, 
+											 u.nickname, 
+											 r.report_reason, 
+											 TO_CHAR(r.report_date,'YYYY-MM-DD') report_date, 
+											 u.condition
+											 FROM COMMENT_INFO c, REPORT r, USERS u
+											 WHERE   r.receive_reporter_email = u.email
+											 AND    c.comment_no = r.comment_no											 
 											 </if>
 											 <if test="search.searchCondition != null">
 											 	<choose>
 											 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
-											 			AND u.nickname LIKE '%'||#{search.searchKeyword}||'%'
+											 			AND  r.receive_reporter_email LIKE '%'||#{search.searchKeyword}||'%'
 											 		</when>
 											 	</choose>
 											 </if>) countTable
@@ -309,6 +328,7 @@
 		<select id="getUserReportTotalCount"		parameterType="hashmap"		resultType="int">
 						SELECT COUNT(*)
 						     FROM (	SELECT   r.receive_reporter_email,
+						      				 r.send_reporter_email,
 						     				 r.report_no,
 											 r.report_reason,
 											 u.nickname,
@@ -322,7 +342,7 @@
 											 <if test="search.searchCondition != null">
 											 	<choose>
 											 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
-											 			AND u.nickname LIKE '%'||#{search.searchKeyword}||'%'
+											 			AND  r.receive_reporter_email LIKE '%'||#{search.searchKeyword}||'%'
 											 		</when>
 											 	</choose>
 											 </if>) countTable
@@ -340,8 +360,8 @@
 											 TO_CHAR(suspend_end_date,'YYYY-MM-DD') suspend_end_date,
 											 condition
 											 FROM users
-											 <where> 
-											 <if test="listType == 1"></if>
+											 WHERE
+											 	<if test="listType == 1">email is NOT NULL</if>
 											 <if test="listType == 2">   <!-- 탈퇴한 회원 목록 -->
 											 	withdraw_date is NOT NULL
 											 	AND withdraw_reason is NOT NULL
@@ -355,13 +375,16 @@
 											 	AND	suspend_end_date is NOT NULL
 											 </if>											 
 											 <if test="searchCondition != null">
-											 	<choose>
-											 		<when test="searchCondition == 0 and searchKeyword !='' ">
-											 			AND nickname LIKE '%'||#{search.searchKeyword}||'%'
-											 		</when>
-											 	</choose>
+												 	<choose>
+												 		<when test="search.searchCondition == 0 and search.searchKeyword !='' ">
+												 			AND email LIKE '%'||#{search.searchKeyword}||'%'
+												 		</when>
+												 		<when test="search.searchCondition == 1 and search.searchKeyword !='' ">
+												 			AND nickname LIKE '%'||#{search.searchKeyword}||'%'
+												 		</when>												 		
+												 	</choose>
 											 </if>
-											 </where>) countTable
+											 ) countTable
 	</select>
 	<!-- ㅁㄴㅇㅁㄴㅇ -->
 </mapper>

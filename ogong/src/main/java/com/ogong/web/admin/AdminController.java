@@ -55,16 +55,14 @@ public class AdminController {
 	
 	@PostMapping("addReport")
 	public String addReport( @ModelAttribute("report") Report report, 
-							/*@ModelAttricute("user") User user,*/
+							 HttpSession session,
 							 Model model) throws Exception{
 		
 		//session에서 receiverRepoter 꺼낸 유저가 들어가고 sendeReporter는 ModelAttribute로 넘어온 값을 줌
 		
 		System.out.println("addReport/Post 시작");
-		User user = new User();
-		user.setEmail("user02");
 		
-		
+		User user = (User)session.getAttribute("user");		
 		report.setSendReporter(user);
 		
 		System.out.println("report 확인 :::: "+report);
@@ -83,8 +81,8 @@ public class AdminController {
 	public String listReport(@ModelAttribute("search") Search search, Model model,
 							 @RequestParam("reportType") String reportType,
 													   HttpServletRequest request) throws Exception{
-		int pageSize = 5;
-		int pageUnit = 5;
+		int pageSize = 15;
+		int pageUnit = 15;
 		
 		System.out.println("/listReport 시작");
 		
@@ -100,13 +98,13 @@ public class AdminController {
 		map.put("reportType", reportType);
 		
 		Map<String,Object> result = adminService.getlistReport(map);
-		List<Object> list = (List<Object>)map.get("list");
+		List<Object> list = (List<Object>)result.get("list");
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)result.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println("여기는 resultType " + reportType);
 		System.out.println("여기는 resultPage " + resultPage);
 		
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list", result.get("list"));
 		System.out.println("유저를 확인합시다."+map);
 		model.addAttribute("search", search);
 		model.addAttribute("resultPage", resultPage);
@@ -119,8 +117,8 @@ public class AdminController {
 	public String listUserReport(@ModelAttribute("search") Search search, Model model,
 			   HttpServletRequest request) throws Exception{
 		
-		int pageSize = 30;
-		int pageUnit = 5;
+		int pageSize = 15;
+		int pageUnit = 15;
 		
 		HttpSession session = request.getSession();
 		
@@ -139,11 +137,11 @@ public class AdminController {
 		map.put("search", search);
 		
 		Map<String,Object> result = adminService.getlistUserReport(map);
-		List<Object> list = (List<Object>)map.get("list");
+		List<Object> list = (List<Object>)result.get("list");
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)result.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println("여기는 resultPage " + resultPage);
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list", result.get("list"));
 		model.addAttribute("search", search);
 		model.addAttribute("resultPage", resultPage);
 		
@@ -156,8 +154,8 @@ public class AdminController {
 	public String listTotalUser(@ModelAttribute("search") Search search, Model model,
 								@RequestParam("listType") String listType,
 								HttpServletRequest request) throws Exception{
-		int pageSize = 5;
-		int pageUnit = 5;
+		int pageSize = 15;
+		int pageUnit = 15;
 		
 		System.out.println("/listTotalUser 시작");
 
@@ -175,13 +173,13 @@ public class AdminController {
 		map.put("listType", listType);
 		
 		Map<String,Object> result = adminService.getlistTotalUser(map);
-		List<Object> list = (List<Object>)map.get("list");
+		List<Object> list = (List<Object>)result.get("list");
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)result.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println("여기는 listType " + listType);
 		System.out.println("여기는 resultPage " + resultPage);
 		
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list", result.get("list"));
 		model.addAttribute("search", search);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("listType", listType);

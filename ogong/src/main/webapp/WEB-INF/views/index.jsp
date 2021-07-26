@@ -119,16 +119,16 @@
                   
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="자유스터디">
-                            <img class="img-fluid" src="resources/images/1.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">누구나 자유롭게 참여가 가능한</div>
-                                <div class="project-name">자유스터디</div>
+                                <div class="project-name">자율스터디</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="그룹스터디">
-                            <img class="img-fluid" src="resources/images/2.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">체계적인 시스템으로 공부효율 up</div>
                                 <div class="project-name">그룹스터디</div>
@@ -137,7 +137,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="/" title="스터디모집">
-                            <img class="img-fluid" src="resources/images/333.jpg" alt="..." />
+                            <img class="img-fluid" src="../resources/images/333.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50">내가 직접 만드는 스터디</div>
                                 <div class="project-name">스터디모집</div>

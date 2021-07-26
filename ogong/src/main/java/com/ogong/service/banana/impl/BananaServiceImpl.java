@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ogong.common.Search;
 import com.ogong.service.banana.BananaMapper;
 import com.ogong.service.banana.BananaService;
 import com.ogong.service.domain.Banana;
@@ -28,28 +29,14 @@ public class BananaServiceImpl implements BananaService{
 	}
 
 	@Override
-	public Map<String, Object> getlistAcquireBanana(HashMap<String, Object> map) throws Exception {
+	public Map<String, Object> getlistBanana(HashMap<String, Object> map) throws Exception {
 
-		List<Banana> list= bananaMapper.getlistAcquireBanana(map);
-		int totalCount = bananaMapper.getAcquireCount(map);
+		List<Banana> list= bananaMapper.getlistBanana(map);
+		int totalCount = bananaMapper.getbananaCount(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
-		
-		return result;
-		
-	}
-
-	@Override
-	public Map<String, Object> getlistUseBanana(HashMap<String, Object> map) throws Exception {
-
-		List<Banana> list= bananaMapper.getlistUseBanana(map);
-		int totalCount = bananaMapper.getUseCount(map);
-		
-		Map<String, Object> result = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		result.put("list", list);
+		result.put("totalCount", new Integer(totalCount));
 		
 		return result;
 		
@@ -69,6 +56,10 @@ public class BananaServiceImpl implements BananaService{
 		
 	}	
 	
+	@Override
+	public User adminGetUser(String email) throws Exception {
+		return bananaMapper.adminGetUser(email);
+	}
 	
 	
 }

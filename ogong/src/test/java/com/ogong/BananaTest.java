@@ -35,16 +35,42 @@ public class BananaTest {
 		
 		user.setEmail("user01");
 		banana.setBananaEmail(user);
-		banana.setBananaHistory("Q&A게시글 등록으로 인한 바나나차감");
-		banana.setBananaAmount(-40);
+		banana.setBananaHistory("정보공유 게시글 등록으로 인한 포인트 적립");
+		banana.setBananaAmount(+5);
 		banana.setBananaCategory("1");
 		
 		bananaService.addBanana(banana);
+		
+		user.setBananaCount(5);
+		bananaService.updateAcquireBanana(user);
 		
 		
 	}
 	
 	//@Test
+	@DisplayName("바나나 인서트")
+	void testaddBanana2() throws Exception{
+		
+		System.out.println("이거 출력 안되면");
+		
+		User user = new User();
+		Banana banana = new Banana();
+		
+		user.setEmail("user01");
+		banana.setBananaEmail(user);
+		banana.setBananaHistory("프리미엄 방 등급 개설로 인한 바나나 소모");
+		banana.setBananaAmount(-20);
+		banana.setBananaCategory("2");
+		
+		bananaService.addBanana(banana);
+		
+		user.setBananaCount(-20);
+		bananaService.updateUseBanana(user);
+		
+		
+	}	
+	
+	/*@Test
 	@DisplayName("바나나 획득처")
 	void testlistBanana1() throws Exception{
 		
@@ -73,9 +99,9 @@ public class BananaTest {
 		
 		System.out.println("================================");		
 		
-	}
+	}*/
 	
-	//@Test
+	/*@Test
 	@DisplayName("바나나 사용처")
 	void testlistBanana2() throws Exception{
 		
@@ -104,10 +130,10 @@ public class BananaTest {
 		
 		System.out.println("================================");		
 		
-	}	
+	}*/
 	
 	
-	@Test
+	//@Test
 	@DisplayName("바나나 획득")
 	void updateAcquireBanana() throws Exception{
 		
