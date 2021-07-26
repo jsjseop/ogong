@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ogong.service.admin.AdminService;
+import com.ogong.service.banana.BananaService;
+import com.ogong.service.domain.User;
 import com.ogong.service.integration.IntegrationService;
 
 @RestController
@@ -18,6 +20,9 @@ public class AdminRestController {
 	@Autowired
 	private AdminService adminService;
 	
+	@Autowired
+	private BananaService bananaService;	
+	
 	public AdminRestController() {
 		System.out.println(this.getClass());
 	}
@@ -27,6 +32,12 @@ public class AdminRestController {
 		System.out.println("updateUserResotore : GET");
 		
 		adminService.updateUserRestore(email);
+	}
+	
+	@GetMapping( value="json/adminGetUser/{email}")
+	public User adminGetUser(@PathVariable("email")String email) throws Exception{
+		
+		return bananaService.adminGetUser(email);
 	}
 
 }

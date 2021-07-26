@@ -199,14 +199,19 @@
 
 
 		
-				<h1 class="bg-info text-center">비밀번호 변경</h1>
+				<h1 class="text-center">비밀번호 변경</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 	
 			  <input type="hidden" name="email"	value="${user.email}"/>
 	
-	
+		<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+        
+     </style>
 	
 
 

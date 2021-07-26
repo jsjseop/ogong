@@ -1,22 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-	<head>
-		<!-- 합쳐지고 최소화된 최신 CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<!-- 부가적인 테마 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	 	
-	 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<title>회원가입</title>
-	</head>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			// 취소
-			$(".cencle").on("click", function(){
-=======
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
@@ -55,14 +40,16 @@
 				<span class="final_id_ck">닉네임를 입력해주세요.</span>			
 			</div>
 			<div class="pw_wrap">
-				<div class="pw_name">비밀번호</div>
+		                    <label for="inputPassword" class="col-lg-2 control-label">패스워드</label>
+                    <div class="col-lg-10">
 				<div class="form-control">
 					<input class="pw_input" type="password" name="password">
 				</div>
 				<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
 			</div>
 			<div class="pwck_wrap">
-				<div class="pwck_name">비밀번호 확인</div>
+				                    <label for="inputPasswordCheck" class="col-lg-2 control-label">패스워드 확인</label>
+                    <div class="col-lg-10">
 				<div class="form-control">
 					<input class="pwck_input" type="password">
 				</div>
@@ -72,7 +59,8 @@
 			</div>
 
 			<div class="mail_wrap">
-				<div class="mail_name">이메일</div> 
+				    <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+                    <div class="col-lg-10">
 				<div class="form-control">
 					<input class="mail_input" name="email">
 				</div>
@@ -91,7 +79,8 @@
 				</div>
 			</div>
 		
-			<div class="join_button_wrap">
+							                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">	
 				<input type="button" class="join_button" value="가입하기">
 			</div>
 		</div>
@@ -245,66 +234,9 @@ $(".mail_check_button").click(function(){
 			code = data;
 			
 		}
->>>>>>> refs/heads/연습용2
 				
-				location.href = "loginView";
-						    
-			})
-		
-			
-				
-				
-				
-				$("#submit").on("click", function(){
-					if($("#email").val()==""){
-						alert("이메일을 입력해주세요.");
-						$("#email").focus();
-						return false;
-				}
-				if($("#password").val()==""){
-					alert("비밀번호를 입력해주세요.");
-					$("#password").focus();
-					return false;
-				}
-				if($("#nickname").val()==""){
-					alert("닉네임을 입력해주세요.");
-					$("#nickname").focus();
-					return false;
-				}
-			});
-			
-				
-			
-		})
-	</script>
-	<body>
-		<section id="container">
-			<form action="addUser" method="post">
-				<div class="form-group has-feedback">
-					<label class="control-label" for="email">이메일</label>
-					<input class="form-control" type="text" id="email" name="email" />
-				</div>
-				<div class="form-group has-feedback">
-					<label class="control-label" for="password">패스워드</label>
-					<input class="form-control" type="password" id="password" name="password" />
-				</div>
-				<div class="form-group has-feedback">
-					<label class="control-label" for="nickname">닉네임</label>
-					<input class="form-control" type="text" id="nickname" name="nickname" />
-				</div>
-				<div class="form-group has-feedback">
-					<button class="btn btn-success" type="submit" id="submit">회원가입</button>
-					
-					<button class="cencle btn btn-danger" type="button">취소</button>
-					
-				</div>
-			</form>
-		</section>
-		
-	</body>
+	});
 	
-<<<<<<< HEAD
-=======
 });
 
 /* 인증번호 비교 */
@@ -361,5 +293,4 @@ $('.pwck_input').on("propertychange change keyup paste input", function(){
 </script>
 
 </body>
->>>>>>> refs/heads/연습용2
 </html>

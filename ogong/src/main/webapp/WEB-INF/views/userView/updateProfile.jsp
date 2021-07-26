@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -17,13 +17,13 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
     <!-- Bootstrap Dropdown Hover JS -->
-   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+   <script src="./jquery-3.4.1.min.js"></script>
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <script type="text/javascript">
 
 
-
+/////////////////////////////////////////////////////////// 관심사 
 	$(function(){
 		$ ( "#btn1").on("click", function(){
 			fncupdateProfile();
@@ -45,104 +45,7 @@
 	
 </script>
 
-<style>
-            #selectbox1 { display: none; }
-            #selectbox1, div:#selectbox1 { display: none; }
-            #selectbox1:checked ~ div:#selectbox1 { display: block; }
-            #selectbox2 { display: none; }
-            #selectbox2, div:#selectbox2 { display: none; }
-            #selectbox2:checked ~ div:#selectbox2 { display: block; }
-            
-            #selectbox3 { display: none; }
-            #selectbox3 ~ div:#selectbox3 { display: none; }
-            #selectbox3:checked ~ div:#selectbox3 { display: block; }
-            
-            #selectbox4 { display: none; }
-            #selectbox4 ~ div:#selectbox4 { display: none; }
-            #selectbox4:checked ~ div:#selectbox4 { display: block; }
-            
-            #selectbox5 { display: none; }
-            #selectbox5 ~ div:#selectbox5 { display: none; }
-            #selectbox5:checked ~ div:#selectbox5 { display: block; }
-            
-            #selectbox6 { display: none; }
-            #selectbox6 ~ div:#selectbox6 { display: none; }
-            #selectbox6:checked ~ div:#selectbox6 { display: block; }
-            
-            #selectbox7 { display: none; }
-            #selectbox7 ~ div:#selectbox7 { display: none; }
-            #selectbox7:checked ~ div:#selectbox7 { display: block; }
-            
-            #selectbox8 { display: none; }
-            #selectbox8 ~ div:#selectbox8 { display: none; }
-            #selectbox8:checked ~ div:#selectbox8 { display: block; }
-            
-            #selectbox9 { display: none; }
-            #selectbox9 ~ div:#selectbox9 { display: none; }
-            #selectbox9:checked ~ div:#selectbox9 { display: block; }
-            
-            #selectbox10 { display: none; }
-            #selectbox10 ~ div:#selectbox10 { display: none; }
-            #selectbox10:checked ~ div:#selectbox10 { display: block; }
-            section.buttons > label {
-              display: block;
-              text-align: center;
-              line-height: 30px;
-              border: 1px solid #dddddd;
-              background: white;
-              color: black;
-              width: 160px; height: 45px;
-              box-sizing: border-box;
-              float: left;
-              padding-top: 0.4em;
-            }
-            input:nth-of-type(1):checked ~ section.buttons >  label:nth-of-type(1) {
-              border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(2):checked ~ section.buttons >  label:nth-of-type(2) {
-               border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(3):checked ~ section.buttons >  label:nth-of-type(3) {
-              border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(4):checked ~ section.buttons >  label:nth-of-type(4) {
-                border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(5):checked ~ section.buttons >  label:nth-of-type(5) {
-                border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(6):checked ~ section.buttons >  label:nth-of-type(6) {
-                border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(7):checked ~ section.buttons >  label:nth-of-type(7) {
-               border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(8):checked ~ section.buttons >  label:nth-of-type(8) {
-               border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(9):checked ~ section.buttons >  label:nth-of-type(9) {
-               border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            input:nth-of-type(10):checked ~ section.buttons >  label:nth-of-type(10) {
-               border : 1px solid #ef6c00;
-              color : #ef6c00;
-            }
-            
-            section.buttons {
-              /* border: 4px dashed red; */
-              overflow: hidden;
-            }
 
-</style>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
@@ -153,12 +56,12 @@
 <body>
 	<div class="container">
 	<br>><br/>
-		<h1 class="bg-info text-center">내 프로필 수정</h1>
+		<h1 class="text-center">내 프로필 수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 
-		  <input type="hidden" name="email"	value="${user.email}"/>
+		  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 
 		
 		
@@ -169,6 +72,8 @@
 		    </div>
 		  </div>
 		  
+		  
+		  
 		  <div class="form-group">
 		    <label for="studyRoomGrade" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
 		    <div class="col-sm-4">
@@ -177,7 +82,7 @@
 		  </div>
 		 
  		 <div class="radio">
-  <label>
+<%--   <label>
     <input type="radio" name="gender" id="gender" value="${user.gender}" checked>
     남성
   </label>
@@ -188,7 +93,7 @@
     여성
   </label> 
 </div>
-<div class="radio disabled">
+<div class="radio disabled"> --%>
 
 </div>
 		 
@@ -275,7 +180,7 @@
 
 
 		  
-		   
+	<!--    
 		               <div class="col-sm-10 container-box">
                 <div class="inner-container-box">
                     <h3>관심 분야 설정</h3>
@@ -311,7 +216,7 @@
             </div>
         </div>
     </div>
- </div> 
+ </div>  -->
 		  
 		  
 		  
@@ -323,3 +228,5 @@
 		
  	</div>
 </body>
+</html>
+>>>>>>> refs/heads/master

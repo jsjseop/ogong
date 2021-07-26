@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+        <!-- Bootstrap -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요한) -->
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <!-- 모든 합쳐진 플러그인을 포함하거나 (아래) 필요한 각각의 파일들을 포함하세요 -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- Respond.js 으로 IE8 에서 반응형 기능을 활성화하세요 (https://github.com/scottjehl/Respond) -->
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,15 +24,14 @@
 <div class="wrapper">
 	<form id="join_form" method="post" ">
 	<div class="wrap">
-			<div class="subjecet">
-				<span>비밀번호 변경</span>
-			</div>
+
 			<div class="id_wrap">
 
 
 			<div class="mail_wrap">
-				<div class="mail_name">이메일</div> 
-				<div class="mail_input_box">
+				    <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+                    <div class="col-lg-10">
+				<div class="form-control">
 					<input class="mail_input" name="email">
 				</div>
 				<span class="final_mail_ck">이메일을 입력해주세요.</span>
@@ -33,6 +40,7 @@
 					<div class="mail_check_input_box" id="mail_check_input_box_false">
 						<input class="mail_check_input" disabled="disabled">
 					</div>
+					<
 					<div class="mail_check_button">
 						<span>인증번호 전송</span>
 					</div>
@@ -46,6 +54,16 @@
 			</div>
 		</div>
 	</form>
+	
+		<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+        
+     </style>
+	
+	
+	
 </div>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

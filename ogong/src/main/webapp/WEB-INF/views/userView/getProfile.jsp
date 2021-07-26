@@ -34,9 +34,10 @@
 	
 	<!-- 11 -->
 	<style>
- 		body {
-            padding-top : 50px;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+        
      </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -61,19 +62,43 @@
 	</script>
 	
 </head>
+
+
 <body>
 <form name="detailForm" method="post">
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
-	
+ 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+ 
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
+	
+	<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+	
+	
+	
+	
 	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">스터디보기</h3>
+	      <h1>${user.nickname}의 프로필</h1>
 	    </div>
 	
 			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
@@ -114,14 +139,17 @@
 		</div>
 		
 				<div class="row">
+				
+				<hr/>
+				
 	  		<div class="col-xs-4 col-md-2"><strong>관심사</strong></div>
-			<div class="col-xs-8 col-md-4">${user.studyInterest1}</div>
-			<div class="col-xs-8 col-md-4">${user.studyInterest2}</div>
-			<div class="col-xs-8 col-md-4">${user.studyInterest3}</div>
+
+			  <button type="button" class="btn btn-default btn-lg">${user.studyInterest1}</button>
+					  <button type="button" class="btn btn-default btn-lg">${user.studyInterest2}</button>
+					  <button type="button" class="btn btn-default btn-lg">${user.studyInterest3}</button>
 			
 		</div>
 		
-		<hr/>
 		
 
 		
