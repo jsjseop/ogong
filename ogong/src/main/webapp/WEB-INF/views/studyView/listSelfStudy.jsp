@@ -1,20 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
 <title>스터디 목록</title>
 
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 <!-- Bootstrap Dropdown Hover CSS -->
 <link href="/css/animate.min.css" rel="stylesheet">
 <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
@@ -22,67 +19,126 @@
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 <script type="text/javascript">
-   function fncGetList(currentPage) {
-      $('#currentPage').val(currentPage);
-      $('form').attr('action','/selfStudy/listStudy?studyType=${studyType}').attr('method','POST').submit();
-   }
-/*    function fncWrite(user) {
-      console.log("확인용 : " + user);
-      if (user == null || user == "") {
-         alert("로그인 후 이용 가능합니다.");
-         return;
-      }
-      location.href = "/board/addBoard";
-   } */
-   $(function() {
-	   
-	  $('img').on('click', function() {
-	      let studyNo = $(this).parent().parent().children('input').val();
-	      alert(studyNo);
-	      location.href = "/selfStudy/getStudy?studyNo="+studyNo+"&studyType="+`${studyType}`;
-	  })
-      
-      $('button:contains("검색")').on('click', function(){
-         
-         fncGetList('1');
-      })
-      
-   })
-   
-   $(function(){
-         
-          $("#searchKeyword").keydown(function (key) {
-          
-              if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
-                 fncGetList('1');
-              }
-          });
-      });
+
+	
+
+	function fncGetList() {
+		$('form').attr('action', '/selfStudy/listStudy?studyType=${studyType}')
+				.attr('method', 'POST').submit();
+	}
+	
+	function getStudyList(page) {
+		$.ajax({
+			type : 'post',
+			url : "/selfStudy/json/listStudy",
+			data : JSON.stringify({currentPage: page,
+									searchKeyword: $("#searchKeyword").val(),
+									studyType: "${studyType}",
+									studyInterest: $("#studyInterest").val(),
+									searchSort: $('#searchSort').val() }),
+			dataType: "json",
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			success : function(result) {				
+				var list = result.list;
+				$("#totalCount").html("전체 "+result.totalCount+"개의 스터디");
+				
+				var addListHtml ="";
+				if(list.length > 0) {
+					$.each(list, function(index, study){
+						
+						addListHtml += '<div class="col-xs-12 col-md-3">';
+						addListHtml += '<a class="thumbnail">';
+						addListHtml += '<img src="/resources/upload_files/study/green.jpg" alt="None"></a>';
+						addListHtml += '<input type="hidden" value="'+study.studyNo+'">';
+						addListHtml += '<p class="text-center">'+study.studyName+' &nbsp;&nbsp;&nbsp;';
+						addListHtml += study.currentMember+'/'+study.maxMember+'</p>';
+						addListHtml += '<p class="text-center">'+study.studyHashtag+'</p>';
+						addListHtml += '<p class="text-center">'+study.studyStartDate+'~'+study.studyEndDate+'</p>';
+						addListHtml += '</div>';
+							
+					});
+					$("#list").append(addListHtml);
+				}
+			},
+			error:function(request, status, error){
+				
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
+
+	$(function() {
+
+		$('img').on('click',function() {
+					let studyNo = $(this).parent().parent().children('input').val();
+					alert(studyNo);
+					location.href = "/selfStudy/getStudy?studyNo=" + studyNo
+							+ "&studyType=" + `${studyType}`;
+				});
+
+		$('button:contains("검색")').on('click', function() {
+
+			fncGetList();
+		});
+		
+		$("#searchKeyword").keydown(function(key) {
+
+			if (key.keyCode == 13) {//키가 13이면 실행 (엔터는 13)
+				fncGetList();
+			}
+		});
+		
+		$('#searchSort').on('change', function(){
+			$('#list').empty();
+			page = 1;
+			getStudyList(page);
+		})
+		
+		$('#studyInterest').on('change', function(){
+			$('#list').empty();
+			page = 1;
+			getStudyList(page);
+		})
+		
+	})
+	
+	var page = 1;
+	$(window).scroll(function() {
+		  if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight)){
+		      console.log(++page);
+		      
+		      getStudyList(page);
+		  }
+	});
 </script>
 <style>
 body {
-   padding-top: 30px;
+	padding-top: 30px;
 }
+
 .row {
-    margin: 80px 0px 80px 0px;
-    }
+	margin: 80px 0px 80px 0px;
+}
 
 img {
-    -webkit-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    transform: scale(1, 1);
-    transition-duration: 0.3s;
-    }
+	-webkit-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	transform: scale(1, 1);
+	transition-duration: 0.3s;
+}
 
 img:hover {
 	cursor: pointer;
-	-webkit-transform: scale(1.5, 1.5);
-    -ms-transform: scale(1.5, 1.5);
-    transform: scale(1.5, 1.5);
-    transition-duration: 0.3s;
-    box-shadow: 10px 10px 5px #888888;
-    z-index: 1;
-    }
+	-webkit-transform: scale(1.1, 1.1);
+	-ms-transform: scale(1.1, 1.1);
+	transform: scale(1.1, 1.1);
+	transition-duration: 0.3s;
+	box-shadow: 10px 10px 5px #888888;
+	z-index: 1;
+}
 </style>
 </head>
 
@@ -92,12 +148,12 @@ img:hover {
 
 	<div class="container">
 
-		<div class="page-header text-default">
+		<div class="page-header text-center">
 			<c:if test="${studyType == 'self'}">
-				<h3>자율 스터디 목록</h3>
+				<h3>자율 스터디</h3>
 			</c:if>
 			<c:if test="${studyType == 'group'}">
-				<h3>그룹 스터디 목록</h3>
+				<h3>그룹 스터디</h3>
 			</c:if>
 		</div>
 
@@ -105,22 +161,43 @@ img:hover {
 		<div class="row">
 
 			<div class="col-md-6 text-left">
-				<p class="text-default">전체 ${totalCount} 건수, 현재 ${currentPage}
-					페이지</p>
+				<p class="text-default" id="totalCount">전체 ${totalCount} 개의 스터디</p>
 			</div>
 
 			<div class="col-md-6 text-right">
 				<form class="form-inline" name="detailForm">
-
 					<div class="form-group">
-						<select name="searchCondition" class="form-control"
-							style="width: 110px">
-							<option value="0"
-								${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
+						<select class="form-control" id="studyInterest" name="studyInterest" data-width="120px">
+							<option value="0">전체</option>
 							<option value="1"
-								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
+								${! empty search.studyInterest && search.studyInterest== 1 ? "selected" : ""  }>독서</option>
 							<option value="2"
-								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+								${! empty search.studyInterest && search.studyInterest== 2 ? "selected" : ""  }>어학</option>
+							<option value="3"
+								${! empty search.studyInterest && search.studyInterest== 3 ? "selected" : ""  }>임용</option>
+							<option value="4"
+								${! empty search.studyInterest && search.studyInterest== 4 ? "selected" : ""  }>취업</option>
+							<option value="5"
+								${! empty search.studyInterest && search.studyInterest== 5 ? "selected" : ""  }>공무원</option>
+							<option value="6"
+								${! empty search.studyInterest && search.studyInterest== 6 ? "selected" : ""  }>자격증</option>
+							<option value="7"
+								${! empty search.studyInterest && search.studyInterest== 7 ? "selected" : ""  }>자기계발</option>
+							<option value="8"
+								${! empty search.studyInterest && search.studyInterest== 8 ? "selected" : ""  }>기타공부</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<select class="form-control" id="searchSort" name="searchSort" data-width="120px">
+							<option value="0"
+								${! empty search.searchSort && search.searchSort== 0 ? "selected" : ""  }>최신순</option>
+							<option value="1"
+								${! empty search.searchSort && search.searchSort== 1 ? "selected" : ""  }>오래된순</option>
+							<option value="2"
+								${! empty search.searchSort && search.searchSort== 2 ? "selected" : ""  }>인원많은순</option>
+							<option value="3"
+								${! empty search.searchSort && search.searchSort== 3 ? "selected" : ""  }>인원적은순</option>
 						</select>
 					</div>
 
@@ -133,17 +210,19 @@ img:hover {
 
 					<button type="button" class="btn btn-default">검색</button>
 
-					<input type="hidden" id="currentPage" name="currentPage" value="" />
+					<input type="hidden" id="currentPage" name="currentPage" value="1" />
 				</form>
-			</div><br/><hr/>
-
+			</div>
+			<br />
+			<hr />
+		</div>
+		<div class="row" id="list">
 			<c:forEach var="study" items="${list}">
-				<div class="col-xs-6 col-md-3">
+				<div class="col-xs-12 col-md-3">
 					<a class="thumbnail"> <img
 						src="/resources/upload_files/study/green.jpg" alt="None">
-					</a>
-					<input type="hidden" value="${study.studyNo}">
-					<p class="text-center">${study.studyName} &nbsp;&nbsp;&nbsp;
+					</a> <input type="hidden" value="${study.studyNo}">
+					<p class="text-center">${study.studyName}&nbsp;&nbsp;&nbsp;
 						${study.currentMember}/${study.maxMember}</p>
 					<p class="text-center">${study.studyHashtag}</p>
 					<p class="text-center">${study.studyStartDate}~
@@ -151,8 +230,8 @@ img:hover {
 				</div>
 			</c:forEach>
 		</div>
-		
-		
+
+
 
 	</div>
 	<!--  table End /////////////////////////////////////-->
