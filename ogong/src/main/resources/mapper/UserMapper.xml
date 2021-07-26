@@ -74,7 +74,7 @@
     #{userImage:VARCHAR},
     #{goal:VARCHAR},
     #{withdrawDate:DATE},
-    #{withdrawReason:VARCHAR},
+    #{withdrawreason:VARCHAR},
     #{restoreDate:DATE},
     #{restoreReason:VARCHAR},
     #{diligenceRate:NUMERIC},

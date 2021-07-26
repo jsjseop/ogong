@@ -40,14 +40,16 @@
 				<span class="final_id_ck">닉네임를 입력해주세요.</span>			
 			</div>
 			<div class="pw_wrap">
-				<div class="pw_name">비밀번호</div>
+		                    <label for="inputPassword" class="col-lg-2 control-label">패스워드</label>
+                    <div class="col-lg-10">
 				<div class="form-control">
 					<input class="pw_input" type="password" name="password">
 				</div>
 				<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
 			</div>
 			<div class="pwck_wrap">
-				<div class="pwck_name">비밀번호 확인</div>
+				                    <label for="inputPasswordCheck" class="col-lg-2 control-label">패스워드 확인</label>
+                    <div class="col-lg-10">
 				<div class="form-control">
 					<input class="pwck_input" type="password">
 				</div>
@@ -57,7 +59,8 @@
 			</div>
 
 			<div class="mail_wrap">
-				<div class="mail_name">이메일</div> 
+				    <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+                    <div class="col-lg-10">
 				<div class="form-control">
 					<input class="mail_input" name="email">
 				</div>
@@ -76,7 +79,8 @@
 				</div>
 			</div>
 		
-			<div class="join_button_wrap">
+							                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">	
 				<input type="button" class="join_button" value="가입하기">
 			</div>
 		</div>

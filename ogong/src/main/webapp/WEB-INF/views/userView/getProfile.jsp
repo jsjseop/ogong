@@ -61,6 +61,8 @@
 	</script>
 	
 </head>
+
+
 <body>
 <form name="detailForm" method="post">
 
@@ -73,7 +75,7 @@
 	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">스터디보기</h3>
+	      <h1>${user.nickname}의 프로필</h1>
 	    </div>
 	
 			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
@@ -114,10 +116,15 @@
 		</div>
 		
 				<div class="row">
+				<hr/>
+				
+				
+				
 	  		<div class="col-xs-4 col-md-2"><strong>관심사</strong></div>
-			<div class="col-xs-8 col-md-4">${user.studyInterest1}</div>
-			<div class="col-xs-8 col-md-4">${user.studyInterest2}</div>
-			<div class="col-xs-8 col-md-4">${user.studyInterest3}</div>
+            <section class="buttons">
+                <label for="selectbox1">${user.studyInterest1}</label>
+                <label for="selectbox2">${user.studyInterest2}</label>
+                <label for="selectbox3">${user.studyInterest3}</label>
 			
 		</div>
 		
