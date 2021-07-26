@@ -56,6 +56,8 @@
 				.submit();
 	}
 
+	
+	
 	$(function() {
 		
 		$('button:contains("등 록")').on('click', function() {
@@ -108,8 +110,6 @@ body {
 		
 				</div>
 				
-			<!-- </div>
- -->
 			<hr />
 
 			<div align="right">

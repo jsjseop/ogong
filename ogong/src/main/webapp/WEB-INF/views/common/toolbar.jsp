@@ -302,8 +302,8 @@
 		
 	 	//=============  모집게시판 Event  처리 =============
 	 	$( "a:contains('모집게시판')").on("click", function(){
-	 		//location.href = "/board/listBoard?boardCategory="+'5';
-	 		location.href = "/board/listBoard?boardCategory=5";
+	 		location.href = "/board/listBoard?boardCategory="+'5';
+	 		//location.href = "/board/listBoard?boardCategory='5';
 	 	});
 	 	//=============  그룹스터디 Event  처리 =============
 	 	$( "a:contains('그룹스터디')").on("click", function(){

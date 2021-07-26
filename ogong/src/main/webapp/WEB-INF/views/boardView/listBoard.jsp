@@ -4,7 +4,10 @@
 
 <html>
 <head>
-<title>자유게시판</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<title>정보공유 게시판</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,7 +21,6 @@
 <!-- Bootstrap Dropdown Hover CSS -->
 <link href="/css/animate.min.css" rel="stylesheet">
 <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 <script type="text/javascript">
@@ -32,7 +34,7 @@
 	function fncWrite(user) {
 
 		boardNo = location.search.substring(15);
-		alert(boardNo);
+
 		location.href = "/board/addBoard?boardCategory=" + `${boardCategory}`;
 	}
 
@@ -64,9 +66,45 @@
 
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+
+body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+
 body {
 	padding-top: 30px;
 }
+
+table {
+font-family: "Lato","sans-serif";   }       /* added custom font-family  */
+ 
+table.one {                                  
+margin-bottom: 3em; 
+border-collapse:collapse;   }   
+ 
+td {                            /* removed the border from the table data rows  */
+text-align: center;     
+width: 10em;                    
+padding: 1em;       }       
+ 
+th {                              /* removed the border from the table heading row  */
+text-align: center;                 
+padding: 1em;
+background-color: #FFDC3C;       /* added a red background color to the heading cells  */
+color: white;       
+}                 /* added a white font color to the heading text */
+ 
+tr {    
+height: 1em;    }
+ 
+table tr:nth-child(even) {            /* added all even rows a #eee color  */
+    background-color: #FFF8D7;     }
+ 
+table tr:nth-child(odd) {            /* added all odd rows a #fff color  */
+background-color:#fff;      }
+ 
 </style>
 </head>
 
@@ -123,7 +161,7 @@ body {
 							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
 					</div>
 
-					<button type="button" class="btn btn-default">검색</button>
+					<button type="button" class="btn btn-warning">검색</button>
 
 					<input type="hidden" id="currentPage" name="currentPage" value="" />
 				</form>
@@ -141,7 +179,6 @@ body {
 				</tr>
 			</thead>
 			<tbody>
-
 				<c:forEach var="board" items="${list}">
 					<tr>
 						<td align="center">${board.boardNo}</td>
@@ -154,7 +191,7 @@ body {
 			</tbody>
 		</table>
 		<div align="right">
-			<button type="button" class="btn btn-default" style="width: 80px;"
+			<button type="button" class="btn btn-warning" style="width: 80px;"
 				onclick="javascript:fncWrite('${writer.email}')">글쓰기</button>
 		</div>
 		<!--  table End /////////////////////////////////////-->

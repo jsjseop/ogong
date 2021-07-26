@@ -9,13 +9,10 @@ public class Answer {
 
 	private int answerNo;
 	private String answerContents;
-	private boolean adoption;
 	private Date answerRegDate;
 	private User answerWriter;
 	private int boardNo;
 	private String adoptionFlag;
-	private Date adoptionDate;
-	private int adoptionCount;
-	
+	private Date adoptionDate;	
 
 }
