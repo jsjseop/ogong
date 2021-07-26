@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>게시판</title>
+<title>Q&A 게시판 보기</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,10 +14,9 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
  -->
- <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>  
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -48,97 +47,50 @@
 	}
 
 	
-	function recommend() {
+	function getAnswerList() {
 		var cnt = $('#cnt');
 		$.ajax({
-			url:'/board/updateRecommend',
-			type:'post',
-			data: {
-				'boardNo': boardNo
-			},
+			url:"/board/listAnswer/"+boardNo,
+			type:'get',	
 			dateType:'json',
 			success:function(res){
-				cnt.text(res);
-			}
-		});
-	}
-	
-	
-	function getCommentList(type) {
-		if('M' === type){
-			currentPage = currentPage+1; 
-		}
-		$.ajax({
-			url:'/board/listComment',
-			type:'get',
-			data: {
-				'boardNo': boardNo,
-				'currentPage': currentPage,
-				'pageSize': pageSize
-			},
-			dateType:'json',
-			success:function(res){
-				var list = res.list;
-				var ul = $('#listComment');
-				
+				var list = res;
+				var ul = $('#listAnswer');
+
 				for(var i=0 ; i<list.length ; i++){
 					var record = list[i];
 					var li = $("<li>");
 
-					var commenContents = $("<div class='commenContents'>");
-					var commentRegDate = $("<div class='commentRegDate'>");
+					var title = $("<div class='boardTitle'>");
+					var answerContents = $("<div class='answerContents'>");
+					var answerDate = $("<div class='answerDate'>");
 					var nickname = $("<div class='nickname'>");
+					var button = $("<a id='modal-872384' href='#modal-container-872384' role='button'"
+							+"class='btn' data-toggle='modal'>채택</a>");
 					
-
-					commenContents.text(record.commentContents);
-					commentRegDate.text(record.commentRegDate);
-					nickname.text(record.nickname);
+					title.text(boardTitle);
+					answerContents.text(record.answerContents);
+					answerDate.text(record.answerRegDate);
+					nickname.text(record.answerWriter.nickname);
 				
-
-					commenContents.appendTo(li);
-					commentRegDate.appendTo(li);
+					title.appendTo(li);
+					answerContents.appendTo(li);
+					answerDate.appendTo(li);
 					nickname.appendTo(li);
 					
 					li.appendTo(ul);
-				}
-			}
-		});
-	}
-	
-	function addComment() {
-		var commentContents = $('#comment').val();
-		currentPage = 1; 
-		$.ajax({
-			url:'/board/addComment',
-			type:'post',
-			data: {
-				'boardNo': boardNo,
-				'currentPage': currentPage,
-				'pageSize': pageSize,
-				'commentContents': commentContents
-			},
-			dateType:'json',
-			success:function(res){
-				if (res) {
-					var ul = $('#listComment');
-					ul.children('li').remove();
 					
-					getCommentList();
-				} else{
-					alert('실패');
+					ul.append()
 				}
 			}
 		});
 	}
-	
-	function more() {
-		getCommentList('M');
-	}
+
 	
 	$(function() {
-		getCommentList();
+		getAnswerList();
 		
-		$('button:contains("답변등록")').on('click', function() {
+		$('button:contains("등 록")').on('click', function() {
 
 			location.href = "/board/addBoard?boardCategory=" + boardCategory +"&boardTitle=" +boardTitle;
 		})
@@ -162,7 +114,7 @@
 	
 </script>
 <style>
-body{
+body {
 	padding-top: 20px;
 }
 
@@ -176,64 +128,80 @@ pre {
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 
-	<div class="container">
-		<div class="page-header">
-			<h3 class=" text-default">Q&A 상세보기</h3>
-		</div>
-
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-4 col-md-2">
-				<strong>등록일자</strong>
-			</div>
-			<div class="col-xs-8 col-md-4">${board.boardRegDate}</div>
-		</div>
+			<div class="col-md-12">
 
-		<hr />
-		<div class="row">
-			<div class="col-xs-1 col-md-1">
-				<strong>조회수</strong>
-			</div>
-			<div class="col-xs-8 col-md-3">${board.viewCount}</div>
-		</div>
+				<div class="page-header">
+					<div class="row">
+						<div class="col-xs-4 col-md-2">
+							<strong>제목</strong>
+						</div>
+						<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
+					</div>
+				</div>
 
-		<hr />
-		
-		<div class="row">
-			<div class="col-xs-4 col-md-2">
-				<strong>제 목</strong>
-			</div>
-			<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
-		</div>
+				<div class="row">
+					<div class="col-xs-4 col-md-2">
+						<strong>내 용</strong>
+					</div>
+					<div class="col-xs-8 col-md-4">
+						<pre style="width: 350px; height: 150px;">${board.boardContents}</pre>
+					</div>
+				</div>
 
-		<hr />
-
-		<div class="row">
-			<div class="col-xs-4 col-md-2">
-				<strong>내 용</strong>
-			</div>
-			<div class="col-xs-8 col-md-4">
-				<pre style="width: 450px; height: 150px;">${board.boardContents}</pre>
-			</div>
-		</div>
-
-		<hr />
-		
+				<div align="right">
 
 
-		<div align="right">
-			<div id="recommend" class="btn btn-default" onclick="recommend()" style="width: 60px;">추 천 <span id="cnt">0 </span></div>
-			
-			<c:if test="${user.userId == board.writer.email || user.role == 'admin'}">
-				<c:if test="${user.userId == board.writer.email}"> 
-				
-				
-					<button type="button" class="btn btn-default" style="width: 80px;">답변등록</button>
+					<button type="button" class="btn btn-success" style="width: 80px;">답변등록</button>
+
+					<c:if test="${user.userId == board.writer.email}">
+						<button type="button" class="btn btn-warning" style="width: 60px;">수정</button>
+						<button type="button" class="btn btn-warning" style="width: 60px;">삭제</button>
+					</c:if>
+					<button type="button" class="btn btn-warning" style="width: 60px;">목록</button>
+					<button type="button" class="btn btn-danger" style="width: 60px;">신고</button>
+				</div>
+
+				<div class="page-header">
+					<h1>${board.answerCount}개의답변이달렸습니다.</h1>
+				</div>
+				<ul id="listAnswer">
 					
-					<button type="button" class="btn btn-default" style="width: 60px;">수 정</button>
-				</c:if> 
-				<button type="button" class="btn btn-default" style="width: 60px;">삭 제</button>
- 			</c:if> 
-			<button type="button" class="btn btn-default" style="width: 60px;">목 록</button>
+				</ul>
+				
+
+
+				
+
+
+
+
+
+				<div class="modal fade" id="modal-container-872384" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">채택확인 여부</h5>
+								<button type="button" class="close" data-dismiss="modal">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">이 글을 채택하시겠습니까?</div>
+							<div class="modal-footer">
+
+								<button type="button" class="btn btn-primary">네</button>
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">아니요</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
 		</div>
 	</div>
 

@@ -1,5 +1,8 @@
 package com.ogong.service.user.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +31,6 @@ public class UserServiceImpl implements UserService{
 
 
 
-
 	@Override
 	public User getProfile(String email) throws Exception {
 		// TODO 자동 생성된 메소드 스텁
@@ -46,12 +48,7 @@ public class UserServiceImpl implements UserService{
 	  
 	  }
 	 
-	/* 아이디 중복 검사 */
-	@Override
-	public int idCheck(String email) throws Exception {
-		
-		return userDAO.idCheck(email);
-	}
+
 
 	@Override
 	public User getPassword(String email) throws Exception {
@@ -100,6 +97,37 @@ public class UserServiceImpl implements UserService{
 		userDAO.updategoal(user);
 
 		
+	}
+
+
+
+
+
+
+
+
+	/*
+	 * @Override public List<Board> userboardList(Board board) throws Exception { //
+	 * TODO Auto-generated method stub return null; }
+	 */
+	//회원탈퇴
+	@Override
+	public void withdrawreason(User user) throws Exception {
+		userDAO.withdrawreason(user);
+		
+	}
+
+
+
+
+
+
+
+
+	@Override
+	public void restore(User user) throws Exception {
+		// TODO Auto-generated method stub
+		userDAO.restore(user);
 	}
 
 	/*

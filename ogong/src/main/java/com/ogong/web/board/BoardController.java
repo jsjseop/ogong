@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,33 @@ public class BoardController {
 	 * 
 	 * return "/boardView/addAnswer"; }
 	 */
+	@GetMapping("addAnswer")
+	public String addAnswer(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
+	/*
+	 * @GetMapping("addAnswer") public String addAnswer(@RequestParam("boardNo") int
+	 * boardNo, Model model) throws Exception {
+	 * 
+	 * Board board = new Board(); board.setBoardNo(boardNo);
+	 * 
+	 * board = boardService.getBoard(board);
+	 * 
+	 * 
+	 * model.addAttribute("board", board);
+	 * 
+	 * return "/boardView/addAnswer"; }
+	 */
+
+		Board board = new Board();
+		board.setBoardNo(boardNo);
+		
+		board = boardService.getBoard(board);
+		
+		
+		model.addAttribute("board", board);
+		
+		return "/boardView/addAnswer";
+	}
+	
 
 	
 	@PostMapping("addAnswer")
@@ -107,6 +135,7 @@ public class BoardController {
 		board.setBoardInterest("2");
 		board.setFileFlag("2");
 		board.setBoardCategory(boardCategory);
+		
 		
 		boardService.addBoard(board);
 		System.out.println(board);
@@ -128,19 +157,28 @@ public class BoardController {
 	
 	
 	@GetMapping("getBoard")
-	public String getBoard(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
+	public String getBoard(@RequestParam("boardNo") int boardNo, HttpSession session, Model model) throws Exception {
 		//, @RequestParam("boardCategory") String boardCategory
 		System.out.println("boardNo" + boardNo);
-
+		
+		
+		User user = (User)session.getAttribute("user");
+		
 		boardService.updateViewcnt(boardNo);
 		
 		Board board = new Board();
 		board.setBoardNo(boardNo);
 		//board.setBoardCategory(null);
 		
+		
+		
 		board = boardService.getBoard(board); 
 		
+		System.out.println("board 확인 :::"+board);
+		System.out.println("user 확인 :::"+user);
+		
 		model.addAttribute("board", board);
+		model.addAttribute("user", session.getAttribute("user"));
 
 		
 		if (board.getBoardCategory().equals("2")) {

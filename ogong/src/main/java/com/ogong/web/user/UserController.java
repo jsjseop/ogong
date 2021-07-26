@@ -12,12 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,11 +41,15 @@ import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
+import ch.qos.logback.core.joran.conditional.Condition;
+import jdk.internal.org.jline.utils.Log;
+
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
 	@Autowired
 	private UserService userService;
@@ -55,6 +62,8 @@ public class UserController {
 	
 	@Autowired	
 	private StudyService studyService;
+
+
 	
 	/*
 	 * @Autowired private StudyService
@@ -89,19 +98,22 @@ public class UserController {
 	// 로그인
 
 	@PostMapping("loginView")
-	public String getUser(@ModelAttribute("email") User user, HttpServletRequest req, RedirectAttributes rttr)
+	public String getUser(@ModelAttribute("email") User user, HttpServletRequest req, RedirectAttributes rttr )
 			throws Exception {
 
 		HttpSession session = req.getSession();
 		User login = userService.getUser(user);
-
+		
+		
+		int condition = 1; 
 		if (login == null) {
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
 			return "/userView/loginView";
+			
 		} else {
 			session.setAttribute("user", login);
-		}
+		} 
 
 		return "redirect:/integration/mainPage";
 	}
@@ -128,6 +140,8 @@ public class UserController {
 	public String getPassword(HttpSession session,User user) throws Exception{
 		
 		userService.getProfile(getPassword());
+		
+		
 		return "/userView/Changedpassword";
 	}
 	
@@ -151,8 +165,10 @@ public class UserController {
 			
 			
 			userService.Changedpassword(user);			
+			session.invalidate();
 			
-			return "index";
+			
+			return "redirect:/";
 		}
 
 		
@@ -237,6 +253,49 @@ public class UserController {
 		  return "/userView/getProfile"; }
 		  
 	 
+		  
+		  //회원탈퇴 이동
+		  @GetMapping("withdrawreason")
+		  public String Withdrawal() throws Exception{
+			  
+			  return "/userView/withdrawreason";
+		  }
+		  
+		  // 회원탈퇴
+		  @PostMapping("withdrawreason")
+			public String Withdrawal(User user , HttpSession session) throws Exception{
+				
+				
+				userService.withdrawreason(user);			
+				session.invalidate();
+
+				
+				
+				return "redirect:/";
+			}
+		  
+		  //회원복구 이동
+		  @GetMapping("restore")
+		  public String restore() throws Exception{
+			  
+			  return "/userView/restore";
+		  }
+		  // 회원복구
+		  @PostMapping("restore")
+			public String restore(User user , HttpSession session) throws Exception{
+				
+				
+				userService.restore(user);			
+				session.invalidate();
+
+				
+				
+				return "redirect:/";
+			}
+		  
+		  
+		  
+		  
 
 	/* 이메일 인증 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -277,93 +336,29 @@ public class UserController {
 
 		return num;
 	}
-
-
-// 아이디 중복 검사
-@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
-@ResponseBody
-public String idCheck(String nickname) throws Exception{
-	
-	
-	logger.info("idCheck() 진입");
-	
-	int result = userService.idCheck(nickname);
-	
-	logger.info("결과값 = " + result);
-	
-	if(result != 0) {
-		
-		return "fail";	// 중복 아이디가 존재
-		
-	} else {
-		
-		return "success";	// 중복 아이디 x
-		
-	}		
 }
-
-
-@RequestMapping("Mypostlist")
-public String Mypostlist(@ModelAttribute("search") Search search, Model model,
-		 HttpServletRequest request) throws Exception {
-
-	if (search.getCurrentPage() == 0) {
-		search.setCurrentPage(1);
-	}
-	search.setPageSize(5);
-	
-	search.setSearchKeyword("");
-	search.setSearchCondition("");
-	
-
-	Board board = new Board();
-	board.setBoardCategory("1");
-	
-	Map<String, Object> map = new HashMap<String, Object>();
-	map.put("search", search);
-	map.put("board",board);
-	
-	List<Board> list = (List<Board>) boardService.listBoard(map);
-	map.get("totalCount");
+	/*
+	 * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
+	 * 
+	 * Log.info("게시판 진입");
+	 * 
+	 * model.addAttribute("list", userService.getList() );
+	 * 
+	 * return "/userView/loginView"; }
+	 */
 
 	
-		
-	model.addAttribute("list", list);
-	model.addAttribute("search", search);
-	
-	return "/userView/Mypostlist";
-}
 
-
-
-
-  @RequestMapping("Mystudylist") public String Mystudylist
-  ( @ModelAttribute("search") Search search, Model model) throws Exception{
-  
-  System.out.println("/study/listStudy 실행");
-  
-  if(search.getCurrentPage() ==0 ){ search.setCurrentPage(1); }
-  
-  search.setPageSize(10);
- 
-  HashMap<String, Object> map = new HashMap<String, Object>();
-  map.put("search", search); map.put("studyType", "group");
- 
-  Map<String, Object> result = studyService.getStudyList(map);
-  
-  model.addAttribute("list", result.get("list"));
-  model.addAttribute("totalCount", result.get("totalCount"));
-  model.addAttribute("search", search);
-  model.addAttribute("studyType","group");
-  
-  return "/userView/Mystudylist";
-  
-  }
  
 
-
-}
-
+			
+				
+		
+	
+  
+  
+  
+  
 
 
 

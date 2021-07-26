@@ -2,6 +2,9 @@ package com.ogong.service.user;
 
 import java.awt.datatransfer.Clipboard;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -31,9 +34,18 @@ public interface UserMapper {
 	//비밀번호 찾기
 	User getPassword(String email);
 	
-	// 아이디 중복체크
+/*	// 아이디 중복체크
 	public int idCheck(String email);
+	// 닉네임 중복체크
+	public int idCheck(String nickname);*/
+	
+	//회원탈퇴
+	void withdrawreason(User user);
+	
+	//회원복구
+	public void restore(User user);
 
+//	public List<Board> getList();
 	
 
 	
@@ -56,6 +68,8 @@ public interface UserMapper {
 	void updategender(User user) throws Exception;
 	// 목표와 각오
 	void updategoal(User user) throws Exception;
+
+	List<Board> getList();
 	
 	
 	

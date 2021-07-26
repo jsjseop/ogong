@@ -61,6 +61,7 @@
 
 <body>
 
+	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
 	<div class="container">
 		
 		<div class="page-header text-center">

@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -18,19 +20,28 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.Value;
 
+@SpringBootApplication
 @Configuration
 @PropertySource("classpath:/application.properties")
 @EnableTransactionManagement
+
+
 public class DatabaseConfiguration {
 	
 	@Autowired
 	private ApplicationContext applicationContext;
+	
+
 	
 	@Bean
 	@ConfigurationProperties(prefix="spring.datasource.hikari")
@@ -66,8 +77,23 @@ public class DatabaseConfiguration {
 	}
     
 
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
+    }
+    
+    
+    public static void main(String[] args) {
+        SpringApplication.run(DatabaseConfiguration.class, args);
+    }
 
+    
+    
 
-		}
+    
+}
+    
+
+    
     
     

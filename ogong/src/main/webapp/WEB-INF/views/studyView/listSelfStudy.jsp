@@ -35,11 +35,12 @@
       location.href = "/board/addBoard";
    } */
    $(function() {
-      $('tbody td:nth-child(2)').on('click', function() {
-         let studyNo = $(this).children('input').val();
-         alert(studyNo);
-         location.href = "/selfStudy/getStudy?studyNo="+studyNo+"&studyType="+`${studyType}`;
-      })
+	   
+	  $('img').on('click', function() {
+	      let studyNo = $(this).parent().parent().children('input').val();
+	      alert(studyNo);
+	      location.href = "/selfStudy/getStudy?studyNo="+studyNo+"&studyType="+`${studyType}`;
+	  })
       
       $('button:contains("검색")').on('click', function(){
          
@@ -62,82 +63,98 @@
 body {
    padding-top: 30px;
 }
+.row {
+    margin: 80px 0px 80px 0px;
+    }
+
+img {
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1);
+    transition-duration: 0.3s;
+    }
+
+img:hover {
+	cursor: pointer;
+	-webkit-transform: scale(1.5, 1.5);
+    -ms-transform: scale(1.5, 1.5);
+    transform: scale(1.5, 1.5);
+    transition-duration: 0.3s;
+    box-shadow: 10px 10px 5px #888888;
+    z-index: 1;
+    }
 </style>
 </head>
 
 <body>
-	
+
 	<jsp:include page="../common/toolbar.jsp" />
 
-   <div class="container">
+	<div class="container">
 
-      <div class="page-header text-default">
-      	<c:if test="${studyType == 'self'}"><h3>자율 스터디 목록</h3></c:if>
-        <c:if test="${studyType == 'group'}"><h3>그룹 스터디 목록</h3></c:if>
-      </div>
+		<div class="page-header text-default">
+			<c:if test="${studyType == 'self'}">
+				<h3>자율 스터디 목록</h3>
+			</c:if>
+			<c:if test="${studyType == 'group'}">
+				<h3>그룹 스터디 목록</h3>
+			</c:if>
+		</div>
 
-      <!-- table 위쪽 검색 Start /////////////////////////////////////-->
-      <div class="row">
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		<div class="row">
 
-         <div class="col-md-6 text-left">
-            <p class="text-default">전체 ${totalCount} 건수, 현재
-               ${currentPage} 페이지</p>
-         </div>
+			<div class="col-md-6 text-left">
+				<p class="text-default">전체 ${totalCount} 건수, 현재 ${currentPage}
+					페이지</p>
+			</div>
 
-         <div class="col-md-6 text-right">
-            <form class="form-inline" name="detailForm">
+			<div class="col-md-6 text-right">
+				<form class="form-inline" name="detailForm">
 
-               <div class="form-group">
-                  <select name="searchCondition" class="form-control"
-                     style="width: 110px">
-                     <option value="0"
-                        ${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
-                     <option value="1"
-                        ${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
-                     <option value="2"
-                        ${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
-                  </select>
-               </div>
+					<div class="form-group">
+						<select name="searchCondition" class="form-control"
+							style="width: 110px">
+							<option value="0"
+								${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
+							<option value="1"
+								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
+							<option value="2"
+								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+						</select>
+					</div>
 
-               <div class="form-group">
-                  <label class="sr-only" for="searchKeyword">검색어</label> <input
-                     type="text" class="form-control" id="searchKeyword"
-                     name="searchKeyword" placeholder="검색어"
-                     value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
-               </div>
+					<div class="form-group">
+						<label class="sr-only" for="searchKeyword">검색어</label> <input
+							type="text" class="form-control" id="searchKeyword"
+							name="searchKeyword" placeholder="검색어"
+							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+					</div>
 
-               <button type="button" class="btn btn-default">검색</button>
+					<button type="button" class="btn btn-default">검색</button>
 
-               <input type="hidden" id="currentPage" name="currentPage" value="" />
-            </form>
-         </div>
-      </div>
+					<input type="hidden" id="currentPage" name="currentPage" value="" />
+				</form>
+			</div><br/><hr/>
 
-      <table class="table table-hover table-striped">
-         <thead>
-            <tr>
-               <th align="center">관 심 사</th>
-               <th align="center">제목</th>
-               <th align="center">썸네일</th>
-               <th align="center">모집 기간</th>
-               <th align="center">인 원</th>
-            </tr>
-         </thead>
-         <tbody>
+			<c:forEach var="study" items="${list}">
+				<div class="col-xs-6 col-md-3">
+					<a class="thumbnail"> <img
+						src="/resources/upload_files/study/green.jpg" alt="None">
+					</a>
+					<input type="hidden" value="${study.studyNo}">
+					<p class="text-center">${study.studyName} &nbsp;&nbsp;&nbsp;
+						${study.currentMember}/${study.maxMember}</p>
+					<p class="text-center">${study.studyHashtag}</p>
+					<p class="text-center">${study.studyStartDate}~
+						${study.studyEndDate}</p>
+				</div>
+			</c:forEach>
+		</div>
+		
+		
 
-            <c:forEach var="study" items="${list}">
-               <tr>
-               	  <td align="left">${study.studyInterest}</td>
-                  <td align="left">${study.studyName}<input type="hidden"
-                     value="${study.studyNo}" /></td>
-                  <td align="left">${study.studyThumbnail}</td>
-                  <td align="left">${study.recruitmentStartDate} ~ ${study.recruitmentEndDate} </td>
-                  <td align="left">${study.currentMember}/${study.maxMember}</td>
-               </tr>
-            </c:forEach>
-         </tbody>
-      </table>
-      </div>
-      <!--  table End /////////////////////////////////////-->
+	</div>
+	<!--  table End /////////////////////////////////////-->
 </body>
 </html>

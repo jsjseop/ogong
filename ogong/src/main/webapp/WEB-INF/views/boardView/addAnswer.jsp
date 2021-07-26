@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Q&A 게시글 쓰기</title>
+<title>Q&A 답변 쓰기</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,11 +16,6 @@
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-<script src="/summernote/summernote-lite.js"></script>
-<script src="/summernote/lang/summernote-ko-KR.js"></script>
-
-<link rel="stylesheet" href="/summernote/summernote-lite.css">
 
 <!-- Bootstrap Dropdown Hover CSS -->
 <link href="/css/animate.min.css" rel="stylesheet">
@@ -33,6 +28,9 @@
 </script>
 
 <script type="text/javascript">
+
+let boardTitle = "<c:out value='${board.boardTitle}'/>";
+
 	function fncAddBoard() {
 
 		let name = $('input[name="boardTitle"]').val();
@@ -42,12 +40,8 @@
 			alert("제목을 입력해주세요.");
 			return;
 		}
-		if (detail == null || detail.length < 5) {
-			alert("5글자 이상 입력해주세요.");
-			return;
-		}
 
-		$('form').attr('method', 'POST').attr('action', '/board/addBoard')
+		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory="+`${boardCategory}`)
 				.submit();
 	}
 
@@ -84,7 +78,6 @@ body {
 	       		<c:if test="${boardCategory == '2'}">
 	       				<h3>Q&A 게시판</h3>
 	       		</c:if>
-
 	       		<c:if test="${boardCategory == '3'}">
 	       				<h3>합격후기 게시판</h3>
 	       		</c:if>
@@ -97,12 +90,34 @@ body {
 	       		<c:if test="${boardCategory == '6'}">
 	       				<h3>파일공유 게시판</h3>
 	       		</c:if>
+	       		
+	 <form action='<c:url value='/board/addQaBoard'/>' method="post">
+	 
+	 	<div class="page-header">
+			<h3 class=" text-default">답변등록</h3>
 		</div>
-		<form>
+	 	<input type="hidden" name="userId" value="${writer.email}" />
+	 	
+        <div class="form-group">
+              <label for="exampleFormControlInput1">제목</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" value="${boardTitle}">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">내용</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="contents" rows="10"></textarea>
+          </div>
+        <button type="submit" class="btn btn-info">등 록</button>
+        <button type="button" class="btn btn-secondary">목 록</button>
+    </form>
+
+</div>
+
+
+<%-- 		<form>
 			<input type="hidden" name="userId" value="${writer.email}" />
 
 			<div class="page-header">
-				<h3 class=" text-default">글 쓰기</h3>
+				<h3 class=" text-default">답변 등록</h3>
 			</div>
 
 			<div class="row">
@@ -110,7 +125,7 @@ body {
 					<strong>제 목</strong>
 				</div>
 				<div class="col-xs-8 col-md-4">
-					<input class="form-control" type="text" name="boardTitle"
+					<input class="form-control" type="text" name="boardTitle" value="${boardTitle}"
 						style="width: 500px;" />
 				</div>
 			</div>
@@ -118,35 +133,22 @@ body {
 			<hr />
 
 			<div class="row">
-					<strong>내 용</strong>
+				<div class="col-xs-2 col-md-2">
+					<strong>내  용</strong>
 				</div>
-					<textarea class="summernote" name="boardContents"></textarea>
-						
-						
+				<div class="col-xs-8 col-md-4">
+					<input class="form-control" type="text" name="boardContents"
+						style="width: 500px; height:300px;" />
 				</div>
-				
 			</div>
 
 			<hr />
 
-			<div align="right">
-				<button type="button" class="btn btn-default" style="width: 60px;">등 록</button>
-				<button type="button" class="btn btn-default" style="width: 60px;">취 소</button>
+			<div align="center">
+				<button type="button" class="btn btn-warning" style="width: 60px;">등 록</button>
 			</div>
 		</form>
-	</div>
-	<script>
-	//여기 아래 부분
-$('.summernote').summernote({
-	height: 300,
-	minHeight: null,
-	maxHeight: null,
-	lang : 'ko-KR',
-	onImageUpload: function(files, editor, welEditable) {
-		sendFile(files[0], editor, welEditable);
-		}
-});
-</script>	
+	</div> --%>
 	
 </body>
 </html>

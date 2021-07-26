@@ -1,5 +1,9 @@
 package com.ogong.service.user;
 
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.ogong.service.domain.User;
@@ -13,11 +17,11 @@ public interface UserService {
 	
 	
 	  //로그인? 
-	  public User getUser(User email)throws Exception;
+	  public User getUser(User email) throws Exception;
+		  
+	  
 		
-	  
-//	public User getUser(String email)throws Exception;
-	  
+	  	  
 	   //프로필 보기
 	   public   User getProfile(String email)throws Exception;
 	  
@@ -34,11 +38,19 @@ public interface UserService {
 	   
 	 // 회원탈퇴
 	  
+		void withdrawreason(User user) throws Exception;
 	  
 	 // 회원복구
+
 	  
-	 //  유저 이메일 중복확인 
-		public int idCheck(String email) throws Exception;
+
+
+
+		void restore(User user) throws Exception;
+
+		
+
+		
 
 
 // 프로필수정
@@ -56,6 +68,8 @@ public interface UserService {
 		public void updategender(User user) throws Exception;
 		// 목표와 각오
 		public void updategoal(User user) throws Exception;
+
+
 
 
 
