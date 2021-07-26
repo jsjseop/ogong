@@ -27,6 +27,7 @@ font-family: 'Do Hyeon', sans-serif;
 <script type="text/javascript">
 	$( function(){
 		$("#entrance").on("click", function(){
+			$('video').pause();
 			
 			$.ajax({
     			url: "/selfStudy/entranceStudy/"+`${study.studyNo}`,
@@ -43,6 +44,18 @@ font-family: 'Do Hyeon', sans-serif;
     			}
     		});			
 			
+		});
+		
+		
+		navigator.mediaDevices.getUserMedia({
+			audio: true,
+			video: true
+		}).then((stream) => {
+			var myVideo = document.querySelector("video");
+			myVideo.srcObject = stream;
+			myVideo.onloadedmetadata = function(e) {
+				myVideo.play();        
+		    };
 		});
 	});
 </script>
@@ -88,6 +101,14 @@ font-family: 'Do Hyeon', sans-serif;
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>썸 네 일</strong></div>
 			<div class="col-xs-8 col-md-4">${study.studyThumbnail}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-md-12 text-center">
+					<video src=""></video>
+	  		</div>
 		</div>
 		
 		<hr/>
