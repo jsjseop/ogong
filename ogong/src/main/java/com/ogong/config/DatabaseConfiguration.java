@@ -82,6 +82,7 @@ public class DatabaseConfiguration {
         return new ServerEndpointExporter();
     }
     
+        
     
     public static void main(String[] args) {
         SpringApplication.run(DatabaseConfiguration.class, args);

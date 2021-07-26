@@ -16,7 +16,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
     <!-- Bootstrap Dropdown Hover JS -->
-   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+   <script src="./jquery-3.4.1.min.js"></script>
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <script type="text/javascript">
@@ -55,7 +55,7 @@
 <body>
 	<div class="container">
 	<br>><br/>
-		<h1 class="bg-info text-center">내 프로필 수정</h1>
+		<h1 class="text-center">내 프로필 수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
@@ -70,6 +70,8 @@
 		      <input type="text" class="form-control" id="nickname" name="nickname" value="${user.nickname}" placeholder="닉네임">
 		    </div>
 		  </div>
+		  
+		  
 		  
 		  <div class="form-group">
 		    <label for="studyRoomGrade" class="col-sm-offset-1 col-sm-3 control-label">이름</label>

@@ -35,7 +35,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ogong.common.Page;
 import com.ogong.common.Search;
 import com.ogong.service.admin.impl.AdminServiceImpl;
+import com.ogong.service.banana.BananaService;
 import com.ogong.service.board.BoardService;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
@@ -64,6 +66,10 @@ public class UserController {
 	private StudyService studyService;
 
 
+	@Autowired
+	private BananaService bananaService;
+
+
 	
 	/*
 	 * @Autowired private StudyService
@@ -79,15 +85,27 @@ public class UserController {
 	// 회원가입
 	@PostMapping("addUser")
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
-
+		
+		
+		user.setBananaCount(10);
 		userService.addUser(user);
 		
 		
-
+		//===========바나나 적립 Start==================
+		String email = user.getEmail();
+		Banana banana = new Banana();
+		banana.setBananaEmail(user);
+		banana.setBananaAmount(10);
+		banana.setBananaHistory("회원가입으로 인한 바나나 적립");
+		banana.setBananaCategory("1");
+		bananaService.addBanana(banana);
+		//===========바나나 적립 END==================
+		
 		return "/userView/loginView";
 
 	}
-
+	
+	
 	// 로그인 화면
 	@GetMapping("loginView")
 	public String loginView() throws Exception {
@@ -107,6 +125,7 @@ public class UserController {
 		
 		int condition = 1; 
 		if (login == null) {
+			System.out.println("아이디또는 비밀번호가 맞지 않습니다");
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
 			return "/userView/loginView";
@@ -244,6 +263,9 @@ public class UserController {
 				return "index";
 			}
 		  
+		
+		
+		
 		  //프로필 보기
 	  
 		  

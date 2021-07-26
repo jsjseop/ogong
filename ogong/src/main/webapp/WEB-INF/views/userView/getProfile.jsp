@@ -34,9 +34,10 @@
 	
 	<!-- 11 -->
 	<style>
- 		body {
-            padding-top : 50px;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+        
      </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -67,11 +68,33 @@
 <form name="detailForm" method="post">
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
-	
+ 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+ 
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
+	
+	<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+	
+	
+	
+	
 	<div class="container">
 	
 		<div class="page-header">
@@ -116,19 +139,17 @@
 		</div>
 		
 				<div class="row">
+				
 				<hr/>
 				
-				
-				
 	  		<div class="col-xs-4 col-md-2"><strong>관심사</strong></div>
-            <section class="buttons">
-                <label for="selectbox1">${user.studyInterest1}</label>
-                <label for="selectbox2">${user.studyInterest2}</label>
-                <label for="selectbox3">${user.studyInterest3}</label>
+
+			  <button type="button" class="btn btn-default btn-lg">${user.studyInterest1}</button>
+					  <button type="button" class="btn btn-default btn-lg">${user.studyInterest2}</button>
+					  <button type="button" class="btn btn-default btn-lg">${user.studyInterest3}</button>
 			
 		</div>
 		
-		<hr/>
 		
 
 		

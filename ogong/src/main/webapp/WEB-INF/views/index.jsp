@@ -4,10 +4,12 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- ///////////////////////////// 로그인시 Forward  /////////////////////////////////////// -->
-<c:if test="${ ! empty user }">
+ <c:if test="${ ! empty user }">
  	<jsp:forward page="main.jsp"/>
-</c:if>
+ </c:if> 
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!DOCTYPE html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
