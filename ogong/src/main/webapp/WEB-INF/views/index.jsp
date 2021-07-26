@@ -6,10 +6,9 @@
  	<jsp:forward page="main.jsp"/>
  </c:if> 
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
 <!DOCTYPE html>
-
-<html lang="ko">
-
+=======
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -122,7 +121,7 @@
                             <img class="img-fluid" src="../resources/images/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">누구나 자유롭게 참여가 가능한</div>
-                                <div class="project-name">자율스터디</div>
+                                <div class="project-name">자유스터디</div>
                             </div>
                         </a>
                     </div>
@@ -165,7 +164,6 @@
                         	오류 및 서비스와 관련된 불편사항은 이곳으로 연락 주세요.</p>
                     </div>
                 </div>
-                </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-4 text-center mb-5 mb-lg-0">
                         <i class="bi-phone fs-2 mb-3 text-muted"></i>
@@ -190,5 +188,3 @@
     </body>
 </html>
 
-
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////////// -->

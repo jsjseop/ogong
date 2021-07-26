@@ -30,6 +30,12 @@ public class CamStudyServiceImpl implements CamStudyService {
 	}
 
 	@Override
+	public CamStudyMember getCamStudyMember(int studyNo, String email) throws Exception {
+		// TODO Auto-generated method stub
+		return camStudyMapper.getCamStudyMember(studyNo, email);
+	}
+
+	@Override
 	public List<CamStudyMember> getCamStudyMemberList(int studyNo) throws Exception {
 		// TODO Auto-generated method stub
 		return camStudyMapper.getCamStudyMemberList(studyNo);

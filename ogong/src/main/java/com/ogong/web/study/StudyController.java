@@ -89,7 +89,7 @@ public class StudyController {
 			search.setCurrentPage(1);
 		}
 		
-		search.setPageSize(10);
+		search.setPageSize(6);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
