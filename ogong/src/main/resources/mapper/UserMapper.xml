@@ -29,7 +29,6 @@
 		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
 		<result property="regDate" 				column="reg_date" 			jdbcType="DATE" />
 		<result property="bananaCount" 			column="banana_count" 		jdbcType="NUMERIC" />
-		<result property="learingType" 			column="learing_type" 		jdbcType="VARCHAR" />
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
@@ -45,6 +44,8 @@
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
     EMAIL,
+    ROLE,
+    CONDITION,
     NICKNAME,
     PASSWORD,
     NAME,
@@ -68,6 +69,8 @@
     STUDY_INTEREST3
 ) VALUES (
     #{email:VARCHAR},
+    '1',
+    '1',
     #{nickname:VARCHAR},
     #{password:VARCHAR},
     #{name:VARCHAR},
@@ -84,7 +87,7 @@
     #{suspendStartDate:DATE},
     #{suspendEndDate:DATE},
     #{userTargetTime:NUMERIC},
-    sysdate,
+    SYSDATE,
     #{bananaCount:NUMERIC},
     #{studyInterest1:VARCHAR},
     #{studyInterest2:VARCHAR},

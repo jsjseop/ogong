@@ -28,8 +28,8 @@ public class IntegrationServiceImpl implements IntegrationService {
 		int totalCount = integrationMapper.getTotalCount(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		result.put("list", list);
+		result.put("totalCount", new Integer(totalCount));
 		
 		return result;
 	}
@@ -40,8 +40,8 @@ public class IntegrationServiceImpl implements IntegrationService {
 		int totalCount = integrationMapper.getTotalCount2(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
+		result.put("list", list);
+		result.put("totalCount", new Integer(totalCount));
 		
 		return result;
 	}

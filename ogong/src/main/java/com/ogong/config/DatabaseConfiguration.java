@@ -73,6 +73,7 @@ public class DatabaseConfiguration {
 	public PlatformTransactionManager txManager() throws Exception {
 		return new DataSourceTransactionManager(dataSource());
 	}
+<<<<<<< HEAD
     
 
     @Bean
@@ -80,6 +81,9 @@ public class DatabaseConfiguration {
         return new ServerEndpointExporter();
     }
     
+=======
+        
+>>>>>>> refs/remotes/origin/master
     
     public static void main(String[] args) {
         SpringApplication.run(DatabaseConfiguration.class, args);

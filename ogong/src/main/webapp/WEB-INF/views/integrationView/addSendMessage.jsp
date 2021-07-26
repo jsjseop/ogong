@@ -4,7 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
     
 <!-- 쪽지 보내기 JSP 시작 -->
-
+	
+	
+	
 	<script type="text/javascript">
 
 	
