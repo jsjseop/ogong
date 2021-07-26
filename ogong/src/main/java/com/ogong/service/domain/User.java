@@ -18,7 +18,7 @@ public class User {
 	private String userImage;
 	private String goal;
 	private String withdrawDate;
-	private String withdrawReason;
+	private String withdrawreason;
 	private String restoreDate;
 	private String restoreReason;
 	private Double diligenceRate;
@@ -31,5 +31,6 @@ public class User {
 	private String studyInterest1;
 	private String studyInterest2;
 	private String studyInterest3;
+
 
 }

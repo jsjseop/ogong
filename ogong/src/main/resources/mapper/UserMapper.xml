@@ -38,20 +38,6 @@
 	</resultMap> 
 	
 
-	<resultMap id="boardSelectMap" 	type="board">
-		<result property="boardNo" 				column="board_no" 				jdbcType="NUMERIC"/>
-		<result property="boardCategory" 		column="board_category" 		jdbcType="VARCHAR" />
-		<result property="boardTitle" 			column="board_title" 			jdbcType="VARCHAR" />
-		<result property="boardContents"		column="board_contents" 		jdbcType="VARCHAR" />
-		<result property="boardInterest" 		column="board_interest" 		jdbcType="NUMERIC" />  
-		<result property="boardRegDate" 		column="board_reg_date" 		jdbcType="DATE" /> 
-		<result property="viewCount" 			column="view_count" 			jdbcType="NUMERIC" />
-		<result property="commentCount" 		column="comment_count" 			jdbcType="NUMERIC" />
-		<result property="boardRegBanana" 		column="board_reg_banana" 		jdbcType="NUMERIC" />
-		<result property="fileFlag" 			column="file_flag" 				jdbcType="NUMERIC" /> 
-		<result property="answerCount" 			column="answer_count" 			jdbcType="NUMERIC" />
-	
-	</resultMap>
 	
 
 	<insert 	id="addUser"		parameterType="user" >
@@ -149,15 +135,22 @@ AND PASSWORD = #{password:VARCHAR}
    
    <!-- 회원탈퇴 -->
    	 <update	id="withdrawreason"	parameterType="user" >
-   DELETE FROM USERS
-   WHERE EMAIL =#{email},
-   AND PASSWORD =#{password}
-   
-   
-   
-   
-   	
-   
+   update USERS
+   SET
+   CONDITION = 2,
+    WITHDRAW_DATE = sysdate
+     where EMAIL= #{email:VARCHAR}
+     </update>
+     <!-- 회원복구 -->
+     <update	id="restore"	parameterType="user" >
+     
+    update USERS
+   SET
+   CONDITION = 1,
+    RESTORE_DATE = sysdate ,
+    RESTORE_REASON =#{restoreReason:VARCHAR}
+     where EMAIL= #{email:VARCHAR}
+
    
    </update>
    
@@ -177,12 +170,7 @@ SELECT count(*)
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
 	 
-	 <select id="getlist" parameterType="string" resultMap="boardSelectMap">
-	 select BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT 
-	 form board
-	 
-	 
-	 </select>
+
 	 
 		
 <!--  	 	       <select id="userboardList" parameterType ="hashmap" resultType="boardSelectMap">

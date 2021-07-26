@@ -20,6 +20,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,7 @@ import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
+import ch.qos.logback.core.joran.conditional.Condition;
 import jdk.internal.org.jline.utils.Log;
 
 @Controller
@@ -47,6 +49,7 @@ import jdk.internal.org.jline.utils.Log;
 public class UserController {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
 	@Autowired
 	private UserService userService;
@@ -95,17 +98,19 @@ public class UserController {
 	// 로그인
 
 	@PostMapping("loginView")
-	public String getUser(@ModelAttribute("email") User user, HttpServletRequest req, RedirectAttributes rttr)
+	public String getUser(@ModelAttribute("email") User user, HttpServletRequest req, RedirectAttributes rttr )
 			throws Exception {
 
 		HttpSession session = req.getSession();
 		User login = userService.getUser(user);
-
 		
+		
+		int condition = 1; 
 		if (login == null) {
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
 			return "/userView/loginView";
+			
 		} else {
 			session.setAttribute("user", login);
 		} 
@@ -269,6 +274,24 @@ public class UserController {
 				return "redirect:/";
 			}
 		  
+		  //회원복구 이동
+		  @GetMapping("restore")
+		  public String restore() throws Exception{
+			  
+			  return "/userView/restore";
+		  }
+		  // 회원복구
+		  @PostMapping("restore")
+			public String restore(User user , HttpSession session) throws Exception{
+				
+				
+				userService.restore(user);			
+				session.invalidate();
+
+				
+				
+				return "redirect:/";
+			}
 		  
 		  
 		  

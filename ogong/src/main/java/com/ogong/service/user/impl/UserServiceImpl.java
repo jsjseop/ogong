@@ -138,6 +138,13 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+
+	@Override
+	public void restore(User user) throws Exception {
+		// TODO Auto-generated method stub
+		userDAO.restore(user);
+	}
+
 	/*
 	 * @Override public User getUser(String email) throws Exception { // TODO
 	 * Auto-generated method stub return userDAO.getUser(email); }

@@ -34,6 +34,8 @@ import lombok.Value;
 @Configuration
 @PropertySource("classpath:/application.properties")
 @EnableTransactionManagement
+
+
 public class DatabaseConfiguration {
 	
 	@Autowired
@@ -84,6 +86,11 @@ public class DatabaseConfiguration {
     public static void main(String[] args) {
         SpringApplication.run(DatabaseConfiguration.class, args);
     }
+
+    
+    
+
+    
 }
     
 

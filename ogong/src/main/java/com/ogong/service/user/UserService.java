@@ -17,7 +17,9 @@ public interface UserService {
 	
 	
 	  //로그인? 
-	  public User getUser(User email)throws Exception;
+	  public User getUser(User email) throws Exception;
+		  
+	  
 		
 	  	  
 	   //프로필 보기
@@ -39,6 +41,8 @@ public interface UserService {
 		void withdrawreason(User user) throws Exception;
 	  
 	 // 회원복구
+		void restore(User user) throws Exception;
+
 		
 	// 내 게시판 리스트	
 	//	public List<Board> myboardlist() throws Exception;

@@ -104,7 +104,7 @@
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
-			  <input type="hidden" name="email"	value="${user.email}"/>
+		  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 
 		  <div class="form-group">
 		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>

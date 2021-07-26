@@ -38,8 +38,11 @@ public interface UserMapper {
 	
 	//회원탈퇴
 	void withdrawreason(User user);
+	
+	//회원복구
+	public void restore(User user);
 
-	public List<Board> getList();
+//	public List<Board> getList();
 	
 
 	
@@ -62,6 +65,8 @@ public interface UserMapper {
 	void updategender(User user) throws Exception;
 	// 목표와 각오
 	void updategoal(User user) throws Exception;
+
+	List<Board> getList();
 	
 	
 	
