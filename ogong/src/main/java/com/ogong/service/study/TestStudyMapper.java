@@ -1,8 +1,6 @@
 package com.ogong.service.study;
 
-
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,14 +13,18 @@ import com.ogong.service.domain.Study;
 @Mapper
 public interface TestStudyMapper {
 
-	void addStudy(Study study);
+	void addStudy(Study study) throws Exception;
 	
-	Study getStudy(int studyNo);
+	Study getStudy(int studyNo) throws Exception;
 	
-	List<Study> getStudyList(Search search);
+	void entranceStudy(int studyNo) throws Exception;
 	
-	int getTotalCount(Search search);
+	void leaveStudy(int studyNo) throws Exception;
 	
-	void updateMember(@Param("studyNo") int StudyNo,@Param("num") int num);
+	List<Study> getStudyList(Search search) throws Exception;
 	
+	int getTotalCount(Search search) throws Exception;
+	
+	void updateMember(@Param("studyNo") int studyNo, @Param("num") int num) throws Exception;
+
 }

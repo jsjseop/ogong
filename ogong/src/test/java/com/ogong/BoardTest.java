@@ -53,7 +53,7 @@ class BoardTest {
 		//board.setCommentCount(0);
 		board.setFileFlag("2");
 
-		boardService.addBoard(board);
+	//	boardService.addBoard(board);
 
 		System.out.println(board);
 
@@ -153,7 +153,7 @@ class BoardTest {
 	@DisplayName("댓글 삭제")
 	void deleteComment() throws Exception {
 
-		boardService.deleteComment(10021);
+	//	boardService.deleteComment(comment);
 
 	}
 
@@ -179,8 +179,8 @@ class BoardTest {
 		board.setBoardNo(10002);
 		user.setEmail("user09");
 		user.setNickname("비트캠프");
-		answer.setAnswerContents("답변 등록 성공");
-//		answer.setBoard(board);
+		//answer.setAnswerContents("답변 등록 성공");
+		//answer.setBoard(board);
 		answer.setAnswerWriter(user);
 		answer.setAdoptionFlag("2");
 

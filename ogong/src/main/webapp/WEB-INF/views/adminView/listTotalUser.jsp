@@ -6,36 +6,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="EUC-KR">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
- <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>	
-	
-	<!--   jQuery , Bootstrap CDN  -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-  
-  	<!-- jQuery UI toolTip 사용 CSS-->
-  	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  	<!-- jQuery UI toolTip 사용 JS-->
-  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        
+    	<!-- Custom fonts for this template-->
+   	 	<link href="/resources/css/all.min.css" rel="stylesheet" type="text/css">
+    	<link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    	<!-- Custom styles for this template-->
+    	<link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">        
+
+		<!--   jQuery , Bootstrap CDN  -->
+		<link rel="stylesheet" href="/resources/css/listReport.css" >
+		
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	<!--  CSS 추가 : 툴바에 화면 가리는 현상 해결 :  주석처리 전, 후 확인-->
 	<style>
-        body {
-            padding-top : 50px;
+
+        #layoutSidenav_content{
+        width:1000px;
+		height:400px;
+		float:left;
+		margin:6px;
         }
+        
+        #hard{
+		width:400px;
+		height:500px;
+		float:right;
+		margin:30px;
+		margin-top:5.5%;
+		}
+   	</style>
+	<style>
+        body {
+            padding-top : 5px;
+        }       
+   	</style>  	
+   	<style>
+ 		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+		
+		body, 
+		table, 
+		div, 
+		p, 
+		th, 
+		td{
+		font-family: 'Do Hyeon', sans-serif;
+		}   	
    	</style>
    
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -85,7 +109,7 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData, status){
-					
+						
 					}
 				})
 				$("#trRemove").remove();
@@ -93,178 +117,238 @@
 			
 		})
 		
-	 	$( "a:contains('모든 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType=1";
-		});
-		
-	 	$( "a:contains('탈퇴한 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType=2";
-		});
-	 	
-	 	$( "a:contains('복귀한 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType=3";
-		});
-	 	
-	 	$( "a:contains('정지된 회원 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listTotalUser?listType=4";
-		});	 
+ 	 	$("td:nth-child(2)").on("click",function(){
+	 		alert("asd");
+	 		var email = $("td:nth-child(2)").find('input').val()
+	 		alert(email)
+				$.ajax({
+				
+					url : "/admin/json/adminGetUser/"+email,
+					method : "GET" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					
+					success : function(JSONData, status){
+						alert(JSONData.email);
+						var display = "<div style='height: 40px' class='getUser'>"
+									+ "<span> 이메일 ="+JSONData.email+"</span>"
+									+ "<span> 상태 ="+JSONData.condition+"</span>"
+									+ "<span> 닉네임 ="+JSONData.nickname+"</span>"
+									+ "</div>";
+									
+						$("#"+email+"").append(diplay);
+						
+					}
+					
+				})
+	 	});
 	 	
 	})
 	
-	function updateUserRestore(){
-		
-		$.ajax({
-			
-			url : "/admin/json/updateUserRestore/"+email,
-			method : "GET" ,
-			dataType : "json" ,
-			headers : {
-				"Accept" : "application/json",
-				"Content-Type" : "application/json"
-			},
-			success : function(JSONData, status){
-				
-			}
-		});
-		
-		
-	}
-	
+
+ 
 	</script>   	
 </head>
-<body>
-	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="../common/toolbar.jsp" />
-	<!-- ToolBar End /////////////////////////////////////-->
+<body class="contatiner">
 
-	<div class="contatiner">
-	
-	<!-- 각 목록에 타입을 지정하여 해당하는 목록을 출력 -->
-		<div class="page-header text-info">
-				<c:if test="${listType == 1}">
-	       				<h3>모든 회원 목록</h3>
-	       		</c:if>						
-	       		<c:if test="${listType == 2}">
-	       				<h3>탈퇴한 회원 목록</h3>
-	       		</c:if>
-	       		<c:if test="${listType == 3}">
-	       				<h3>복귀한 회원 목록</h3>
-	       		</c:if>
-	       		<c:if test="${listType == 4}">
-	       				<h3>정지된 회원 목록</h3>
-	       		</c:if>
-	    </div>
+      
 
-	    <ul class="nav nav-tabs">
-  			<li role="presentation"><a href="#">모든 회원 목록</a></li>
-  			<li role="presentation"><a href="#">탈퇴한 회원 목록</a></li>
-  			<li role="presentation"><a href="#">복귀한 회원 목록</a></li>
-  			<li role="presentation"><a href="#">정지된 회원 목록</a></li>
-		</ul>
+            
+			<jsp:include page="../common/adminSideBar.jsp" />
+			
+			
+                        <div id="hard" class="col-xl-6 col-lg-5">
+                            <div class="card shadow mb-8">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">회원 정보 보기</h6>                                    
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4">
+										<ul id="ohmy">
+										</ul>                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+              
+            
+            
+            <div id="layoutSidenav_content"  class="col-xl-7 col-lg-12" >
+                    <div class="container-fluid px-1">
+			       		<c:if test="${listType == 1}">
+			       				<h2 class="mt-5">&nbsp&nbsp모든 회원</h2>
+			       		</c:if>
+			       		<c:if test="${listType == 2}">
+			       				<h2 class="mt-5">&nbsp&nbsp탈퇴한 회원</h2>
+			       		</c:if>
+			       		<c:if test="${listType == 3}">
+			       				<h2 class="mt-5">&nbsp&nbsp복구한 회원</h2>
+			       		</c:if>         
+			       		<c:if test="${listType == 4}">
+			       				<h2 class="mt-5">&nbsp&nbsp정지된 회원</h2>
+			       		</c:if> 			       		           	
 
-	    
-	    <div class="row">
-	    
-	    	<div class="col-md-6 text-left">
-		    	<p class="text-primary">
-		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
-		    	</p>
-		    </div>
-		    
-		    <div class="col-md-6 text-right">
-			    <form class="form-inline" name="detailForm">
-			    
-				  <div class="form-group">
-				    <select class="form-control" name="searchCondition" >
-								<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
-					</select>
-				  </div>
-				  
-				  <div class="form-group">
-				    <label class="sr-only" for="searchKeyword">검색어</label>
-				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
-				  </div>
-				  
-				  <button type="button" name="search" class="btn btn-default">검색</button>
-				  
-				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-				  
-				</form>
-	    	</div>		    
-	    	
-	    </div>
+                        <div class="card mb-3">
+			       		<c:if test="${listType == 1}">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                &nbsp&nbsp&nbsp모든 목록을 출력합니다.
+                            </div>
+			       		</c:if>
+			       		<c:if test="${listType == 2}">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                &nbsp&nbsp&nbsp탈퇴한 회원 목록을 출력합니다.
+                            </div>
+			       		</c:if>
+			       		<c:if test="${listType == 3}">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                &nbsp&nbsp&nbsp복구한 회원 목록을 출력합니다.
+                            </div>
+			       		</c:if>    
+			       		<c:if test="${listType == 4}">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                &nbsp&nbsp&nbsp정지된 회원의 목록을 출력합니다.
+                            </div>
+			       		</c:if>			       		                    
 
-		<table class="table table-hover table-striped">
-			<form>
-			<thead>
-				<tr>
-					<th align="center">No</th>
-					<th align="center">이메일</th>
-					<th align="center">닉네임</th>
-					<c:if test="${listType == 1}">
-						<th align="left">가입 일자</th>
-					</c:if>
-					<c:if test="${listType == 2}">
-						<th align="left">가입 일자</th>
-						<th align="left">탈퇴 일자</th>
-						<th align="left">탈퇴 사유</th>
-					</c:if>
-					<c:if test="${listType == 3}">
-						<th align="left">가입 일자</th>
-						<th align="left">가입 일자</th>
-						<th align="left">복구 일자</th>
-					</c:if>
-					<c:if test="${listType == 4}">
-						<th align="left">정지시작일자</th>
-						<th align="left">정지종료일자</th>
-						<th align="left">상태</th>
-					</c:if>
-				</tr>
-			</thead>
+                            
+                            
+						    <div class="row">
+						    
+						    	<div class="col-md-6 text-left">
+							    	<p class="text-primary">
+							    		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+							    	</p>
+							    </div>
+							    
+							    <div class="col-md-6 text-right">
+								    <form class="form-inline" name="detailForm">
+								    
+									  <div class="form-group">
+									    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+									  
+									    <select class="form-control" name="searchCondition" >
+													<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>이메일</option>
+													<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>닉네임</option>
+										</select>
+									  </div>
+									  
+									  <div class="form-group">
+									    <label class="sr-only" for="searchKeyword">검색어</label>
+									    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+									    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+									  </div>
+									  
+									  <button type="button" name="search" class="btn btn-default">검색</button>
+									  
+									  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+									  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+									  
+									</form>
+						    	</div>		    
+						    	
+						    </div>                         
+                            
+                         
+								<table class="table table-bordered">
+									<form>
+									<thead>
+										<tr>
+											<th align="center">No</th>
+											<th align="center">이메일</th>
+											<th align="center">닉네임</th>
+											<c:if test="${listType == 1}">
+												<th align="left">가입 일자</th>
+											</c:if>
+											<c:if test="${listType == 2}">
+												<th align="left">가입 일자</th>
+												<th align="left">탈퇴 일자</th>
+												<th align="left">탈퇴 사유</th>
+											</c:if>
+											<c:if test="${listType == 3}">
+												<th align="left">가입 일자</th>
+												<th align="left">가입 일자</th>
+												<th align="left">복구 일자</th>
+											</c:if>
+											<c:if test="${listType == 4}">
+												<th align="left">정지시작일자</th>
+												<th align="left">정지종료일자</th>
+												<th align="left">상태</th>
+											</c:if>
+										</tr>
+									</thead>
+						
+									<tbody>
+										<c:set var="i" value="0" />
+										<c:forEach var="user" items="${list}">
+											<c:set var="i" value="${ i+1 }" />
+											<tr id="trRemove">
+												<td align="center">${ i }</td>
+												<td align="left">
+													<div class="user" name="getUserCheck" value="${user.email}" >
+													<input type="hidden" name="email2" value="${user.email}" />
+														${user.email}
+													</div>
+													
+												</td>
+												<td align="left">
+													<div class="user">${user.nickname}</div>
+												</td>
+												<c:if test="${listType == 1}">
+													<td align="left">${user.regDate}</td>
+												</c:if>
+												<c:if test="${listType == 2}">
+													<td align="left">${user.regDate}</td>
+													<td align="left">${user.withdrawDate}</td>
+													<td align="left">${user.withdrawReason}</td>
+												</c:if>
+												<c:if test="${listType == 3}">
+													<td align="left">${user.regDate}</td>
+													<td align="left">${user.restoreDate}</td>
+												</c:if>
+												<c:if test="${listType == 4}">
+													<td align="left">${user.suspendStartDate}</td>
+													<td align="left">${user.suspendEndDate}</td>
+													<td align="left">복구 
+														<input type="hidden" name="email" value="${user.email}" />
+													</td>
+												</c:if>
+											</tr>
+										</c:forEach>
+									</tbody>
+									</form>
+								</table>
+                          
+                        </div>
 
-			<tbody>
-				<c:set var="i" value="0" />
-				<c:forEach var="user" items="${list}">
-					<c:set var="i" value="${ i+1 }" />
-					<tr id="trRemove">
-						<td align="center">${ i }</td>
-						<td align="left">
-							<div class="user">${user.email}</div>
-						</td>
-						<td align="left">
-							<div class="user">${user.nickname}</div>
-						</td>
-						<c:if test="${listType == 1}">
-							<td align="left">${user.regDate}</td>
-						</c:if>
-						<c:if test="${listType == 2}">
-							<td align="left">${user.regDate}</td>
-							<td align="left">${user.withdrawDate}</td>
-							<td align="left">${user.withdrawReason}</td>
-						</c:if>
-						<c:if test="${listType == 3}">
-							<td align="left">${user.regDate}</td>
-							<td align="left">${user.restoreDate}</td>
-						</c:if>
-						<c:if test="${listType == 4}">
-							<td align="left">${user.suspendStartDate}</td>
-							<td align="left">${user.suspendEndDate}</td>
-							<td align="left">복구 
-								<input type="hidden" name="email" value="${user.email}" />
-							</td>
-						</c:if>
-					</tr>
-				</c:forEach>
-			</tbody>
-			</form>
-		</table>
-		
-	</div>
-	<!-- PageNavigation Start... -->
-	<jsp:include page="../common/pageNavigator_new.jsp"/>
-	<!-- PageNavigation End... -->
-	
-</body>
+                        <jsp:include page="../common/pageNavigator_new.jsp"/>
+                    </div>
+                    
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer> 
+            </div>
+                  
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/resources/javascript/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="/resources/javascript/datatables-simple-demo.js"></script>
+    </body>
 </html>

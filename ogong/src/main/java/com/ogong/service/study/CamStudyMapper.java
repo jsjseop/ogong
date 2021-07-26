@@ -14,18 +14,18 @@ import com.ogong.service.domain.User;
 @Repository
 @Mapper
 public interface CamStudyMapper {
-	
-	User getUser(String email);
-	
-	void addCamStudyMember(CamStudyMember csm);
-	
-	CamStudyMember getCamStudyMember(@Param("studyNo") int studyNo, @Param("email") String email);
-	
-	List<CamStudyMember> getCamStudyMemberList(int studyNo);
-	
-	void updateCamStudyMember(CamStudyMember csm);
-	
-	void updateCamStudyMemberZero(CamStudyMember csm);
-	
-	void deleteCamStudyMember(LearningHistory learningHistory);
+   
+   User getUser(String email);
+   
+   void addCamStudyMember(CamStudyMember csm);
+   
+   CamStudyMember getCamStudyMember(@Param("studyNo") int studyNo, @Param("email") String email);
+   
+   List<CamStudyMember> getCamStudyMemberList(int studyNo);
+   
+   void updateCamStudyMember(CamStudyMember csm);
+   
+   void updateCamStudyMemberZero(CamStudyMember csm);
+   
+   void deleteCamStudyMember(LearningHistory learningHistory);
 }

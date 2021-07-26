@@ -100,7 +100,6 @@ a {
     background: #325cb2;
     color: #fff;
 }
-
 </style>
 
 <script type="text/javascript">
@@ -208,7 +207,7 @@ $(window).scroll(function() {
 							addListHtml += "</li>";
 								
 						});
-						$("ul").append(addListHtml);
+						$(".list_wrap").append(addListHtml);
 		
 					}
 				

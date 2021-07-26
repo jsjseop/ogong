@@ -6,33 +6,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset = "EUC-KR">
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-   
-   
-   <!-- jQuery UI toolTip 사용 CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip 사용 JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        
+    	<!-- Custom fonts for this template-->
+   	 	<link href="/resources/css/all.min.css" rel="stylesheet" type="text/css">
+    	<link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    	<!-- Custom styles for this template-->
+    	<link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">        
+
+		<!--   jQuery , Bootstrap CDN  -->
+		<link rel="stylesheet" href="/resources/css/listReport.css" >
+		
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	<!--  CSS 추가 : 툴바에 화면 가리는 현상 해결 :  주석처리 전, 후 확인-->
 	<style>
         body {
-            padding-top : 50px;
-        }
+            padding-top : 5px;
+        }       
+   	</style>	
+	<style>
+ 
+		
+ 		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+		
+		body, 
+		table, 
+		div, 
+		p, 
+		th, 
+		td{
+		font-family: 'Do Hyeon', sans-serif;
+		}
+		
+				
    	</style>
    
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
+//=====================================================각 타입마다 출력값이 다름으로 구분===========================================================	
 	function fncGetList(currentPage) {
 		$("input[name='currentPage']").val(currentPage)
 		if(${reportType == 1}){
@@ -49,10 +68,12 @@
 		}
 	}
 	
+//=====================================================사용자 정지를 하기위한 function===========================================================	
 	function fncupdateUserSuspend(email){
 		$("form[name='updateSuspendUser']").attr("method", "POST").attr("action", "/admin/updateSuspendUser").submit();
 	}
 	
+//=====================================================체크를 통하여 정지타입마다 정지일자가 구분됨===========================================================	
 	$('.radio-value').on('click', function() {
 	    var suspendType = $('.radio-value:checked').val(); // 체크된 Radio 버튼의 값을 가져옵니다.
 	    
@@ -82,7 +103,7 @@
 		}); 
 		
 		// 기억해_
-	    $('tr td:nth-child(6)').on("click", function(){
+	    $('tr td:nth-child(7)').on("click", function(){
 	    	$('#email').val($(this).find('input').val());	    	
 	    })
 		
@@ -91,146 +112,173 @@
 		 
 		$('#modal').modal("show"); //열기 
 		
-	 	
-	 	$( "a:contains('신고된 사용자 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listUserReport";
-		});
-	 	
-	 	$( "a:contains('신고된 게시글 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listReport?reportType="+1;
-		});
-	 	
-	 	$( "a:contains('신고된 답변 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listReport?reportType="+2;
-		});
-	 	
-	 	$( "a:contains('신고된 댓글 목록')" ).on("click" , function() {
-	 		location.href = "/admin/listReport?reportType="+3;
-		});	
 		
 	})
 	
 	</script>   	
 </head>
-<body>
-	
-	<jsp:include page="../common/toolbar.jsp" />
-	
-	<div class="contatiner">
-	
-		<div class="page-header text-info">
-		
-	       		<c:if test="${reportType == 1}">
-	       				<h3>신고된 게시글 목록</h3>
-	       		</c:if>
-	       		<c:if test="${reportType == 2}">
-	       				<h3>신고된 답변 목록</h3>
-	       		</c:if>
-	       		<c:if test="${reportType == 3}">
-	       				<h3>신고된 댓글 목록</h3>
-	       		</c:if>
-	       		
-	    </div>
-	    
-	    <ul class="nav nav-tabs">
-  			<li role="presentation"><a href="#">신고된 사용자 목록</a></li>
-  			<li role="presentation"><a href="#">신고된 게시글 목록</a></li>
-  			<li role="presentation"><a href="#">신고된 답변 목록</a></li>
-  			<li role="presentation"><a href="#">신고된 댓글 목록</a></li>
-		</ul>
-	    
-	    <div class="row">
-	    
-	    	<div class="col-md-6 text-left">
-		    	<p class="text-primary">
-		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
-		    	</p>
-		    </div>
-		    
-		    <div class="col-md-6 text-right">
-			    <form class="form-inline" name="detailForm">
-			    
-				  <div class="form-group">
-				    <select class="form-control" name="searchCondition" >
-								<option value="0" ${ search.searchCondition eq '0' ? 'selected' : '' }>닉네임</option>
-					</select>
-				  </div>
-				  
-				  <div class="form-group">
-				    <label class="sr-only" for="searchKeyword">검색어</label>
-				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
-				  </div>
-				  
-				  <button type="button" name="search" class="btn btn-default">검색</button>
-				  
-				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-				  
-				</form>
-	    	</div>		    
-	    	
-	    </div>
-	    
-	    <table class="table table-hover table-striped" >
-	    
-	    	<thead>
-	    		<tr>	       		
-	       					<th align="center">No</th>
-	       				<c:if test="${reportType == 1}">
-	       					<th align="left">게시글제목</th>
-	       				</c:if>
-	       				<c:if test="${reportType == 2}">
-	       					<th align="left">답변내용</th>
-	       				</c:if>
-	       				<c:if test="${reportType == 3}">
-	       					<th align="left">댓글내용</th>
-	       				</c:if>
-	       					<th align="left">신고사유</th>
-	       					<th align="left">닉네임</th>
-	       					<th align="left">신고일자</th>
-	       					<th align="left">정지</th>
-	    		</tr>
-	    	</thead>
-	    	
-	    	<tbody class="ct_list_pop">
-		 	 	<c:set var="i" value="0" />
-		  		<c:forEach var="report" items="${list}">
-		  			<c:set var="i" value="${ i+1 }" />
-		  			<tr>
-		  			<td align="center">${ i }</td>
-		  			<td align="left">
-		  			<c:if test="${reportType == 1}">
-		  				<div class="report"	reportNo="${report.reportNo}">${report.reportBoard.boardTitle}</div>
-		  			</c:if>
-		  			<c:if test="${reportType == 2}">
-		  				<div class="report"	reportNo="${report.reportNo}">${report.reportAnswer.answerContents}</div>
-		  			</c:if>
-		  			<c:if test="${reportType == 3}">
-		  				<div class="report"	reportNo="${report.reportNo}">${report.reportComment.commentContents}</div>
-		  			</c:if>		  					  			
-		  			</td>
-		  			<td align="left">${report.reportReason}</td>
-		  			<td align="left">${report.sendReporter.nickname}</td>
-		  			<td align="left">${report.reportDate}</td>
-		  			
-		  			<td align="left" email="${report.receiveReporter.email}">
-		  			<c:if test="${report.receiveReporter.condition eq '1'}">
-						<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-						  <input type="hidden" name="email2" id="email2" value="${report.receiveReporter.email}"/>
-						   정지
-						</button>
-		  			</c:if>
-		  			<c:if test="${report.receiveReporter.condition eq '2'}">
-		  				정지완료
-		  			</c:if>
-		  			</td>
-		  				
-		  			</tr>
-		  		</c:forEach>
-	    	</tbody>
-	    	
-	    </table>
+<body class="contatiner">
+
+      
+
+            
+			<jsp:include page="../common/adminSideBar.jsp" />
+			
+         	
+              
+            
+            
+            <div id="layoutSidenav_content">
+                    <div class="container-fluid px-1">
+			       		<c:if test="${reportType == 1}">
+			       				<h2 class="mt-5">&nbsp&nbsp신고된 게시글</h2>
+			       		</c:if>
+			       		<c:if test="${reportType == 2}">
+			       				<h2 class="mt-5">&nbsp&nbsp신고된 답변</h2>
+			       		</c:if>
+			       		<c:if test="${reportType == 3}">
+			       				<h2 class="mt-5">&nbsp&nbsp신고된 댓글</h2>
+			       		</c:if>                    	
+
+                        <div class="card mb-3">
+			       		<c:if test="${reportType == 1}">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                &nbsp&nbsp&nbsp신고된 게시글의 목록을 출력합니다.
+                            </div>
+			       		</c:if>
+			       		<c:if test="${reportType == 2}">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                &nbsp&nbsp&nbsp신고된 댓글의 목록을 출력합니다.
+                            </div>
+			       		</c:if>
+			       		<c:if test="${reportType == 3}">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                &nbsp&nbsp&nbsp신고된 답변의 목록을 출력합니다.
+                            </div>
+			       		</c:if>                        
+
+                            
+                            
+						    <div class="row">
+						    
+						    	<div class="col-md-6 text-left">
+							    	<p class="text-primary">
+							    		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+							    	</p>
+							    </div>
+							    
+							    <div class="col-md-6 text-right">
+								    <form class="form-inline" name="detailForm">
+								    
+									  <div class="form-group">
+									    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+									    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+									    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp									  
+									    <select class="form-control" name="searchCondition" >
+													<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>이메일</option>
+										</select>
+									  </div>
+									  
+									  <div class="form-group">
+									    <label class="sr-only" for="searchKeyword">검색어</label>
+									    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+									    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+									  </div>
+									  
+									  <button type="button" name="search" class="btn btn-default">검색</button>
+									  
+									  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+									  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+									  
+									</form>
+						    	</div>		    
+						    	
+						    </div>                         
+                            
+                         
+						    <table class="table table-bordered" >
+						    
+								    	<thead>
+								    		<tr>	       		
+								       					<th align="center">No</th>
+								       					<th align="center">신고한 유저 이메일</th>
+								       				<c:if test="${reportType == 1}">
+								       					<th align="left">게시글제목</th>
+								       				</c:if>
+								       				<c:if test="${reportType == 2}">
+								       					<th align="left">답변내용</th>
+								       				</c:if>
+								       				<c:if test="${reportType == 3}">
+								       					<th align="left">댓글내용</th>
+								       				</c:if>
+								       					<th align="left">신고사유</th>
+								       					<th align="left">신고당한 유저 이메일</th>
+								       					<th align="left">신고일자</th>
+								       					<th align="left">정지</th>
+								    		</tr>
+								    	</thead>
+								    	
+								    	<tbody class="ct_list_pop">
+									 	 	<c:set var="i" value="0" />
+									  		<c:forEach var="report" items="${list}">
+									  			<c:set var="i" value="${ i+1 }" />
+									  			<tr>
+									  			<td align="center">${ i }</td>
+									  			<td align="left">${report.sendReporter.email}</td>
+									  			<td align="left">
+									  			<c:if test="${reportType == 1}">
+									  				<div class="report"	reportNo="${report.reportNo}">${report.reportBoard.boardTitle}</div>
+									  			</c:if>
+									  			<c:if test="${reportType == 2}">
+									  				<div class="report"	reportNo="${report.reportNo}">${report.reportAnswer.answerContents}</div>
+									  			</c:if>
+									  			<c:if test="${reportType == 3}">
+									  				<div class="report"	reportNo="${report.reportNo}">${report.reportComment.commentContents}</div>
+									  			</c:if>		  					  			
+									  			</td>
+									  			<td align="left">${report.reportReason}</td>
+									  			<td align="left">${report.receiveReporter.email}</td>
+									  			<td align="left">${report.reportDate}</td>
+									  			
+									  			<td align="left" email="${report.receiveReporter.email}">
+									  			<c:if test="${report.receiveReporter.condition eq '1'}">
+													<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+													  <input type="hidden" name="email2" id="email2" value="${report.receiveReporter.email}"/>
+													   정지
+													</button>
+									  			</c:if>
+									  			<c:if test="${report.receiveReporter.condition eq '2'}">
+									  				정지완료
+									  			</c:if>
+									  			</td>
+									  				
+									  			</tr>
+									  		</c:forEach>
+								    	</tbody>
+						    	
+						    </table>
+                          
+                        </div>
+                        <jsp:include page="../common/pageNavigator_new.jsp"/>
+                    </div>
+                    
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer> 
+            </div>
+<!-- =================================================사용자 정지 모달 시작================================================================== -->            
 	    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
@@ -260,15 +308,15 @@
 		      </div>
 		    </div>
 		  </div>
-		 </div>	
-	</div>
-	
-	<jsp:include page="../common/pageNavigator_new.jsp"/>
-
-</body>
+		 </div>     .
+		        
+<!-- =================================================사용자 정지 모달 끝================================================================== -->        
+        
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/resources/javascript/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="/resources/javascript/datatables-simple-demo.js"></script>
+    </body>
 </html>
-
-
-
-
-

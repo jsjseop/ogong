@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ogong.common.Search;
-import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.Study;
-import com.ogong.service.domain.User;
 import com.ogong.service.study.TestStudyMapper;
 import com.ogong.service.study.TestStudyService;
 
