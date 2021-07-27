@@ -10,10 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/js/bootstrap.min.js" ></script>
 	
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -192,14 +192,14 @@
 </head>
 <body>
 	<div class="container">
-	<br>><br/>
+	<br><br/>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
 
 
 		
-				<h1 class="text-center">비밀번호 변경</h1>
+				<h1 class="text">비밀번호 변경</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">

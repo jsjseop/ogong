@@ -11,8 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
@@ -44,7 +44,11 @@
 	
 	
 </script>
-
+	<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}      
+     </style>
 
 
 	<!-- ToolBar Start /////////////////////////////////////-->
@@ -55,7 +59,7 @@
 </head>
 <body>
 	<div class="container">
-	<br>><br/>
+	<br><br/>
 		<h1 class="text-center">내 프로필 수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
@@ -110,11 +114,11 @@
 		  </div> 
 	 	  
 		<div class="form-group">
-			<label for="interest" class="col-sm-offset-1 col-sm-3 control-label">관심사</label>
+			<label for="interest" class="col-sm-offset-1 col-sm-1 control-label">관심사</label>
 			<span class="col-sm-1">
 				
 				
-	 			<select name="studyInterest1"> 
+	 			<select class="form-control" name="studyInterest1">
 						<option>관심사1</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
@@ -127,7 +131,7 @@
 
 				</select> 
 				
-				<select name="studyInterest2">
+				<select class="form-control" name="studyInterest2">
 						<option>관심사2</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
@@ -139,7 +143,7 @@
 						<option value="기타">기타</option>
 				</select> 
 				
-				<select name="studyInterest3"> 
+				<select  class="form-control" name="studyInterest3"> 
 						<option>관심사3</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
@@ -229,4 +233,3 @@
  	</div>
 </body>
 </html>
->>>>>>> refs/heads/master

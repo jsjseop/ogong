@@ -13,6 +13,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <!-- Respond.js 으로 IE8 에서 반응형 기능을 활성화하세요 (https://github.com/scottjehl/Respond) -->
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        
 <link rel="stylesheet" href="/resources/css/join.css">
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
@@ -21,6 +22,11 @@
 </head>
 <body>
 
+
+
+<br/><br/>
+
+
 <div class="wrapper">
 	<form id="join_form" method="post" ">
 	<div class="wrap">
@@ -28,7 +34,7 @@
 			
 			
 			
-			<div class="id_wrap">
+ 			<div class="id_wrap">
                     <label for="inputNickname" class="col-lg-2 control-label">닉네임</label>
                     <div class="col-lg-10">
 				
@@ -85,7 +91,13 @@
 			</div>
 		</div>
 	</form>
-</div>
+</div> 
+
+	<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}      
+     </style>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
