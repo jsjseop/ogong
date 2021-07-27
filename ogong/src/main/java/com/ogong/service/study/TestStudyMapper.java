@@ -5,7 +5,7 @@ import java.util.Map;
 import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 
-public interface TestStudyService {
+public interface TestStudyMapper {
 
 	public void addStudy(Study study) throws Exception;
 	
