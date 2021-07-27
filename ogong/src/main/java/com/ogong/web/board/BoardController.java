@@ -136,7 +136,6 @@ public class BoardController {
 		return "redirect:/board/getBoard?boardNo=" +result;
 	}
 	
-<<<<<<< HEAD
 	/*
 	 * @GetMapping("addAnswer") public String addAnswer(@RequestParam("boardNo") int
 	 * boardNo, Model model) throws Exception {
@@ -150,9 +149,7 @@ public class BoardController {
 	 * 
 	 * return "/boardView/addAnswer"; }
 	 */
-=======
 
->>>>>>> refs/heads/master
 	@GetMapping("addAnswer")
 	public String addAnswer(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
 	/*

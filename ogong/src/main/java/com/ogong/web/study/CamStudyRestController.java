@@ -20,21 +20,20 @@ import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
-import com.ogong.service.study.TestStudyService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/cam/*")
 public class CamStudyRestController {
 
-	@Autowired
-	private TestStudyService studyService;
 	
 	@Autowired
 	private CamStudyService camStudyService;
 	
 	@Autowired
 	private LearningHistoryService learningHistoryService;
+
+	private CamStudyRestController studyService;
 	
 	@GetMapping("/json/getUser/{email}")
 	public User getUser(@PathVariable String email) throws Exception {
