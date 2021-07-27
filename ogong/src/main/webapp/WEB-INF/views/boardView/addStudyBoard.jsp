@@ -52,11 +52,10 @@
 					<div class="wrap d-md-flex">
 						<div
 							class="text-wrap p-4 p-lg-5 d-flex img d-flex align-items-end"
-							style="background-image: url(/resources/images/bg.jpg);">
-							<div class="text w-100">
-								<h2 class="mb-4">다양한 스터디를 모집해보세요</h2>
-								<p>Far far away, behind the word mountains, far from the
-									countries Vokalia and Consonantia, there live the blind texts.</p>
+							style="background-image: url(/resources/images/add.png);">
+							<div class="text w-100" style="text-align:center">
+								<p>모방해서 실패하는 것 보다 독창적응로 실패하는게 낫다 <br/>
+								- 허먼 멜빌</p>
 							</div>
 						</div>
 						<div class="login-wrap p-4 p-md-5">
@@ -73,14 +72,14 @@
 									<div class="col-md-12">
 										<div class="form-group d-flex align-items-center">
 											<label class="label" for="starDate">스터디 시작기간</label> <input
-												type="date" value="2021-01-01">
+												type="date" name="studyStartDate">
 										</div>
 									</div>
 
 									<div class="col-md-12">
 										<div class="form-group d-flex align-items-center">
 											<label class="label" for="endDate">스터디 종료기간</label> <input
-												type="date" value="2021-12-31">
+												type="date" name="studyEndDate">
 										</div>
 									</div>
 									<div class="col-md-12">
@@ -93,8 +92,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<button type="submit" style="margin: 0 auto" align="center"
-												class="btn btn-secondary submit p-3">Create an
-												account</button>
+												class="btn btn-secondary submit p-3">등록하기</button>
 										</div>
 									</div>
 								</div>

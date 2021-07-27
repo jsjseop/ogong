@@ -1,217 +1,201 @@
-<%@ page contentType="text/html; charset=EUC-KR" 
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=EUC-KR" pageEncoding="UTF-8"%>
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-    	<!-- Custom styles for this template-->
-
+<!-- Custom styles for this template-->
 <!-- ToolBar Start /////////////////////////////////////-->
-
-
-
-
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-			.Ogong {
-			  width: 120px;
-			  height: 50px;
-			 
-			}
-  </style>
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  
-  
-  <!-- Font Awesome Icons ==================-->
-  <link rel="stylesheet" href="/resources/css/all.min.css">
-  <!-- Font Awesome Icons END ==================-얘가 안돼 ㅠㅠㅠㅠ ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ->
-  
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.Ogong {
+	width: 120px;
+	height: 50px;
+}
+</style>
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">  
   
   <!-- Theme style -->
-  <link rel="stylesheet" href="/resources/css/adminlte.min.css">
+<link rel="stylesheet" href="/resources/css/adminlte.min.css">
+
+<script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
 
 
 <div class="wrapper">
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-        &nbsp&nbsp&nbsp&nbsp&nbsp<a href="../../index3.html" class="navbar-brand">
-        <img src="/resources/images/Ogong.png" align="left" class="Ogong" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      </a>
-    <div class="container">
+	<!-- Navbar -->
+	<nav
+		class="main-header navbar navbar-expand-md navbar-light navbar-white">
+		&nbsp&nbsp&nbsp&nbsp&nbsp<a href="../../index3.html"
+			class="navbar-brand"> <img src="/resources/images/ogong2.png"
+			align="left" class="Ogong" alt="AdminLTE Logo"
+			class="brand-image img-circle elevation-3" style="opacity: .8">
+		</a>
+		<div class="container">
 
 
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+			<button class="navbar-toggler order-1" type="button"
+				data-toggle="collapse" data-target="#navbarCollapse"
+				aria-controls="navbarCollapse" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">자율스터디</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">자율스터디목록</a></li>
-              <li><a href="#" class="dropdown-item">모집게시판</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a  class="nav-link">그룹스터디</a>
-          </li>
-          <li class="nav-item">
-            <a  class="nav-link">정보공유게시판</a>
-          </li>
-          <li class="nav-item">
-            <a  class="nav-link">Q&A게시판</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">쉼터게시판</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a class="dropdown-item">자유게시판</a></li>
-              <li><a class="dropdown-item">합격후기게시판</a></li>
-            </ul>
-          </li> 
-          <li class="nav-item">
-            <a class="nav-link">관리자</a>
-          </li>                                                 
-        </ul>
+			<div class="collapse navbar-collapse order-3" id="navbarCollapse">
+				<!-- Left navbar links -->
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown"><a id="dropdownSubMenu1"
+						href="#" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false" class="nav-link dropdown-toggle">자율스터디</a>
+						<ul aria-labelledby="dropdownSubMenu1"
+							class="dropdown-menu border-0 shadow">
+							<li><a href="#" class="dropdown-item">자율스터디목록</a></li>
+							<li><a href="#" class="dropdown-item">모집게시판</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link">그룹스터디</a></li>
+					<li class="nav-item"><a class="nav-link">정보공유게시판</a></li>
+					<li class="nav-item"><a class="nav-link">Q&A게시판</a></li>
+					<li class="nav-item dropdown"><a id="dropdownSubMenu1"
+						href="#" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false" class="nav-link dropdown-toggle">쉼터게시판</a>
+						<ul aria-labelledby="dropdownSubMenu1"
+							class="dropdown-menu border-0 shadow">
+							<li><a class="dropdown-item">자유게시판</a></li>
+							<li><a class="dropdown-item">합격후기게시판</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link">관리자</a></li>
+				</ul>
 
-      </div>
+			</div>
 
-      <!-- Right navbar links -->
-      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-          
-            <i class="fas fa-comments"></i>
-            
-            <span class="badge badge-danger navbar-badge">3</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-          </div>
-        </li>
-        
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-          
-            <i class="far fa-bell"></i>	
-            
-            <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li>
-        
-        <li class="nav-item dropdown">
-          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
-          	<i class="fas fa-th-large"></i>
-          </a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">프로필</a></li>
-              <li><a href="#" class="dropdown-item">로그아웃</a></li>
-              <li><a href="#" class="dropdown-item">쪽지</a></li>
-              <li><a href="#" class="dropdown-item">공부기록</a></li>
-              <li><a href="#" class="dropdown-item">나의스터디</a></li>
-              <li><a href="#" class="dropdown-item">나의게시글</a></li>
-              <li><a href="#" class="dropdown-item">바나나조회</a></li>
-              <li><a href="#" class="dropdown-item">회원탈퇴</a></li>
-            </ul>          
-        </li>
-            
-        
-        
-      </ul>
-    </div>
-  </nav>
-  <!-- /.navbar -->
-  </div>
-  <!-- /.content-wrapper -->
+			<!-- Right navbar links -->
+			<ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+				<!-- Messages Dropdown Menu -->
+				<li class="nav-item dropdown"><a class="nav-link"
+					data-toggle="dropdown" href="#"> <i class="fas fa-comments"></i>
+
+						<span class="badge badge-danger navbar-badge">3</span>
+				</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						<a href="#" class="dropdown-item"> <!-- Message Start -->
+							<div class="media">
+								<img src="../../dist/img/user1-128x128.jpg" alt="User Avatar"
+									class="img-size-50 mr-3 img-circle">
+								<div class="media-body">
+									<h3 class="dropdown-item-title">
+										Brad Diesel <span class="float-right text-sm text-danger"><i
+											class="fas fa-star"></i></span>
+									</h3>
+									<p class="text-sm">Call me whenever you can...</p>
+									<p class="text-sm text-muted">
+										<i class="far fa-clock mr-1"></i> 4 Hours Ago
+									</p>
+								</div>
+							</div> <!-- Message End -->
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <!-- Message Start -->
+							<div class="media">
+								<img src="../../dist/img/user8-128x128.jpg" alt="User Avatar"
+									class="img-size-50 img-circle mr-3">
+								<div class="media-body">
+									<h3 class="dropdown-item-title">
+										John Pierce <span class="float-right text-sm text-muted"><i
+											class="fas fa-star"></i></span>
+									</h3>
+									<p class="text-sm">I got your message bro</p>
+									<p class="text-sm text-muted">
+										<i class="far fa-clock mr-1"></i> 4 Hours Ago
+									</p>
+								</div>
+							</div> <!-- Message End -->
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <!-- Message Start -->
+							<div class="media">
+								<img src="../../dist/img/user3-128x128.jpg" alt="User Avatar"
+									class="img-size-50 img-circle mr-3">
+								<div class="media-body">
+									<h3 class="dropdown-item-title">
+										Nora Silvester <span class="float-right text-sm text-warning"><i
+											class="fas fa-star"></i></span>
+									</h3>
+									<p class="text-sm">The subject goes here</p>
+									<p class="text-sm text-muted">
+										<i class="far fa-clock mr-1"></i> 4 Hours Ago
+									</p>
+								</div>
+							</div> <!-- Message End -->
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item dropdown-footer">See All
+							Messages</a>
+					</div></li>
+
+				<!-- Notifications Dropdown Menu -->
+				<li class="nav-item dropdown"><a class="nav-link"
+					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
+						class="badge badge-warning navbar-badge">15</span>
+				</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						<span class="dropdown-header">15 Notifications</span>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <i
+							class="fas fa-envelope mr-2"></i> 4 new messages <span
+							class="float-right text-muted text-sm">3 mins</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <i
+							class="fas fa-users mr-2"></i> 8 friend requests <span
+							class="float-right text-muted text-sm">12 hours</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+							3 new reports <span class="float-right text-muted text-sm">2
+								days</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item dropdown-footer">See All
+							Notifications</a>
+					</div></li>
+
+				<li class="nav-item dropdown"><a id="dropdownSubMenu1" href="#"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					class="nav-link dropdown-toggle"> <i class="fas fa-th-large"></i>
+				</a>
+					<ul aria-labelledby="dropdownSubMenu1"
+						class="dropdown-menu border-0 shadow">
+						<li><a href="#" class="dropdown-item">프로필</a></li>
+						<li><a href="#" class="dropdown-item">로그아웃</a></li>
+						<li><a href="#" class="dropdown-item">쪽지</a></li>
+						<li><a href="#" class="dropdown-item">공부기록</a></li>
+						<li><a href="#" class="dropdown-item">나의스터디</a></li>
+						<li><a href="#" class="dropdown-item">나의게시글</a></li>
+						<li><a href="#" class="dropdown-item">바나나조회</a></li>
+						<li><a href="#" class="dropdown-item">회원탈퇴</a></li>
+					</ul></li>
+
+
+
+			</ul>
+		</div>
+	</nav>
+	<!-- /.navbar -->
+</div>
+<!-- /.content-wrapper -->
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="/resources/javascript/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/resources/javascript/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/resources/javascript/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/resources/javascript/demo.js"></script>
-		<!-- ToolBar End /////////////////////////////////////-->
- 	  	<script type="text/javascript">
+
+<!-- ToolBar End /////////////////////////////////////-->
+<script type="text/javascript">
    		
    	
 	   	var email = "${user.email}";
@@ -387,8 +371,8 @@
 	 };
 	 	
    	</script>
-   	
-   	<script type="text/javascript">
+
+<script type="text/javascript">
 
 		//=============  오공 Event  처리 =============
 		$( "a:contains('OGong')").on("click", function(){
@@ -481,7 +465,7 @@
 	 		location.href = "/";
 	 	});	 	 	
 	
-	</script> 
+	</script>
 
 
 
