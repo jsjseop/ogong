@@ -16,4 +16,8 @@ public class Answer {
 	private Date adoptionDate;
 	private int adoptionCount;
 
+	
+	
+
+
 }
