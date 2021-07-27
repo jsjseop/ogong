@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class Board {
 	
+
 	private String boardTitle;
 	private String boardContents;
 	private int boardNo;
@@ -24,6 +25,6 @@ public class Board {
 	private Study study;
 	private String studyStartDate;
 	private String studyEndDate;
-	
+	private String email;
 }	
 	

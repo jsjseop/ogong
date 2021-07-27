@@ -114,6 +114,19 @@ public class BoardController {
 
 	@GetMapping("addAnswer")
 	public String addAnswer(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
+	/*
+	 * @GetMapping("addAnswer") public String addAnswer(@RequestParam("boardNo") int
+	 * boardNo, Model model) throws Exception {
+	 * 
+	 * Board board = new Board(); board.setBoardNo(boardNo);
+	 * 
+	 * board = boardService.getBoard(board);
+	 * 
+	 * 
+	 * model.addAttribute("board", board);
+	 * 
+	 * return "/boardView/addAnswer"; }
+	 */
 
 		Board board = new Board();
 		board.setBoardNo(boardNo);

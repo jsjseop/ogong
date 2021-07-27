@@ -1,6 +1,8 @@
 package com.ogong.service.user;
 
 import java.awt.datatransfer.Clipboard;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -16,7 +18,7 @@ public interface UserMapper {
 	void addUser(User user);
 	
 	//로그인
-	User getUser(User user);
+	User getUser(User email);
 //	User getUser (String email);
 	
 	//프로필보기
@@ -26,12 +28,47 @@ public interface UserMapper {
 	void updateProfile(User user);
 	
 	//비밀번호 변경
-	void updatePassword(User user);
+	void Changedpassword(User user);
 	
 	//비밀번호 찾기
 	User getPassword(String email);
 	
-	// 아이디 중복체크
-	public int idCheck(String email);
+	// 닉네임 중복체크
+	public int idCheck(String nickname);
+	
+	//회원탈퇴
+	void withdrawreason(User user);
+	
+	//회원복구
+	public void restore(User user);
 
+//	public List<Board> getList();
+	
+
+	
+	
+	
+	
+	
+// 프로필 수정 ㅜㅜ 개많아
+	
+	
+	// 닉네임
+	void updateNickname(User user) throws Exception;
+	// 관심사
+	void updatestudyInterest(User user) throws Exception;
+	// 이름
+	void updatename(User user) throws Exception;
+	// 생년월일
+	void updatebirth(User user) throws Exception;
+	// 성별
+	void updategender(User user) throws Exception;
+	// 목표와 각오
+	void updategoal(User user) throws Exception;
+
+	List<Board> getList();
+	
+	
+	
+	
 }
