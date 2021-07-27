@@ -9,15 +9,14 @@
 <title>회원탈퇴</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!-- jQuery -->
+<script src="/resources/javascript/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/resources/javascript/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/resources/javascript/demo.js"></script>
 
 <script type="text/javascript">
 
@@ -93,7 +92,7 @@
 </head>
 <body>
 	<div class="container">
-	<br>><br/>
+	<br><br/>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">

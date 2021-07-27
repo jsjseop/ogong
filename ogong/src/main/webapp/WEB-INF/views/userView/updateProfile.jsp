@@ -9,15 +9,14 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="./jquery-3.4.1.min.js"></script>
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!-- jQuery -->
+<script src="/resources/javascript/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/resources/javascript/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/resources/javascript/demo.js"></script>
 
 <script type="text/javascript">
 
@@ -38,15 +37,17 @@
 	}
 	
 
-
-	
-	
-	
 </script>
 
+<style >
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
 
+}
+</style>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
+	
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
 	
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -54,7 +55,7 @@
 </head>
 <body>
 	<div class="container">
-	<br>><br/>
+	<br><br/>
 		<h1 class="text-center">내 프로필 수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
@@ -65,7 +66,7 @@
 		
 		
 		  <div class="form-group">
-		    <label for="studyName" class="col-sm-offset-1 col-sm-3 control-label">닉 네 임</label>
+		   <label for="studyName" class="col-sm-offset-1 col-sm-3 control-label">닉 네 임</label>  
 		    <div class="col-sm-4" >
 		      <input type="text" class="form-control" id="nickname" name="nickname" value="${user.nickname}" placeholder="닉네임">
 		    </div>
@@ -111,7 +112,7 @@
 		<div class="form-group">
 			<label for="interest" class="col-sm-offset-1 col-sm-3 control-label">관심사</label>
 			<span class="col-sm-1">
-				
+				<hr>
 				
 	 			<select name="studyInterest1"> 
 						<option>관심사1</option>

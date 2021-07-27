@@ -26,7 +26,10 @@
 	<div class="wrap">
 
 			<div class="id_wrap">
+			
+			<h2>비밀번호 찾기 </h1>
 
+			<hr>
 
 			<div class="mail_wrap">
 				    <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
@@ -40,7 +43,7 @@
 					<div class="mail_check_input_box" id="mail_check_input_box_false">
 						<input class="mail_check_input" disabled="disabled">
 					</div>
-					<
+					
 					<div class="mail_check_button">
 						<span>인증번호 전송</span>
 					</div>
@@ -58,6 +61,9 @@
 		<style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
+
+
+
 }
         
      </style>

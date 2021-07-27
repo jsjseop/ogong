@@ -13,15 +13,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 2 -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" ><!-- 3 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" ><!-- 4 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap.min.css" ><!-- 3 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap-theme.min.css" ><!-- 4 -->
 	
 	
 	<link rel="stylesheet" type="text/css" href="../css/mainBack.css" >
 	
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script><!-- 5 -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script><!-- 6 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/js/bootstrap.min.js" ></script><!-- 6 -->
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet"><!-- 8 -->
@@ -140,7 +140,6 @@ font-family: 'Do Hyeon', sans-serif;
 		
 				<div class="row">
 				
-				<hr/>
 				
 	  		<div class="col-xs-4 col-md-2"><strong>°ü½É»ç</strong></div>
 
