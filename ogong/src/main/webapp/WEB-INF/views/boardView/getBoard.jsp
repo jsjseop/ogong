@@ -8,31 +8,8 @@
 <head>
 <title>게시판</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
- -->
- <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>  
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-
-<!-- css, JS -->
-<!-- <script type="text/javascript" src="resources/css/fileUpload.css"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- <script type="text/javascript" src="resources/javascript/fileUpload.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script>
 
@@ -85,17 +62,18 @@
 			success:function(res){
 				var list = res.list;
 				var ul = $('#listComment');
-				
+				var div = $('#commentContainer');
+				var commentMore = $('<button type="buttonn" class="btn btn-danger" onclick="more()" style="margin-left:50px;" >더보기</button>');
 				for(var i=0 ; i<list.length ; i++){
 					var record = list[i];
 					var li = $("<li>");
-
+					
 					var commentContents = $("<div class='commentContents'>");
 					var commentRegDate = $("<div class='commentRegDate'>");
 					var nickname = $("<div class='nickname'>");
 					var commentNo = $("<input type='hidden' class='commentNo'>");
-					var updateButton = $("<button type='button' onClick='updateModal(\""+record.commentNo+"\",\""+record.commentContents+"\")' class='btn btn-primary'>수정</button>")
-					var deleteButton = $("<button type='button' onClick='commentDelete("+record.commentNo+")' class='btn btn-primary'>삭제</button>")
+					var updateButton = $("<button type='button' onClick='updateModal(\""+record.commentNo+"\",\""+record.commentContents+"\")' class='btn-sm btn-primary'>수정</button>")
+					var deleteButton = $("<button type='button' onClick='commentDelete("+record.commentNo+")' class='btn-sm btn-danger'>삭제</button>")
 					
 					commentContents.text(record.commentContents);
 					commentRegDate.text(record.commentRegDate);
@@ -109,6 +87,10 @@
 					
 					li.appendTo(ul);
 				}
+				if (list.length > 0) {
+					commentMore.appendTo(div);
+				}
+				
 			}
 		});
 	}
@@ -174,8 +156,10 @@
 					if (res) {
 						alert('삭제가 완료되었습니다.');
 						var ul = $('#listComment');
-						ul.children('li').remove();
+						var div = $('#commentContainer');
 						
+						ul.children('li').remove();
+						div.children('button').remove();
 						getCommentList();
 					} else{
 						alert('다시 시도해주세요');
@@ -204,9 +188,11 @@
 			success:function(res){
 				if (res) {
 					var ul = $('#listComment');
+					var div = $('#commentContainer');
 					ul.children('li').remove();
+					div.children('button').remove();
 					$('#comment').val("");
-					
+		
 					getCommentList();
 				} else{
 					alert('실패');
@@ -254,15 +240,12 @@
 	
 </script>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
 
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
-
-body, table, div, p, th, td{
-font-family: 'Do Hyeon', sans-serif;
-}
-
-body{
-	padding-top: 30px;
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
 }
 
 pre {
@@ -270,54 +253,68 @@ pre {
 	background-color: transparent;
 }
 
-   td {
-            text-align: left !important;
-        }
-        
-#modal{
-   display:none;
-   width: 400px;
-   height: 365px;
-   background-color: white;
-   position: absolute;
-   top: 350px;
-   left: 40%;
-   border : 1px solid #e9e9e9 ;
-   z-index: 20;
-    
+td {
+	text-align: left !important;
 }
 
+#modal {
+	display: none;
+	width: 400px;
+	height: 365px;
+	background-color: white;
+	position: absolute;
+	top: 350px;
+	left: 40%;
+	border: 1px solid #e9e9e9;
+	z-index: 20;
+}
 
+pre:LINK, pre:VISITED {
+	text-decoration: none;
+	color: black;
+}
 
+pre:HOVER { /* 마우스 커서 올렸을때 */
+	text-decoration: underline;
+	color: #6E92A1;
+	font-weight: bold;
+}
 
+pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
-	<jsp:include page="../adminView/addReport.jsp" /> 
+	<jsp:include page="../adminView/addReport.jsp" />
 
 	<div class="container">
 		<div class="page-header">
-			<h3 class=" text-default">상세보기</h3>
+		<br/>
+			<h3 class=" text-default" style="text-align:center">상세보기</h3>
 		</div>
-		
-		<input type="hidden" name="boardEmail" id="boardEmail" value="${board.writer.email}" />
-		
+		<br/>
+
+		<input type="hidden" name="boardEmail" id="boardEmail"
+			value="${board.writer.email}" />
+
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
 				<strong>게시글 작성자</strong>
 			</div>
 			<div class="col-xs-8 col-md-4">${board.writer.nickname}</div>
 		</div>
-		<hr />		
+		<hr />
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
 				<strong>등록일자</strong>
 			</div>
 			<div class="col-xs-8 col-md-4">${board.boardRegDate}</div>
 		</div>
-		<hr />	
+		<hr />
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
 				<strong>제 목</strong>
@@ -332,76 +329,84 @@ pre {
 				<strong>내 용</strong>
 			</div>
 			<div class="col-xs-6 col-md-4">
-				<pre style="width: 450px; height: 120px;">${board.boardContents}</pre>
+				<a style="width: 450px; height: 120px;">${board.boardContents}</a>
 			</div>
 		</div>
 		<hr />
-	<div class="row">
+		<div class="row">
 			<div class="col-xs-4 col-md-2">
 				<strong>첨부파일</strong>
 			</div>
-				
-			<div class="col-xs-6 col-md-4">	
-			<c:forEach var="file" items="${fileList}">
-				<pre onClick="fileDown(${file.fileNo})" style="width: 150px; height: 40px;">${file.fileName}</pre>		
-			</c:forEach>	
-			</div>			
-	</div>		
+
+			<div class="col-xs-6 col-md-4">
+				<c:forEach var="file" items="${fileList}">
+					<pre onClick="fileDown(${file.fileNo})"
+						style="cursor: pointer; width: 250px; height: 80px; "cursor:pointer;">${file.fileName}</pre>
+				</c:forEach>
+			</div>
+		</div>
 		<hr />
-		
+
 
 		<div align="right">
-			<div id="recommend" class="btn-sm btn-danger" onclick="recommend()" style="width: 60px;">추 천 <span id="cnt">0</span></div>
-			
-<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
+			<div id="recommend" class="btn-sm btn-danger" onclick="recommend()"
+				style="width: 60px;">
+				추 천 <span id="cnt">0</span>
+			</div>
+		<div>
+		</div>
+		<br/>
+			<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
 				<c:if test="${user.userId == board.email}"> --%>
-				
-						<button type="button" class="btn-sm btn-warning" style="width: 60px;" data-toggle="modal" data-target="#myModalReport">신 고</button>
-						
-					<button type="button" class="btn-sm btn-warning" style="width: 60px;">수 정</button>
-<%-- 				</c:if> --%>
 
-				<button type="button" class="btn-sm btn-warning" style="width: 60px;">삭 제
-					<input type="hidden" value="${message.sender.email}" />
-				</button>
-<%-- 			</c:if> --%>
+			<button type="button" class="btn-sm btn-warning" style="width: 60px;"
+				data-toggle="modal" data-target="#myModalReport">신 고</button>
+
+			<button type="button" class="btn-sm btn-warning" style="width: 60px;">수 정</button>
+			<%-- 				</c:if> --%>
+
+			<button type="button" class="btn-sm btn-warning" style="width: 60px;">삭 제<input type="hidden" value="${message.sender.email}" />
+			</button>
+			<%-- 			</c:if> --%>
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;">목 록</button>
 		</div>
 	</div>
 
-<div class="container">
+	<div class="container">
+		<div>
 			<div>
-				<div>
-					<span><strong>comment</strong></span> <span id="cnt"></span>
-				</div>
-				<div>
-					<table class="table">
-						<tr>
-							<td><textarea style="width: 1100px" rows="3" cols="30"
-									id="comment" placeholder="댓글을 입력하세요"></textarea>
-								<br>
-								<div>
-									<a href='#' onClick="addComment()"
-										class="btn pull-right btn-danger">등록</a>
-								</div></td>
-						</tr>
-					</table>
-				</div>
+				<span><strong>comment</strong></span> <span id="cnt"></span>
 			</div>
-</div>
-<div class="container">
-	<ul id="listComment">
-	</ul>
-</div>	
-<button type="button" class="btn btn-danger" onclick="more()" style="width: 60px;">더보기</button>
-<div id="modal">
-	<input type="hidden" id="commentNo">
-
-	<textarea style="width: 500px" id="commentCts" rows="3" cols="30" placeholder="수정할 내용을 입력하세요"></textarea>
-	<div>
-		<button type="button" class="btn-sm btn-warning" onClick="updateComment()" style="width: 50px;">확인</button>
-		<button type="button" class="btn-sm btn-warning" onClick="modalClose()" style="width: 50px;">취소</button>
+			<div>
+				<table class="table">
+					<tr>
+						<td><textarea style="width: 1100px" rows="3" cols="30"
+								id="comment" placeholder="댓글을 입력하세요"></textarea> <br>
+							<div>
+								<a href='#' onClick="addComment()"
+									class="btn pull-right btn-danger">등록</a>
+							</div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
-</div>
+	<div class="container" id="commentContainer">
+		<ul id="listComment">
+		</ul>
+	</div>
+	
+	<div id="modal">
+		<input type="hidden" id="commentNo">
+
+		<textarea style="width: 500px" id="commentCts" rows="3" cols="30"
+			placeholder="수정할 내용을 입력하세요"></textarea>
+		<div>
+			<button type="button" class="btn-sm btn-warning"
+				onClick="updateComment()" style="width: 50px;">확인</button>
+			<button type="button" class="btn-sm btn-warning"
+				onClick="modalClose()" style="width: 50px;">취소</button>
+		</div>
+	</div>
 </body>
 </html>

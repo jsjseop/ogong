@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -24,5 +25,9 @@ body, table, div, p, th, td {
 </head>
 
 <body>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
+
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
 </body>

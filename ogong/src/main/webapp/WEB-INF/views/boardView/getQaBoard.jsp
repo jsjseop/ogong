@@ -8,27 +8,8 @@
 <head>
 <title>Q&A 게시판 보기</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
- -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
 	let boardNo = "<c:out value='${board.boardNo}'/>";
@@ -121,18 +102,18 @@
 
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
+	font-size: 15px;
 }
 
 @import
 	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
 	;
 
-body{
-	padding:30px;
-}
-
 table {
-font-family: "Lato","sans-serif";   
+font-family: 'Do Hyeon', sans-serif; 
+margin: auto;
+width: 800px;
+height: 380px;
 }
 
 
@@ -146,19 +127,34 @@ padding: 1em;
 th {                             
 text-align: center;                 
 padding: 1em;
-background-color: #7F7F7F;      
+background-color: #FFDC3C;      
 color: white;
+
+}
+
+tr {
+border-color : black;
+}
+
+
+h1.con{
+font-family: 'Do Hyeon', sans-serif; 
+}
+
 </style>
 </head>
+
+
 
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 
-	<h1 class="con">Q&A 게시글 상세</h1>
+	<br/>
+	<h1 class="con" style="text-align:center"> Q&A 게시글 상세</h1>
 	<br />
 	<section class="article-detail table-common con row">
 
-		<table class="cell" border="2">
+		<table class="cell" border ="2">
 			<tbody>
 				<tr class="article-title">
 					<th>제목:</th>
@@ -174,7 +170,7 @@ color: white;
 				</tr>
 				<tr class="article-body">
 					<th>내용</th>
-					<td colspan="3"><br />
+					<td colspan="8"><br />
 					<br />
 					<br />
 					<br />
@@ -205,8 +201,10 @@ color: white;
 		<button type="button" class="btn btn-danger" style="width: 60px;">신고</button>
 	</div>
 
+	<br/>
+	<hr/>
 	<div class="answer-header">
-		<h2>${board.answerCount}개의 답변이 달렸습니다.</h2>
+		<h1>${board.answerCount}개의 답변이 달렸습니다.</h1>
 	</div>
 	<ul id="listAnswer">
 
