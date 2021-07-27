@@ -19,12 +19,7 @@
 		<result property="fileFlag" 			column="file_flag" 				jdbcType="NUMERIC" /> 
 		<result property="answerCount" 			column="answer_count" 			jdbcType="NUMERIC" />
 
-		
-		
-<!-- 	<association property="StudyNo"  javaType="study">
-			<id property="studyNo" column="study_no" jdbcType="NUMERIC"/>
-		</association> -->
-		
+
 
  		<association property="writer"  javaType="user">
 			<id property="email" column="email" jdbcType="VARCHAR"/>

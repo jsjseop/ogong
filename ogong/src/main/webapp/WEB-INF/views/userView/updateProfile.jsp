@@ -114,7 +114,7 @@ font-family: 'Do Hyeon', sans-serif;
 			<span class="col-sm-1">
 				
 	 			<select class="form-control" name="studyInterest1"> 
-						<option>관심사1</option>
+						<option>${user.studyInterest1}</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
 						<option value="자격증">자격증</option>
@@ -123,11 +123,12 @@ font-family: 'Do Hyeon', sans-serif;
 						<option value="독서">독서</option>
 						<option value="임용">임용</option>
 						<option value="기타">기타</option>
+						<option value=""></option>
 
 				</select> 
 				
 				<select class="form-control" name="studyInterest2">
-						<option>관심사2</option>
+						<option>${user.studyInterest2}</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
 						<option value="자격증">자격증</option>
@@ -136,10 +137,12 @@ font-family: 'Do Hyeon', sans-serif;
 						<option value="독서">독서</option>
 						<option value="임용">임용</option>
 						<option value="기타">기타</option>
+						<option value=""></option>
+						
 				</select> 
 				
 				<select class="form-control" name="studyInterest3"> 
-						<option>관심사3</option>
+						<option>${user.studyInterest3}</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
 						<option value="자격증">자격증</option>
@@ -148,6 +151,8 @@ font-family: 'Do Hyeon', sans-serif;
 						<option value="독서">독서</option>
 						<option value="임용">임용</option>
 						<option value="기타">기타</option>
+						<option value=""></option>
+						
 				</select>   
 				
 				

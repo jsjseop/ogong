@@ -145,7 +145,7 @@ font-family: 'Do Hyeon', sans-serif;
 				
 				  		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" id="btn1" class="btn btn-info"  >프로필 수정</button>
+		      <button type="button" id="btn1" class="btn btn-info"  >비밀번호 변경</button>
 			  <a class="btn btn-info btn" href="/" role="button">취&nbsp;소</a>
 		    </div>
 		  </div>

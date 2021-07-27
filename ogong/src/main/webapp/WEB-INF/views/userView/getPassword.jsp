@@ -29,6 +29,10 @@
 			
 			<h2>비밀번호 찾기 </h1>
 
+
+
+
+
 			<hr>
 
 			<div class="mail_wrap">
@@ -56,6 +60,10 @@
 				<input type="button" class="join_button" value="비밀번호 변경">
 			</div>
 		</div>
+		
+		
+		
+		
 	</form>
 	
 		<style>

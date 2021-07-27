@@ -106,6 +106,15 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("boardlist")
+	public String Mystudylist(Model model) throws Exception{
+		
+		model.addAttribute("list", userService.boardlist(0));
+		
+		return "/userView/boardlist";
+	}
+	
+	
 	// 로그인 화면
 	@GetMapping("loginView")
 	public String loginView() throws Exception {
@@ -396,6 +405,9 @@ public class UserController {
 			
 			return "success";	// 중복 닉네임 x
 		}
+		
+		
+
 	}
 }
 			

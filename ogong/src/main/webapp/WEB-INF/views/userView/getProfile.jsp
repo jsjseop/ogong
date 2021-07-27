@@ -103,12 +103,6 @@ font-family: 'Do Hyeon', sans-serif;
 	
 			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 	
-	
-	
-<%-- 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>프로필사진</strong></div>
-			<div class="col-xs-8 col-md-4">${product.prodNo}</div>
-		</div> --%>
 		
 		<hr/>
 		
