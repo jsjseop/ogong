@@ -25,7 +25,7 @@
 	<form id="join_form" method="post" ">
 	<div class="wrap">
 
-			
+			<h1 clsss="text-center">회원가입</h1>
 
 			
 			<div class="id_wrap">

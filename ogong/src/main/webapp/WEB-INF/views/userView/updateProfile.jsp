@@ -110,11 +110,10 @@ font-family: 'Do Hyeon', sans-serif;
 		  </div> 
 	 	  
 		<div class="form-group">
-			<label for="interest" class="col-sm-offset-1 col-sm-3 control-label">관심사</label>
+			<label for="interest" class="col-sm-offset-1 col-sm-2 control-label">관심사</label>
 			<span class="col-sm-1">
-				<hr>
 				
-	 			<select name="studyInterest1"> 
+	 			<select class="form-control" name="studyInterest1"> 
 						<option>관심사1</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
@@ -127,7 +126,7 @@ font-family: 'Do Hyeon', sans-serif;
 
 				</select> 
 				
-				<select name="studyInterest2">
+				<select class="form-control" name="studyInterest2">
 						<option>관심사2</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
@@ -139,7 +138,7 @@ font-family: 'Do Hyeon', sans-serif;
 						<option value="기타">기타</option>
 				</select> 
 				
-				<select name="studyInterest3"> 
+				<select class="form-control" name="studyInterest3"> 
 						<option>관심사3</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>

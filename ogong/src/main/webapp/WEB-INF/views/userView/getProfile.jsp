@@ -136,8 +136,9 @@ font-family: 'Do Hyeon', sans-serif;
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>목표와 각오</strong></div>
 			<div class="col-xs-8 col-md-4">${user.goal}</div>
+			
 		</div>
-		
+		<hr>
 				<div class="row">
 				
 				
