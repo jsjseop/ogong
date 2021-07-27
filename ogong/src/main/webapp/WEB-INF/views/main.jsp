@@ -30,4 +30,6 @@ body, table, div, p, th, td {
 	
 
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+
 </body>
+
