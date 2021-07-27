@@ -116,7 +116,7 @@ body {
 					<strong>내  용</strong>
 				</div>
 				<div class="col-xs-8 col-md-4">
-					<input class="form-control" type="text" name="boardContents"
+					<input class="form-control" type="text" name="answerContents"
 						style="width: 500px; height:300px;" />
 				</div>
 			</div>

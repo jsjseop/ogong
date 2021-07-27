@@ -10,6 +10,14 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
+ @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+
+body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+ 
+ 
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
