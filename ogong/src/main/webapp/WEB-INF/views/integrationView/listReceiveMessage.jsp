@@ -1,47 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
- 
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
+    
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-
-
-	<!--   jQuery , Bootstrap CDN  -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
 	
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-   	
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/resources/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/resources/css/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/resources/css/adminlte.min.css">
+  
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     
-    <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/dashboard/">
-	
-    
-
-    <!-- Bootstrap core CSS -->
-    
- 	<link href="/resources/css/bootstrap3.3.7.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="/resources/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/resources/css/dashboard.css" rel="stylesheet">
-
-    <script src="/resources/javascript/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-	<style>
-        body {
-            padding-top : 70px;
-        }       
-   	</style>
+  
+  <script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
+  
 	<style>
  
 		
@@ -57,12 +39,11 @@
 		}
 		
 				
-   	</style>   	
-   	
+   	</style>  
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
 		$("#currentPage").val(currentPage)
-		$("form").attr("method" , "POST").attr("action" , "/integration/listSendMessage").submit();
+		$("form").attr("method" , "POST").attr("action" , "/integration/listReceiveMessage").submit();
 	}
 
 	$(function(){
@@ -81,10 +62,10 @@
 	$(function(){
 		
 			
-	 	$( "button:contains('보낸쪽지함')" ).on("click" , function() {
+	 	$( "a:contains('보낸쪽지함')" ).on("click" , function() {
 	 		location.href = "/integration/listSendMessage";
 		});
-	 	$( "button:contains('받은쪽지함')" ).on("click" , function() {
+	 	$( "a:contains('받은쪽지함')" ).on("click" , function() {
 	 		location.href = "/integration/listReceiveMessage";
 		});
 	 	
@@ -157,46 +138,71 @@
 
  		
 	})
-	</script>    
-    
-  </head>
-
-  <body>
+	</script>       	
+  
+</head>
+<body class="hold-transition sidebar-mini">
 
 	<jsp:include page="../common/toolbar.jsp" />
 	<jsp:include page="../integrationView/addSendMessage.jsp" />
 	<jsp:include page="../integrationView/addSendMessage2.jsp" />
-	<jsp:include page="../adminView/addReport.jsp" />
-	
-    <div class="container-fluid">
-      <div class="row">
+	<jsp:include page="../adminView/addReport.jsp" />	
 
-        <div class="col-sm-3 col-md-2 sidebar">
-       
-	      	<button type="button" style="width: 120px; " id="myButton" class="btn btn-primary col-md-1" data-toggle="modal" data-target="#myModal" >
-	  			쪽지보내기
-			</button>
-  
-	      	<button type="button" style="width: 120px;" id="myButton" class="btn btn-primary" >
-	  			받은쪽지함
-			</button>
-			
-	      	<button type="button" style="width: 120px;" id="myButton" class="btn btn-primary" >
-	  			보낸쪽지함
-			</button>
-			
-		
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="wrapper">
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-3">
+          <a href="compose.html" class="btn btn-primary btn-block mb-3" style="background-color:#FFDC3C; border-color:#fff;" data-toggle="modal" data-target="#myModal">쪽지보내기</a>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">쪽지함</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <ul class="nav nav-pills flex-column">
+                <li class="nav-item active">
+                  <a href="#" class="nav-link">
+                    <i class="fas fa-inbox" id="receiveMessage"></i> 받은쪽지함
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-envelope" id="sendMessage"></i> 보낸쪽지함
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
           
-          <h2 class="sub-header">받은쪽지함</h2>
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-					<div class="btn-toolbar" role="toolbar" >
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">받은 쪽지</h3>
+
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <div class="mailbox-controls">
+                <!-- Check all button -->                
+                <div class="btn-group">
        					<div class="btn-group" role="group" >				
        						<div class="allCheck">
-								&nbsp&nbsp<input style="zoom:2.0;" type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+								&nbsp&nbsp&nbsp&nbsp<input style="zoom:2.0;  " type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
 									<script>
 										$("#allCheck").click(function() {
 											var chk = $("#allCheck").prop("checked");
@@ -208,33 +214,46 @@
 										});
 									</script>
 							</div>
-						</div>
-						<div class="btn-group" role="group">
-       							<button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#exampleModal">
-       								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-       							</button>	       							
-						</div>
-					    <div class="btn-group" role="group">
-							    <button type="button" class="btn btn-default" name="refresh" aria-label="Left Align">
-							      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-							    </button>					  	
-					    </div>
-					    
-						<div class="text-right" style="font-size:15px;">
-							<p class="text-primary">전체 ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage} 페이지</p>
-						</div>					    
-					    						
-					  	
+						</div>                
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModal">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button type="button" class="btn btn-default btn-sm" name="refresh">
+                    <i class="fas fa-redo"></i>
+                  </button>
 
-					</div>
-              </thead>
-              <tbody>
-                <tr>
+                </div>
 
+                
+                <!-- /.btn-group -->
+                <div class="float-right">
+                  전체 ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage} 페이지
+                  
+                  <div class="btn-group">
+                  <a href="javascript:fncGetList('${ resultPage.currentPage-1}')">
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="fas fa-chevron-left"></i>
+                    </button>
+                  </a>
+                  <a href="javascript:fncGetList('${resultPage.currentPage+1}')">
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </a>
+                  </div>
+                 
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.float-right -->
+              </div>
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <tbody>
+                  
 	    	  <c:if test="${ ! empty list}">
 		 	 	<c:set var="i" value="0" />
-		  		<c:forEach var="message" items="${list}">
-		  			<tr id="trRemove">
+		  		<c:forEach var="message" items="${list}">                                   
+                  <tr id="trRemove">
 			  			<td align="left">
 			  				<div class="checkBox">
 			  					&nbsp<input style="zoom:1.5;" type="checkbox" class="messageNo" name="messageNo"  value="${message.messageNo}"/>
@@ -258,7 +277,7 @@
 								    <input type="hidden" value="${message.sender.email}" /></a></li>
 								  </ul>									
 							</div>
-						</td>								  			
+						</td>	
 			  			<td align="left">${message.messageContents}</td>
 			  			<td align="left">${message.sendDate}</td>
 						<td align="left">
@@ -266,25 +285,29 @@
 	    						<button type="button" class="deleteMessage" name="deleteMessage"  value="${message.messageNo}" data-toggle="modal" data-target="#exampleModal2">삭제</button>
 	   						</div>
 			  			</td>
-		  			
-		  			</tr>
+                  </tr>
 		  		</c:forEach>
-		  	  </c:if>
+		  	  </c:if>                  
 				  <c:if test="${empty list }">
 				  	<tr>
 				  		<td align="center">	</td>
 				  		<td align="center"></td>
 				  		<td align="center"> 쪽지가 없습니다. </td>
 				  	</tr>
-				  </c:if>		  	  
-                </tr>
-
-              </tbody>
-            </table>
-            					<div class="btn-toolbar" role="toolbar" >
+				  </c:if>                  
+                  </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer p-0">
+              <div class="mailbox-controls">
+                <!-- Check all button -->
        					<div class="btn-group" role="group" >				
        						<div class="allCheck">
-								&nbsp&nbsp<input style="zoom:2.0;" type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+						&nbsp&nbsp&nbsp&nbsp<input style="zoom:2.0;" type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
 									<script>
 										$("#allCheck").click(function() {
 											var chk = $("#allCheck").prop("checked");
@@ -296,36 +319,55 @@
 										});
 									</script>
 							</div>
-						</div>
-						<div class="btn-group" role="group">
-       							<button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#exampleModal">
-       								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-       							</button>	       							
-						</div>
-					    <div class="btn-group" role="group">
-							    <button type="button" class="btn btn-default" name="refresh" aria-label="Left Align">
-							      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-							    </button>					  	
-					    </div>
-					    
-						<div class="text-right" style="font-size:15px;">
-							<p class="text-primary">전체 ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage} 페이지</p>
-						</div>
-						<div class="row">						
-						    <div class="col-md-6 text-right">
-							    <form class="form-inline" name="detailForm">
-							      
-								  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-								  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-								  
-								</form>
-					    	</div>				
-							
-						</div>											    
-					    						
-					  	
+						</div>                
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button type="button" class="btn btn-default btn-sm">
+                    <i class="fas fa-reply"></i>
+                  </button>
+                </div>
+                <!-- /.btn-group -->
+                <div class="float-right">
+                  전체 ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage} 페이지
+                  <div class="btn-group">
+                  
+                  <a href="javascript:fncGetList('${ resultPage.currentPage-1}')">
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="fas fa-chevron-left"></i>
+                    </button>
+                  </a>
+                  <a href="javascript:fncGetList('${resultPage.currentPage+1}')">
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </a>
+                                  	<form class="form-inline" name="detailForm">
+					  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+					</form>
+                  </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.float-right -->
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
 
-					</div>
+
+
 		 <!-- Modal 쪽지 선택삭제-->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
@@ -368,20 +410,16 @@
 			  </div>
 			</div>            
             
-          </div>
-        </div>
-      </div>
-    </div>
+        
+<!-- jQuery -->
+<script src="/resources/javascript/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<!-- <script src="/resources/javascript/bootstrap.bundle.min.js"></script> -->
+<!-- AdminLTE App -->
+<script src="/resources/javascript/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/resources/javascript/demo.js"></script>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    
-    
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="/resources/javascript/vendor/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/resources/javascript/ie10-viewport-bug-workaround.js"></script>
-  </body>
+</body>
 </html>
+

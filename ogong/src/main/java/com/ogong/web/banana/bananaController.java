@@ -45,6 +45,7 @@ public class bananaController {
 		
 		User user = (User)session.getAttribute("user");
 		
+		bananaService.adminGetUser(user.getEmail());
 		
 		banana.setBananaEmail(user);
 		

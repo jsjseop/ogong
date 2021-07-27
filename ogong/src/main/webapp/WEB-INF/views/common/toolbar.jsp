@@ -27,7 +27,7 @@
   
   <!-- Font Awesome Icons ==================-->
   <link rel="stylesheet" href="/resources/css/all.min.css">
-  <!-- Font Awesome Icons END ==================-얘가 안돼 ㅠㅠㅠㅠ ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ->
+  <!-- Font Awesome Icons END >
   
   
   <!-- Theme style -->
@@ -37,8 +37,8 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-        &nbsp&nbsp&nbsp&nbsp&nbsp<a href="../../index3.html" class="navbar-brand">
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="background-color:#FFDC3C; color:#FFDC3C;">
+        &nbsp&nbsp&nbsp&nbsp&nbsp<a class="navbar-brand">
         <img src="/resources/images/Ogong.png" align="left" class="Ogong" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       </a>
     <div class="container">
@@ -84,95 +84,38 @@
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" id="noticeCount">
+        
           <a class="nav-link" data-toggle="dropdown" href="#">
-          
-            <i class="fas fa-comments"></i>
             
-            <span class="badge badge-danger navbar-badge">3</span>
+            <i class="far fa-bell"></i>	
+            
           </a>
+          
+          
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
+                <div class="media-body" id="noticeList">
+                
+<!--                   <h3 class="dropdown-item-title">
                     Brad Diesel
                     <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                   </h3>
                   <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p> -->
+                  
                 </div>
               </div>
               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+            <a href="javascript:deleteNoticeAll('user01')" class="dropdown-item dropdown-footer">전 체 삭 제</a>
           </div>
         </li>
         
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-          
-            <i class="far fa-bell"></i>	
-            
-            <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li>
         
         <li class="nav-item dropdown">
           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
@@ -185,7 +128,7 @@
               <li><a href="#" class="dropdown-item">공부기록</a></li>
               <li><a href="#" class="dropdown-item">나의스터디</a></li>
               <li><a href="#" class="dropdown-item">나의게시글</a></li>
-              <li><a href="#" class="dropdown-item">바나나조회</a></li>
+              <li><a href="#" class="dropdown-item">바나나 조회</a></li>
               <li><a href="#" class="dropdown-item">회원탈퇴</a></li>
             </ul>          
         </li>
@@ -232,10 +175,10 @@
  					} ,
 	   				success : function(JSONData, status){
 	   					/* alert(JSONData); */
-	   						if (JSONData != 0){
-								let display = "<span id='test' style='background: red;'>"+JSONData+"</span>";
-								$('#noticeCount > a > span').append(display); 
-	   						}
+   						if (JSONData != 0){
+							let display = "<span class='badge badge-danger navbar-badge' id='test'>"+JSONData+"</span>";
+							$('#noticeCount > a > i').append(display); 
+   						}
 	   				}
 	   			});	   		
 	   	};
@@ -295,7 +238,7 @@
 	 					 
 	 				  }	
 	   			});
-	   		$('.notice').remove();
+	   		$('#notice').remove();
 	   	}
    		
 	 	
@@ -323,52 +266,84 @@
 	 							for(var i = 0; i < JSONData.length; i++){
 	 		 						
 	 		 						if(JSONData[i].noticeCategory == '1'){
-	 			 						display = "<div style='height: 40px' class='notice'>"
-	 			 								+ "<span>"+JSONData[i].noticeBoard.boardTitle+"에 댓글이 달렸습니다.</span>"
-	 			 								+ "</div>"
-	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+	 			 						display = "<h3 class='dropdown-item-title'>"
+	 			 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"
+	 			 								+ "<p class='text-sm'>댓글이 달렸습니다.</p>"
+	 			 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 	 			 					}
 	 		 						else if (JSONData[i].noticeCategory == '2'){
-		 		 						display = "<div style='height: 40px' class='notice'>"
-		 		 								+ JSONData[i].noticeBoard.boardTitle+"에 답변이 달렸습니다."
-		 		 								+ "</div>"
-	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 						display = "<h3 class='dropdown-item-title'>"
+		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"		 		 								
+		 		 								+ "<p class='text-sm'>답변이 달렸습니다.</p>"
+		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '3'){
-		 		 						display = "<div style='height: 40px' class='notice'>"
-		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 답변이 채택되었습니다."
-		 		 								+ "</div>"
-	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 						display = "<h3 class='dropdown-item-title'>"
+		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"		 		 								
+		 		 								+ "<p class='text-sm'>답변이 채택되었습니다.</p>"
+		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '4'){
-		 		 						display = "<div style='height: 40px' class='notice'>"
-		 		 								+ JSONData[i].noticeStudy.studyName+"에 참가신청이 도착했습니다."
-		 		 								+ "</div>"
-	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 						display = "<h3 class='dropdown-item-title'>"
+		 		 								+ JSONData[i].noticeStudy.studyName+"의 스터디에"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"
+		 		 								+ "<p class='text-sm'>참가신청이 도착하였습니다.</p>"
+		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '5' && JSONData[i].noticeGroupMember.approvalFlag == '1'){
-		 		 						display = "<div style='height: 40px' class='notice'>"
-	 		 								+ JSONData[i].noticeStudy.studyName+"에 참가신청이 승인 되었습니다."
-	 		 								+ "</div>"
- 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 						display = "<h3 class='dropdown-item-title'>"
+		 		 								+ JSONData[i].noticeStudy.studyName+"의 스터디에"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"
+		 		 								+ "<p class='text-sm'>참가신청이 승인 되었습니다.</p>"
+		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '5' && JSONData[i].noticeGroupMember.approvalFlag == '2'){
-		 		 						display = "<div style='height: 40px' class='notice'>"
-	 		 								+ JSONData[i].noticeStudy.studyName+"에 참가신청이 거절 되었습니다."
-	 		 								+ "</div>"
- 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 						display = "<h3 class='dropdown-item-title'>"
+		 		 								+ JSONData[i].noticeStudy.studyName+"의 스터디에"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"
+		 		 								+ "<p class='text-sm'>참가신청이 거절 되었습니다.</p>"
+		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '6'){
-		 		 						display = "<div style='height: 40px' class='notice'>"
-		 		 								+ "개인별 목표시간이 완료되었습니다."
-		 		 								+ "</div>"
-	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 						display = "<h3 class='dropdown-item-title'>"
+		 		 								+ "사용자님의"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"
+		 		 								+ "<p class='text-sm'>개인별 목표시간이 완료되었습니다.</p>"
+		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '7'){
-		 		 						display = "<div style='height: 40px' class='notice'>"
-		 		 								+ JSONData[i].sender.email+"에게 쪽지가 도착하였습니다."
-		 		 								+ "</div>"
-	 			 								+"<span><a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'>X</a></span>";
+		 		 						display = "<h3 class='dropdown-item-title' id='notice'>"
+		 		 								+ JSONData[i].sender.email+" 님에게"
+		 		 								+ "<span class='float-right text-sm text-danger'>"
+		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
+		 		 								+ "</span>"
+		 		 								+ "</h>"
+		 		 								+ "<p class='text-sm'>쪽지가 도착하였습니다.</p>"
+		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 	 		 						}
 	 		 						 /* alert(display); */
 	 		 						$('#noticeList').append(display); 
@@ -391,7 +366,7 @@
    	<script type="text/javascript">
 
 		//=============  오공 Event  처리 =============
-		$( "a:contains('OGong')").on("click", function(){
+		$(".Ogong").on("click", function(){
 			location.href = "/integration/mainPage";
 		}) ;   	
    	   	
@@ -448,7 +423,7 @@
 	 	
 	 	//=============  로그아웃 Event  처리 =============
 	 	$( "a:contains('로그아웃')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/logout";
 	 	});	 
 	 	
 	 	//=============  쪽지 Event  처리 =============

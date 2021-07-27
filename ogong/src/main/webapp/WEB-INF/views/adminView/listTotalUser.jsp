@@ -37,7 +37,7 @@
         }
         
         #hard{
-		width:400px;
+		width:300px;
 		height:500px;
 		float:right;
 		margin:30px;
@@ -119,7 +119,9 @@
 		
  	 	$("td:nth-child(2)").on("click",function(){
 	 		alert("asd");
-	 		var email = $("td:nth-child(2)").find('input').val()
+	 		
+	 		var email = $(this).find("input").val();
+	 		
 	 		alert(email)
 				$.ajax({
 				
@@ -133,14 +135,14 @@
 					
 					success : function(JSONData, status){
 						alert(JSONData.email);
-						var display = "<div style='height: 40px' class='getUser'>"
+						
+						var display = "<div id='userEmail' style='height: 80px' class='getUser'>"
 									+ "<span> 이메일 ="+JSONData.email+"</span>"
 									+ "<span> 상태 ="+JSONData.condition+"</span>"
 									+ "<span> 닉네임 ="+JSONData.nickname+"</span>"
 									+ "</div>";
-									
-						$("#"+email+"").append(diplay);
-						
+						$('#userEmail').remove();
+						$("#ohmy").append(display);
 					}
 					
 				})
@@ -225,7 +227,7 @@
 						    
 						    	<div class="col-md-6 text-left">
 							    	<p class="text-primary">
-							    		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+							    		&nbsp&nbsp전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
 							    	</p>
 							    </div>
 							    
@@ -233,7 +235,7 @@
 								    <form class="form-inline" name="detailForm">
 								    
 									  <div class="form-group">
-									    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+									    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 									  
 									    <select class="form-control" name="searchCondition" >
 													<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>이메일</option>
