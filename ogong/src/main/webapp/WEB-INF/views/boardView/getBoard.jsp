@@ -124,7 +124,7 @@
 			},
 			dateType:'json',
 			success:function(res){
-				if (res) {
+				if (res == true) {
 					$('#modal').hide();
 					var ul = $('#listComment');
 					ul.children('li').remove();

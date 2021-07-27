@@ -88,7 +88,9 @@ public class RestBoardController {
     	User user = (User)session.getAttribute("user");
     	comment.setCommentWriter(user);
     	
-		return boardService.updateComment(comment);
+    	boardService.updateComment(comment);
+    	
+		return true;
     }
     
     @PostMapping("deleteComment")
