@@ -109,6 +109,7 @@ public class BoardController {
 		// ===========바나나 적립 및 소모 END==================
 		
 		return "redirect:/board/getBoard?boardNo=" +result;
+
 	}
 	
 

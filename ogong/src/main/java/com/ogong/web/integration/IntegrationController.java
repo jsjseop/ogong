@@ -102,7 +102,7 @@ public class IntegrationController {
 									@ModelAttribute("message") Message message, Model model)throws Exception {
 
 		int pageSize = 30;
-		int pageUnit = 30;
+		int pageUnit = 20;
 	
 		System.out.println("/integration/listSendMessage : GET");
 		
@@ -138,7 +138,7 @@ public class IntegrationController {
 	public String listReceiveMessage(@ModelAttribute("search") Search search, Model model, HttpSession session, Message message  )throws Exception {
 		
 		int pageSize = 30;
-		int pageUnit = 30;
+		int pageUnit = 20;
 		
 		System.out.println("/integration/listReceiveMessage : GET");
 		

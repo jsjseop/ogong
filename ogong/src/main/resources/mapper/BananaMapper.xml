@@ -18,8 +18,10 @@
 
 	<resultMap id="UserSelectMap" type="user">
 		<result property="email"						 column="EMAIL"				 jdbcType="VARCHAR"/>
+		<result property="role"						 	 column="ROLE"				 jdbcType="VARCHAR"/>
 		<result property="condition"					 column="CONDITION"			 jdbcType="VARCHAR"/>
 		<result property="nickname"					   	 column="NICKNAME"			 jdbcType="VARCHAR"/>
+		<result property="userImage"					 column="USER_IMAGE"		 jdbcType="VARCHAR"/>
 		<result property="withdrawDate"					 column="WITHDRAW_DATE"		 jdbcType="VARCHAR"/>
 		<result property="withdrawReason"				 column="WITHDRAW_REASON"	 jdbcType="VARCHAR"/>
 		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="VARCHAR"/>
@@ -34,7 +36,9 @@
 	<!-- 회원 상세보기 -->
 	<select id="adminGetUser"	parameterType="string"	resultMap="UserSelectMap">
 		SELECT
-		email, 
+		email,
+		role,
+		user_image, 
 		condition, 
 		nickname, 
 		TO_CHAR(withdraw_date,'YYYY-MM-DD') withdraw_date, 
@@ -75,9 +79,10 @@
 		SELECT outer_table.*
 		FROM ( SELECT 
 			   inner_table.* , ROWNUM AS row_seq
-						FROM		( SELECT b.banana_email,
+						FROM		( SELECT b.banana_info_no,
+											 b.banana_email,
 											 b.banana_history,
-											 TO_CHAR(b.banana_history_date,'YYYY-MM-DD') banana_history_date,
+											 TO_CHAR(b.banana_history_date,'YYYY-MM-DD HH24:MI:SS') banana_history_date,
 											 b.banana_amount,
 											 b.banana_category,
 											 u.banana_count
@@ -123,12 +128,19 @@
 			banana_count = banana_count - #{bananaCount:NUMERIC}
 		</set>
 		WHERE email = #{email:VARCHAR}
-	</update>	
+	</update>
+	
+	<delete id="deleteBanana" parameterType="int">
+		DELETE
+		FROM banana_info
+		WHERE banana_info_no = #{value}
+	</delete>	
 	
 	
 	<select id="getbananaCount"		parameterType="hashmap"		resultType="int">
 		SELECT COUNT(*)
-						FROM		( SELECT b.banana_email,
+						FROM		( SELECT b.banana_info_no,
+											 b.banana_email,
 											 b.banana_history,
 											 TO_CHAR(b.banana_history_date,'YYYY-MM-DD') banana_history_date,
 											 b.banana_amount,
