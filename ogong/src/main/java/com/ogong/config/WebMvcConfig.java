@@ -16,4 +16,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/board/summernoteImage/**")
                 .addResourceLocations("file:///C:/summernote_image/");
     }
+
 }

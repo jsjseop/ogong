@@ -29,19 +29,21 @@
 		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
 		<result property="regDate" 				column="reg_date" 			jdbcType="DATE" />
 		<result property="bananaCount" 			column="banana_count" 		jdbcType="NUMERIC" />
-		<result property="learingType" 			column="learing_type" 		jdbcType="VARCHAR" />
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
-		<result property="certified" 			column="certified" 			jdbcType="VARCHAR" />
 		
 		
 	</resultMap> 
 	
-	<!-- SQL : INSERT  회원가입-->
+
+	
+
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
     EMAIL,
+    ROLE,
+    CONDITION,
     NICKNAME,
     PASSWORD,
     NAME,
@@ -60,13 +62,13 @@
     USER_TARGET_TIME,
     reg_Date,
     BANANA_COUNT,
-    LEARING_TYPE,
     STUDY_INTEREST1,
     STUDY_INTEREST2,
-    STUDY_INTEREST3,
-    CERTIFIED
+    STUDY_INTEREST3
 ) VALUES (
     #{email:VARCHAR},
+    '1',
+    '1',
     #{nickname:VARCHAR},
     #{password:VARCHAR},
     #{name:VARCHAR},
@@ -75,7 +77,7 @@
     #{userImage:VARCHAR},
     #{goal:VARCHAR},
     #{withdrawDate:DATE},
-    #{withdrawReason:VARCHAR},
+    #{withdrawreason:VARCHAR},
     #{restoreDate:DATE},
     #{restoreReason:VARCHAR},
     #{diligenceRate:NUMERIC},
@@ -83,57 +85,112 @@
     #{suspendStartDate:DATE},
     #{suspendEndDate:DATE},
     #{userTargetTime:NUMERIC},
-    sysdate,
+    SYSDATE,
     #{bananaCount:NUMERIC},
-    #{learingType:VARCHAR},
     #{studyInterest1:VARCHAR},
     #{studyInterest2:VARCHAR},
-    #{studyInterest3:VARCHAR},
-    #{certified:VARCHAR}
+    #{studyInterest3:VARCHAR}
 )
+
+
+
+	 
+
+
 	 </insert>
 	 
-	  	 <!--로그인  -->  	  
+	 	<!--SQL : 프로필 (수정)  -->    
+	 <update	id="updateProfile"	parameterType="user" >
+	   	UPDATE users
+	   	<set>
+  		USER_IMAGE =  #{userImage:VARCHAR},
+	   		NICKNAME = #{nickname:VARCHAR},
+	   		NAME =  #{name:VARCHAR}, 
+   			BIRTH =  #{birth:DATE},
+   		 	GENDER =  #{gender:VARCHAR},
+    		GOAL =  #{goal:VARCHAR},
+    		STUDY_INTEREST1 = #{studyInterest1:VARCHAR},
+    		STUDY_INTEREST2 = #{studyInterest2:VARCHAR},
+    		STUDY_INTEREST3 = #{studyInterest3:VARCHAR} 
+	   	</set>
+	   	WHERE EMAIL = #{email:VARCHAR}
+	 </update> 
+	 
+
+		  	 <!--로그인  -->  	  
 	  <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
   	  	  
   	  	  select *
 from users
-where EMAIL=#{email}
-AND PASSWORD = #{password}
+where EMAIL= #{email:VARCHAR}
+AND PASSWORD = #{password:VARCHAR}
   	  	  </select> 
-	
+	  
 	 
-	 	 <!-- 비밀번호 변경 	  -->
-	 
-	   <update id="updatePassword" parameterType="user">
+	   <update id="Changedpassword" parameterType="user">
     update USERS
-     set password= #{newPassword}
-    where EMAIL = #{email}
-    
-    
-    
+     set
+     PASSWORD= #{password} 
+    where EMAIL= #{email:VARCHAR}
+ 
   </update>
-  
-    	<!-- 아이디 중복검사 -->
-  	<select id="idCheck" resultType="int">
+   
+   
+   <!-- 회원탈퇴 -->
+   	 <update	id="withdrawreason"	parameterType="user" >
+   update USERS
+   SET
+   CONDITION = 2,
+    WITHDRAW_DATE = sysdate
+     where EMAIL= #{email:VARCHAR}
+     </update>
+     <!-- 회원복구 -->
+     <update	id="restore"	parameterType="user" >
+     
+    update USERS
+   SET
+   CONDITION = 1,
+    RESTORE_DATE = sysdate ,
+    RESTORE_REASON =#{restoreReason:VARCHAR}
+     where EMAIL= #{email:VARCHAR}
+
+   
+   </update>
+   
+   	<select id="nicknameCheck" parameterType="String" resultType="int">
   	
-  		select *
-  		from users 
-  		where 
-  		email = #{memberId}
+SELECT count(*)
+		FROM users
+		WHERE NICKNAME = #{nickname};
   
 	 </select>
+	  
 	 
 	 
+ 	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
+		SELECT *
+		form users
+		where EMAIL= #{email:VARCHAR}
+	 </select> 
 	 
-	<!-- SQL : 프로필 보기 
-	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
-		SELECT
-		userImage, nickname , userName , birth ,  gender ,  goal , uInterest		
-		FROM users 
-		WHERE EMAIL = #{EMAIL}
-	 </select> -->
+
+	 
 		
+<!--  	 	       <select id="userboardList" parameterType ="hashmap" resultType="boardSelectMap">
+            SELECT
+               BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT
+             FROM board
+             where EMAIL= #{email:VARCHAR}
+                  
+        </select>   -->
+        
+        <select id = "idCheck" parameterType = "String" resultType = "int">
+		SELECT *
+		form users
+		where NICKNAME= #{nickname:VARCHAR}
+</select>
+
+	
 		
 	 
 	<!--  SQL : 프로필 (수정)  

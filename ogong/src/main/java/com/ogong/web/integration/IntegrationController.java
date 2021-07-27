@@ -101,8 +101,8 @@ public class IntegrationController {
 	public String listSendMessage(@ModelAttribute("search") Search search, HttpSession session,
 									@ModelAttribute("message") Message message, Model model)throws Exception {
 
-		int pageSize = 5;
-		int pageUnit = 5;
+		int pageSize = 30;
+		int pageUnit = 30;
 	
 		System.out.println("/integration/listSendMessage : GET");
 		
@@ -121,12 +121,12 @@ public class IntegrationController {
 		System.out.println("message는 이거 :::::"+message);
 		
 		Map<String,Object> result = integrationService.getlistSendMessage(map);
-		List<Object> list = (List<Object>)map.get("list");
+		List<Object> list = (List<Object>)result.get("list");
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)result.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println("여기는 resultPage " + resultPage);
 				
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list", result.get("list"));
 		model.addAttribute("search", search);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("message", message);
@@ -137,8 +137,8 @@ public class IntegrationController {
 	@RequestMapping(value="listReceiveMessage")
 	public String listReceiveMessage(@ModelAttribute("search") Search search, Model model, HttpSession session, Message message  )throws Exception {
 		
-		int pageSize = 5;
-		int pageUnit = 5;
+		int pageSize = 30;
+		int pageUnit = 30;
 		
 		System.out.println("/integration/listReceiveMessage : GET");
 		
@@ -161,12 +161,12 @@ public class IntegrationController {
 		map.put("message", message);
 		
 		Map<String,Object> result = integrationService.getlistReceiveMessage(map);
-		List<Object> list = (List<Object>)map.get("list");
+		List<Object> list = (List<Object>)result.get("list");
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)result.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println("여기는 resultPage " + resultPage);
 				
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list", result.get("list"));
 		model.addAttribute("search", search);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("message", message);
@@ -227,7 +227,7 @@ public class IntegrationController {
 		model.addAttribute("list2", map.get("banana"));
 		model.addAttribute("list", map.get("choose"));
 		
-		return "index";
+		return "/index";
 	}
 	
 	

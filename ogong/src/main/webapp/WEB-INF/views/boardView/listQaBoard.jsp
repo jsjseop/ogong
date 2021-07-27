@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
 <head>
@@ -63,8 +61,51 @@
 
 
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
+
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
+}
+
 body {
 	padding-top: 30px;
+}
+
+h1 {
+	text-align: center;
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+table.one {
+	margin-bottom: 3em;
+	border-collapse: collapse;
+}
+
+td { /* removed the border from the table data rows  */
+	text-align: center;
+	width: 10em;
+	padding: 1em;
+}
+
+th { /* removed the border from the table heading row  */
+	text-align: center;
+	padding: 1em;
+	background-color: #FFB039;
+	/* added a red background color to the heading cells  */
+	color: white;
+} /* added a white font color to the heading text */
+tr {
+	height: 1em;
+}
+
+table tr:nth-child(even) { /* added all even rows a #eee color  */
+	background-color: #FFEACA;
+}
+
+table tr:nth-child(odd) { /* added all odd rows a #fff color  */
+	background-color: #E6AE59;
 }
 </style>
 </head>
@@ -75,96 +116,94 @@ body {
 	<div class="container">
 
 		<div class="page-header text-default">
-				<c:if test="${boardCategory == '1'}">
-	       				<h3>정보공유 게시판</h3>
-	       		</c:if>
-	       		<c:if test="${boardCategory == '2'}">
-	       				<h3>Q&A 게시판</h3>
-	       		</c:if>
+			<c:if test="${boardCategory == '1'}">
+				<h3>정보공유 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '2'}">
+			</c:if>
+			<h3>Q&A 게시판</h3>
 
-	       		<c:if test="${boardCategory == '3'}">
-	       				<h3>합격후기 게시판</h3>
-	       		</c:if>
-	       		<c:if test="${boardCategory == '4'}">
-	       				<h3>자유 게시판</h3>
-	       		</c:if>
-	       		<c:if test="${boardCategory == '5'}">
-	       				<h3>자율스터디 모집 게시판</h3>
-	       		</c:if>
-	       		<c:if test="${boardCategory == '6'}">
-	       				<h3>파일공유 게시판</h3>
-	       		</c:if>
+			<c:if test="${boardCategory == '3'}">
+				<h3>합격후기 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '4'}">
+				<h3>자유 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '5'}">
+				<h3>자율스터디 모집 게시판</h3>
+			</c:if>
+			<c:if test="${boardCategory == '6'}">
+				<h3>파일공유 게시판</h3>
+			</c:if>
 		</div>
 
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		<div class="row">
-	<div align="center" id="bbs" class="col-md-10 offset-md-1">
-		<h1>Q&A 게시판</h1>
-
-			<!-- 검색 폼 시작--------------------- -->
-		<form name="sf" action="find" onsubmit="return check()">
-			<div class="row m-4">
-				<div class="col-md-2">
-					<select name="findType" class="form-control">
-						<option value="">::검색 유형::</option>
-						<option value="1">글제목</option>
-						<option value="2">작성자</option>
-						<option value="3">글내용</option>
-					</select>
-				</div>
-				<div class="col-md-8">
-					<input type="text" name="findKeyword" class="form-control"
-						placeholder="검색어를 입력하세요">
-				</div>
-				<div class="col-md-2">
-					<button type="button" onclick="check()" class="btn btn-warning">검색</button>
-				</div>
+			<div class="col-md-6 text-left">
+				<p class="text-default">전체 ${resultPage.totalCount} 건수, 현재
+					${resultPage.currentPage} 페이지</p>
 			</div>
-			<!--  row end -->
-		</form>
-		<!-- 검색 폼 끝---------------------- -->
 
+			<div class="col-md-6 text-right">
+				<form class="form-inline" name="detailForm">
 
-		<table class="table table-condensed table-striped">
-			<tr>
-				<th>&nbsp;&nbsp;&nbsp; 글번호</th>
-				<th>제목</th>
-				<th>글쓴이</th>
-				<th>조회수</th>
-				<th>날짜</th>
-			</tr>
+					<div class="form-group">
+						<select name="searchCondition" class="form-control"
+							style="width: 110px">
+							<option value="0"
+								${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
+							<option value="1"
+								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
+							<option value="2"
+								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label class="sr-only" for="searchKeyword">검색어</label> <input
+							type="text" class="form-control" id="searchKeyword"
+							name="searchKeyword" placeholder="검색어"
+							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+					</div>
+
+					<button type="button" class="btn btn-warning">검색</button>
+
+					<input type="hidden" id="currentPage" name="currentPage" value="" />
+				</form>
+			</div>
+		</div>
+
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th align="center">No</th>
+					<th align="left">제목</th>
+					<th align="left">작성자</th>
+					<th align="left">조회수</th>
+					<th align="left">등록일</th>
+				</tr>
+			</thead>
 			<!-- ---------------------------- -->
-		<tbody>
-			<c:forEach var="board" items="${list}">
+			<tbody>
+				<c:forEach var="board" items="${list}">
 					<tr>
 						<td align="center">${board.boardNo}</td>
-						<td align="left">${board.boardTitle}<input type="hidden" value="${board.boardNo}" /></td>
+						<td align="left">${board.boardTitle}<input type="hidden"
+							value="${board.boardNo}" /></td>
 						<td align="left">${board.writer.nickname}</td>
 						<td align="left">${board.viewCount}</td>
 						<td align="left">${board.boardRegDate}</td>
 					</tr>
 				</c:forEach>
-		</tbody>		
+			</tbody>
 			<!-- ----------------------------- -->
-			
-			<tr>
-				<td colspan="3" class="text-center">
-					${navi}
-				</td>
-				<td colspan="2">총게시물수: <span class="text-danger"
-					style="font-weight: bold">${page.totalCount}개</span> <br> <span
-					class="text-danger" style="font-weight: bold">${page.pageUnit
-					}</span>
-					/${page.pageCount} pages
-				</td>
-			</tr>
 		</table>
-		
-				<div align="right">
+		<div align="right">
 			<button type="button" class="btn btn-warning" style="width: 80px;"
 				onclick="javascript:fncWrite('${writer.email}')">글쓰기</button>
 		</div>
 	</div>
-</div>
+	<jsp:include page="../common/pageNavigator.jsp" />
+	</div>
 </body>
 </html>

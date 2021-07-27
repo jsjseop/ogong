@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ogong.common.Search;
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
@@ -58,6 +59,12 @@ public class TestStudyServiceImpl implements TestStudyService {
 		result.put("totalCount", new Integer(totalCount));
 		
 		return result;
+	}
+
+	@Override
+	public Map<String, Object> getStudyList(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -32,7 +32,10 @@
 
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
-
+		let boardRegBanana = $("input[name='boardRegBanana']").val();
+		
+		alert(boardRegBanana);
+		
 		if (name == null || name.length < 1) {
 			alert("제목을 입력해주세요.");
 			return;
@@ -113,7 +116,7 @@ body {
 					<strong>내  용</strong>
 				</div>
 				<div class="col-xs-8 col-md-4">
-					<input class="form-control" type="text" name="boardContents"
+					<input class="form-control" type="text" name="answerContents"
 						style="width: 500px; height:300px;" />
 				</div>
 			</div>
@@ -121,24 +124,15 @@ body {
 			<hr />
 			
 			<div class="row">
-				<div class="col-xs-4 col-md-2">
+				<div class="col-xs-2 col-md-2">
 					<strong>바나나 개수 선택</strong>
-				</div>	
-						<select name="banana">
-			
-							  <option value="1" selected="selected">1</option>
-							  <option value="2">2</option>
-							  <option value="3">3</option>
-							  <option value="2">4</option>
-							  <option value="3">5</option>
-							  <option value="2">6</option>
-							  <option value="3">7</option>
-							  <option value="2">8</option>
-							  <option value="3">9</option>
-							  <option value="3">10</option>
-							  
-					</select>
 				</div>
+				<div class="col-xs-8 col-md-4">
+					<input class="form-control" type="text" name="boardRegBanana"
+						style="width: 50px; " />
+				</div>
+			</div>			
+			
 				<div class="col-xs-8 col-md-4">
 			</div>	
 

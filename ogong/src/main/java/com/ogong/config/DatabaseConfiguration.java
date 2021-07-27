@@ -1,5 +1,8 @@
 package com.ogong.config;
 
+import java.util.Properties;
+
+import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -13,6 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -23,10 +28,14 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import lombok.Value;
+
 @SpringBootApplication
 @Configuration
 @PropertySource("classpath:/application.properties")
 @EnableTransactionManagement
+
+
 public class DatabaseConfiguration {
 	
 	@Autowired
@@ -67,18 +76,25 @@ public class DatabaseConfiguration {
 		return new DataSourceTransactionManager(dataSource());
 	}
     
+
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }
     
+        
     
     public static void main(String[] args) {
         SpringApplication.run(DatabaseConfiguration.class, args);
     }
+
     
     
 
     
-    
 }
+    
+
+    
+    
+    
