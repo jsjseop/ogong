@@ -13,6 +13,9 @@ public class Answer {
 	private User answerWriter;
 	private int boardNo;
 	private String adoptionFlag;
-	private Date adoptionDate;	
+	private Date adoptionDate;
+	private int adoptionCount;
+	
+	
 
 }

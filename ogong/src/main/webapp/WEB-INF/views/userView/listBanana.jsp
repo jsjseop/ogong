@@ -11,35 +11,24 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/resources/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/resources/css/adminlte.min.css">
   
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     
   
   <script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
-  
-	<style>
- 
-		
- 		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
-		
-		body, 
-		table, 
-		div, 
-		p, 
-		th, 
-		td{
-		font-family: 'Do Hyeon', sans-serif;
-		}
-		
-				
-   	</style>  
-  	
-  	<script type="text/javascript">
-  		$(function(){
+
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
+
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
+}
+</style>
+
+<script type="text/javascript">
+   		$(function(){
   			$( "a:contains('삭제')").on("click", function(){
 				
   				var bananaNo = $(this).find('input').val()
@@ -60,10 +49,101 @@
   				alert("삭제가 완료되었습니다.")
   				$("#divRemove").remove();
 		 	});
-  		})
-		 	
-  	
+  		
+  		
+  			
+		/* var email = ${banana.bananaEmail.email}; */
+		}); 	  		
+   		
+ 	var page = 1;
+		
+	$(window).scroll(function() {
+	  	if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight)){
+	    	console.log(++page);   	
+	  
+	
+			 $.ajax({
+				url : "/banana/json/getlistBanana/",
+				type : "POST",
+				data : JSON.stringify({currentPage: page}),
+			dataType : "json",
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			success : function(result) {
+				
+				var list = result.list;
+				var display = "";
+				
+				if(list.length > 0){
+					alert(list.length);
+					$.each(list, function(index, list){
+						alert(JSON.stringify(list));
+						if(list.bananaCategory == '1'){
+							display += '<div class="card row col-md-10 "style="margin:20px; height:170px;" id="divRemove">'
+									+ '<div class="card-body row" style="text-align: center;">'
+									+ '<div class="col-4   justify-content-center" >'
+									+ '<div class="text-center">'
+									+ '<img  src="/resources/images/add.png" alt="User profile picture">'
+									+ '</div>'
+									+ '</div>'
+									+ '<div class="col-8" style="">'
+									+ '<div class="form-group" id="deleteBanana" style="text-align: right; margin-bottom: 0.5rem; ">'
+									+ '<a>삭제<input type="hidden" value="${banana.bananaNo}" name="bananaNo"/></a>'
+									+ '</div>'
+									+ '<div class="form-group" style="text-align: left; ">'
+									+ list.bananaHistory
+									+ '</div>'
+									+ '<div class="form-group" style="text-align: left; ">'
+									+ list.bananaHistoryDate
+									+ '</div>'
+									+ '</div>'
+									+ '</div>'
+									+ '</div>';										
+						}else if(list.bananaCategory == '2'){
+							display += '<div class="card row col-md-10" style="margin:20px; height:170px;" id="divRemove">'
+									+ '<div class="card-body row" style="text-align: center;">'
+									+ '<div class="col-4   justify-content-center" >'
+									+ '<div class="text-center">'
+									+ '<img  src="/resources/images/use.png" alt="User profile picture">'
+									+ '</div>'
+									+ '</div>'
+									+ '<div class="col-8" style="">'
+									+ '<div class="form-group" id="deleteBanana" style="text-align: right; margin-bottom: 0.5rem; ">'
+									+ '<a>삭제<input type="hidden" value="${banana.bananaNo}" name="bananaNo"/></a>'
+									+ '</div>'
+									+ '<div class="form-group" style="text-align: left; ">'
+									+ list.bananaHistory
+									+ '</div>'
+									+ '<div class="form-group" style="text-align: left; ">'
+									+ list.bananaHistoryDate
+									+ '</div>'
+									+ '</div>'
+									+ '</div>'
+									+ '</div>';									
+						}
+						
+						
+						
+					});
+					alert(display);
+					$("#listBanana").append(display);
+							
+				}
+			},
+			error:function(request, status, error){
+				
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+			}); 
+			 
+		}	 
+	});
+  	  		
+
   	</script>
+
   
 </head>
 <body class="hold-transition sidebar-mini">
@@ -92,7 +172,7 @@
                 </div>
               </c:if>              
 		<!-- <img class="profile-user-img img-fluid img-circle" src="/resources/image/basic.jpg" alt="User profile picture"> -->
-                <h3 class="profile-username text-center">${user.email}</h3>
+                <h3 class="profile-username text-center">${banana.bananaEmail.email}</h3>
 
                 <p class="text-muted text-center"></p>
 
@@ -107,7 +187,11 @@
                     <b>바나나포인트</b> <a class="float-right">${user.bananaCount} 바나나</a>
                   </li>
                 </ul>
-                <a href="#" class="btn btn-primary btn-block" style="background-color:#FFDC3C;"><b>내 프로필</b></a>
+                <a href="#" class="btn btn-primary btn-block" style="background-color:#FFDC3C;">
+                	<b id="myprofile">
+                		내프로필
+                	</b>
+                </a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -117,8 +201,7 @@
         </div>
     
 
-	<div class="col-md-8">
-     <c:set var="i" value="0" />
+	<div class="col-md-8" id="listBanana">
 	<c:forEach var="banana" items="${list}">
       <div class="card row col-md-10 " style="margin:20px; height:170px;" id="divRemove">
         <div class="card-body row" style="text-align: center;">
@@ -151,9 +234,12 @@
         </div>
       </div>
     </c:forEach>  
-</div>
+	</div>
 
-
+                                  	<form class="form-inline" name="detailForm">
+					  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+					</form>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
@@ -163,14 +249,9 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="/resources/javascript/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<!-- <script src="/resources/javascript/bootstrap.bundle.min.js"></script> -->
-<!-- AdminLTE App -->
-<script src="/resources/javascript/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/resources/javascript/demo.js"></script>
+
+
+
 </body>
 </html>
 

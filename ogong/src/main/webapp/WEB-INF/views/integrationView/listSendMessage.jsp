@@ -13,11 +13,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/resources/css/all.min.css">
+  <link rel="stylesheet" href="/resources/css/hanjee/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/resources/css/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="/resources/css/hanjee/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/resources/css/adminlte.min.css">
+  <link rel="stylesheet" href="/resources/css/hanjee/adminlte.min.css">
   
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     
@@ -231,12 +231,16 @@
 
 	                  
                   <div class="btn-group">
+                  <a href="javascript:fncGetList('${ resultPage.currentPage-1}')">
                     <button type="button" class="btn btn-default btn-sm">
                       <i class="fas fa-chevron-left"></i>
                     </button>
+                  </a>
+                    <a href="javascript:fncGetList('${resultPage.currentPage+1}')">
                     <button type="button" class="btn btn-default btn-sm">
                       <i class="fas fa-chevron-right"></i>
                     </button>
+                    </a>
                   </div>
                   <!-- /.btn-group -->
                 </div>

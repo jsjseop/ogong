@@ -37,11 +37,16 @@ public class bananaController {
 	@RequestMapping(value="listBanana")
 	public String listBanana(@ModelAttribute("search") Search search, 
 							HttpSession session, Model model, Banana banana)throws Exception {
-
-		int pageSize = 10000;
-		int pageUnit = 5;
-	
 		System.out.println("/bananaController/listBanana : GET");
+		
+		int pageSize = 3;
+		int pageUnit = 5;
+		
+		if(search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
 		
 		User user = (User)session.getAttribute("user");
 		
@@ -49,10 +54,6 @@ public class bananaController {
 		
 		banana.setBananaEmail(user);
 		
-		if(search.getCurrentPage() ==0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
@@ -68,7 +69,7 @@ public class bananaController {
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)result.get("totalCount")).intValue(), pageUnit, pageSize);
 		
-		
+		System.out.println("search 확인 ::: "+search);
 		
 		model.addAttribute("list", result.get("list"));
 		model.addAttribute("search", search);

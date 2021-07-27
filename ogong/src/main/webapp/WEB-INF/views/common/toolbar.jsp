@@ -12,8 +12,7 @@
 
 
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <style>
 			.Ogong {
 			  width: 120px;
@@ -21,18 +20,15 @@
 			 
 			}
   </style>
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  
-  
-  <!-- Font Awesome Icons ==================-->
-  <link rel="stylesheet" href="/resources/css/all.min.css">
-  <!-- Font Awesome Icons END >
-  
-  
+
   <!-- Theme style -->
   <link rel="stylesheet" href="/resources/css/adminlte.min.css">
+<!-- REQUIRED SCRIPTS -->
 
+<!-- Bootstrap 4 -->
+<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/resources/javascript/adminlte.min.js"></script>
 
 <div class="wrapper">
 
@@ -111,8 +107,7 @@
               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-            <a href="javascript:deleteNoticeAll('user01')" class="dropdown-item dropdown-footer">전 체 삭 제</a>
+            	<a href="javascript:deleteNoticeAll()" class="dropdown-item dropdown-footer">전 체 삭 제</a>
           </div>
         </li>
         
@@ -143,16 +138,8 @@
   <!-- /.content-wrapper -->
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="/resources/javascript/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/resources/javascript/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/resources/javascript/demo.js"></script>
+
 		<!-- ToolBar End /////////////////////////////////////-->
  	  	<script type="text/javascript">
    		
@@ -238,7 +225,7 @@
 	 					 
 	 				  }	
 	   			});
-	   		$('#notice').remove();
+	   		$('#noticeList').remove();
 	   	}
    		
 	 	
@@ -423,7 +410,7 @@
 	 	
 	 	//=============  로그아웃 Event  처리 =============
 	 	$( "a:contains('로그아웃')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/logout";
 	 	});	 
 	 	
 	 	//=============  쪽지 Event  처리 =============
