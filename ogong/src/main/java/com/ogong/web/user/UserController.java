@@ -44,7 +44,6 @@ import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
 import ch.qos.logback.core.joran.conditional.Condition;
-import jdk.internal.org.jline.utils.Log;
 
 @Controller
 @RequestMapping("/user/*")
@@ -362,7 +361,7 @@ public class UserController {
 	@GetMapping("Mypostlist")
 	public String Mypostlist(Model model) {
 		
-		Log.info("게시판 진입");
+		logger.info("게시판 진입");
 		
 		model.addAttribute("list", userService.getList() );
 		
