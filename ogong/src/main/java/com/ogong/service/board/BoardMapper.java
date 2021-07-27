@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ogong.common.Search;
 import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
+import com.ogong.service.domain.File;
 import com.ogong.service.domain.Recommend;
 
 
@@ -19,7 +21,7 @@ import com.ogong.service.domain.Recommend;
 	public interface BoardMapper {
 		
 		//게시글 등록
-		void addBoard(Board board);
+		int addBoard(Board board);
 		
 		//게시글 조회
 		Board getBoard(Board board);
@@ -37,10 +39,10 @@ import com.ogong.service.domain.Recommend;
 		int addComment (Comment comment);
 		
 		//댓글 수정
-		Boolean updateComment (Comment comment);
+		int updateComment (Comment comment);
 		
 		//댓글 삭제
-		void deleteComment (int commentNo);
+		int deleteComment (Comment comment);
 		
 		//댓글 목록
 		List<Comment> listComment(Map<String, Object> map) ;
@@ -77,5 +79,16 @@ import com.ogong.service.domain.Recommend;
 		//추천수
 		Recommend getRecommendNo(Board board);
 		
+		//파일업로드
+		int addFile (File file);	
 		
+		//파일업로드
+		List<File> getFileList (Board board);	
+		
+		//파일 다운로드
+		File getFile (File file);	
+		
+		// insert, delete, update는 반환값이 무조건 int다 
+		// select는 바뀌기때문에 
+		// DAO메소드의 매개변수는 무조건 하나다 
 	}

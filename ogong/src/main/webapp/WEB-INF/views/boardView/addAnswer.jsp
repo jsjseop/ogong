@@ -41,7 +41,7 @@ let boardTitle = "<c:out value='${board.boardTitle}'/>";
 			return;
 		}
 
-		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory="+`${boardCategory}`)
+		$('form').attr('method', 'POST').attr('action', "/board/addAnswer?boardNo="+ ${board.boardNo});
 				.submit();
 	}
 
@@ -91,20 +91,22 @@ body {
 	       				<h3>파일공유 게시판</h3>
 	       		</c:if>
 	       		
-	 <form action='<c:url value='/board/addQaBoard'/>' method="post">
+	 <form action='<c:url value='/board/addAnswer'/>' method="post">
 	 
 	 	<div class="page-header">
 			<h3 class=" text-default">답변등록</h3>
 		</div>
-	 	<input type="hidden" name="userId" value="${writer.email}" />
+	 	<input type="hidden" name="answerWriter.email" value="${user.email}" />
+	 	<input type="hidden" name="answerWriter.nickname" value="${user.nickname}" />
+	 	<input type="hidden" name="boardNo" value="${board.boardNo}" />
 	 	
         <div class="form-group">
               <label for="exampleFormControlInput1">제목</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" value="${boardTitle}">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" value="${board.boardTitle}" readonly>
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">내용</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" name="contents" rows="10"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="answerContents" rows="10"></textarea>
           </div>
         <button type="submit" class="btn btn-info">등 록</button>
         <button type="button" class="btn btn-secondary">목 록</button>

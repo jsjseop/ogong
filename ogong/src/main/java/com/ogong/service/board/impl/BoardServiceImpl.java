@@ -1,11 +1,22 @@
 package com.ogong.service.board.impl;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ogong.common.Search;
 import com.ogong.service.board.BoardMapper;
@@ -14,27 +25,59 @@ import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
 import com.ogong.service.domain.Recommend;
+import com.ogong.service.domain.File;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	private static final int NUM_OF_MESSAGE_PER_PAGE = 5;
 	private static final int NUM_OF_NAVI_PAGE = 3;
+	
+	private static final String UPLOAD_PATH = "C:/summernote_image";
 
 	@Autowired
 	BoardMapper boardMapper;
 
 	// 게시글 등록
 	@Override
-	public void addBoard(Board board) throws Exception {
-
+	public int addBoard(Board board, List<MultipartFile> fileList) throws Exception {		
+		if (fileList == null) {
+		 board.setFileFlag("2");	
+		}else {	
+		board.setFileFlag("1");
+		}
+		
+		makDir(UPLOAD_PATH);
 		boardMapper.addBoard(board);
+		
+		for(MultipartFile f : fileList) {
+			String fileName = f.getOriginalFilename();
+			
+			File file = new File();
+			file.setFileName(fileName);
+			file.setFileBoard(board);
+			boardMapper.addFile(file);
+			
+			java.io.File target = new java.io.File(UPLOAD_PATH, fileName);
+			try {
+				FileCopyUtils.copy(f.getBytes(), target);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return board.getBoardNo();
+		
 	}
+	
+	
 
 	// 게시글+댓글 조회
-	public Board getBoard(Board board) throws Exception {
-
-		return boardMapper.getBoard(board);
+	public Map<String, Object> getBoard(Board board) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("board", boardMapper.getBoard(board));
+		result.put("fileList", boardMapper.getFileList(board));
+		
+		return result;
 
 	}
 
@@ -74,13 +117,17 @@ public class BoardServiceImpl implements BoardService {
 
 	// 댓글 수정
 	public Boolean updateComment(Comment comment) throws Exception {
-
-		return boardMapper.updateComment(comment);
+		boardMapper.updateComment(comment);
+		return null;
 	}
 
 	// 댓글 삭제
-	public void deleteComment(int commentNo) throws Exception {
-		boardMapper.deleteComment(commentNo);
+	public Boolean deleteComment(Comment comment) throws Exception {
+		int cnt = boardMapper.deleteComment(comment);
+		if ( cnt > 0) {
+			return true;
+		}
+		return false;
 	}
 
 	// 댓글 목록
@@ -112,26 +159,6 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.deleteAnswer(answerNo);
 	}
 
-	/*
-	 * public int getPageTotalCount(int totalCount) { int pageTotalCount = 0; if
-	 * (totalCount != 0) { // ceil 올림 : totalCount 151 -> 16 pageTotalCount = (int)
-	 * Math.ceil(((double) totalCount / NUM_OF_MESSAGE_PER_PAGE)); } return
-	 * pageTotalCount; }
-	 * 
-	 * public int getStartPage(int currentPage) { return ((currentPage - 1) /
-	 * NUM_OF_NAVI_PAGE) * NUM_OF_NAVI_PAGE + 1;
-	 * 
-	 * currentPage NUM_OF_NAVI_PAGE return 1 5 1 2 5 1 3 5 1 4 5 1 5 5 1 6 5 6
-	 * 
-	 * }
-	 * 
-	 * public int getEndPage(int currentPage) { return (((currentPage - 1) /
-	 * NUM_OF_NAVI_PAGE) + 1) * NUM_OF_NAVI_PAGE;
-	 * 
-	 * currentPage NUM_OF_NAVI_PAGE return 1 5 5 2 5 5 3 5 5 4 5 5 5 5 5 6 5 10
-	 * 
-	 * }
-	 */
 	// 조회수
 	public void updateViewcnt(int boardNo) throws Exception {
 
@@ -157,6 +184,40 @@ public class BoardServiceImpl implements BoardService {
 	
 		return boardMapper.listAnswer(boardNo);
 	}
+	
+	// 답변 목록
+	public void fileDown(HttpServletResponse response, File file) throws Exception {
+		File fileInfo= boardMapper.getFile(file);
+		String fileName = fileInfo.getFileName();
+	    String storePath = UPLOAD_PATH+"\\"+fileName;
+	      
+	    try 
+	    {
+	         fileName = URLEncoder.encode(fileName ,"UTF-8");
+	         response.setContentType("application/download;charset=utf-8");
+	         response.setHeader("Content-Disposition", "attachment;fileName=\""+fileName+"\";");
+	      
+	         OutputStream out = response.getOutputStream();
+	         FileInputStream fis = new FileInputStream(new java.io.File(storePath));
+	         FileCopyUtils.copy(fis, out);
+	         fis.close();
+	         out.close();
+	      } 
+	      catch (IOException e) {
+	         e.printStackTrace();
+	      }
+	}
 
-
+	// 파일 업로드
+	private void makDir(String path) {
+		java.io.File folder = new java.io.File(path);
+	      if(!folder.exists()) //폴더 존재여부 확인 (존재: true) 
+	      {
+	         try {
+	            folder.mkdir(); //폴더 생성
+	          }catch(Exception e) {
+	             e.getStackTrace();
+	         }        
+	       }
+	  }
 }
