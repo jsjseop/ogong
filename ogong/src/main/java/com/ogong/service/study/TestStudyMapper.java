@@ -1,27 +1,20 @@
 package com.ogong.service.study;
 
-
-import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
+import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 
-@Repository
-@Mapper
 public interface TestStudyMapper {
 
-	void addStudy(Study study);
+	public void addStudy(Study study) throws Exception;
 	
-	Study getStudy(int studyNo);
+	public Study getStudy(int studyNo) throws Exception;
 	
-	List<Study> getStudyList(Map<String, Object> map);
+	public void entranceStudy(int studyNo) throws Exception;
 	
-	int getTotalCount(Map<String, Object> map);
+	public void leaveStudy(int studyNo) throws Exception;
 	
-	void updateMember(@Param("studyNo") int StudyNo,@Param("num") int num);
-	
+	public Map<String, Object> getStudyList(Search search) throws Exception;
+
 }

@@ -59,7 +59,7 @@
 
 				for(var i=0 ; i<list.length ; i++){
 					var record = list[i];
-					var li = $("<li>");
+					var div = $("<div>");
 
 					var title = $("<div class='boardTitle'>");
 					var answerContents = $("<div class='answerContents'>");
@@ -73,12 +73,12 @@
 					answerDate.text(record.answerRegDate);
 					nickname.text(record.answerWriter.nickname);
 				
-					title.appendTo(li);
-					answerContents.appendTo(li);
-					answerDate.appendTo(li);
-					nickname.appendTo(li);
+					title.appendTo(div);
+					answerContents.appendTo(div);
+					answerDate.appendTo(div);
+					nickname.appendTo(div);
 					
-					li.appendTo(ul);
+					div.appendTo(ul);
 					
 					ul.append()
 				}
@@ -90,9 +90,9 @@
 	$(function() {
 		getAnswerList();
 		
-		$('button:contains("등 록")').on('click', function() {
+		$('button:contains("답변등록")').on('click', function() {
 
-			location.href = "/board/addBoard?boardCategory=" + boardCategory +"&boardTitle=" +boardTitle;
+			location.href = "/board/addAnswer?boardNo=" + boardNo;
 		})
 		
 		$('button:contains("수 정")').on('click', function() {
@@ -114,95 +114,128 @@
 	
 </script>
 <style>
-body {
-	padding-top: 20px;
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
+
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
 }
 
-pre {
-	border: 0;
-	background-color: transparent;
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
+
+body{
+	padding:30px;
 }
+
+table {
+font-family: "Lato","sans-serif";   
+}
+
+
+td {                         
+text-align: center;     
+width: 10em;                    
+padding: 1em;   
+} 
+
+
+th {                             
+text-align: center;                 
+padding: 1em;
+background-color: #7F7F7F;      
+color: white;
 </style>
 </head>
 
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
+	<h1 class="con">Q&A 게시글 상세</h1>
+	<br />
+	<section class="article-detail table-common con row">
 
-				<div class="page-header">
-					<div class="row">
-						<div class="col-xs-4 col-md-2">
-							<strong>제목</strong>
-						</div>
-						<div class="col-xs-8 col-md-4">${board.boardTitle}</div>
-					</div>
+		<table class="cell" border="2">
+			<tbody>
+				<tr class="article-title">
+					<th>제목:</th>
+					<td colspan="4">${board.boardTitle}</td>
+					<th>작성자</th>
+					<td colspan="4">${board.writer.email}</td>
+				</tr>
+				<tr class="article-info">
+					<th>등록일자</th>
+					<td colspan="4">${board.boardRegDate}</td>
+					<th>조회수</th>
+					<td colspan="4">${board.viewCount}</td>
+				</tr>
+				<tr class="article-body">
+					<th>내용</th>
+					<td colspan="3"><br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />${board.boardContents}<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br /></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<br />
+
+
+	<div align="center">
+
+		<button type="button" class="btn btn-success" style="width: 80px;">답변등록</button>
+
+		<c:if test="${user.email == board.writer.email}">
+			<button type="button" class="btn btn-warning" style="width: 60px;">수정</button>
+			<button type="button" class="btn btn-warning" style="width: 60px;">삭제</button>
+		</c:if>
+		<button type="button" class="btn btn-warning" style="width: 60px;">목록</button>
+		<button type="button" class="btn btn-danger" style="width: 60px;">신고</button>
+	</div>
+
+	<div class="answer-header">
+		<h2>${board.answerCount}개의 답변이 달렸습니다.</h2>
+	</div>
+	<ul id="listAnswer">
+
+	</ul>
+	<div class="modal fade" id="modal-container-872384" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">채택확인 여부</h5>
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span>
+					</button>
 				</div>
+				<div class="modal-body">이 글을 채택하시겠습니까?</div>
+				<div class="modal-footer">
 
-				<div class="row">
-					<div class="col-xs-4 col-md-2">
-						<strong>내 용</strong>
-					</div>
-					<div class="col-xs-8 col-md-4">
-						<pre style="width: 350px; height: 150px;">${board.boardContents}</pre>
-					</div>
+					<button type="button" class="btn btn-primary">네</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">아니요</button>
 				</div>
-
-				<div align="right">
-
-
-					<button type="button" class="btn btn-success" style="width: 80px;">답변등록</button>
-
-					<c:if test="${user.userId == board.writer.email}">
-						<button type="button" class="btn btn-warning" style="width: 60px;">수정</button>
-						<button type="button" class="btn btn-warning" style="width: 60px;">삭제</button>
-					</c:if>
-					<button type="button" class="btn btn-warning" style="width: 60px;">목록</button>
-					<button type="button" class="btn btn-danger" style="width: 60px;">신고</button>
-				</div>
-
-				<div class="page-header">
-					<h1>${board.answerCount}개의답변이달렸습니다.</h1>
-				</div>
-				<ul id="listAnswer">
-					
-				</ul>
-				
-
-
-				
-
-
-
-
-
-				<div class="modal fade" id="modal-container-872384" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="myModalLabel">채택확인 여부</h5>
-								<button type="button" class="close" data-dismiss="modal">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">이 글을 채택하시겠습니까?</div>
-							<div class="modal-footer">
-
-								<button type="button" class="btn btn-primary">네</button>
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">아니요</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
 			</div>
-
 		</div>
+	</div>
+
+
+	</div>
+
+	</div>
 	</div>
 
 </body>

@@ -11,7 +11,7 @@
 		<result property="boardCategory" 		column="board_category" 		jdbcType="VARCHAR" />
 		<result property="boardTitle" 			column="board_title" 			jdbcType="VARCHAR" />
 		<result property="boardContents"		column="board_contents" 		jdbcType="VARCHAR" />
-		<result property="boardInterest" 		column="board_interest" 		jdbcType="NUMERIC" />  
+		<result property="boardInterest" 		column="board_interest" 		jdbcType="VARCHAR" />  
 		<result property="boardRegDate" 		column="board_reg_date" 		jdbcType="DATE" /> 
 		<result property="viewCount" 			column="view_count" 			jdbcType="NUMERIC" />
 		<result property="commentCount" 		column="comment_count" 			jdbcType="NUMERIC" />
@@ -64,16 +64,25 @@
 		<result property="recommendNo" 				column="recommend_no" 			jdbcType="NUMERIC" />
 	</resultMap>
 	
+	<resultMap id="fileSelectMap" 	type="file">
+		<result property="fileNo" 				column="file_info_no" 			jdbcType="NUMERIC" />
+		<result property="fileName" 				column="file_name" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
 	
 	
 <!-- 게시판 등록 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 
 4.자유게시판5.자율스터디 모집게시판 6.파일공유 게시판-->
 
-	<insert id="addBoard" parameterType="board"
-	useGeneratedKeys="true" keyColumn="board_no" keyProperty="boardNo"> 
+	<insert id="addBoard" parameterType="board">
+		<selectKey order="BEFORE" keyProperty="boardNo" resultType="int">
+			SELECT seq_board_no.nextval FROM DUAL
+		</selectKey>
 		INSERT
 		INTO board( board_no,
-					study_no,
+					<if test="study!=null and study.studyNo!=null">
+						study_no,
+					</if>
 					email, 
 					nickname, 
 					board_category, 
@@ -81,19 +90,25 @@
 					board_contents, 
 					board_interest, 
 					board_reg_date, 
-					board_reg_banana, 
+					<if test="boardRegBanana!=null">
+						board_reg_banana,
+					</if>
 					file_flag, 
 					view_count)
-			VALUES( seq_board_no.nextval,
-					#{study.studyNo:NUMERIC}, 
+			VALUES( #{boardNo},
+					<if test="study!=null and study.studyNo!=null">
+						#{study.studyNo:NUMERIC},
+					</if>
 					#{writer.email},
 					#{writer.nickname:VARCHAR},
 					#{boardCategory},
 					#{boardTitle},
 					#{boardContents},
-					#{boardInterest},
+					#{boardInterest:VARCHAR},
 					SYSDATE,
-					#{boardRegBanana},
+					<if test="boardRegBanana!=null">
+						#{boardRegBanana},
+					</if>
 					#{fileFlag},		
 					0 
 					)
@@ -261,8 +276,9 @@
 			SET
 				comment_contents = #{commentContents}			
 			WHERE 
-				board_no = #{boardNo}
-			
+				comment_no = #{commentNo}
+			AND	board_no = #{boardNo}
+			AND email = #{commentWriter.email}	
 	</update>
 	
 	
@@ -272,8 +288,10 @@
 			DELETE
 			FROM 
 				comment_info
-			WHERE
-				 comment_no = #{value}
+			WHERE 
+				comment_no = #{commentNo}
+			AND	board_no = #{boardNo}
+			AND email = #{commentWriter.email}
 	</delete>
 	
 	
@@ -302,6 +320,9 @@
 	  		) a	
 	</select> 
 	 -->
+	 
+	<!-- 목록 수  -->
+	 
 	 <select	id="getTotalCount"	parameterType="search"		resultType="int">
 		SELECT
 	  		COUNT(*)
@@ -362,6 +383,8 @@
 	 </select>	
 	
 	
+	<!--  댓글 목록 -->
+	
 	<select id="listComment" parameterType="map" resultMap="commentSelectMap">
 		SELECT		
 			 c.*,
@@ -390,6 +413,9 @@
 						
 	</select>
 
+
+ <!-- 답변 수 -->
+ 
 	<select id="listCommentCount" parameterType="map" resultType="int">
 		SELECT
 			COUNT(*)
@@ -401,7 +427,7 @@
 	
 	
 	
-	<!-- 답변 리스트 -->
+	<!-- 답변 목록 -->
 	
 	<select id="listAnswer" parameterType="int" resultMap="answerSelectMap">
 		SELECT		
@@ -417,7 +443,6 @@
 			answer
 		WHERE 
 			board_no = #{boardNo}
-						
 	</select>
 
 	<!-- Q&A 게시판 답변 등록 -->
@@ -428,10 +453,10 @@
 		INTO answer  
 		VALUES (
 			seq_answer_no.nextval,
-			#{board.boardNo},
+			#{boardNo},
 			#{answerWriter.email},
 			#{answerContents},
-			#{adoptionFlag},
+			2,
 			SYSDATE,
 			#{answerWriter.nickname},
 			#{adoptionDate:DATE}
@@ -492,6 +517,16 @@
 			)					
 	</insert>
 	
+	
+	<select id="recommendCount" parameterType="board" resultType="int">
+		SELECT		
+			count(*)		
+		FROM 
+			recommend
+		WHERE 
+			board_no = #{boardNo}  		 
+	</select> 
+	
 		
 	<delete id="deleteRecommend" parameterType="int" >
 		DELETE
@@ -513,18 +548,35 @@
 	</select> 
 	
 	
-	<select id="recommendCount" parameterType="board" resultType="int">
+	<insert id="addFile" parameterType="file">
+		INSERT
+		INTO file_info
+		VALUES (
+			seq_file_info_no.nextval
+			,#{fileName}
+			,#{fileBoard.boardNo}	
+			)					
+	</insert>
+	
+	
+	<select id="getFileList" parameterType="board" resultMap="fileSelectMap">
 		SELECT		
-			count(*)		
+			file_info_no,
+			file_name					
 		FROM 
-			recommend
+			file_info
 		WHERE 
-			board_no = #{boardNo}  		 
+			board_no = #{boardNo}	  		 
 	</select> 
 	
 	
-	
-	
-
-	
+	<select id="getFile" parameterType="file" resultMap="fileSelectMap">
+		SELECT		
+			file_info_no,
+			file_name					
+		FROM 
+			file_info
+		WHERE 
+			file_info_no = #{fileNo}	  		 
+	</select> 
 </mapper>
