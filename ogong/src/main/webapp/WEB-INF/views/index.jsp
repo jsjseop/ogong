@@ -1,6 +1,7 @@
 
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -186,4 +187,8 @@
        
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+
 </html>
+
+</html>
+

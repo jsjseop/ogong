@@ -1,28 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="Ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>스터디 모집</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 
-<link rel="stylesheet" href="/resources/css/boardStudy2.css">
 
 
 <script>
@@ -144,17 +134,22 @@ $(function() {
 @import
 	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
 	;
-
-body{
-	padding:30px;
-}
-
+	
 table, div, p, th, td, h1 {
 	font-family: 'Do Hyeon', sans-serif; 
+	font-size: 15px;
 }
 
+h1.con {
+	font-family: 'Do Hyeon', sans-serif; 
+	font-size: 35px;
+} 
+
 table {
-font-family: "Lato","sans-serif";   
+font-family: "Lato","sans-serif"; 
+width: 1000px;
+height: 380px;
+margin :auto;  
 }
 
 
@@ -177,7 +172,9 @@ color: white;
 </head>
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
-	<h1 class="con">게시글 상세</h1>
+	<br/>
+	<br/>
+	<h1 class="con" style="text-align:center">스터디 모집 상세보기</h1>
 	<br/>
 	<section class="article-detail table-common con row">
 	
@@ -185,19 +182,24 @@ color: white;
 			<tbody >
 				<tr class="article-title">
 					<th>제목:</th>
-					<td colspan="4">${board.boardTitle}</td>
+					<td colspan="3">${board.boardTitle}</td>
 					<th>작성자</th>
-					<td colspan="4">${board.writer.email}</td>
+					<td colspan="3">${board.writer.email}</td>
 				</tr>
 				<tr class="article-info">
 					<th>등록일자</th>
-					<td colspan="4">${board.boardRegDate}</td>
+					<td colspan="3">${board.boardRegDate}</td>
 					<th>조회수</th>
-					<td colspan="4">${board.viewCount}</td>
+					<td colspan="3">${board.viewCount}</td>
+				</tr>
+				<tr class="article-date">
+					<th>스터디 모집일자</th>
+					<td colspan="10">${board.studyStartDate} ~ ${board.studyEndDate}</td>
 				</tr>
 				<tr class="article-body">
 					<th>내용</th>
-					<td colspan="3"><br/><br/><br/><br/><br/><br/>${board.boardContents}<br/><br/><br/><br/><br/><br/><br/></td>
+					<td colspan="10">
+					<br/><br/><br/><br/><br/><br/>${board.boardContents}<br/><br/><br/><br/><br/><br/><br/></td>
 				</tr>				
 			</tbody>			
 		</table>
@@ -206,9 +208,9 @@ color: white;
 	
 
 	<div align="center">
-		<div id="recommend" class="btn btn-warning" onclick="recommend()"
+		<div id="recommend" class="" onclick="recommend()"
 			style="width: 60px;">
-			추 천 <span id="cnt">0</span>
+			<span id="cnt"></span>
 		</div>
 
 		<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
@@ -225,6 +227,7 @@ color: white;
 		<button type="button" class="btn btn-warning" style="width: 60px;">목 록</button>
 	</div>
 
+<br/>
 
 </body>
 </html>

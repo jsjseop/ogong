@@ -4,27 +4,16 @@
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-    	<!-- Custom styles for this template-->
-
 <!-- ToolBar Start /////////////////////////////////////-->
+<style>
+.Ogong {
+	width: 120px;
+	height: 50px;
+}
+</style>
 
-
-
-
-
-  
-  <style>
-			.Ogong {
-			  width: 120px;
-			  height: 50px;
-			 
-			}
-  </style>
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/resources/css/adminlte.min.css">
-<!-- REQUIRED SCRIPTS -->
-
+<!-- Theme style -->
+<link rel="stylesheet" href="/resources/css/adminlte.min.css">
 <!-- Bootstrap 4 -->
 <script src="/resources/javascript/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
@@ -35,7 +24,7 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="background-color:#FFDC3C; color:#FFDC3C;">
         &nbsp&nbsp&nbsp&nbsp&nbsp<a class="navbar-brand">
-        <img src="/resources/images/Ogong.png" align="left" class="Ogong" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="/resources/images/ogong2.png" align="left" class="Ogong" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       </a>
     <div class="container">
 
