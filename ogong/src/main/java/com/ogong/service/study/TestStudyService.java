@@ -17,4 +17,6 @@ public interface TestStudyService {
 	
 	public Map<String, Object> getStudyList(Search search) throws Exception;
 
+	Map<String, Object> getStudyList(Map<String, Object> map) throws Exception;
+
 }
