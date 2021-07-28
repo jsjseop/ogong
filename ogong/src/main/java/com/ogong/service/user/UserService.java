@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 
 @Service
@@ -20,8 +21,6 @@ public interface UserService {
 	  public User getUser(User email) throws Exception;
 		  
 	  
-		//게시물보기
-		List<Board> boardlist (int boardNo) throws Exception;
 
 	  	  
 	   //프로필 보기
@@ -43,12 +42,12 @@ public interface UserService {
 		void withdrawreason(User user) throws Exception;
 	  
 	 // 회원복구
-
-	  
-
-
-
 		void restore(User user) throws Exception;
+
+	//List<Board> list(Board user) throws Exception;
+
+
+
 
 		
 
@@ -70,6 +69,11 @@ public interface UserService {
 		public void updategender(User user) throws Exception;
 		// 목표와 각오
 		public void updategoal(User user) throws Exception;
+
+
+		List<Board> list(User user) throws Exception;
+
+
 
 
 

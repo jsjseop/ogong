@@ -72,58 +72,6 @@ public class BoardController {
 		return "/boardView/addBoard";
 	}
 
-
-	@PostMapping("addBoard")
-	public String addBoard(@ModelAttribute("board") Board board, @RequestParam ("boardCategory") String boardCategory,
-							Model model ,/*추가*/HttpSession session)
-			throws Exception {
-		
-		User user = (User)session.getAttribute("user");
-		board.setWriter(user);;
-		board.setBoardInterest("2");
-		board.setFileFlag("2");
-		board.setBoardCategory(boardCategory);
-		
-		boardService.addBoard(board, null);
-		System.out.println(board);
-		
-		//===========바나나 적립 및 소모 Start==================
-		Banana banana = new Banana();
-		if(boardCategory.equals("1")) {
-			banana.setBananaEmail(user);
-			banana.setBananaAmount(5);
-			banana.setBananaHistory("정보공유게시판 게시글 등록으로 인한 바나나 적립");
-			banana.setBananaCategory("1");
-			bananaService.addBanana(banana);
-		}else if(boardCategory.equals("2")) {
-			int regBanana = board.getBoardRegBanana();
-			banana.setBananaEmail(user);
-			banana.setBananaAmount(-regBanana);
-			banana.setBananaHistory("Q&A 게시글 등록으로 바나나 소모");
-			banana.setBananaCategory("2");
-			bananaService.addBanana(banana);
-			user.setBananaCount(regBanana);
-			bananaService.updateUseBanana(user);
-		}else if(boardCategory.equals("3")) {
-			banana.setBananaEmail(user);
-			banana.setBananaAmount(3);
-			banana.setBananaHistory("합격후기게시판 게시글 등록으로 인한 바나나 적립");
-			banana.setBananaCategory("1");
-			bananaService.addBanana(banana);
-		}
-		//===========바나나 적립 및 소모 END==================
-		
-		// model.addAttribute("boardCategory", board.);
-		model.addAttribute("board", board);
-		model.addAttribute("boardCategory", boardCategory);
-		
-		if(boardCategory.equals("2")) {
-			return "redirect:board/getBoard/getBoard?boardNo=" + board.getBoardNo();
-		}
-
-		return "redirect:/board/getBoard?boardNo=" + board.getBoardNo();
-	}
-
 	@PostMapping("addBoard")
 	public String addBoard(HttpSession session, @ModelAttribute("board") Board board) throws Exception {
 		User user = new User();
@@ -133,22 +81,37 @@ public class BoardController {
 		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
 		
 		int result = boardService.addBoard(board,fileList);
+		
+		//===========바나나 적립 및 소모 Start==================
+		Banana banana = new Banana();
+		if (board.getBoardCategory().equals("1")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(5);
+			banana.setBananaHistory("정보공유게시판 게시글 등록으로 인한 바나나 적립");
+			banana.setBananaCategory("1");
+			bananaService.addBanana(banana);
+		} else if (board.getBoardCategory().equals("2")) {
+			int regBanana = board.getBoardRegBanana();
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(-regBanana);
+			banana.setBananaHistory("Q&A 게시글 등록으로 바나나 소모");
+			banana.setBananaCategory("2");
+			bananaService.addBanana(banana);
+			user.setBananaCount(regBanana);
+			bananaService.updateUseBanana(user);
+		} else if (board.getBoardCategory().equals("3")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(3);
+			banana.setBananaHistory("합격후기게시판 게시글 등록으로 인한 바나나 적립");
+			banana.setBananaCategory("1");
+			bananaService.addBanana(banana);
+		}
+		// ===========바나나 적립 및 소모 END==================
+		
 		return "redirect:/board/getBoard?boardNo=" +result;
+
 	}
 	
-	/*
-	 * @GetMapping("addAnswer") public String addAnswer(@RequestParam("boardNo") int
-	 * boardNo, Model model) throws Exception {
-	 * 
-	 * Board board = new Board(); board.setBoardNo(boardNo);
-	 * 
-	 * board = boardService.getBoard(board);
-	 * 
-	 * 
-	 * model.addAttribute("board", board);
-	 * 
-	 * return "/boardView/addAnswer"; }
-	 */
 
 	@GetMapping("addAnswer")
 	public String addAnswer(@RequestParam("boardNo") int boardNo, Model model) throws Exception {

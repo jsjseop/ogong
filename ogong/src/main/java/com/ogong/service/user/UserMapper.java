@@ -46,8 +46,7 @@ public interface UserMapper {
 	public void restore(User user);
 
 	//
-	List<Board> boardlist (int boardNo);
-
+	List<Board> list(User list);
 	
 	
 	
@@ -69,7 +68,8 @@ public interface UserMapper {
 	// 목표와 각오
 	void updategoal(User user) throws Exception;
 
-	List<Board> getList();
+
+
 	
 	
 	
