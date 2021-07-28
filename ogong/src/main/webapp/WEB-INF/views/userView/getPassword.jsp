@@ -27,12 +27,18 @@
 
 			<div class="id_wrap">
 <<<<<<< HEAD
+<h1 class="text">비밀번호 변경</h1>
+=======
 			
 			<h2>비밀번호 찾기 </h1>
 
+<<<<<<< HEAD
 =======
 <h1 class="text">비밀번호 변경</h1>
 >>>>>>> refs/remotes/origin/테스트
+=======
+>>>>>>> refs/heads/연습용2
+>>>>>>> refs/heads/테스트
 
 
 

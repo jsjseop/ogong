@@ -10,16 +10,6 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-<<<<<<< HEAD
-<!-- jQuery -->
-<script src="/resources/javascript/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/resources/javascript/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/resources/javascript/demo.js"></script>
-=======
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap-theme.min.css" >
@@ -29,7 +19,18 @@
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="./jquery-3.4.1.min.js"></script>
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/테스트
+=======
+<!-- jQuery -->
+<script src="/resources/javascript/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/resources/javascript/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/resources/javascript/demo.js"></script>
+>>>>>>> refs/heads/테스트
 
 <script type="text/javascript">
 
@@ -51,21 +52,16 @@
 	
 
 </script>
-<<<<<<< HEAD
-
-<style >
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
-font-family: 'Do Hyeon', sans-serif;
-=======
 	<style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 }      
      </style>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/테스트
+=======
+>>>>>>> refs/heads/테스트
 
-}
-</style>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	
@@ -131,21 +127,26 @@ font-family: 'Do Hyeon', sans-serif;
 		  </div> 
 	 	  
 		<div class="form-group">
-<<<<<<< HEAD
 			<label for="interest" class="col-sm-offset-1 col-sm-2 control-label">관심사</label>
+<<<<<<< HEAD
 =======
 			<label for="interest" class="col-sm-offset-1 col-sm-1 control-label">관심사</label>
 >>>>>>> refs/remotes/origin/테스트
+=======
+>>>>>>> refs/heads/테스트
 			<span class="col-sm-1">
 				
-<<<<<<< HEAD
-	 			<select class="form-control" name="studyInterest1"> 
-						<option>${user.studyInterest1}</option>
-=======
 				
 	 			<select class="form-control" name="studyInterest1">
+<<<<<<< HEAD
 						<option>관심사1</option>
 >>>>>>> refs/remotes/origin/테스트
+=======
+						<option>관심사1</option>
+						
+	 			<select class="form-control" name="studyInterest1"> 
+						<option>${user.studyInterest1}</option>
+>>>>>>> refs/heads/테스트
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
 						<option value="자격증">자격증</option>
@@ -159,11 +160,12 @@ font-family: 'Do Hyeon', sans-serif;
 				</select> 
 				
 				<select class="form-control" name="studyInterest2">
-<<<<<<< HEAD
-						<option>${user.studyInterest2}</option>
-=======
 						<option>관심사2</option>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/테스트
+=======
+						<option>${user.studyInterest2}</option>
+>>>>>>> refs/heads/테스트
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
 						<option value="자격증">자격증</option>
@@ -176,13 +178,14 @@ font-family: 'Do Hyeon', sans-serif;
 						
 				</select> 
 				
-<<<<<<< HEAD
-				<select class="form-control" name="studyInterest3"> 
-						<option>${user.studyInterest3}</option>
-=======
 				<select  class="form-control" name="studyInterest3"> 
 						<option>관심사3</option>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/테스트
+=======
+				<select class="form-control" name="studyInterest3"> 
+						<option>${user.studyInterest3}</option>
+>>>>>>> refs/heads/테스트
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
 						<option value="자격증">자격증</option>

@@ -48,6 +48,7 @@ public interface UserMapper {
 	//
 	List<Board> list(User list);
 
+
 	
 	
 	

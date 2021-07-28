@@ -1,11 +1,13 @@
 package com.ogong.service.user.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ogong.service.board.BoardMapper;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 import com.ogong.service.user.UserMapper;
@@ -141,16 +143,22 @@ public class UserServiceImpl implements UserService{
 	}  
 
 
+
 	@Override
-	public int idCheck(String nickname) {
+	public int idCheck(String nickname) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	/*
-	 * @Override public User getUser(String email) throws Exception { // TODO
-	 * Auto-generated method stub return userDAO.getUser(email); }
-	 */
-	
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -51,7 +51,6 @@ public class UserController {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UserController.class);
 
-
 	@Autowired
 	private UserService userService;
 
@@ -60,37 +59,37 @@ public class UserController {
 
 	@Autowired
 	private BoardService boardService;
-	
-	@Autowired	
-	private StudyService studyService;
 
+	@Autowired
+	private StudyService studyService;
 
 	@Autowired
 	private BananaService bananaService;
 
-
-	
 	/*
 	 * @Autowired private StudyService
 	 */
-	
+
 	// 회원가입 페이지 진입
 	@GetMapping("addUser")
 	public String addUser() throws Exception {
 
+		
+		
+		
+		
+		
 		return "/userView/addUser";
 	}
 
 	// 회원가입
 	@PostMapping("addUser")
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
-		
-		
+
 		user.setBananaCount(10);
 		userService.addUser(user);
-		
-		
-		//===========바나나 적립 Start==================
+
+		// ===========바나나 적립 Start==================
 		String email = user.getEmail();
 		Banana banana = new Banana();
 		banana.setBananaEmail(user);
@@ -98,8 +97,8 @@ public class UserController {
 		banana.setBananaHistory("회원가입으로 인한 바나나 적립");
 		banana.setBananaCategory("1");
 		bananaService.addBanana(banana);
-		//===========바나나 적립 END==================
-		
+		// ===========바나나 적립 END==================
+
 		return "/userView/loginView";
 
 	}
@@ -108,6 +107,24 @@ public class UserController {
 	
 	
 	
+	
+
+
+	
+	
+	// 게시판 목록 조회
+		@RequestMapping(value = "/list", method = RequestMethod.GET)
+		public String list(Model model) throws Exception{
+			logger.info("list");
+			
+			model.addAttribute("list");
+			
+			
+			return "userView/list";
+			
+		}
+	 
+
 	// 로그인 화면
 	@GetMapping("loginView")
 	public String loginView() throws Exception {
@@ -118,26 +135,29 @@ public class UserController {
 	// 로그인
 
 	@PostMapping("loginView")
-	public String getUser(@ModelAttribute("email") User user, HttpServletRequest req, RedirectAttributes rttr )
+	public String getUser(@ModelAttribute("email") User user, HttpServletRequest req, RedirectAttributes rttr)
 			throws Exception {
 
 		HttpSession session = req.getSession();
 		User login = userService.getUser(user);
-		
-		
-		int condition = 1; 
+
+		int condition = 1;
 		if (login == null) {
 			System.out.println("아이디또는 비밀번호가 맞지 않습니다");
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
 			return "/userView/loginView";
-			
+
 		} else {
 			session.setAttribute("user", login);
-		} 
+		}
 
 		return "redirect:/integration/mainPage";
 	}
+	
+	
+
+	
 
 	// 로그아웃
 	@GetMapping("logout")
@@ -148,124 +168,109 @@ public class UserController {
 		return "index";
 	}
 
-	
 	// 비밀번호 찾기 입장이요
 	@GetMapping("getPassword")
 	public String getPassword() {
-		
+
 		return "/userView/getPassword";
 	}
-	
+
 	// 비밀번호 찾기
 	@PostMapping("getPassword")
-	public String getPassword(HttpSession session,User user) throws Exception{
-		
+	public String getPassword(HttpSession session, User user) throws Exception {
+
 		userService.getProfile(getPassword());
-		
-		
+
 		return "/userView/Changedpassword";
 	}
-	
 
-	
-	  // 비밀번호 변경 화면이동
-	  
-	 
-		
-		@GetMapping("Changedpassword")
-		public String Changedpassword() throws Exception{
-			
-			return "/userView/Changedpassword";
+	// 비밀번호 변경 화면이동
+
+	@GetMapping("Changedpassword")
+	public String Changedpassword() throws Exception {
+
+		return "/userView/Changedpassword";
+	}
+
+	// 비밀번호 변경
+
+	@PostMapping("Changedpassword")
+	public String Changedpassword(User user, HttpSession session) throws Exception {
+
+		userService.Changedpassword(user);
+		session.invalidate();
+
+		return "redirect:/";
+	}
+
+	/* 비밀번호찾기 이메일 인증 */
+	@RequestMapping(value = "/mailpswCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String maipswlCheckGET(String email) throws Exception {
+
+		/* 뷰(View)로부터 넘어온 데이터 확인 */
+		logger.info("이메일 데이터 전송 확인");
+		logger.info("이메일 : " + email);
+
+		/* 인증번호(난수) 생성 */
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+		logger.info("인증번호 " + checkNum);
+
+		/* 이메일 보내기 */
+		String setFrom = "flower9822@naver.com";
+		String toMail = email;
+		String title = "회원가입 인증 이메일 입니다.";
+		String content = "오늘의 공부 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+
+		try {
+
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		// 비밀번호 변경
-		
-		
-		@PostMapping("Changedpassword")
-		public String Changedpassword(User user , HttpSession session) throws Exception{
-			
-			
-			userService.Changedpassword(user);			
-			session.invalidate();
-			
-			
-			return "redirect:/";
+
+		String num = Integer.toString(checkNum);
+
+		return num;
+	}
+
+	// 프로필 수정 진입
+
+	@GetMapping("updateProfile")
+	public String updateProfile(HttpSession session, Model model) throws Exception {
+
+		model.addAttribute("user", (User) session.getAttribute("user"));
+
+		return "/userView/updateProfile";
+	}
+
+	// 프로필 수정
+
+	@RequestMapping(value = "updateProfile", method = RequestMethod.POST)
+	public String updateProfile(@ModelAttribute("user") User user, Model model, HttpSession session) throws Exception {
+
+		System.out.println("/user/updateUser : POST");
+		// Business Logic
+		userService.updateProfile(user);
+
+		String sessionId = ((User) session.getAttribute("user")).getEmail();
+		if (sessionId.equals(user.getEmail())) {
+			session.setAttribute("user", user);
 		}
 
-		
-		/* 비밀번호찾기 이메일 인증 */
-		@RequestMapping(value = "/mailpswCheck", method = RequestMethod.GET)
-		@ResponseBody
-		public String maipswlCheckGET(String email) throws Exception {
-			
-			/* 뷰(View)로부터 넘어온 데이터 확인 */
-			logger.info("이메일 데이터 전송 확인");
-			logger.info("이메일 : " + email);
+		return "index";
+	}
 
-			/* 인증번호(난수) 생성 */
-			Random random = new Random();
-			int checkNum = random.nextInt(888888) + 111111;
-			logger.info("인증번호 " + checkNum);
 
-			/* 이메일 보내기 */
-			String setFrom = "flower9822@naver.com";
-			String toMail = email;
-			String title = "회원가입 인증 이메일 입니다.";
-			String content = "오늘의 공부 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
-					+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
-
-			try {
-
-				MimeMessage message = mailSender.createMimeMessage();
-				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-				helper.setFrom(setFrom);
-				helper.setTo(toMail);
-				helper.setSubject(title);
-				helper.setText(content, true);
-				mailSender.send(message);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			String num = Integer.toString(checkNum);
-
-			return num;
-		}
-		
-	   
-		
-		//프로필 수정 진입
-		  
-		  @GetMapping("updateProfile") public String updateProfile(HttpSession session,
-				 Model model
-		  ) throws Exception {
-
-		  model.addAttribute("user", (User)session.getAttribute("user"));
-			  
-		  return "/userView/updateProfile"; }
-		  
-		 
-		//프로필 수정
-
-		@RequestMapping( value="updateProfile", method=RequestMethod.POST )
-			public String updateProfile( @ModelAttribute("user") User user , Model model, HttpSession session ) throws Exception{
-
-				System.out.println("/user/updateUser : POST");
-				//Business Logic
-				userService.updateProfile(user);
-				
-				
-				
-				  String sessionId=((User)session.getAttribute("user")).getEmail();
-				  if(sessionId.equals(user.getEmail())){ session.setAttribute("user", user); }
-				 
-				 
-				
-				return "index";
-			}
-		  
-		
 		
 		
 		  //프로필 보기
@@ -278,48 +283,41 @@ public class UserController {
 		  
 	 
 		  
-		  //회원탈퇴 이동
-		  @GetMapping("withdrawreason")
-		  public String Withdrawal() throws Exception{
-			  
-			  return "/userView/withdrawreason";
-		  }
-		  
-		  // 회원탈퇴
-		  @PostMapping("withdrawreason")
-			public String Withdrawal(User user , HttpSession session) throws Exception{
-				
-				
-				userService.withdrawreason(user);			
-				session.invalidate();
 
-				
-				
-				return "redirect:/";
-			}
-		  
-		  //회원복구 이동
-		  @GetMapping("restore")
-		  public String restore() throws Exception{
-			  
-			  return "/userView/restore";
-		  }
-		  // 회원복구
-		  @PostMapping("restore")
-			public String restore(User user , HttpSession session) throws Exception{
-				
-				
-				userService.restore(user);			
-				session.invalidate();
 
-				
-				
-				return "redirect:/";
-			}
-		  
-		  
-		  
-		  
+	// 회원탈퇴 이동
+	@GetMapping("withdrawreason")
+	public String Withdrawal() throws Exception {
+
+		return "/userView/withdrawreason";
+	}
+
+	// 회원탈퇴
+	@PostMapping("withdrawreason")
+	public String Withdrawal(User user, HttpSession session) throws Exception {
+
+		userService.withdrawreason(user);
+		session.invalidate();
+
+		return "redirect:/";
+	}
+
+	// 회원복구 이동
+	@GetMapping("restore")
+	public String restore() throws Exception {
+
+		return "/userView/restore";
+	}
+
+	// 회원복구
+	@PostMapping("restore")
+	public String restore(User user, HttpSession session) throws Exception {
+
+		userService.restore(user);
+		session.invalidate();
+
+		return "redirect:/";
+	}
 
 	/* 이메일 인증 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -360,7 +358,9 @@ public class UserController {
 
 		return num;
 	}
+
 	
+
 
 
 	
@@ -390,34 +390,53 @@ public class UserController {
 			return "success";	// 중복 닉네임 x
 		}
 		
-		
-
 	}
-}
+		  }
+		  
+
+	
+	
 	/*
 	 * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
 	 * 
 	 * Log.info("게시판 진입");
 	 * 
-	 * model.addAttribute("list", userService.getList() );
+	 * model.addAttribute("list", userService.getList());
 	 * 
 	 * return "/userView/loginView"; }
 	 */
 
-	
+	/*
+	 * // 닉네임 중복 검사
+	 * 
+	 * @RequestMapping(value = "idCheck", method = RequestMethod.POST)
+	 * 
+	 * @ResponseBody public String idCheck(String nickname) throws Exception{
+	 * 
+	 * logger.info("memberIdChk() 진입");
+	 * 
+	 * logger.info("idCheck() 진입");
+	 * 
+	 * int result = userService.idCheck(nickname);
+	 * 
+	 * logger.info("결과값 = " + result);
+	 * 
+	 * if(result != 0) {
+	 * 
+	 * return "fail"; // 중복 닉네임 존재
+	 * 
+	 * } else {
+	 * 
+	 * return "success"; // 중복 닉네임 x }
+	 */
 
- 
 
-			
-				
-		
-	
-  
-  
-  
-  
-
-
-
-
-
+/*
+ * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
+ * 
+ * Log.info("게시판 진입");
+ * 
+ * model.addAttribute("list", userService.getList() );
+ * 
+ * return "/userView/loginView"; }
+ */

@@ -85,12 +85,19 @@
 </script>
 
 <<<<<<< HEAD
+	<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}      
+     </style>
+=======
 <style >
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 
 }
 </style>
+<<<<<<< HEAD
 =======
 	<style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
@@ -98,6 +105,9 @@ font-family: 'Do Hyeon', sans-serif;
 }      
      </style>
 >>>>>>> refs/remotes/origin/테스트
+=======
+>>>>>>> refs/heads/연습용2
+>>>>>>> refs/heads/테스트
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />

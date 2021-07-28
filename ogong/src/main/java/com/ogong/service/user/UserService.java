@@ -44,18 +44,18 @@ public interface UserService {
 		void withdrawreason(User user) throws Exception;
 	  
 	 // 회원복구
-
-	  
-
-
-
 		void restore(User user) throws Exception;
 
-		
+	//List<Board> list(Board user) throws Exception;
+
+
+
 
 		
-
-
+	
+		
+	// 닉네임 중복확인
+		public int idCheck(String nickname) throws Exception;
 // 프로필수정
 
 	//이름
@@ -73,7 +73,7 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 
-		public int idCheck(String nickname);
+
 
 
 
