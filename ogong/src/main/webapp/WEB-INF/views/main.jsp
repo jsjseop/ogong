@@ -1,17 +1,13 @@
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <%@ page pageEncoding="EUC-KR"%>
-
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<head>
 <script src="https://kit.fontawesome.com/e3409dba93.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
@@ -21,127 +17,87 @@ body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
 }
 </style>
-
 </head>
 
 <body>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	
-
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
-   	
-   	<head>
-		<script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
-	<style>
- 
-		
- 		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
-		
-		body, 
-		table, 
-		div, 
-		p, 
-		th, 
-		td{
-		font-family: 'Do Hyeon', sans-serif;
-		}
-		
-				
-   	</style> 		
-		
-   	</head>
-   	
-   	<body>
-   						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-ÇÁ·ÎÇÊ º¸±â
-</button>
-<!-- ¸ğ´Ş ¿µ¿ª -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">¡¿</span></button>
-</div>
-<div class="modal-body">
-<div class="container">
-	
-		<div class="page-header">
-	      <h1>${user.nickname}ÀÇ ÇÁ·ÎÇÊ</h1>
-	    </div>
-	
-			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  È÷µç°ª -->
-	
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>´Ğ³×ÀÓ</strong></div>
-			<div class="col-xs-8 col-md-4">${user.nickname}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÀÌ¸§</strong></div>
-			<div class="col-xs-8 col-md-4">${user.name}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>»ı³â¿ùÀÏ</strong></div>
-			<div class="col-xs-8 col-md-4">${user.birth}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>¸ñÇ¥¿Í °¢¿À</strong></div>
-			<div class="col-xs-8 col-md-4">${user.goal}</div>
-			
-		</div>
-		<hr>
-				<div class="row">
-				
-				
-	  		<div class="col-xs-4 col-md-2"><strong>°ü½É»ç</strong></div>
 
-			  <button type="button" class="btn btn-default btn-lg">${user.studyInterest1}</button>
-					  <button type="button" class="btn btn-default btn-lg">${user.studyInterest2}</button>
-					  <button type="button" class="btn btn-default btn-lg">${user.studyInterest3}</button>
-			
-		</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-primary"  >È®ÀÎ</button>
-<button type="button" class="btn btn-default" data-dismiss="modal">Ãë¼Ò</button>
-</div>
+	<button type="button" class="btn btn-primary btn-lg"
+		data-toggle="modal" data-target="#myModal">í”„ë¡œí•„ ë³´ê¸°</button>
+	<!-- ëª¨ë‹¬ ì˜ì—­ -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">Ã—</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+
+						<div class="page-header">
+							<h1>${user.nickname}ì˜í”„ë¡œí•„</h1>
+						</div>
+
+						<input type="hidden" name="email" value="${user.email}" />
+						<!--  íˆë“ ê°’ -->
 
 
+						<hr />
+
+						<div class="row">
+							<div class="col-xs-4 col-md-2 ">
+								<strong>ë‹‰ë„¤ì„</strong>
+							</div>
+							<div class="col-xs-8 col-md-4">${user.nickname}</div>
+						</div>
+
+						<hr />
+
+						<div class="row">
+							<div class="col-xs-4 col-md-2 ">
+								<strong>ì´ë¦„</strong>
+							</div>
+							<div class="col-xs-8 col-md-4">${user.name}</div>
+						</div>
+
+						<hr />
+
+						<div class="row">
+							<div class="col-xs-4 col-md-2 ">
+								<strong>ìƒë…„ì›”ì¼</strong>
+							</div>
+							<div class="col-xs-8 col-md-4">${user.birth}</div>
+						</div>
+
+						<hr />
+
+						<div class="row">
+							<div class="col-xs-4 col-md-2">
+								<strong>ëª©í‘œì™€ ê°ì˜¤</strong>
+							</div>
+							<div class="col-xs-8 col-md-4">${user.goal}</div>
+
+						</div>
+						<hr>
+						<div class="row">
 
 
-				
-				
-				
-				
-			</span>
-		</div>
-		
-</div>
-</div>
+							<div class="col-xs-4 col-md-2">
+								<strong>ê´€ì‹¬ì‚¬</strong>
+							</div>
 
+							<button type="button" class="btn btn-default btn-lg">${user.studyInterest1}</button>
+							<button type="button" class="btn btn-default btn-lg">${user.studyInterest2}</button>
+							<button type="button" class="btn btn-default btn-lg">${user.studyInterest3}</button>
 
-
-
-
-</div>
-</div>
-
-
-</div>
-   	</body>
-
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary">í™•ì¸</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">ì·¨ì†Œ</button>
+					</div>
 </body>
-
-   	</body>
