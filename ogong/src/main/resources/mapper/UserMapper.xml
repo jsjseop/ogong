@@ -62,6 +62,34 @@
 
 	</resultMap>
 	
+	
+		<resultMap id="studySelectMap" type="study">
+		<result property="studyNo" 					column="study_no" 					jdbcType="NUMERIC"/>
+		<result property="studyMaker.email"			column="email" 						jdbcType="VARCHAR" />
+		<result property="studyName" 				column="study_name" 				jdbcType="VARCHAR" />
+		<result property="studyHashtag" 			column="study_hashtag" 				jdbcType="VARCHAR" />
+		<result property="studyThumbnail" 			column="study_thumbnail" 			jdbcType="VARCHAR" />
+		<result property="studyStartDate" 			column="study_start_date" 			jdbcType="VARCHAR" />
+		<result property="studyEndDate" 			column="study_end_date" 			jdbcType="VARCHAR" />
+		<result property="studyRegDate" 			column="study_reg_date" 			jdbcType="DATE" />
+		<result property="currentMember" 			column="current_member" 			jdbcType="NUMERIC"  />
+		<result property="maxMember" 				column="max_member" 				jdbcType="NUMERIC" />
+		<result property="selfStudyRule" 			column="selfstudy_rule" 			jdbcType="VARCHAR" />
+		<result property="selfStudyOpenFlag" 		column="selfstudy_open_flag" 		jdbcType="CHAR" />
+		<result property="selfStudyPassword" 		column="selfstudy_password" 		jdbcType="VARCHAR"  />
+		<result property="groupStudyInfo" 			column="groupstudy_info" 			jdbcType="VARCHAR" />
+		<result property="groupStudyPlan" 			column="groupstudy_plan" 			jdbcType="VARCHAR" />
+		<result property="groupStudyCondition" 		column="groupstudy_condition" 		jdbcType="VARCHAR" />
+		<result property="recruitmentStartDate" 	column="recruitment_start_date" 	jdbcType="VARCHAR"  />
+		<result property="recruitmentEndDate" 		column="recruitment_end_date" 		jdbcType="VARCHAR" />
+		<result property="studyEndFlag" 			column="study_end_flag" 			jdbcType="CHAR" />
+		<result property="studyRoomGrade" 			column="studyroom_grade" 			jdbcType="VARCHAR" />
+		<result property="studyType" 				column="study_type" 				jdbcType="VARCHAR"  />
+		<result property="studyInterest" 			column="study_interest" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	
 
 	 <select id="list"  resultMap="boardSelectMap" >
 	
@@ -76,7 +104,54 @@ FROM
 
     
 
-</select>
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+	
+	
+	
+	
+	)
+	
+	
+	
+	
+	
+	)
+	
+	
+	
+	
+	
+	</select>
 	
 	
 	
