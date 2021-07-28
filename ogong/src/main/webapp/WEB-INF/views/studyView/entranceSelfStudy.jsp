@@ -7,48 +7,64 @@
 <head>
 <meta charset="UTF-8">
 <title>OGong</title>
+<link rel="stylesheet" href="/resources/css/adminlte.min.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
 
 body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
+font-size: 20px;
+}
+#container {
+	margin-top: 30px;
 }
 </style>
 <script type="text/javascript">
+	function entranceStudy() {
+		$.ajax({
+			url: "/study/entranceStudy/"+`${study.studyNo}`,
+			method : "GET" ,
+			dataType : "text",
+			success: function (data, status){
+				if(data == "success"){
+					popWin = window.open("https://wnstjqtest.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
+    						"CamStudy",
+    						"height=" + screen.height + ",width=" + screen.width + "fullscreen=yes");
+				}else{
+					swal("이미 참여중입니다.","","warning");
+				}
+			}
+		});		
+	}
+	
 	$( function(){
+		var password = "${study.selfStudyPassword}"
 		$("#entrance").on("click", function(){
-			$('video').pause();
+			//$('video')[0].pause();
 			
-			$.ajax({
-    			url: "/selfStudy/entranceStudy/"+`${study.studyNo}`,
-    			method : "GET" ,
-    			dataType : "text",
-    			success: function (data, status){
-    				if(data == "success"){
-    					popWin = window.open("https://wnstjqtest.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
-        						"CamStudy",
-        						"height=" + screen.height + ",width=" + screen.width + "fullscreen=yes");
-    				}else{
-    					alert("이미 참여중입니다.");
-    				}
-    			}
-    		});			
+			if(password != ""){
+				swal("스터디가 잠겨있습니다.","비밀번호를 입력해주세요",{
+					content: "input"
+				})
+				.then((value) => {
+					if(value != password){
+						swal("비밀번호가 틀렸습니다.","","error");
+					}else{
+						entranceStudy();
+					}
+				})
+			}else{
+				entranceStudy();
+			}
 			
 		});
 		
 		
 		navigator.mediaDevices.getUserMedia({
-			audio: true,
+			audio: false,
 			video: true
 		}).then((stream) => {
 			var myVideo = document.querySelector("video");
@@ -61,32 +77,19 @@ font-family: 'Do Hyeon', sans-serif;
 </script>
 </head>
 <body>
+	<jsp:include page="../common/toolbar.jsp" />
 
-	<div class="container">
-	
-		<div class="page-header">
-	       <h3 class=" text-info">자율스터디 입장</h3>
-	    </div>
+	<div class="container" id="container">
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>스 터 디 명</strong></div>
-			<div class="col-xs-8 col-md-4">${study.studyName}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>해 시 태 그</strong></div>
-			<div class="col-xs-8 col-md-4">${study.studyHashtag}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>현재 인원</strong></div>
-			<div class="col-xs-8 col-md-4">${study.currentMember} / ${study.maxMember}</div>
+	  		<div class="col-md-2 "><strong>스 터 디 명</strong></div>
+			<div class="col-md-2">${study.studyName}</div>
+			<div class="col-md-2 "><strong>해 시 태 그</strong></div>
+			<div class="col-md-2">${study.studyHashtag}</div>
+			<div class="col-md-2"><strong>현재 인원</strong></div>
+			<div class="col-md-2">${study.currentMember} / ${study.maxMember}</div>
 		</div>
 		
 		<hr/>
@@ -99,11 +102,8 @@ font-family: 'Do Hyeon', sans-serif;
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>썸 네 일</strong></div>
-			<div class="col-xs-8 col-md-4">${study.studyThumbnail}</div>
+	  		<div class="col-md-12 text-center"><h4>입장하기 전에 캠화면을 확인해보세요.</h4></div>
 		</div>
-		
-		<hr/>
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center">
@@ -112,10 +112,10 @@ font-family: 'Do Hyeon', sans-serif;
 		</div>
 		
 		<hr/>
-		
+
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-					<button id="entrance" >입장하기</button>
+					<button class="btn btn-lg btn-warning" id="entrance" >입장하기</button>
 	  		</div>
 		</div>
 		

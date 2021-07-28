@@ -5,29 +5,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     	<!-- Custom styles for this template-->
-
 <!-- ToolBar Start /////////////////////////////////////-->
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-			.Ogong {
-			  width: 120px;
-			  height: 50px;
-			 
-			}
-  </style>
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  
-  
-  <!-- Font Awesome Icons ==================-->
-  <link rel="stylesheet" href="/resources/css/all.min.css">
-  <!-- Font Awesome Icons END ==================-얘가 안돼 ㅠㅠㅠㅠ ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ->
-  
-  
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/resources/css/adminlte.min.css">
+<style>
+.Ogong {
+  width: 120px;
+  height: 50px;
+}
+</style>
+<!-- Google Font: Source Sans Pro -->
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
+<!-- Font Awesome Icons ==================-->
+<!-- <link rel="stylesheet" href="/resources/css/all.min.css"> -->
+<!-- Font Awesome Icons END ==================-얘가 안돼 ㅠㅠㅠㅠ ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ->
+<!-- Theme style -->
+<link rel="stylesheet" href="/resources/css/adminlte.min.css">
+<script src="https://kit.fontawesome.com/e3409dba93.js"></script>
+<!-- jQuery -->
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+<!-- Bootstrap 4 -->
+<!-- <script src="/resources/javascript/bootstrap.bundle.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/resources/javascript/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<!-- <script src="/resources/javascript/demo.js"></script> -->
 
 
 <div class="wrapper">
@@ -196,16 +197,7 @@
   <!-- /.content-wrapper -->
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="/resources/javascript/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/resources/javascript/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/resources/javascript/demo.js"></script>
 		<!-- ToolBar End /////////////////////////////////////-->
  	  	<script type="text/javascript">
    		
@@ -393,7 +385,7 @@
    	   	
 		//=============  자율스터디목록 Event  처리 =============
 	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
-	 		location.href = "/selfStudy/listStudy?studyType=self";
+	 		location.href = "/study/listStudy?studyType=self";
 		});
 		
 	 	//=============  모집게시판 Event  처리 =============
@@ -403,7 +395,7 @@
 	 	});
 	 	//=============  그룹스터디 Event  처리 =============
 	 	$( "a:contains('그룹스터디')").on("click", function(){
-	 		location.href = "/study/listStudy";
+	 		location.href = "/study/listStudy?studyType=group";
 	 	});		 	
 	 	
 	 	//=============  정보공유게시판 Event  처리 =============

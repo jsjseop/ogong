@@ -20,7 +20,7 @@ import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
-import com.ogong.service.study.TestStudyService;
+import com.ogong.service.study.StudyService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -28,7 +28,7 @@ import com.ogong.service.study.TestStudyService;
 public class CamStudyRestController {
 
 	@Autowired
-	private TestStudyService studyService;
+	private StudyService studyService;
 	
 	@Autowired
 	private CamStudyService camStudyService;

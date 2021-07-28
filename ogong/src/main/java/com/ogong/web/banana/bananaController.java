@@ -46,7 +46,7 @@ public class bananaController {
 		User user = (User)session.getAttribute("user");
 		
 		
-		banana.setUser(user);
+		banana.setBananaEmail(user);
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);

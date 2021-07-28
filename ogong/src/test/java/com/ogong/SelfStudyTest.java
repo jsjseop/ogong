@@ -12,13 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.ogong.common.Search;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
-import com.ogong.service.study.TestStudyService;
+import com.ogong.service.study.StudyService;
 
 @SpringBootTest
 public class SelfStudyTest {
 
 	@Autowired
-	private TestStudyService studyService;
+	private StudyService studyService;
 	
 	@Test
 	@DisplayName("자율 스터디 생성")
@@ -36,7 +36,6 @@ public class SelfStudyTest {
 		study.setStudyEndDate("2021-08-07");
 		study.setMaxMember(8);
 		study.setSelfStudyRule("자율스터디3 규칙입니다.");
-		study.setSelfStudyOpenFlag("1");
 		study.setStudyRoomGrade("basic");
 		study.setStudyType("self");
 		study.setStudyInterest("기타공부");
