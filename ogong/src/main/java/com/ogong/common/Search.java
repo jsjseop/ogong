@@ -23,14 +23,7 @@ public class Search {
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
-	public Object getStudyInterest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public Object getStudyType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
 
 
