@@ -106,17 +106,7 @@ public class UserController {
 	}
 	
 	
-	// 게시판 목록 조회
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) throws Exception{
-		logger.info("list");
-		
-		model.addAttribute("list",userService.list(null));
-		
-		
-		return "userView/list";
-		
-	}
+
 
 	
 	
@@ -150,6 +140,20 @@ public class UserController {
 
 		return "redirect:/integration/mainPage";
 	}
+	
+	
+	// 게시판 목록 조회
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model) throws Exception{
+		logger.info("list");
+		
+		model.addAttribute("list",userService.list(null));
+		
+		
+		return "userView/list";
+		
+	}
+	
 
 	// 로그아웃
 	@GetMapping("logout")
@@ -373,15 +377,7 @@ public class UserController {
 		return num;
 	}
 	
-	@GetMapping("Mypostlist")
-	public String Mypostlist(Model model) {
-		
-		Log.info("게시판 진입");
-		
-		model.addAttribute("list", userService.getList() );
-		
-			return "/userView/loginView";	
-	}
+
 
 
 	

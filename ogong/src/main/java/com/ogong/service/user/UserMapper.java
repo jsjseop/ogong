@@ -43,7 +43,7 @@ public interface UserMapper {
 	public void restore(User user);
 
 	//
-	List<Board> list(User list); 
+	List<User> list(User list); 
 
 	
 	

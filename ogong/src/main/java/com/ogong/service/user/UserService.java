@@ -65,7 +65,7 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 
-		List<Board> list(User user) throws Exception;
+		List<User> list(User user) throws Exception;
 
 
 

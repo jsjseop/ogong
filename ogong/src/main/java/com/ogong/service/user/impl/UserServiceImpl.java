@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService{
 	
 
 	@Override
-	public List<Board> list(User list) throws Exception {
+	public List<User> list(User list) throws Exception {
 		// TODO Auto-generated method stub
 		return userDAO.list(list);
 	}

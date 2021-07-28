@@ -32,11 +32,14 @@
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
-		
+	
+	
+
 		
 	</resultMap> 
 	
 		<resultMap id="boardSelectMap" 	type="board">
+		<result property="email" 				column="email" 				jdbcType="NUMERIC"/>
 		<result property="boardNo" 				column="board_no" 				jdbcType="NUMERIC"/>
 		<result property="boardCategory" 		column="board_category" 		jdbcType="VARCHAR" />
 		<result property="boardTitle" 			column="board_title" 			jdbcType="VARCHAR" />
@@ -60,15 +63,18 @@
 	</resultMap>
 	
 
-	 <select id="list" resultMap="boardSelectMap" >
+	 <select id="list"  resultMap="boardSelectMap" >
 	
-	SELECT
-    a.* ,b.*
+SELECT
+    a.email , b.*
 FROM
-    board  b,
+    board  b
+    LEFT JOIN
     users  a
-WHERE
-    a.email = b.email
+    ON
+    b.email = a.email
+
+    
 
 </select>
 	
