@@ -8,28 +8,22 @@
 <head>
 <title>글 쓰기</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- jQuery -->
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+<!-- Bootstrap CSS -->
 
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-<script type="text/javascript" src="../javascript/calendar.js">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
 	
 </script>
 
 <script type="text/javascript">
 	function fncAddBoard() {
 
+		let contents = $('input[name="boardContents"]').val();	
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
 		let boardRegBanana = $("input[name='boardRegBanana']").val();
@@ -60,8 +54,17 @@
 	});
 </script>
 <style>
-body {
-	padding-top: 30px;
+
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+
+body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+
+
+h3 {
+
+text-align:center;
 }
 </style>
 </head>
@@ -76,7 +79,7 @@ body {
 	       				<h3>정보공유 게시판</h3>
 	       		</c:if>
 	       		<c:if test="${boardCategory == '2'}">
-	       				<h3>Q&A 게시판</h3>
+	       				
 	       		</c:if>
 	       		<c:if test="${boardCategory == '3'}">
 	       				<h3>합격후기 게시판</h3>
@@ -91,59 +94,54 @@ body {
 	       				<h3>파일공유 게시판</h3>
 	       		</c:if>
 		</div>
-		<form>
-			<input type="hidden" name="userId" value="${writer.email}" />
+		<article>
+	<br/>
+		<div class="container" role="main">
+		
+			<h3>Q&A 게시글 등록</h3>
 
-			<div class="page-header">
-				<h3 class=" text-default">Q&A 게시글 등록</h3>
-			</div>
+			<form name="AddBoard" id="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
 
-			<div class="row">
-				<div class="col-xs-4 col-md-2">
-					<strong>제 목</strong>
-					
-				</div>
-				<div class="col-xs-8 col-md-4">
-					<input class="form-control" type="text" name="boardTitle" value="${boardTitle}"
-						style="width: 500px;" />
-	
-				</div>
-			</div>
-			<hr />
+				<div class="mb-3">
 
-			<div class="row">
-				<div class="col-xs-2 col-md-2">
-					<strong>내  용</strong>
-				</div>
-				<div class="col-xs-8 col-md-4">
-					<input class="form-control" type="text" name="answerContents"
-						style="width: 500px; height:300px;" />
-				</div>
-			</div>
+					<label for="title">제목</label>
 
-			<hr />
+					<input type="text" class="form-control" name="boardTitle" id="title" placeholder="제목을 입력해 주세요"
+					value="${boardTitle}">
+
+				</div>
+				
+				<div class="mb-3">
+
+					<label for="banana">바나나 수</label>
+
+				<input type="text" class="form-control" name="boardBanana" id="title" placeholder="채택에 필요한 바나나 수를 입력해주세요"
+				value="${boardRegBanana}">
+
+				</div>			
+
+				<div class="mb-3">
+
+					<label for="content">내용</label>
+
+					<textarea class="form-control" rows="5" name="boardContent" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
+
+				</div>
 			
-			<div class="row">
-				<div class="col-xs-2 col-md-2">
-					<strong>바나나 개수 선택</strong>
-				</div>
-				<div class="col-xs-8 col-md-4">
-					<input class="form-control" type="text" name="boardRegBanana"
-						style="width: 50px; " />
-				</div>
-			</div>			
-			
-				<div class="col-xs-8 col-md-4">
-			</div>	
+
+			</form>
+
+		</div>
+
+<br/>
+	</article>
 
 
-			<div align="left">
-				<button type="button" class="btn btn-default" style="width: 60px;">등 록</button>
-				&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp 
-				<button type="button" class="btn btn-default" style="width: 60px;">취 소</button>
+			<div align="center">
+				<button type="button" class="btn btn-warning" style="width: 60px;">등 록</button>
+				<button type="button" class="btn btn-warning" style="width: 60px;">취 소</button>
 			</div>
-		</form>
-	</div>
+		</div>
 	
 </body>
 </html>

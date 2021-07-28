@@ -6,18 +6,9 @@
 <head>
 <title>Q&A °Ô½ÃÆÇ</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
 
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
@@ -69,9 +60,6 @@ body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
 }
 
-body {
-	padding-top: 30px;
-}
 
 h1 {
 	text-align: center;
@@ -92,7 +80,7 @@ td { /* removed the border from the table data rows  */
 th { /* removed the border from the table heading row  */
 	text-align: center;
 	padding: 1em;
-	background-color: #FFB039;
+	background-color: #FFDC3C;
 	/* added a red background color to the heading cells  */
 	color: white;
 } /* added a white font color to the heading text */
@@ -101,12 +89,17 @@ tr {
 }
 
 table tr:nth-child(even) { /* added all even rows a #eee color  */
-	background-color: #FFEACA;
+	background-color: #FFF8D7;
 }
 
 table tr:nth-child(odd) { /* added all odd rows a #fff color  */
-	background-color: #E6AE59;
+	background-color: #fff; 
 }
+#searchForm{
+	display: flex;
+	justify-content: flex-end;
+}
+
 </style>
 </head>
 
@@ -145,7 +138,7 @@ table tr:nth-child(odd) { /* added all odd rows a #fff color  */
 			</div>
 
 			<div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm">
+				<form class="form-inline" name="detailForm" id="searchForm">
 
 					<div class="form-group">
 						<select name="searchCondition" class="form-control"

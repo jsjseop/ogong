@@ -9,20 +9,9 @@
 <meta name="description" content="" />
 <title>정보공유 게시판</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 <script type="text/javascript">
 	function fncGetList(currentPage) {
 
@@ -71,38 +60,35 @@
 
 body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
-}
 
-body {
-	padding-top: 30px;
 }
 
 table {
-font-family: "Lato","sans-serif";   }       /* added custom font-family  */
+font-family: "Lato","sans-serif";   }       
  
 table.one {                                  
 margin-bottom: 3em; 
 border-collapse:collapse;   }   
  
-td {                            /* removed the border from the table data rows  */
+td {                           
 text-align: center;     
 width: 10em;                    
 padding: 1em;       }       
  
-th {                              /* removed the border from the table heading row  */
+th {                             
 text-align: center;                 
 padding: 1em;
-background-color: #FFDC3C;       /* added a red background color to the heading cells  */
+background-color: #FFDC3C;     
 color: white;       
-}                 /* added a white font color to the heading text */
+}                 
  
 tr {    
 height: 1em;    }
  
-table tr:nth-child(even) {            /* added all even rows a #eee color  */
+table tr:nth-child(even) {            
     background-color: #FFF8D7;     }
  
-table tr:nth-child(odd) {            /* added all odd rows a #fff color  */
+table tr:nth-child(odd) {           
 background-color:#fff;      }
  
 </style>

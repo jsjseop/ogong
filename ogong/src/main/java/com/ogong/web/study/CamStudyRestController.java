@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.LearningHistory;
-import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
-import com.ogong.service.study.TestStudyService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -28,26 +26,17 @@ import com.ogong.service.study.TestStudyService;
 public class CamStudyRestController {
 
 	@Autowired
-	private TestStudyService studyService;
-	
-	@Autowired
 	private CamStudyService camStudyService;
 	
 	@Autowired
 	private LearningHistoryService learningHistoryService;
 	
 	@GetMapping("/json/getUser/{email}")
-	public User getUser(@PathVariable String email) throws Exception {
+	public User getUser(@PathVariable String email, HttpServletResponse response) throws Exception {
 		
 		User user = camStudyService.getUser(email);
 		
 		return user;
-	}
-	
-	@GetMapping("/json/getStudy/{studyNo}")
-	public Study getStudy(@PathVariable int studyNo) throws Exception{
-		
-		return studyService.getStudy(studyNo);
 	}
 	
 	@GetMapping("/json/getCamStudyMemberList/{studyNo}")

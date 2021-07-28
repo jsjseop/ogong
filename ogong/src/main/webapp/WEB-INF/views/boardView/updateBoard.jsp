@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>±Û ¼öÁ¤</title>
+<title>ê¸€ ìˆ˜ì •</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,11 +30,11 @@
 		let detail = $('textarea').val();
 
 		if (name == null || name.length < 1) {
-			alert("Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			alert("ì œëª©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”.");
 			return;
 		}
 		if (detail == null || detail.length < 5) {
-			alert("5±ÛÀÚ ÀÌ»ó ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			alert("5ê¸€ìž ì´ìƒ ìž…ë ¥í•´ì£¼ì„¸ìš”.");
 			return;
 		}
 
@@ -44,12 +44,12 @@
 	
 	$(function(){
 		
-		$('button:contains("¼ö Á¤")').on('click',function(){
+		$('button:contains("ìˆ˜ ì •")').on('click',function(){
 			
 			fncUpdateBoard();
 		})
 		
-		$('button:contains("Ãë ¼Ò")').on('click',function(){
+		$('button:contains("ì·¨ ì†Œ")').on('click',function(){
 				
 			histroy.go(-1);
 		})
@@ -69,12 +69,12 @@ body {
 			<input type="hidden" name="userId" value="${writer.email}" />
 			<input type="hidden" name="boardNo" value="${board.boardNo }"/>
 			<div class="page-header">
-				<h3 class=" text-default">±Û ¼öÁ¤</h3>
+				<h3 class=" text-default">ê¸€ ìˆ˜ì •</h3>
 			</div>
 
 			<div class="row">
 				<div class="col-xs-4 col-md-2">
-					<strong>Á¦ ¸ñ</strong>
+					<strong>ì œ ëª©</strong>
 				</div>
 				<div class="col-xs-8 col-md-4">
 					<input class="form-control" type="text" name="boardTitle"
@@ -86,7 +86,7 @@ body {
 
 			<div class="row">
 				<div class="col-xs-4 col-md-2">
-					<strong>³» ¿ë</strong>
+					<strong>ë‚´ ìš©</strong>
 				</div>
 				<div class="col-xs-8 col-md-4">
 					<textarea class="form-control" name="boardContents"
@@ -97,8 +97,8 @@ body {
 			<hr />
 
 			<div align="right">
-				<button type="button" class="btn btn-default" style="width: 60px;">¼ö Á¤</button>
-				<button type="button" class="btn btn-default" style="width: 60px;">Ãë ¼Ò</button>
+				<button type="button" class="btn btn-default" style="width: 60px;">ìˆ˜ ì •</button>
+				<button type="button" class="btn btn-default" style="width: 60px;">ì·¨ ì†Œ</button>
 			</div>
 		</form>
 	</div>

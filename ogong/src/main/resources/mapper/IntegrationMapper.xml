@@ -28,6 +28,7 @@
 		<result property="sender.email"					column="SENDER_EMAIL"		jdbcType="VARCHAR"/>
 		<result property="noticeGroupMember.groupStudyMemberNo"	column="GROUPSTUDY_MEMBER_NO"	jdbcType="NUMERIC"/>
 		<result property="noticeGroupMember.approvalFlag"		column="APPROVAL_FLAG"			jdbcType="VARCHAR"/>
+		<result property="noticeDate"					column="NOTICE_DATE"		jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<resultMap id="UserSelectMap" type="user">
@@ -187,7 +188,8 @@
 				 board_title,
 				 study_name,
 				 approval_flag,
-				 notice_condition)
+				 notice_condition,
+				 notice_date)
 		VALUES   (seq_notice_no.nextVal,
 				  #{noticeStudy.studyNo:NUMERIC},
 				  #{noticeBoard.boardNo:NUMERIC},
@@ -199,14 +201,22 @@
 				  #{noticeBoard.boardTitle:VARCHAR},
 				  #{noticeStudy.studyName:VARCHAR},
 				  #{noticeGroupMember.approvalFlag:VARCHAR},
-				  #{noticeCondition:VARCHAR}				  
+				  #{noticeCondition:VARCHAR},
+				  SYSDATE				  
 				  )
 	</insert>
 	
 	<!-- 알림 목록 -->
 	<select id="getlistNotice" parameterType="string" resultMap="NoticeSelectMap">
 		SELECT 
-		notice_no, notice_category, board_title, study_name, approval_flag, sender_email, approval_flag
+		notice_no, 
+		notice_category,
+		TO_CHAR(notice_date, 'YYYY-MM-DD HH24:MI:SS') notice_date,
+		board_title, 
+		study_name, 
+		approval_flag, 
+		sender_email, 
+		approval_flag
 		FROM notice
 		WHERE email = #{value}	
 	</select>
