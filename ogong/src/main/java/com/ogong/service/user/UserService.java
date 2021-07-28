@@ -20,8 +20,6 @@ public interface UserService {
 	  public User getUser(User email) throws Exception;
 		  
 	  
-		//게시물보기
-		List<Board> boardlist (int boardNo) throws Exception;
 
 	  	  
 	   //프로필 보기
@@ -46,10 +44,7 @@ public interface UserService {
 		void restore(User user) throws Exception;
 
 		
-	// 내 게시판 리스트	
-	//	public List<Board> myboardlist() throws Exception;
-		
-		public List<Board> getList();
+	
 		
 	// 닉네임 중복확인
 		public int idCheck(String nickname) throws Exception;
@@ -70,7 +65,7 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 
-		List<Board> myboardlist(Map<String, Object> map) throws Exception;
+		List<Board> list(User user) throws Exception;
 
 
 

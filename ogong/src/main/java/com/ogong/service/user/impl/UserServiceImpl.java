@@ -125,18 +125,10 @@ public class UserServiceImpl implements UserService{
 
 
 
-	@Override
-	public List<Board> getList() {
-		// TODO Auto-generated method stub
-		return userDAO.getList();
-	}
 
 
-	@Override
-	public List<Board> myboardlist(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 
 	@Override
@@ -145,17 +137,15 @@ public class UserServiceImpl implements UserService{
 		userDAO.restore(user);
 	}
 
-	//게시물보기
+	
+
 	@Override
-	public List<Board> boardlist(int boardNo) throws Exception {
+	public List<Board> list(User list) throws Exception {
 		// TODO Auto-generated method stub
-		return userDAO.boardlist(boardNo);
+		return userDAO.list(list);
 	}
 
-	/*
-	 * @Override public User getUser(String email) throws Exception { // TODO
-	 * Auto-generated method stub return userDAO.getUser(email); }
-	 */
+
 	
 	
 }

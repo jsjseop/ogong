@@ -2,15 +2,30 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
+
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-</head>
-<body>
+	<head>
+	 	<title>게시판</title>
+	</head>
+	<body>
+	
+									  <input type="hidden" name="email"	value="abcd960141@gmail.com"/>  <!--  히든값 -->
+	
+		<div id="root">
+			<header>
+				<h1> 게시판</h1>
+			</header>
+			<hr />
+			 
+			<nav>
+			  홈 - 글 작성
+			</nav>
+			<hr />
+			
+			<section id="container">
+				<form role="form" method="post" action="/board/write">
+					<table>
+						<tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th></tr>
  
     <c:forEach items="${list }" var="board" >
         ${board.boardNo }<br>

@@ -60,11 +60,17 @@
 	</resultMap>
 	
 
-	<!-- <select id="boardlist" parameterType="list" resultType="boardSelectMap" >
-
+	 <select id="list" resultMap="boardSelectMap" >
 	
-	</select> -->
+	SELECT
+    a.* ,b.*
+FROM
+    board  b,
+    users  a
+WHERE
+    a.email = b.email
 
+</select>
 	
 	
 	

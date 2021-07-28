@@ -106,13 +106,18 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("boardlist")
-	public String Mystudylist(Model model) throws Exception{
+	// 게시판 목록 조회
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model) throws Exception{
+		logger.info("list");
 		
-		model.addAttribute("list", userService.boardlist(1));
+		model.addAttribute("list",userService.list(null));
 		
-		return "/userView/boardlist";
+		
+		return "userView/list";
+		
 	}
+
 	
 	
 	// 로그인 화면
