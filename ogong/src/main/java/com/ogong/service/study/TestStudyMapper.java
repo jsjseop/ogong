@@ -26,5 +26,6 @@ public interface TestStudyMapper {
 	int getTotalCount(Search search) throws Exception;
 	
 	void updateMember(@Param("studyNo") int studyNo, @Param("num") int num) throws Exception;
-
 }
+	
+	

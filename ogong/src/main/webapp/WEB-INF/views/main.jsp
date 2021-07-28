@@ -30,7 +30,6 @@ body, table, div, p, th, td {
 	
 
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
-<<<<<<< HEAD
    	
    	<head>
 		<script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
@@ -142,8 +141,7 @@ body, table, div, p, th, td {
 
 </div>
    	</body>
-=======
 
 </body>
 
->>>>>>> refs/remotes/origin/master
+   	</body>

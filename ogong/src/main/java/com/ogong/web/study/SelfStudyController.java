@@ -38,6 +38,7 @@ import com.ogong.service.studyroom.StudyroomService;
 @RequestMapping("/selfStudy/*")
 public class SelfStudyController {
 	
+	
 	@Autowired
 	private TestStudyService studyService;
 	

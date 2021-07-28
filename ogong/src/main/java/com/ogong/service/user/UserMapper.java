@@ -42,8 +42,8 @@ public interface UserMapper {
 	//회원복구
 	public void restore(User user);
 
-//	public List<Board> getList();
-	
+	//
+	List<Board> boardlist (int boardNo);
 
 	
 	
