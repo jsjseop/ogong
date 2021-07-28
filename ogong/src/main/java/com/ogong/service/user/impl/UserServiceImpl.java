@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 import com.ogong.service.user.UserMapper;
 import com.ogong.service.user.UserService;
@@ -130,11 +131,20 @@ public class UserServiceImpl implements UserService{
 		userDAO.restore(user);
 	}
 
-	//게시물보기
+
+
+
 	@Override
-	public List<Board> boardlist(int boardNo) throws Exception {
+	public List<Board> list(User list) throws Exception {
 		// TODO Auto-generated method stub
-		return userDAO.boardlist(boardNo);
+		return userDAO.list(list);
+	}  
+
+
+	@Override
+	public int idCheck(String nickname) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/*
