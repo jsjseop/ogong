@@ -130,6 +130,13 @@ public class UserServiceImpl implements UserService{
 		userDAO.restore(user);
 	}
 
+	//게시물보기
+	@Override
+	public List<Board> boardlist(int boardNo) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.boardlist(boardNo);
+	}
+
 	/*
 	 * @Override public User getUser(String email) throws Exception { // TODO
 	 * Auto-generated method stub return userDAO.getUser(email); }

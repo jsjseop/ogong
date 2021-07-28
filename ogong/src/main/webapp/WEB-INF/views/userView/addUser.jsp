@@ -31,8 +31,8 @@
 	<form id="join_form" method="post" ">
 	<div class="wrap">
 
-			
-			
+			<h1 clsss="text-center">회원가입</h1>
+
 			
  			<div class="id_wrap">
                     <label for="inputNickname" class="col-lg-2 control-label">닉네임</label>
@@ -76,7 +76,7 @@
 					<div class="mail_check_input_box" id="mail_check_input_box_false">
 						<input class="mail_check_input" disabled="disabled">
 					</div>
-					<
+					
 					<div class="mail_check_button">
 						<span>인증번호 전송</span>
 					</div>
@@ -96,7 +96,16 @@
 	<style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
+<<<<<<< HEAD
 }      
+=======
+
+
+} id_input{
+
+}
+        
+>>>>>>> refs/heads/연습용2
      </style>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

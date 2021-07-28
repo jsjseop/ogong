@@ -32,17 +32,14 @@
 	function fncrestore() {
 		$("form").attr("method","POST").attr("action","/user/restore").submit();
 	}
-	
-	
 
-	
-	
-
-	
-	
-	
 </script>
-
+	<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}
+        
+     </style>
 	<!-- ToolBar Start /////////////////////////////////////-->
 	
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -50,7 +47,7 @@
 </head>
 <body>
 	<div class="container">
-	<br>><br/>
+	<br><br/>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
@@ -58,6 +55,8 @@
 
 		
 				<h1 class="bg-info text-center">회원 복구</h1>
+			<h4>	다시 돌아와 주셔서 감사합니다 복구사유 작성후 회원복구 신청해주세요</h4>
+		<hr>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
@@ -80,7 +79,6 @@
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button" id="btn1" class="btn btn-info"  >회원복구</button>
 		    </div>
-/////////////////////////-->
 		
  	</div>
 </body>

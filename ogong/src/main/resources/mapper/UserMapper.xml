@@ -37,7 +37,49 @@
 	</resultMap> 
 	
 	
+		<resultMap id="boardSelectMap" 	type="board">
+		<result property="email" 				column="email" 					jdbcType="VARCHAR"/>
+		<result property="boardNo" 				column="board_no" 				jdbcType="NUMERIC"/>
+		<result property="boardCategory" 		column="board_category" 		jdbcType="VARCHAR" />
+		<result property="boardTitle" 			column="board_title" 			jdbcType="VARCHAR" />
+		<result property="boardContents"		column="board_contents" 		jdbcType="VARCHAR" />
+		<result property="boardInterest" 		column="board_interest" 		jdbcType="NUMERIC" />  
+		<result property="boardRegDate" 		column="board_reg_date" 		jdbcType="DATE" /> 
+		<result property="viewCount" 			column="view_count" 			jdbcType="NUMERIC" />
+		<result property="commentCount" 		column="comment_count" 			jdbcType="NUMERIC" />
+		<result property="boardRegBanana" 		column="board_reg_banana" 		jdbcType="NUMERIC" />
+		<result property="fileFlag" 			column="file_flag" 				jdbcType="NUMERIC" /> 
+		<result property="answerCount" 			column="answer_count" 			jdbcType="NUMERIC" />
 
+
+
+ 		<association property="writer"  javaType="user">
+			<id property="email" column="email" jdbcType="VARCHAR"/>
+			<result property="nickname" column="nickname" jdbcType="VARCHAR"/>			
+
+		</association>
+
+	</resultMap>
+
+
+
+
+	 <select id="list" resultMap="boardSelectMap" >
+	
+	SELECT
+    a.* ,b.*
+FROM
+    board  b,
+    users  a
+WHERE
+    a.email = b.email
+    
+    
+
+	</select> 
+
+	
+			
 	
 
 	<insert 	id="addUser"		parameterType="user" >
@@ -92,8 +134,6 @@
     #{studyInterest2:VARCHAR},
     #{studyInterest3:VARCHAR}
 )
-
-
 
 	 
 

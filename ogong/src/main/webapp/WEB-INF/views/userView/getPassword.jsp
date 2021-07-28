@@ -26,7 +26,18 @@
 	<div class="wrap">
 
 			<div class="id_wrap">
+<<<<<<< HEAD
 <h1 class="text">비밀번호 변경</h1>
+=======
+			
+			<h2>비밀번호 찾기 </h1>
+
+>>>>>>> refs/heads/연습용2
+
+
+
+
+			<hr>
 
 			<div class="mail_wrap">
 				    <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
@@ -56,11 +67,18 @@
 				<input type="button" class="join_button" value="비밀번호 변경">
 			</div>
 		</div>
+		
+		
+		
+		
 	</form>
 	
 		<style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
+
+
+
 }
         
      </style>
