@@ -30,6 +30,8 @@ public class CamStudyRestController {
 	
 	@Autowired
 	private LearningHistoryService learningHistoryService;
+
+	private CamStudyRestController studyService;
 	
 	@GetMapping("/json/getUser/{email}")
 	public User getUser(@PathVariable String email, HttpServletResponse response) throws Exception {

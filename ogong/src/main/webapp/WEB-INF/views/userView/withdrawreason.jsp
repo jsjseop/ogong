@@ -84,12 +84,20 @@
 	
 </script>
 
+<<<<<<< HEAD
 <style >
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 
 }
 </style>
+=======
+	<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}      
+     </style>
+>>>>>>> refs/remotes/origin/테스트
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
@@ -106,7 +114,7 @@ font-family: 'Do Hyeon', sans-serif;
 
 
 		
-				<h1 class="bg-info text-center">회원 탈퇴</h1>
+				<h1 class="text-center">회원 탈퇴</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">

@@ -1,6 +1,7 @@
 package com.ogong.service.user;
 
 import java.awt.datatransfer.Clipboard;
+
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +34,10 @@ public interface UserMapper {
 	//비밀번호 찾기
 	User getPassword(String email);
 	
+/*	// 아이디 중복체크
+	public int idCheck(String email);
 	// 닉네임 중복체크
-	public int idCheck(String nickname);
+	public int idCheck(String nickname);*/
 	
 	//회원탈퇴
 	void withdrawreason(User user);

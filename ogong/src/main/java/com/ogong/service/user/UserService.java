@@ -1,11 +1,11 @@
 package com.ogong.service.user;
 
+
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 
 @Service
@@ -43,16 +43,18 @@ public interface UserService {
 		void withdrawreason(User user) throws Exception;
 	  
 	 // 회원복구
+
+	  
+
+
+
 		void restore(User user) throws Exception;
 
 		
-	// 내 게시판 리스트	
-	//	public List<Board> myboardlist() throws Exception;
+
 		
-		public List<Board> getList();
-		
-	// 닉네임 중복확인
-		public int idCheck(String nickname) throws Exception;
+
+
 // 프로필수정
 
 	//이름
@@ -70,7 +72,6 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 
-		List<Board> myboardlist(Map<String, Object> map) throws Exception;
 
 
 

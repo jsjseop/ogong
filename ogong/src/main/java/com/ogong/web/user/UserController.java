@@ -361,15 +361,6 @@ public class UserController {
 		return num;
 	}
 	
-	@GetMapping("Mypostlist")
-	public String Mypostlist(Model model) {
-		
-		logger.info("게시판 진입");
-		
-		model.addAttribute("list", userService.getList() );
-		
-			return "/userView/loginView";	
-	}
 
 
 	
@@ -403,6 +394,20 @@ public class UserController {
 
 	}
 }
+	/*
+	 * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
+	 * 
+	 * Log.info("게시판 진입");
+	 * 
+	 * model.addAttribute("list", userService.getList() );
+	 * 
+	 * return "/userView/loginView"; }
+	 */
+
+	
+
+ 
+
 			
 				
 		
@@ -416,7 +421,3 @@ public class UserController {
 
 
 
-
-
-
- 

@@ -26,9 +26,13 @@
 	<div class="wrap">
 
 			<div class="id_wrap">
+<<<<<<< HEAD
 			
 			<h2>비밀번호 찾기 </h1>
 
+=======
+<h1 class="text">비밀번호 변경</h1>
+>>>>>>> refs/remotes/origin/테스트
 
 
 
@@ -56,7 +60,10 @@
 				</div>
 			</div>
 		
+		
 			<div class="join_button_wrap">
+			                    <div class="col-lg-10">
+			
 				<input type="button" class="join_button" value="비밀번호 변경">
 			</div>
 		</div>

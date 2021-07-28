@@ -9,7 +9,11 @@
 
 	<meta charset="EUC-KR"><!-- 1 -->
 	
+	
+	
+	
 	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
+<<<<<<< HEAD
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 2 -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -22,13 +26,17 @@
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script><!-- 5 -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/js/bootstrap.min.js" ></script><!-- 6 -->
+=======
+>>>>>>> refs/remotes/origin/í…ŒìŠ¤íŠ¸
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet"><!-- 8 -->
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"><!-- 9 -->
+   
+   
+   
+   
    
     <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script><!-- 10 -->
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	
@@ -98,7 +106,7 @@ font-family: 'Do Hyeon', sans-serif;
 	<div class="container">
 	
 		<div class="page-header">
-	      <h1>${user.nickname}ÀÇ ÇÁ·ÎÇÊ</h1>
+	      <h1>${user.nickname}´ÔÀÇ ÇÁ·ÎÇÊ</h1>
 	    </div>
 	
 			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  È÷µç°ª -->

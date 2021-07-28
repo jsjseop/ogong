@@ -13,19 +13,18 @@ import com.ogong.service.domain.Study;
 @Mapper
 public interface TestStudyMapper {
 
-	void addStudy(Study study) throws Exception;
-	
-	Study getStudy(int studyNo) throws Exception;
-	
-	void entranceStudy(int studyNo) throws Exception;
-	
-	void leaveStudy(int studyNo) throws Exception;
-	
-	List<Study> getStudyList(Search search) throws Exception;
-	
-	int getTotalCount(Search search) throws Exception;
-	
-	void updateMember(@Param("studyNo") int studyNo, @Param("num") int num) throws Exception;
+   void addStudy(Study study) throws Exception;
+   
+   Study getStudy(int studyNo) throws Exception;
+   
+   void entranceStudy(int studyNo) throws Exception;
+   
+   void leaveStudy(int studyNo) throws Exception;
+   
+   List<Study> getStudyList(Search search) throws Exception;
+   
+   int getTotalCount(Search search) throws Exception;
+   
+   void updateMember(@Param("studyNo") int studyNo, @Param("num") int num) throws Exception;
+
 }
-	
-	

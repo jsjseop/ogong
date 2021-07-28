@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 import com.ogong.service.user.UserMapper;
 import com.ogong.service.user.UserService;
@@ -101,11 +100,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 
-	@Override
-	public int idCheck(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		return userDAO.idCheck(nickname);
-	}
+
+
 
 
 
@@ -125,18 +121,7 @@ public class UserServiceImpl implements UserService{
 
 
 
-	@Override
-	public List<Board> getList() {
-		// TODO Auto-generated method stub
-		return userDAO.getList();
-	}
 
-
-	@Override
-	public List<Board> myboardlist(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 	@Override
