@@ -109,7 +109,7 @@ public class UserController {
 	@GetMapping("boardlist")
 	public String Mystudylist(Model model) throws Exception{
 		
-		model.addAttribute("list", userService.boardlist(0));
+		model.addAttribute("list", userService.boardlist(1));
 		
 		return "/userView/boardlist";
 	}

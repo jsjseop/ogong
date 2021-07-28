@@ -60,19 +60,10 @@
 	</resultMap>
 	
 
-	<select id="boardlist" parameterType="list" resultMap="boardSelectMap" >
-	select
-	BOARD_NO as boardNo,
-	BOARD_TITLE ,
-	VIEW_COUNT ,
-	ANSWER_COUNT ,
-	BOARD_REG_DATE 
-	form board
-	WHERE EMAIL = #{email:VARCHAR}
+	<!-- <select id="boardlist" parameterType="list" resultType="boardSelectMap" >
+
 	
-	
-	
-	</select>
+	</select> -->
 
 	
 	
