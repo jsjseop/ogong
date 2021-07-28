@@ -46,8 +46,7 @@
 				if(list.length > 0) {
 					$.each(list, function(index, study){
 						addListHtml += '<div class="col-xs-12 col-md-3">';
-						addListHtml += '<img class="img-fluid img-thumbnail rounded" id="thumb" src="/resources/upload_files/study/green.jpg" alt="None">';
-						addListHtml += '<input type="hidden" value="'+study.studyNo+'">';
+						addListHtml += '<img class="img-fluid img-thumbnail rounded" src="/resources/upload_files/study/'+study.studyThumbnail+'" alt="None" onclick="entranceStudy('+study.studyNo+')">';
 						addListHtml += '<p class="text-center">';
 						if(study.studyRoomGrade == "premium"){
 							addListHtml += '<i class="fa fa-product-hunt"></i>&nbsp;';
@@ -81,15 +80,14 @@
 		});
 	}
 
+	function entranceStudy(studyNo) {
+		location.href = "/study/getStudy?studyNo=" + studyNo;
+	}
+	
 	$(function() {
 
 		$('a.btn.btn-warning').on('click', function(){
 			location.href = "/study/addStudy?studyType=${studyType}";
-		});
-		
-		$('img.img-thumbnail').click(function(e) {
-			let studyNo = $(this).parent().children('input').val();
-			location.href = "/study/getStudy?studyNo=" + studyNo;
 		});
 
 		$('button:contains("검색")').on('click', function() {
@@ -121,7 +119,7 @@
 		})
 		
 
-	})
+	});
 
 	var page = 1;
 	$(window).scroll(function() {
@@ -149,6 +147,8 @@ img.img-thumbnail {
 	-ms-transform: scale(1, 1);
 	transform: scale(1, 1);
 	transition-duration: 0.3s;
+	width: 300px;
+	height: 220px;
 }
 
 img.img-thumbnail:hover {
@@ -322,8 +322,8 @@ div.jumbotron {
 		<div class="row" id="list">
 			<c:forEach var="study" items="${list}">
 				<div class="col-xs-12 col-md-3">
-					<img class="img-fluid img-thumbnail rounded" id="thumb" src="/resources/upload_files/study/green.jpg" alt="None">
-					<input type="hidden" value="${study.studyNo}">
+					<img class="img-fluid img-thumbnail rounded" src="/resources/upload_files/study/${study.studyThumbnail}" alt="None"
+					onclick="entranceStudy(${study.studyNo})">
 					<c:if test="${studyType == 'group'}">
 						<p class="text-center">모집기간:${study.recruitmentStartDate}~${study.recruitmentEndDate}</p>
 					</c:if>

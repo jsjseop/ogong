@@ -80,7 +80,7 @@ public class StudyController {
 		study.setStudyMaker(user);
 		
 		if(file.getOriginalFilename() == "") {
-			study.setStudyThumbnail("ogong1.jpg");
+			study.setStudyThumbnail("ogong2.jpg");
 		}else {
 			String root_path = request.getSession().getServletContext().getRealPath("/");  
 			String attach_path = "resources/upload_files/study/";
