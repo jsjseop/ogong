@@ -1,0 +1,197 @@
+  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/myStudy.css"> 
+    <link rel="stylesheet" href="css/css-stars.css">
+ 
+    <link href="node_modules/slidebars/dist/slidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.css">
+   
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+	 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+     <script type="text/javascript" src="js/jquery.barrating.min.js"></script>
+	<script src="js/common.js"></script>
+	 <script src="js/myStudy.js"></script>		
+</head>
+
+
+<body>
+    <!-- header start -->
+    <div id="header"> </div>
+    <!-- header end -->
+    <div id="container" canvas="container" style="height:1005px; padding:3rem;">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <div class="col-box-list">
+                    <div class="class_titl">내정보</div>
+                    <hr class="line3">
+                    <div class="list-group cls-list">
+                        <a href="myProfile.html" class="list-group-item list-group-item-action cls-list-link">
+                            내 정보 관리
+                        </a>
+                        <a href="Mystudy.html" class="list-group-item list-group-item-action cls-list-link">
+                            내 스터디
+                        </a>
+                        <a href="myInterestsField.html" class="list-group-item list-group-item-action cls-list-link">
+                            관심 분야 설정
+                        </a>
+                        <a href="myMessage.html" class="list-group-item list-group-item-action cls-list-link">
+                            메시지
+                        </a>
+                        <a href="myPasswordChange.html" class="list-group-item list-group-item-action cls-list-link">
+                            비밀번호 변경
+                        </a>
+                        <a href="myProfileDeleteConfirm.html" class="list-group-item list-group-item-action cls-list-link">
+                            계정 삭제
+                        </a>
+                    </div>
+                    <!--list-group cls-list-->
+                </div>
+                <!--col-box-list-->
+            </div>
+            <div class="col-sm-10 container-box">
+                <div class="inner-container-box">
+                    <h3>내 스터디</h3>
+                    <hr>
+          
+                    <span class="ss" style="color: #ef6c00"><strong>내가 만든 스터디</strong></span>
+                  				<c:forEach items="${list}" var = "board">
+							<tr>
+								<td align="left" >"${board.boardNo}"</td>
+								<td align="left" >"${board.boardTitle}"</td>
+								<td align="left" >"${board.viewCount}"</td>
+							</tr>   
+						</c:forEach>
+                    <div class="mystudy">
+                     
+                      
+                    </div>
+                    <hr>
+                   
+                    <span class="ss" style="color: #ef6c00"><strong>내가 속한 스터디</strong></span>
+                  
+                    <div class="ownstudy">
+                     
+                      
+                    </div>
+                    
+                    
+                    
+                                    <!--DAD Modal -->
+<div class="modal fade" id="dAD" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">후기 작성</h4>
+					
+                </div>
+
+				<div class="modal-body">
+					<form action="review-insert" method="post">
+				
+                    <div class="starzone" id="star">
+                    <span style="color:#495057;">별점을 자유롭게 매겨주세요!</span>
+                    <select id="example">
+					  <option value="1" id="star1">1</option>
+					  <option value="2" id="star2">2</option>
+					  <option value="3" id="star3">3</option>
+					  <option value="4" id="star4">4</option>
+					  <option value="5" id="star5">5</option>
+					</select>
+					</div>
+                    
+                     <div class="form-group">
+                          <label for="exampleFormControlTextarea1"></label>
+                          <textarea id="fContent" class="form-control" rows="6" placeholder="스터디 후기를 자유롭게 적어주세요!"></textarea>
+                     </div>
+                   </form>
+				</div>
+
+				<div class="modal-footer">
+				
+					<button id="addBtn" type="button" class="input-view btn btn-primary btn-sm">등록</button>
+					
+				    <button id="updBtn" type="button" class="input-view btn btn-primary btn-sm">변경</button>
+				    <button id="delBtn" type="button" class="input-view btn-secondary btn-sm">삭제</button>
+				</div>
+			</div>
+		</div>
+	</div>
+                
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+ </div>
+    <!-- footer start -->
+    <!-- footer start -->
+        <footer class="footer" style="margin-top:0">
+            <p style="font-size:25px">WeStudy</p>
+    
+            <div>
+                <span>서울특별시 강남구 비트캠프 401호</span>
+                <span>Tel080-777-2299</span>
+                <span>개인정보취급관리자 홍길동</span>
+                <span>E-mail : we_study@westudy.com</span>
+            </div>
+            <p>Copyright ⓒ 2018 WeStudy. All Rights Reserved.</p>
+        </footer>
+        <!-- footer end -->
+    <!-- footer end -->
+
+ 
+ 
+ 
+ 
+
+
+
+
+  
+
+  
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+    <script src="node_modules/slidebars/dist/slidebars.js"></script>
+        
+<script type="text/javascript">
+
+    $(function() {
+       $('#example').barrating({
+         theme: 'css-stars'
+       });
+    });
+ </script>
+ <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+ 
+</body>
+ 
+
+
+</html>
