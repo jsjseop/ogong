@@ -50,10 +50,10 @@ public interface UserService {
 
 
 		
-
+	
 		
-
-
+	// 닉네임 중복확인
+		public int idCheck(String nickname) throws Exception;
 // 프로필수정
 
 	//이름

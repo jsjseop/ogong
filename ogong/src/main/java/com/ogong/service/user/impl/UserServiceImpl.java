@@ -141,16 +141,21 @@ public class UserServiceImpl implements UserService{
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-	
+	@Override
+	public int idCheck(String nickname) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

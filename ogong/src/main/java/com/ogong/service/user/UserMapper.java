@@ -48,6 +48,8 @@ public interface UserMapper {
 	//
 	List<Board> list(User list);
 	
+
+	
 	
 	
 	
@@ -67,8 +69,6 @@ public interface UserMapper {
 	void updategender(User user) throws Exception;
 	// 목표와 각오
 	void updategoal(User user) throws Exception;
-
-
 
 	
 	

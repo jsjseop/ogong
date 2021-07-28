@@ -105,6 +105,12 @@ public class UserController {
 	}
 
 	
+	
+	
+
+
+	
+	
 	// 게시판 목록 조회
 		@RequestMapping(value = "/list", method = RequestMethod.GET)
 		public String list(Model model) throws Exception{
@@ -147,6 +153,10 @@ public class UserController {
 
 		return "redirect:/integration/mainPage";
 	}
+	
+	
+
+	
 
 	// 로그아웃
 	@GetMapping("logout")
@@ -340,6 +350,8 @@ public class UserController {
 
 		return num;
 	}
+	}
+
 
 	/*
 	 * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
@@ -375,7 +387,7 @@ public class UserController {
 	 * return "success"; // 중복 닉네임 x }
 	 */
 
-}
+
 /*
  * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
  * 

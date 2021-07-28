@@ -32,7 +32,9 @@
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
-		
+	
+	
+
 		
 	</resultMap> 
 	
@@ -78,8 +80,21 @@ WHERE
 
 	</select> 
 
+	 <select id="list"  resultMap="boardSelectMap" >
 	
 			
+SELECT
+    a.email , b.*
+FROM
+    board  b
+    LEFT JOIN
+    users  a
+    ON
+    b.email = a.email
+
+</select>
+	
+	
 	
 
 	<insert 	id="addUser"		parameterType="user" >
