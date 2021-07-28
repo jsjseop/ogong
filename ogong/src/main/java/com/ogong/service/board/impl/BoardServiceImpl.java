@@ -117,11 +117,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 댓글 수정
 	public Boolean updateComment(Comment comment) throws Exception {
-		int cnt =boardMapper.updateComment(comment);
-		if ( cnt > 0) {
-			return true;
-		}
-		return false;
+		boardMapper.updateComment(comment);
+		return null;
 	}
 
 	// 댓글 삭제

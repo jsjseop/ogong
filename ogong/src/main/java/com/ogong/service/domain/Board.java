@@ -22,6 +22,8 @@ public class Board {
 	private String boardInterest;
 	private String fileFlag;
 	private Study study;
+	private String studyStartDate;
+	private String studyEndDate;
 	
 }	
 	

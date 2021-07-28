@@ -8,7 +8,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3" name="ogong" style="font-size:15px;">관리자 페이지&nbsp 나가기</div>
+                <div class="sidebar-brand-text mx-3" name="ogong" style="font-size:15px;">관리자 페이지 나가기</div>
             </a>
 
             <!-- Divider -->

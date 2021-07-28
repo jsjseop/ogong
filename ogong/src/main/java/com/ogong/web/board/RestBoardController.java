@@ -40,6 +40,7 @@ public class RestBoardController {
 	@PostMapping("/json/addBoard")
 	public int addBoard(MultipartHttpServletRequest request, @ModelAttribute("board") Board board) throws Exception {
 		List<MultipartFile> fileList = request.getFiles("file");
+		System.out.println("파일리스트~~~"+fileList);
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		board.setWriter(user);

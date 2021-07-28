@@ -54,7 +54,13 @@ public class BananaServiceImpl implements BananaService{
 
 		bananaMapper.updateAcquireBanana(user);
 		
-	}	
+	}
+	
+	@Override
+	public void deleteBanana(int bananaNo) throws Exception{
+		
+		bananaMapper.deleteBanana(bananaNo);
+	}
 	
 	@Override
 	public User adminGetUser(String email) throws Exception {

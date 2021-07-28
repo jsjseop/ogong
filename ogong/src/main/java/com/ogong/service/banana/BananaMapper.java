@@ -27,6 +27,9 @@ public interface BananaMapper {
 	//바나나 -차감
 	void updateUseBanana(User user);
 	
+	//바나나 리스트 삭제
+	public void deleteBanana(int bananaNo);
+	
 	//바나나 페이지 카운트	
 	public int getbananaCount(HashMap<String, Object> map);
 	

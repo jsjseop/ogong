@@ -37,6 +37,8 @@ public class AdminRestController {
 	@GetMapping( value="json/adminGetUser/{email}")
 	public User adminGetUser(@PathVariable("email")String email) throws Exception{
 		
+		System.out.println("rest/getUser");
+		
 		return bananaService.adminGetUser(email);
 	}
 
