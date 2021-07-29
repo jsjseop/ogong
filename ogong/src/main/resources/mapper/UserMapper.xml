@@ -39,7 +39,6 @@
 	</resultMap> 
 	
 		<resultMap id="boardSelectMap" 	type="board">
-		<result property="email" 				column="email" 					jdbcType="VARCHAR"/>
 		<result property="boardNo" 				column="board_no" 				jdbcType="NUMERIC"/>
 		<result property="boardCategory" 		column="board_category" 		jdbcType="VARCHAR" />
 		<result property="boardTitle" 			column="board_title" 			jdbcType="VARCHAR" />
@@ -88,15 +87,23 @@
 	</resultMap>
 
 
-	 <select id="list" resultMap="boardSelectMap" >
-	
+	 	 <select id="list" resultMap="boardSelectMap" >
 	SELECT
-    a.* ,b.*
+    board_no,
+    study_no,
+    email,
+    nickname,
+    board_category,
+    board_title,
+    board_contents,
+    board_interest,
+    board_reg_date,
+    view_count,
+    board_reg_banana,
+    file_flag
 FROM
-    board  b,
-    users  a
-WHERE
-    a.email = b.email
+    board
+
     
     
 
@@ -110,7 +117,28 @@ WHERE
 
 
 
+
 	
+	
+	
+<!-- 			<select id="getTotalCount"		parameterType="search"		resultType="int">
+						SELECT COUNT(*)
+						     FROM (	SELECT   board_email,board_boardTitle,board_viewCount
+											 FROM board 	
+											 <if test="searchCondition != null">
+											 <where>
+										<if test="searchCondition == 0 and searchKeyword !='' ">
+											 board_email = #{searchKeyword}
+											</if>
+										<if test="searchCondition == 1 and searchKeyword !='' ">
+										board_boardTitle = #{searchKeyword}
+										</if>)
+												 </where> 
+											 </if> )countTable
+	</select> -->
+	
+
+
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
     EMAIL,

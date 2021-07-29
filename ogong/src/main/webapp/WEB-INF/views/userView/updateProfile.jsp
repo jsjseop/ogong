@@ -155,7 +155,7 @@ font-family: 'Do Hyeon', sans-serif;
 						<option value="독서">독서</option>
 						<option value="임용">임용</option>
 						<option value="기타">기타</option>
-						<option value=""></option>
+						<option value="">없음</option>
 
 				</select> 
 				
@@ -174,7 +174,7 @@ font-family: 'Do Hyeon', sans-serif;
 						<option value="독서">독서</option>
 						<option value="임용">임용</option>
 						<option value="기타">기타</option>
-						<option value=""></option>
+						<option value="">없음</option>
 						
 				</select> 
 				
@@ -194,7 +194,7 @@ font-family: 'Do Hyeon', sans-serif;
 						<option value="독서">독서</option>
 						<option value="임용">임용</option>
 						<option value="기타">기타</option>
-						<option value=""></option>
+						<option value="">없음</option>
 						
 				</select>   
 				

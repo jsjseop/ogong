@@ -1,6 +1,7 @@
 package com.ogong.service.user;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,6 @@ public interface UserService {
 	  public User getUser(User email) throws Exception;
 		  
 	  
-		//게시물보기
-	  List<Board> list(User user) throws Exception;
 
 	  	  
 	   //프로필 보기
@@ -76,6 +75,9 @@ public interface UserService {
 
 
 
+
+		//게시판 조회
+		List<Board> list(String email) throws Exception;
 
 
 

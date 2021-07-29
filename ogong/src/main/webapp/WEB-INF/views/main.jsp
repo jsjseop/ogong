@@ -23,6 +23,13 @@ body, table, div, p, th, td {
 
 	<button type="button" class="btn btn-primary btn-lg"
 		data-toggle="modal" data-target="#myModal">프로필 보기</button>
+
+			
+			
+		</div>
+
+
+
 	<!-- 모달 영역 -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
@@ -96,7 +103,7 @@ body, table, div, p, th, td {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">확인</button>
+						<button type="button" class="btn btn-primary" onclick="window.open('http://localhost:5050/user/updateProfile')">수정</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 					</div>
 </body>

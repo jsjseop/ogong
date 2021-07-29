@@ -1,4 +1,3 @@
-
   <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -63,19 +62,26 @@
 
 <!-- pagination start -->
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+}    
 .page-link {
 	color: #ef6c00 !important;
 }
+
+
+
 </style>
 <!-- pagination end -->
 
 
-
 <title>나의 게시글</title>
 </head>
-		  <input type="hidden" name="email"	value="${email}"/>  <!--  히든값 -->
 
 <body>
+
+
+
 </div>
 	<!-- free board start  -->
 	<div class="container" style="height: 100px">
@@ -91,6 +97,7 @@
 					<th align="left">제목</th>
 					<th align="left">조회수</th>
 				</tr>
+			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 				
 				<c:forEach items="${list}" var = "board">
 							<tr>
@@ -143,3 +150,5 @@
 	
 </body>
 </html>
+  
+ 

@@ -1,7 +1,5 @@
 package com.ogong.service.user;
 
-import java.awt.datatransfer.Clipboard;
-
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +46,8 @@ public interface UserMapper {
 	//
 	List<Board> list(User list);
 
+	List<Board> list(Map<String, Object> map);
+	
 
 	
 	
