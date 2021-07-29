@@ -63,6 +63,9 @@ public interface BoardService {
 		
 		//파일 다운
 		public void fileDown(HttpServletResponse response, File file) throws Exception;
+		
+		//알림 게시글 상세보기
+		public Board getNoticeBoard(int boardNo) throws Exception;
 
 
 		

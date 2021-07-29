@@ -418,7 +418,7 @@
 	</select>
 
 
- <!-- 답변 수 -->
+	<!-- 답변 수 -->
  
 	<select id="listCommentCount" parameterType="map" resultType="int">
 		SELECT
@@ -470,7 +470,7 @@
 
 
  
- <!-- Q&A 게시판 답변 수정 -->
+ 	<!-- Q&A 게시판 답변 수정 -->
 
 	<update  id="updateAnswer"	parameterType="answer">
 	
@@ -484,7 +484,7 @@
 	
 	
 
-<!-- Q&A 게시판 답변 삭제 -->	
+	<!-- Q&A 게시판 답변 삭제 -->	
 	
 	<delete id="deleteAnswer" parameterType="answer" >
 		DELETE
@@ -496,7 +496,7 @@
 	
 	
 	
-<!-- 게시판 조회수 -->	
+	<!-- 게시판 조회수 -->	
 	
 	<update id="updateViewcnt" parameterType="int">
 		UPDATE
@@ -583,4 +583,26 @@
 		WHERE 
 			file_info_no = #{fileNo}	  		 
 	</select> 
+	
+	<!-- 알림을 위한 게시글 상세보기 -->
+	<select id="getNoticeBoard" parameterType="int" resultMap="boardSelectMap">
+		SELECT
+			board_no,
+			nickname,
+			email,
+			board_category,
+			board_title,
+			board_contents,
+			board_interest,
+			board_reg_date,
+			view_count,
+			study_start_date,
+			study_end_date
+		FROM 
+			board
+		WHERE 
+			board_no = #{boardNo}
+	</select> 	
+	
+	
 </mapper>

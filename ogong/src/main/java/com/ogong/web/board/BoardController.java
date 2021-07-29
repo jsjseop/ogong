@@ -38,16 +38,19 @@ import com.ogong.service.board.BoardService;
 import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Board;
+import com.ogong.service.domain.Comment;
+import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
+import com.ogong.service.integration.IntegrationService;
 
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
 
-	@Value("5")
+	@Value("4")
 	int pageUnit;
 
-	@Value("10")
+	@Value("4")
 	int pageSize;
 
 	@Autowired
@@ -55,6 +58,9 @@ public class BoardController {
 	
 	@Autowired
 	private BananaService bananaService;	
+	
+	@Autowired
+	private IntegrationService integrationService;	
 
 	@GetMapping("addBoard")
 	public String addBoard(@RequestParam("boardCategory") String boardCategory, Model model) throws Exception {
@@ -90,6 +96,8 @@ public class BoardController {
 			banana.setBananaHistory("정보공유게시판 게시글 등록으로 인한 바나나 적립");
 			banana.setBananaCategory("1");
 			bananaService.addBanana(banana);
+			user.setBananaCount(5);
+			bananaService.updateAcquireBanana(user);
 		} else if (board.getBoardCategory().equals("2")) {
 			int regBanana = board.getBoardRegBanana();
 			banana.setBananaEmail(user);
@@ -105,6 +113,8 @@ public class BoardController {
 			banana.setBananaHistory("합격후기게시판 게시글 등록으로 인한 바나나 적립");
 			banana.setBananaCategory("1");
 			bananaService.addBanana(banana);
+			user.setBananaCount(3);
+			bananaService.updateAcquireBanana(user);
 		}
 		// ===========바나나 적립 및 소모 END==================
 		
@@ -141,23 +151,34 @@ public class BoardController {
 	}
 
 	@PostMapping("addAnswer")
-	public String addAnswer(@ModelAttribute("answer") Answer answer,
-			 Model model) throws Exception {
-
+	public String addAnswer(@ModelAttribute("answer") Answer answer, Model model) throws Exception {
+		
+		// 알림 처리를 위한 인서트~
+		Notice notice = new Notice();
+		Board board = boardService.getNoticeBoard(answer.getBoardNo());
+    	notice.setNoticeUser(board.getWriter());
+    	notice.setNoticeBoard(board);
+    	notice.setNoticeCategory("2");
+    	notice.setNoticeCondition("2");
+    	integrationService.addNotice(notice);		
+		
 		boardService.addAnswer(answer);
-	
+		
 		return "redirect:/board/getBoard?boardNo=" + answer.getBoardNo();
 	}
 
 	@GetMapping("getBoard")
-	public String getBoard(@RequestParam("boardNo") int boardNo, HttpSession session, Model model) throws Exception {
+	public String getBoard(@RequestParam("boardNo") int boardNo, HttpSession session, Model model, Search search) throws Exception {
 		// , @RequestParam("boardCategory") String boardCategory
 		System.out.println("boardNo" + boardNo);
 
 		User user = (User) session.getAttribute("user");
-
+		
 		boardService.updateViewcnt(boardNo);
-
+		Comment comment = (Comment)boardService.listComment(boardNo, search);
+		
+		
+		
 		Board board = new Board();
 		board.setBoardNo(boardNo);
 		// board.setBoardCategory(null);
@@ -166,6 +187,7 @@ public class BoardController {
 		board = (Board) result.get("board");
 		List<File> fileList = (List<File>) result.get("fileList");
 		model.addAttribute("board", board);
+		model.addAttribute("comment", comment);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("user", session.getAttribute("user"));
 

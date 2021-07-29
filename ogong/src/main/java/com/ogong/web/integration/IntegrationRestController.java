@@ -25,6 +25,7 @@ public class IntegrationRestController {
 		System.out.println(this.getClass());
 	}
 	
+	//알림이 온 수를 보기위한 메소드
 	@GetMapping(value="json/getNoticeCount/{email}")
 	public int getNoticeCount(@PathVariable("email") String email) throws Exception {
 		
@@ -34,7 +35,7 @@ public class IntegrationRestController {
 	}
 	
 	
-	
+	//알림 목록을 볼 수 있는 메소드
 	@GetMapping(value="json/getlistNotice/{email}")
 	public List<Notice> getlistNotice(@PathVariable("email") String email) throws Exception{
 		
@@ -47,7 +48,7 @@ public class IntegrationRestController {
 	}
 	
 	
-	
+	//
 	@GetMapping(value="json/updateNotice/{email}")
 	public void updateNotice(@PathVariable("email") String email) throws Exception {
 		

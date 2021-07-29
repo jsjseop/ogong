@@ -11,7 +11,7 @@
 	function fncAddSendMessage2(){
 		//Form 유효성 검증
 
-		var sender = "${message.sender.email}";
+		var sender = $("#sender").val();
 		var receiver = $("#receiver").val();
 		var messageContents = $("#messageContents2").val();
 		
@@ -74,16 +74,34 @@
 					</div>
 					<div class="modal-body">
 						<form>
+						
 							<div class="form-group">
 								<label>발신자 이메일</label> 
-								<label type="hidden" class="form-control" id="sender" name="sender.email" 
-								maxLength="512" style="height: 30px"> ${message.sender.email} </label>
+								  <!-- 쪽지목록에서 쪽지를 보낼 때 -->
+								  <c:if test="${! empty message.sender.email}">	
+									<label type="hidden" class="form-control" id="sender" name="sender.email" 
+									maxLength="512" style="height: 30px"> ${message.sender.email} </label>
+								  </c:if>
+								  <!-- 게시글 상세보기에서 쪽지를 보낼 때 -->
+								  <c:if test="${! empty board.writer.email}">	
+									<label type="hidden" class="form-control" id="sender" name="sender.email" 
+									maxLength="512" style="height: 30px"> ${user.email} </label>
+								  </c:if>								  
 							</div>
+							
 							<div class="form-group">
 								<label>수신자 이메일</label>
-								<input type="text" class="form-control" id="receiver" name="receiver.email" 
-								maxLength="512" style="height: 30px" value="" readonly></input>
+								  <c:if test="${! empty message.sender.email}">
+									<input type="text" class="form-control" id="receiver" name="receiver.email" 
+									maxLength="512" style="height: 30px" value="" readonly></input> 
+								  </c:if>
+								  
+								  <c:if test="${! empty board.writer.email}">
+									<input type="text" class="form-control" id="receiver" name="receiver.email" 
+									maxLength="512" style="height: 30px" value="${board.writer.email}" readonly></input>									  		
+								  </c:if>								  
 							</div>
+							
 							<div class="form-group">
 								<label>내용</label>
 								<textarea type="text" class="form-control" id="messageContents2" name="messageContents" maxLength="2048" style="height: 180px" placeholder="내용을 입력해 주세요."></textarea>

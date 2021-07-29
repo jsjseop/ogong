@@ -22,12 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ogong.common.Search;
+import com.ogong.service.banana.BananaService;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Calendar;
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.LearningHistory;
+import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
+import com.ogong.service.integration.IntegrationService;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
 import com.ogong.service.study.TestStudyService;
@@ -49,6 +53,12 @@ public class SelfStudyController {
 	
 	@Autowired
 	private LearningHistoryService learningHistoryService;
+	
+	@Autowired
+	private BananaService bananaService;
+	
+	@Autowired
+	private IntegrationService integrationService;		
 	
 	@Value("8")
 	int pageSize;
@@ -81,6 +91,26 @@ public class SelfStudyController {
 		
 		study.setStudyMaker(user);
 		studyService.addStudy(study);
+		
+		//바나나
+		Banana banana = new Banana();
+		if(study.getStudyRoomGrade().equals("basic")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(-20);
+			banana.setBananaHistory("Basic 등급 스터디 개설로 인한 바나나 소모 ");
+			banana.setBananaCategory("2");
+			bananaService.addBanana(banana);
+			user.setBananaCount(-20);
+			bananaService.updateUseBanana(user);
+		}else if(study.getStudyRoomGrade().equals("premium")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(-50);
+			banana.setBananaHistory("Premium 등급 스터디 개설로 인한 바나나 소모 ");
+			banana.setBananaCategory("2");
+			bananaService.addBanana(banana);
+			user.setBananaCount(-50);
+			bananaService.updateUseBanana(user);			
+		}
 		
 		if(studyType.equals("group")) {
 			gsm.setStudy(study);
@@ -180,6 +210,23 @@ public class SelfStudyController {
 				
 				if(Integer.parseInt(todayLearningTimePlus) >= userTargetTime) {
 					//바나나 1개 update, 바나나기록 insert
+					Banana banana = new Banana();
+					User user = camStudyService.getUser(learningHistory.getEmail());
+					Notice notice = new Notice();
+					//바나나 기록 저장
+					banana.setBananaEmail(camStudyService.getUser(learningHistory.getEmail()));
+					banana.setBananaAmount(5);
+					banana.setBananaHistory("목표시간 완료로 인한 바나나 적립");
+					banana.setBananaCategory("1");
+					bananaService.addBanana(banana);
+					//회원 바나나 업데이트
+					user.setBananaCount(5);
+					bananaService.updateAcquireBanana(user);
+					//목표시간 완료 알림처리
+					notice.setNoticeUser(user);
+					notice.setNoticeCategory("6");
+					notice.setNoticeCondition("2");
+					integrationService.addNotice(notice);
 				}
 			} else {
 				learningHistoryService.addLearningHistory(learningHistory);

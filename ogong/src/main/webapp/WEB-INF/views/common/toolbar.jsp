@@ -308,7 +308,7 @@
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
 		 		 								+ "</h>"
-		 		 								+ "<p class='text-sm'>개인별 목표시간이 완료되었습니다.</p>"
+		 		 								+ "<p class='text-sm'>목표시간이 완료되었습니다.</p>"
 		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '7'){

@@ -10,12 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
 	
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/resources/css/hanjee/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/resources/css/hanjee/icheck-bootstrap.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="/resources/css/hanjee/adminlte.min.css">
   
@@ -138,6 +133,14 @@
 
  		
 	})
+	
+	$(window).scroll(function() {
+	  	if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight)){
+	    	console.log(++page); 
+	  	}
+	})
+
+	
 	</script>       	
   
 </head>
@@ -199,10 +202,10 @@
             <div class="card-body p-0">
               <div class="mailbox-controls">
                 <!-- Check all button -->                
-                <div class="btn-group">
+                <div class="btn-group float-left">
        					<div class="btn-group" role="group" >				
        						<div class="allCheck">
-								&nbsp&nbsp&nbsp&nbsp<input style="zoom:2.0;  " type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input style="zoom:2.0;  " type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
 									<script>
 										$("#allCheck").click(function() {
 											var chk = $("#allCheck").prop("checked");
@@ -305,9 +308,10 @@
             <div class="card-footer p-0">
               <div class="mailbox-controls">
                 <!-- Check all button -->
-       					<div class="btn-group" role="group" >				
+                <div class="btn-group float-left">
+       					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<div class="btn-group" role="group" >				
        						<div class="allCheck">
-						&nbsp&nbsp&nbsp&nbsp<input style="zoom:2.0;" type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+								<input style="zoom:2.0;  " type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
 									<script>
 										$("#allCheck").click(function() {
 											var chk = $("#allCheck").prop("checked");
@@ -320,13 +324,13 @@
 									</script>
 							</div>
 						</div>                
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm">
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModal">
                     <i class="far fa-trash-alt"></i>
                   </button>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="fas fa-reply"></i>
+                  <button type="button" class="btn btn-default btn-sm" name="refresh">
+                    <i class="fas fa-redo"></i>
                   </button>
+
                 </div>
                 <!-- /.btn-group -->
                 <div class="float-right">

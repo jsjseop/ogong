@@ -47,7 +47,7 @@
 					var answerDate = $("<div class='answerDate'>");
 					var nickname = $("<div class='nickname'>");
 					var button = $("<a id='modal-872384' href='#modal-container-872384' role='button'"
-							+"class='btn' data-toggle='modal'>채택</a>");
+								+"class='btn' data-toggle='modal'>채택</a>");
 					
 					title.text(boardTitle);
 					answerContents.text(record.answerContents);
@@ -148,19 +148,32 @@ font-family: 'Do Hyeon', sans-serif;
 
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
+	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+	<jsp:include page="../adminView/addReport.jsp" />	
 
 	<br/>
 	<h1 class="con" style="text-align:center"> Q&A 게시글 상세</h1>
 	<br />
 	<section class="article-detail table-common con row">
-
+	<input type="hidden" name="boardEmail" id="boardEmail" value="${board.writer.email}" />
 		<table class="cell" border ="2">
 			<tbody>
 				<tr class="article-title">
 					<th>제목:</th>
 					<td colspan="4">${board.boardTitle}</td>
-					<th>작성자</th>
-					<td colspan="4">${board.writer.email}</td>
+					<th >작성자</th>
+					<td colspan="4">
+						<div class="dropdown">
+							<a id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+								${board.writer.nickname}
+							</a>
+							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">프로필보기</a></li>
+							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
+							    <input type="hidden" value="${board.writer.email}" /></a></li>
+							  </ul>									
+						</div>
+					</td>		
 				</tr>
 				<tr class="article-info">
 					<th>등록일자</th>
@@ -198,7 +211,7 @@ font-family: 'Do Hyeon', sans-serif;
 			<button type="button" class="btn btn-warning" style="width: 60px;">삭제</button>
 		</c:if>
 		<button type="button" class="btn btn-warning" style="width: 60px;">목록</button>
-		<button type="button" class="btn btn-danger" style="width: 60px;">신고</button>
+		<button type="button" class="btn btn-danger" style="width: 60px;" data-toggle="modal" data-target="#myModalReport">신고</button>
 	</div>
 
 	<br/>

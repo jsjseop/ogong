@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,12 +26,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ogong.common.Page;
 import com.ogong.common.Search;
 import com.ogong.service.admin.AdminService;
+import com.ogong.service.banana.BananaService;
 import com.ogong.service.domain.Answer;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
 import com.ogong.service.integration.IntegrationService;
 
+@Configuration 
+@EnableScheduling
 @Controller
 @RequestMapping("/integration/*")
 public class IntegrationController {
@@ -38,6 +44,8 @@ public class IntegrationController {
 	private IntegrationService integrationService;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private BananaService bananaService;	
 	
 	public IntegrationController() {
 		System.out.println(this.getClass());
@@ -62,7 +70,7 @@ public class IntegrationController {
 		
 	}*/
 	
-	@Transactional
+	//쪽지 전송을 위한 메소드
 	@PostMapping("addSendMessage")
 	public String addSendMessage( @ModelAttribute("message") Message message,
 								  HttpSession session, 
@@ -96,7 +104,7 @@ public class IntegrationController {
 		return "redirect:/integration/listSendMessage?sender.email="+message.getSender().getEmail();
 	}
 	
-	
+	//받은 쪽지 목록
 	@RequestMapping(value="listSendMessage")
 	public String listSendMessage(@ModelAttribute("search") Search search, HttpSession session,
 									@ModelAttribute("message") Message message, Model model)throws Exception {
@@ -134,6 +142,7 @@ public class IntegrationController {
 		return "/integrationView/listSendMessage";
 	}
 	
+	//보낸 쪽지 목록
 	@RequestMapping(value="listReceiveMessage")
 	public String listReceiveMessage(@ModelAttribute("search") Search search, Model model, HttpSession session, Message message  )throws Exception {
 		
@@ -174,7 +183,7 @@ public class IntegrationController {
 		return "/integrationView/listReceiveMessage";
 	}
 	
-	
+	//쪽지 선택삭제
 	@PostMapping("deleteTest")
 	public void deleteTest(@RequestParam(value = "messageNo[]") List<String> messageArr, 
 						  Message message) throws Exception{
@@ -207,7 +216,7 @@ public class IntegrationController {
 	}
 
 	
-
+	//메인페이지의 필요한 모든 것
 	@GetMapping("mainPage")
 	public String mainPage(Model model, Answer answer, User user, HttpSession session) throws Exception{
 		
@@ -216,11 +225,20 @@ public class IntegrationController {
 		User email = (User)session.getAttribute("user");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
 		List<User> banana = integrationService.listBananaRanking(map);
+		
+		
 		List<Answer> choose = integrationService.listChooseCountRanking(map);
+		
+		
 		map.put("banana", banana);
 		map.put("choose", choose);
-		
+			
+		System.out.println("확인합시다. ::: "+choose.get(0));
+		System.out.println("확인합시다. ::: "+choose.get(1));
+		System.out.println("확인합시다. ::: "+choose.get(2));
 		
 		
 		model.addAttribute("user", session.getAttribute("user"));
@@ -230,26 +248,95 @@ public class IntegrationController {
 		return "/index";
 	}
 	
-	
-	
-	
-	public void updateTimeTask() throws Exception {
+	//바나나 랭킹 1위~3위 일주일에 한 번 바나나 지급
+	//@Scheduled(fixedRate = 20000) 
+	public void bananaAdd() throws Exception{
 		
-		
+		System.out.println("바나나 수 랭킹 일정시간 포인트 지급을 확인합시다.");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("listType", 4);
-		Map<String,Object> result = adminService.getlistTotalUser(map);
-		List<Object> list = (List<Object>)map.get("list");
+		List<User> bananaRank = integrationService.listBananaRanking(map);
 		
-		map.get(list);
 		User user = new User();
-		user.getSuspendEndDate();
+		Banana banana1 = new Banana();
+		Banana banana2 = new Banana();
+		Banana banana3 = new Banana();
+		
+		//바나나 랭킹 1위
+		banana1.setBananaEmail(bananaRank.get(0));
+		banana1.setBananaAmount(100);
+		banana1.setBananaHistory("바나나 랭킹 1위로 인한 포인트 지급");
+		banana1.setBananaCategory("1");
+		bananaService.addBanana(banana1);
+		user.setEmail(bananaRank.get(0).getEmail());
+		user.setBananaCount(100);
+		bananaService.updateAcquireBanana(user);
+		//바나나 랭킹 2위
+		banana2.setBananaEmail(bananaRank.get(1));
+		banana2.setBananaAmount(50);
+		banana2.setBananaHistory("바나나 랭킹 2위로 인한 포인트 지급");
+		banana2.setBananaCategory("1");
+		bananaService.addBanana(banana2);
+		user.setEmail(bananaRank.get(1).getEmail());
+		user.setBananaCount(50);
+		bananaService.updateAcquireBanana(user);
+		//바나나 랭킹 3위
+		banana3.setBananaEmail(bananaRank.get(0));
+		banana3.setBananaAmount(30);
+		banana3.setBananaHistory("바나나 랭킹 3위로 인한 포인트 지급");
+		banana3.setBananaCategory("1");
+		bananaService.addBanana(banana3);
+		user.setEmail(bananaRank.get(2).getEmail());
+		user.setBananaCount(30);
+		bananaService.updateAcquireBanana(user);
+	
+	}
+	
+	//채택수 랭킹 1위~3위 일주일에 한 번 바나나 지급	
+	//@Scheduled(fixedRate = 20000)
+	public void chooseAdd() throws Exception{
+		
+		System.out.println("바나나 수 랭킹 일정시간 포인트 지급을 확인합시다.");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<Answer> chooseRank = integrationService.listChooseCountRanking(map);
+		
+		User user = new User();
+		Banana choose1 = new Banana();
+		Banana choose2 = new Banana();
+		Banana choose3 = new Banana();
+		
+		//채택랭킹 1위
+		choose1.setBananaEmail(chooseRank.get(0).getAnswerWriter());
+		choose1.setBananaAmount(100);
+		choose1.setBananaHistory("채택수 랭킹 1위로 인한 포인트 지급");
+		choose1.setBananaCategory("1");
+		bananaService.addBanana(choose1);
+		user.setEmail(chooseRank.get(0).getAnswerWriter().getEmail());
+		user.setBananaCount(100);
+		bananaService.updateAcquireBanana(user);
+		//채택랭킹 2위
+		choose2.setBananaEmail(chooseRank.get(1).getAnswerWriter());
+		choose2.setBananaAmount(50);
+		choose2.setBananaHistory("채택수 랭킹 2위로 인한 포인트 지급");
+		choose2.setBananaCategory("1");
+		bananaService.addBanana(choose2);
+		user.setEmail(chooseRank.get(1).getAnswerWriter().getEmail());
+		user.setBananaCount(50);
+		bananaService.updateAcquireBanana(user);
+		//채택랭킹 3위
+		choose2.setBananaEmail(chooseRank.get(2).getAnswerWriter());
+		choose2.setBananaAmount(30);
+		choose2.setBananaHistory("채택수 랭킹 3위로 인한 포인트 지급");
+		choose2.setBananaCategory("1");
+		bananaService.addBanana(choose3);
+		user.setEmail(chooseRank.get(2).getAnswerWriter().getEmail());
+		user.setBananaCount(30);
+		bananaService.updateAcquireBanana(user);
 		
 		
-		Timer timer = new Timer();
-		timer.schedule(null, null);
 		
+
 	}
 	
 	
