@@ -117,7 +117,9 @@ body {
 	            	
 	                <c:forEach var="gMember" items="${list}">
 		               <tr>
-		               	  <td align="left">${gMember.member.nickname}
+		               	  <td align="left">
+		               	  <img class="img-circle" src="/resources/images/ogg.png" width="30px" height="30px" align="">
+		               	  ${gMember.member.nickname}
 		               	  <input type="hidden"
 		                     value="${gMember.member.email}" /></td>
 		                  <td align="left">${gMember.participationReason}</td>

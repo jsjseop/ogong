@@ -150,7 +150,7 @@ $(function () {
 	                      <!-- First Action -->
 	                      <div class="desc">
 	                      	<div class="thumb">
-	                      		<img class="img-circle" src="/resources/images/Ogong.png" width="35px" height="35px" align="">
+	                      		<img class="img-circle" src="/resources/images/ogong2.png" width="35px" height="35px" align="">
 	                      	</div>
 	                      	<div class="details">
 	                      		<p><muted>출석일자 : ${aList.get("ATTENDANCE_DATE")}</muted><br/>
@@ -167,7 +167,7 @@ $(function () {
                       <!-- First Member -->
 	                     <div class="desc" id="studyMember">
 	                      	<div class="thumb">
-	                      		<img class="img-circle" src="/resources/images/Ogong.png" width="35px" height="35px" align="">
+	                      		<img class="img-circle" src="/resources/images/ogong2.png" width="35px" height="35px" align="">
 	                      	</div>
 	                      	<div class="details">
 	                      		<p>

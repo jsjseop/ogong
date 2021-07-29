@@ -52,7 +52,7 @@ font-size: 15px;
 		                <c:forEach var="gMember" items="${list}">
 			               <tr>
 			               	  <td align="left">
-			               	  <img class="img-circle" src="/resources/images/Ogong.png" width="30px" height="30px" align="">
+			               	  <img class="img-circle" src="/resources/images/ogg.png" width="30px" height="30px" align="">
 			               	  ${gMember.member.nickname}
 			               	  <input type="hidden"
 			                     value="${gMember.member.email}" /></td>

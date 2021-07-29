@@ -16,10 +16,6 @@
 <!--external css-->
 <link rel="stylesheet" type="text/css" href="/resources/css/sroomcss/zabuto_calendar.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/css/sroomcss/jquery.gritter.css" />
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css" href="/resources/css/lineicons/style.css"/> 
-=======
->>>>>>> refs/heads/master
 
 <!-- Custom styles for this template -->
 <link href="/resources/css/sroomcss/style.css" rel="stylesheet">
