@@ -2,6 +2,8 @@ package com.ogong.web.study;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,19 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.LearningHistory;
-import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
-import com.ogong.service.study.StudyService;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/cam/*")
 public class CamStudyRestController {
-
-	@Autowired
-	private StudyService studyService;
 	
 	@Autowired
 	private CamStudyService camStudyService;
@@ -35,17 +33,11 @@ public class CamStudyRestController {
 	private LearningHistoryService learningHistoryService;
 	
 	@GetMapping("/json/getUser/{email}")
-	public User getUser(@PathVariable String email) throws Exception {
+	public User getUser(@PathVariable String email, HttpServletResponse response) throws Exception {
 		
 		User user = camStudyService.getUser(email);
 		
 		return user;
-	}
-	
-	@GetMapping("/json/getStudy/{studyNo}")
-	public Study getStudy(@PathVariable int studyNo) throws Exception{
-		
-		return studyService.getStudy(studyNo);
 	}
 	
 	@GetMapping("/json/getCamStudyMemberList/{studyNo}")

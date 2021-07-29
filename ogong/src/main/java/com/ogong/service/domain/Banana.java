@@ -1,6 +1,5 @@
 package com.ogong.service.domain;
 
-import java.util.Date;
 
 import lombok.Data;
 

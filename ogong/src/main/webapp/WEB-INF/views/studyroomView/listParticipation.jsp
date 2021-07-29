@@ -55,7 +55,8 @@ body {
 				}
 			});
 			
-			$(this).closest("td").html('<span class="label label-info">'+승인됨+'</span>');
+			$(this).closest("td").html('<span class="label label-info" id="aplabel">승인됨</span>');
+
 			$(this).closest("td").find("button").remove();
 			
 		}); 

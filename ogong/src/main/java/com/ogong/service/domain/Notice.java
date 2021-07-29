@@ -1,5 +1,7 @@
 package com.ogong.service.domain;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -14,5 +16,6 @@ public class Notice {
 	private User sender;
 	private String noticeCategory;
 	private String noticeCondition;
+	private String noticeDate;
 	
 }

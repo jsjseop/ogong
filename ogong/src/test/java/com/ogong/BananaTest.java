@@ -34,14 +34,16 @@ public class BananaTest {
 		Banana banana = new Banana();
 		
 		user.setEmail("user01");
+		
 		banana.setBananaEmail(user);
 		banana.setBananaHistory("정보공유 게시글 등록으로 인한 포인트 적립");
 		banana.setBananaAmount(+5);
 		banana.setBananaCategory("1");
-		
+		System.out.println("1");
 		bananaService.addBanana(banana);
 		
 		user.setBananaCount(5);
+		System.out.println("2");
 		bananaService.updateAcquireBanana(user);
 		
 		
@@ -146,19 +148,3 @@ public class BananaTest {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

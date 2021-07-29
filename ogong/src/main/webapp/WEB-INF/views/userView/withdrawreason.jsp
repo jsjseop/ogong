@@ -9,15 +9,14 @@
 <title>회원탈퇴</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!-- jQuery -->
+<script src="/resources/javascript/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/resources/javascript/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/resources/javascript/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/resources/javascript/demo.js"></script>
 
 <script type="text/javascript">
 
@@ -85,6 +84,13 @@
 	
 </script>
 
+<style >
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+
+}
+</style>
+
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
 	
@@ -93,7 +99,7 @@
 </head>
 <body>
 	<div class="container">
-	<br>><br/>
+	<br><br/>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
@@ -122,7 +128,7 @@
 		  		  <div class="form-group">
 		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">탈퇴 사유</label>
 		    <div class="col-sm-4">
-	 			<select name="withdrawreason"> 
+	 			<select class="form-control" name="withdrawreason"> 
 						<option value="이용가능한 서비스 부족">이용가능한 서비스 부족</option>
 						<option value="불편한 인터페이스">불편한 인터페이스</option>
 						<option value="적은 사용자">적은 사용자</option>
@@ -131,26 +137,21 @@
 
 
 				</select> 		    </div>
-		  </div>
-		  
-
-		  </div>
-		  
-
 				
 				
-
-
-
-
-				
-				
-				
-				  		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
+							  		  <div class="form-group">
+		    <div class="col-sm-offset-4  col-sm-2 text-center">
 		      <button type="button" id="btn1" class="btn btn-info"  >회원탈퇴</button>
 			  <a class="btn btn-info btn" href="/" role="button">취&nbsp;소</a>
 		    </div>
+		  </div>
+		  
+
+		  </div>
+
+				
+				
+	
 		    
 		    
 		    

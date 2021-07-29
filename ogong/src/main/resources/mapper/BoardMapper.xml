@@ -18,13 +18,10 @@
 		<result property="boardRegBanana" 		column="board_reg_banana" 		jdbcType="NUMERIC" />
 		<result property="fileFlag" 			column="file_flag" 				jdbcType="NUMERIC" /> 
 		<result property="answerCount" 			column="answer_count" 			jdbcType="NUMERIC" />
+		<result property="studyStartDate" 		column="study_start_date" 		jdbcType="VARCHAR" />
+		<result property="studyEndDate" 		column="study_end_date" 		jdbcType="VARCHAR" />
 
-		
-		
-<!-- 	<association property="StudyNo"  javaType="study">
-			<id property="studyNo" column="study_no" jdbcType="NUMERIC"/>
-		</association> -->
-		
+
 
  		<association property="writer"  javaType="user">
 			<id property="email" column="email" jdbcType="VARCHAR"/>
@@ -94,6 +91,8 @@
 						board_reg_banana,
 					</if>
 					file_flag, 
+					study_start_date,
+					study_end_date,
 					view_count)
 			VALUES( #{boardNo},
 					<if test="study!=null and study.studyNo!=null">
@@ -109,7 +108,9 @@
 					<if test="boardRegBanana!=null">
 						#{boardRegBanana},
 					</if>
-					#{fileFlag},		
+					#{fileFlag},
+					#{studyStartDate:VARCHAR},
+					#{studyEndDate:VARCHAR},		
 					0 
 					)
 	</insert>		
@@ -129,6 +130,8 @@
 				board_interest,
 				board_reg_date,
 				view_count,
+				study_start_date,
+				study_end_date,
 				(SELECT COUNT(*)
                      FROM comment_info c
                      WHERE c.board_no = #{boardNo}) comment_count,

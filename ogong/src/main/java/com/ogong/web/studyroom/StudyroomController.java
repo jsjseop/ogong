@@ -110,8 +110,10 @@ public class StudyroomController {
 		studyroomService.updateStudy(study);
 		
 		model.addAttribute("studyNo", study.getStudyNo());
+		model.addAttribute("study",study);
 		
-		return "/studyroomView/updateStudyRoom";
+		return "redirect:/studyroom/getStudyRoom";
+
 	}
 	
 	@PostMapping("addAttendance")

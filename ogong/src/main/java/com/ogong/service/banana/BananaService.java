@@ -21,6 +21,9 @@ public interface BananaService {
 	// 바나나 - 빼기
 	public void updateUseBanana(User user) throws Exception;
 	
+	// 바나나 리스트 삭제
+	public void deleteBanana(int bananaNo) throws Exception;
+	
 	// 유저 정보
 	public User adminGetUser(String email) throws Exception;
 }

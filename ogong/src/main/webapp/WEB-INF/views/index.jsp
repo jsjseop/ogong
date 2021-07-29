@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- ///////////////////////////// 로그인시 Forward  /////////////////////////////////////// -->
- <c:if test="${ ! empty user }">
- 	<jsp:forward page="main.jsp"/>
- </c:if> 
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-<!DOCTYPE html>
+	
+	<c:if test="${ ! empty user }">
+	 	<jsp:forward page="main.jsp"/>
+	</c:if>
+	
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -30,8 +28,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-            <a href="/"><img src="../resources/images/logo.png" alt="ogong_logo" /></a>
-                <!--  <a class="navbar-brand" href="#page-top">오늘의 공부</a> -->
+                <a class="navbar-brand" href="/">Ogong</a> 
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
@@ -163,6 +160,7 @@
                         	오류 및 서비스와 관련된 불편사항은 이곳으로 연락 주세요.</p>
                     </div>
                 </div>
+                </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-4 text-center mb-5 mb-lg-0">
                         <i class="bi-phone fs-2 mb-3 text-muted"></i>
@@ -180,10 +178,9 @@
         <!-- SimpleLightbox plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <!-- Core theme JS-->
-        <script src="resources/javascript/scripts.js"></script>
+        <script src="../resources/javascript/scripts.js"></script>
        
        
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
-
