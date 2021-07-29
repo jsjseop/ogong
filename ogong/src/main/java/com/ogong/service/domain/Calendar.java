@@ -10,6 +10,7 @@ public class Calendar {
 	private String calendarTitle;		
 	private String calendarContents;	
 	private String calendarStartDate;		
-	private String calendarEndDate;		
+	private String calendarEndDate;
+	private String calendarColor;
 	
 }
