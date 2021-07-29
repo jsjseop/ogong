@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -278,6 +279,32 @@ public class StudyController {
 		studyService.addParticipation(gsm);
 		
 		return "redirect:/study/getStudy?studyNo="+study.getStudyNo();
+	}
+	
+	@GetMapping("getMyStudy")
+	public String getMyStudy(HttpSession session, Model model) throws Exception {
+		
+		User user = (User)session.getAttribute("user");
+		String email = user.getEmail();
+
+		//진행중인 자율스터디
+		List<Study> mySelfStudyList = studyService.getMySelfStudy(email);
+		System.out.println("1111111111111111111111111111111111111");
+		//진행중인 그룹스터디
+		List<Study> myGroupStudyList = studyService.getMyStudy(email, "1", "1");
+		System.out.println("222222222222222222222222222222222");
+		//참가신청중인 그룹스터디
+		List<Study> myApprovalGroupStudyList = studyService.getMyStudy(email, "1", "0");
+		System.out.println("33333333333333333333333333333333333333");
+		//종료된 그룹스터디
+		List<Study> myEndGroupStudyList = studyService.getMyStudy(email, "2", "1");
+		
+		model.addAttribute("mySelfStudyList",mySelfStudyList);
+		model.addAttribute("myGroupStudyList",myGroupStudyList);
+		model.addAttribute("myApprovalGroupStudyList",myApprovalGroupStudyList);
+		model.addAttribute("myEndGroupStudyList",myEndGroupStudyList);
+		
+		return "/studyView/listMyStudy";
 	}
 	
 }

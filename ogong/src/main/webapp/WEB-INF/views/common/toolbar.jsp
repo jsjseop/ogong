@@ -413,8 +413,8 @@
 	 	});	 
 	 	
 	 	//=============  나의 스터디 Event  처리 =============
-	 	$( "a:contains('나의 스터디')").on("click", function(){
-	 		location.href = "/";
+	 	$( "a:contains('나의스터디')").on("click", function(){
+	 		location.href = "/study/getMyStudy";
 	 	});	 
 	 	
 	 	//=============  나의 게시글 Event  처리 =============
