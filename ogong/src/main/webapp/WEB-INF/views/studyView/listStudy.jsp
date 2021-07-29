@@ -193,7 +193,7 @@ div.jumbotron {
 				<hr class="my-4">
 				<p>스터디를 직접 개설해보세요.
 					<a type="button" id="popover"  data-container="body" 
-					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.">
+					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.(일반:20 , 프리미엄:50)">
 					<i class="fas fa-info-circle"></i></a>
 				</p>
 				<a class="btn btn-warning btn-lg" href="#" role="button">개설하기</a>
@@ -205,7 +205,7 @@ div.jumbotron {
 				<hr class="my-4">
 				<p>스터디를 직접 개설해보세요.
 					<a type="button" id="popover" data-container="body" 
-					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.(basic:20,premium:50)">
+					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.(일반:20 , 프리미엄:50)">
 					<i class="fas fa-info-circle"></i></a>
 				</p>
 				<a class="btn btn-warning btn-lg" id="addBtn" role="button">개설하기</a>

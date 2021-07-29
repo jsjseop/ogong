@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://kit.fontawesome.com/e3409dba93.js"></script>
 <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -21,6 +22,7 @@
 <script type="text/javascript">
 	$(function(){
 		var studyType = "${studyType}";
+		var userBanana = "${user.bananaCount}";
 		
 		bsCustomFileInput.init();
 		
@@ -41,6 +43,18 @@
 			if($("#studyEndDate").val() == ""){
 				swal("스터디 종료일자를 선택해주세요.","","error");
 				return;
+			}
+			
+			if($("#maxMember").val() == 4 || $("#maxMember").val() == 5){
+				if(userBanana < 20){
+					swal("20바나나가 필요합니다..","","error");	
+					return
+				}
+			}else{
+				if(userBanana < 50){
+					swal("50바나나가 필요합니다..","","error");	
+					return
+				}
 			}
 			
 			$("form").attr("method","POST").attr("action","/study/addStudy").submit();
@@ -396,10 +410,12 @@ div.col-12 {
 									</div><hr/>
 								</c:if>
 								<div class="form-group">
-									<div class="form-group">
-										<label>시작일자 :</label>
-										<input type="text" class="form-control col-sm-4" id="studyStartDate" name="studyStartDate" placeholder="스터디 시작일자">
-									</div>
+									<c:if test="${studyType == 'group'}">
+										<div class="form-group">
+											<label>시작일자 :</label>
+											<input type="text" class="form-control col-sm-4" id="studyStartDate" name="studyStartDate" placeholder="스터디 시작일자">
+										</div>
+									</c:if>
 									<div class="form-group">
 										<label>종료일자 :</label>
 										<input type="text" class="form-control col-sm-4" id="studyEndDate" name="studyEndDate" placeholder="스터디 종료일자">

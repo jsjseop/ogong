@@ -18,7 +18,7 @@
 <script src="/resources/javascript/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/resources/javascript/adminlte.min.js"></script>
-
+<script src="https://kit.fontawesome.com/e3409dba93.js"></script>
 <div class="wrapper">
 
   <!-- Navbar -->

@@ -2,6 +2,8 @@ package com.ogong.web.study;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +26,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ogong.common.Search;
-import com.ogong.service.domain.Calendar;
+import com.ogong.service.banana.BananaService;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.LearningHistory;
+import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
+import com.ogong.service.integration.IntegrationService;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
 import com.ogong.service.study.StudyService;
@@ -52,6 +57,12 @@ public class StudyController {
 	@Autowired
 	private LearningHistoryService learningHistoryService;
 	
+	@Autowired
+	private BananaService bananaService;
+	
+	@Autowired
+	private IntegrationService integrationService;	
+	
 	@Value("8")
 	int pageSize;
 	
@@ -69,17 +80,42 @@ public class StudyController {
 		return "/studyView/addStudy";
 	}
 	
+	@Transactional
 	@PostMapping("addStudy")
 	public String addStudy(@ModelAttribute("study") Study study, @RequestParam("file") MultipartFile file,
 										GroupStudyMember gsm, HttpServletRequest request, Model model,
-										Calendar calendar, HttpSession session) throws Exception{
+										com.ogong.service.domain.Calendar calendar, HttpSession session) throws Exception{
 			
 		System.out.println("/studyController/addStudy : POST");
-				
 		User user = (User)session.getAttribute("user");
 		study.setStudyMaker(user);
 		
-		if(file.getOriginalFilename() == "") {
+		//바나나
+		User bananaUser = new User();
+		Banana banana = new Banana();
+		if(study.getStudyRoomGrade().equals("basic")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(-20);
+			banana.setBananaHistory("Basic 등급 스터디 개설로 인한 바나나 소모 ");
+			banana.setBananaCategory("2");
+			bananaService.addBanana(banana);
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(20);
+			bananaService.updateUseBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()-20);
+		}else if(study.getStudyRoomGrade().equals("premium")) {
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(-50);
+			banana.setBananaHistory("Premium 등급 스터디 개설로 인한 바나나 소모 ");
+			banana.setBananaCategory("2");
+			bananaService.addBanana(banana);
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(50);
+			bananaService.updateUseBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()-50);
+		}
+		
+		if(file.getOriginalFilename().equals("")) {
 			study.setStudyThumbnail("ogong2.jpg");
 		}else {
 			String root_path = request.getSession().getServletContext().getRealPath("/");  
@@ -114,6 +150,11 @@ public class StudyController {
 			
 			return "redirect:/study/getStudy?studyNo="+study.getStudyNo();
 		}
+		
+		//자율스터디일 경우
+		java.util.Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		study.setStudyStartDate(sdf.format(cal.getTime()) );
 		studyService.addStudy(study);
 		
 		
@@ -196,7 +237,24 @@ public class StudyController {
 				String todayLearningTimePlus = (learningHistoryService.getTodayLearningTime(learningHistory.getEmail())).substring(1, 2);
 				
 				if(Integer.parseInt(todayLearningTimePlus) >= userTargetTime) {
-					//바나나 1개 update, 바나나기록 insert
+					//바나나 10개 update, 바나나기록 insert
+					Banana banana = new Banana();
+					User user = camStudyService.getUser(learningHistory.getEmail());
+					Notice notice = new Notice();
+					//바나나 기록 저장
+					banana.setBananaEmail(camStudyService.getUser(learningHistory.getEmail()));
+					banana.setBananaAmount(10);
+					banana.setBananaHistory("목표시간 완료로 인한 바나나 적립");
+					banana.setBananaCategory("1");
+					bananaService.addBanana(banana);
+					//회원 바나나 업데이트
+					user.setBananaCount(10);
+					bananaService.updateAcquireBanana(user);
+					//목표시간 완료 알림처리
+					notice.setNoticeUser(user);
+					notice.setNoticeCategory("6");
+					notice.setNoticeCondition("2");
+					integrationService.addNotice(notice);
 				}
 			} else {
 				learningHistoryService.addLearningHistory(learningHistory);
