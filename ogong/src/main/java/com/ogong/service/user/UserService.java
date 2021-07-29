@@ -1,5 +1,6 @@
 package com.ogong.service.user;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,9 +65,8 @@ public interface UserService {
 		// 목표와 각오
 		public void updategoal(User user) throws Exception;
 
-
-		List<User> list(User user) throws Exception;
-
+		//게시판 조회
+		Map<String, Object> list(Map<String, Object> map)throws Exception;
 
 
 

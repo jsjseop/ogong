@@ -1,18 +1,13 @@
 package com.ogong.web.user;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,21 +15,17 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ogong.common.Page;
 import com.ogong.common.Search;
-import com.ogong.service.admin.impl.AdminServiceImpl;
 import com.ogong.service.banana.BananaService;
 import com.ogong.service.board.BoardService;
 import com.ogong.service.domain.Banana;
@@ -42,9 +33,6 @@ import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
-
-import ch.qos.logback.core.joran.conditional.Condition;
-import jdk.internal.org.jline.utils.Log;
 
 @Controller
 @RequestMapping("/user/*")
@@ -69,6 +57,11 @@ public class UserController {
 	@Autowired
 	private BananaService bananaService;
 
+	@Value("5")
+	int pageUnit;
+	
+	@Value("3")
+	int pageSize;
 
 	
 	/*
@@ -142,17 +135,37 @@ public class UserController {
 	}
 	
 	
-	// 게시판 목록 조회
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) throws Exception{
-		logger.info("list");
-		
-		model.addAttribute("list",userService.list(null));
-		
-		
-		return "userView/list";
-		
+	
+	  // 게시판 목록 조회
+	  
+	  @RequestMapping(value = "/list", method = RequestMethod.GET) 
+	  public String  list(@ModelAttribute("search") Search search, Model model) throws Exception{ logger.info("list");
+	  
+	  System.out.println("/user/list 실행");
+	  
+	  if (search.getCurrentPage() ==0) {
+		search.setCurrentPage(1);
 	}
+	  
+	  search.setPageSize(10);
+	  
+	  HashMap<String, Object> map = new HashMap<String, Object>();
+	  map.put("search", search);
+	  
+	  Map<String, Object> result = userService.list(map);
+	  
+	  
+	  model.addAttribute("list",userService.list(null));
+	  model.addAttribute("search", search);
+	  
+	 
+	  
+	  return "userView/list";
+	  
+	  }
+	 
+	
+
 	
 
 	// 로그아웃

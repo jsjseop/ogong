@@ -1,5 +1,6 @@
 package com.ogong.service.user.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -137,13 +138,22 @@ public class UserServiceImpl implements UserService{
 		userDAO.restore(user);
 	}
 
-	
 
 	@Override
-	public List<User> list(User list) throws Exception {
+	public Map<String, Object> list(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return userDAO.list(list);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap.put("list", userDAO.list(map));
+		
+		
+		return resultMap;
 	}
+
+
+
+	
+
 
 
 	

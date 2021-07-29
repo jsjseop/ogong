@@ -72,9 +72,11 @@
 
 <title>나의 게시글</title>
 </head>
-		  <input type="hidden" name="email"	value="${email}"/>  <!--  히든값 -->
 
 <body>
+
+
+
 </div>
 	<!-- free board start  -->
 	<div class="container" style="height: 100px">

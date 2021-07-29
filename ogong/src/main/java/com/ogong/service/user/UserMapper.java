@@ -1,6 +1,7 @@
 package com.ogong.service.user;
 
 import java.awt.datatransfer.Clipboard;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,11 +44,11 @@ public interface UserMapper {
 	public void restore(User user);
 
 	//
-	List<User> list(User list); 
+	List<Board> list(Map<String, Object> map); 
 
 	
 	
-	
+	int getTotalCount(Map<String, Object> map);
 	
 	
 // 프로필 수정 ㅜㅜ 개많아
