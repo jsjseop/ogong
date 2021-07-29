@@ -49,6 +49,7 @@ public class StudyroomController {
 		model.addAttribute("study", studyService.getStudy(studyNo));
 		model.addAttribute("list", studyroomService.getGSMemberList(studyNo));
 		model.addAttribute("result", studyroomService.getAttendanceList(map));
+		System.out.println("ㅇ");
 		
 		return "/studyroomView/getStudyRoom";
 	}
