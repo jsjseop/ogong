@@ -409,7 +409,7 @@
 	 	
 	 	//=============  공부기록 Event  처리 =============
 	 	$( "a:contains('공부기록')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/learningHistory/learningHistoryPage";
 	 	});	 
 	 	
 	 	//=============  나의 스터디 Event  처리 =============

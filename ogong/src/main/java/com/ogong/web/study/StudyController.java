@@ -115,8 +115,8 @@ public class StudyController {
 			bananaService.updateUseBanana(bananaUser);
 			user.setBananaCount(user.getBananaCount()-50);
 		}
-		
-		if(file.getOriginalFilename().equals("")) {
+		//파일 업로드
+		if(file.getOriginalFilename().equals("")) {    //파일 선택안했을때
 			study.setStudyThumbnail("ogong2.jpg");
 		}else {
 			String root_path = request.getSession().getServletContext().getRealPath("/");  

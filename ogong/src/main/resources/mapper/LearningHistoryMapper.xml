@@ -9,7 +9,7 @@
 	<resultMap id="learningHistorySelectMap" type="learningHistory">
 		<result property="learningTime" 			column="learning_time" 			jdbcType="VARCHAR" />
 		<result property="learningType" 			column="learning_type" 			jdbcType="VARCHAR" />
-		<result property="learningDate" 			column="learning_date" 			jdbcType="DATE" />
+		<result property="learningDate" 			column="learning_date" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	 
@@ -38,7 +38,7 @@
 		)
 	</insert>
 	 
-	 <select id="getLearningHistoryList" parameterType="hashmap" resultMap="learningHistorySelectMap">
+	 <select id="getLearningHistoryList" parameterType="map" resultMap="learningHistorySelectMap">
 	 
 	 	SELECT    TO_CHAR (TRUNC (NVL(total,'0') / 3600), 'fm00')
 		       || ':'
@@ -80,7 +80,7 @@
 	       || ':'
 	       || TO_CHAR (TRUNC (ABS (MOD (NVL(total,'0'), 3600)) / 60), 'fm00')
 	       || ':'
-	       || TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') time, month
+	       || TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') time
 		FROM (SELECT AVG (
 	                    TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
 	                  + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
