@@ -113,6 +113,7 @@
               <li><a href="#" class="dropdown-item">나의스터디</a></li>
               <li><a href="#" class="dropdown-item">나의게시글</a></li>
               <li><a href="#" class="dropdown-item">바나나 조회</a></li>
+              <li><a href="#" class="dropdown-item">비밀번호 변경</a></li>
               <li><a href="#" class="dropdown-item">회원탈퇴</a></li>
             </ul>          
         </li>
@@ -394,7 +395,7 @@
 	 	
 	 	//=============  프로필 Event  처리 =============
 	 	$( "a:contains('프로필')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/getProfile/#myModal";
 	 	});	 
 	 	
 	 	//=============  로그아웃 Event  처리 =============
@@ -426,10 +427,13 @@
 	 	$( "a:contains('바나나 조회')").on("click", function(){
 	 		location.href = "/banana/listBanana";
 	 	});
-	 	
+	 	//=============  비밀번호변경 Event  처리 =============
+	 	$( "a:contains('비밀번호 변경')").on("click", function(){
+	 		location.href = "/user/Changedpassword";
+	 	});	
 	 	//=============  회원탈퇴 Event  처리 =============
 	 	$( "a:contains('회원탈퇴')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/withdrawreason";
 	 	});	 	 	
 	
 	</script> 

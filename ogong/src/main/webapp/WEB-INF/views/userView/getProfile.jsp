@@ -13,8 +13,7 @@
 	
 	
 	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-<<<<<<< HEAD
-=======
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- 2 -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -27,12 +26,7 @@
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script><!-- 5 -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/js/bootstrap.min.js" ></script><!-- 6 -->
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/í…ŒìŠ¤íŠ¸
-=======
->>>>>>> refs/heads/ì—°ìŠµìš©2
->>>>>>> refs/heads/í…ŒìŠ¤íŠ¸
+
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet"><!-- 8 -->

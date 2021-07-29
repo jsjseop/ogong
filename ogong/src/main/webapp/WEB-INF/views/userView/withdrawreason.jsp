@@ -84,30 +84,22 @@
 	
 </script>
 
-<<<<<<< HEAD
 	<style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 }      
      </style>
-=======
 <style >
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 
 }
 </style>
-<<<<<<< HEAD
-=======
 	<style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 }      
      </style>
->>>>>>> refs/remotes/origin/테스트
-=======
->>>>>>> refs/heads/연습용2
->>>>>>> refs/heads/테스트
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
@@ -133,14 +125,14 @@ font-family: 'Do Hyeon', sans-serif;
 		  <div class="form-group">
 		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password" name="password" placeholder="변경비밀번호">
+		      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">비밀번호 확인</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="변경비밀번호 확인">
+		      <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인">
 		    </div>
 		  </div>
 		  		  <div class="form-group">
