@@ -91,17 +91,39 @@
 	
 	
 
- 	 <select id="list"  parameterType="HashMap" resultMap="boardSelectMap" >
+<!--  	 <select id="list"  parameterMap="map" resultMap="boardSelectMap" >
 	
 SELECT
-    a.* , b.*
+    
 FROM
    users  a
     LEFT JOIN
      board  b  
     ON
     a.email = b.email
-    
+    where
+    a.email = b.email
+
+	</select>   
+	 -->
+	 	 <select id="list" parameterType="map" resultMap="boardSelectMap" >
+	SELECT
+    board_no,
+    study_no,
+    email,
+    nickname,
+    board_category,
+    board_title,
+    board_contents,
+    board_interest,
+    board_reg_date,
+    view_count,
+    board_reg_banana,
+    file_flag
+FROM
+    board
+    WHERE EMAIL = #{email:VARCHAR}
+
 
 	</select>   
 	

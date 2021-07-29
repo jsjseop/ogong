@@ -44,8 +44,9 @@ public interface UserMapper {
 	public void restore(User user);
 
 	//
-	List<Board> list(Map<String, Object> map); 
 
+	 List<Board> list(Map<String, Object>map) throws Exception ;
+		
 	
 	
 	int getTotalCount(Map<String, Object> map);

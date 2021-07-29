@@ -1,6 +1,8 @@
 package com.ogong.web.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -136,35 +138,46 @@ public class UserController {
 	
 	
 	
-	  // 게시판 목록 조회
-	  
-	  @RequestMapping(value = "/list", method = RequestMethod.GET) 
-	  public String  list(@ModelAttribute("search") Search search, Model model) throws Exception{ logger.info("list");
-	  
-	  System.out.println("/user/list 실행");
-	  
-	  if (search.getCurrentPage() ==0) {
-		search.setCurrentPage(1);
+	
+	@GetMapping("list")
+	public String list(HttpSession session, Model model, String email) throws Exception{
+		
+		User user = (User) session.getAttribute("user");
+		
+		List<Board> list = userService.list(email);
+		
+		model.addAttribute("list", list);
+		
+		
+		return "userView/list";
 	}
-	  
-	  search.setPageSize(10);
-	  
-	  HashMap<String, Object> map = new HashMap<String, Object>();
-	  map.put("search", search);
-	  
-	  Map<String, Object> result = userService.list(map);
-	  
-	  
-	  model.addAttribute("list",userService.list(null));
-	  model.addAttribute("search", search);
-	  
-	 
-	  
-	  return "userView/list";
-	  
-	  }
+	
+	
+	
+	
+	/*
+	 * // 게시판 목록 조회
+	 * 
+	 * @RequestMapping(value = "/list", method = RequestMethod.GET) public String
+	 * list(HttpSession session, Model model,Board email) throws Exception{
+	 * logger.info("list");
+	 * 
+	 * System.out.println("/user/list 실행");
+	 * 
+	 * 
+	 * 
+	 * model.addAttribute("list",userService.list(email));
+	 * model.addAttribute("user", (User)session.getAttribute("user"));
+	 * 
+	 * return "userView/list";
+	 * 
+	 * }
+	 */
 	 
 	
+
+
+	  
 
 	
 

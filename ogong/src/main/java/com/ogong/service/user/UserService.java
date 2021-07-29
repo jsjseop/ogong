@@ -66,7 +66,8 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 		//게시판 조회
-		Map<String, Object> list(Map<String, Object> map)throws Exception;
+		List<Board> list(String email) throws Exception;
+
 
 
 

@@ -140,15 +140,22 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public Map<String, Object> list(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+	public List<Board> list(String email) throws Exception {
 		
-		resultMap.put("list", userDAO.list(map));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(email, email);
 		
-		
-		return resultMap;
+		return userDAO.list(map);
 	}
+
+
+
+
+
+
+
+
+
 
 
 
