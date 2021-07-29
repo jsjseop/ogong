@@ -11,7 +11,7 @@ Premium: http://www.gridgum.com
 
 /* BASIC THEME CONFIGURATION */
 body {
-    color: #797979;
+    color: #333;
 	background: #f2f2f2;
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
@@ -413,7 +413,7 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #ffd777;
+    background: #FFDC3C;
     border-bottom: 1px solid #c9aa5f;
 }
 
@@ -1410,7 +1410,7 @@ PANELS CONFIGURATIONS
 
 /* Calendar Configuration */
 #calendar {
-	color: white;
+	color: rgb(0, 0, 0);
 	padding: 0px !important;
 }
 .calendar-month-header {
