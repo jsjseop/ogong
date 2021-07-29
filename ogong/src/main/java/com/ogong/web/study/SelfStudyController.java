@@ -34,7 +34,7 @@ import com.ogong.service.domain.User;
 import com.ogong.service.integration.IntegrationService;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
-import com.ogong.service.study.TestStudyService;
+import com.ogong.service.study.StudyService;
 import com.ogong.service.studyroom.StudyroomService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -43,7 +43,7 @@ import com.ogong.service.studyroom.StudyroomService;
 public class SelfStudyController {
 	
 	@Autowired
-	private TestStudyService studyService;
+	private StudyService studyService;
 	
 	@Autowired
 	private StudyroomService studyroomService;

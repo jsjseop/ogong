@@ -66,7 +66,7 @@
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container">
-						<img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+						<img src="/resources/images/ogg.png" class="brand_logo" alt="Logo">
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
@@ -75,7 +75,7 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="email" id="email" class="form-control input_user" value="" placeholder="username">
+							<input type="text" name="email" id="email" class="form-control input_user" value="" placeholder="email">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">

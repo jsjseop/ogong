@@ -20,7 +20,9 @@ public interface UserService {
 	  public User getUser(User email) throws Exception;
 		  
 	  
-		
+		//게시물보기
+		List<Board> boardlist (int boardNo) throws Exception;
+
 	  	  
 	   //프로필 보기
 	   public   User getProfile(String email)throws Exception;

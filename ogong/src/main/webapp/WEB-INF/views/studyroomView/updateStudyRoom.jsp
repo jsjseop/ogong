@@ -119,7 +119,7 @@
 		  </div>
 		  
 		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		    <div class="col-sm-offset-10  col-sm-10 text-center">
 		      <button type="button" class="btn btn-primary"  >수 &nbsp;정</button>
 			  <a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
 		    </div>

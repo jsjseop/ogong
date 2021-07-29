@@ -348,7 +348,7 @@
    	   	
 		//=============  자율스터디목록 Event  처리 =============
 	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
-	 		location.href = "/selfStudy/listStudy?studyType=self";
+	 		location.href = "/study/listStudy?studyType=self";
 		});
 		
 	 	//=============  모집게시판 Event  처리 =============
@@ -358,7 +358,7 @@
 	 	});
 	 	//=============  그룹스터디 Event  처리 =============
 	 	$( "a:contains('그룹스터디')").on("click", function(){
-	 		location.href = "/study/listStudy";
+	 		location.href = "/study/listStudy?studyType=group";
 	 	});		 	
 	 	
 	 	//=============  정보공유게시판 Event  처리 =============

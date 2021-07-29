@@ -1,228 +1,356 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
-<title>그룹 스터디 목록</title>
-
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<title>스터디 목록</title>
+<!-- <link rel="stylesheet" href="/resources/css/adminlte.min.css"> -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<style type="text/css">
-body {
-    padding-top : 50px;
-}
-.page-header{
-	text-align: center;
-}
-* {
-    margin: 0;
-    padding: 0;
-}
-ul, li {
-    list-style: none;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
-.list_wrap {
-    width: 1000px;
-    margin: 0 auto;
-    padding: 100px;
-}
-
-.list_wrap ul {
-    font-size: 0;
-}
-.list_wrap .item {
-    display: inline-block;
-    width: 30%;
-    margin-top: 40px;
-    margin-left: 5%;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
-.list_wrap .item:nth-child(-n+3) {
-    margin-top: 0;
-}
-.list_wrap .item:nth-child(3n-2) {
-    margin-left: 0;
-}
-.list_wrap .item .image {
-    width: 100%;
-    height: 160px;
-    background-color: #ddd;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: cover;
-}
-
-.list_wrap .item1 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item2 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item3 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item4 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item5 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item6 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item7 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item8 .image { background-image: url(/resources/images/1.jpg); }
-.list_wrap .item9 .image { background-image: url(/resources/images/1.jpg); }
-
-
-.list_wrap .item .cont {
-    padding: 20px;
-}
-.list_wrap .item strong {
-    display: block;
-    margin: 0 0 10px 0;
-    font-size: 16px;
-    letter-spacing: -1px;
-}
-.list_wrap .item p {
-    font-size: 13px;
-    letter-spacing: -1px;
-}
-.list_wrap .item a {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 5px 10px;
-    background: #eee;
-    font-size: 13px;
-    letter-spacing: -1px;
-}
-.list_wrap .item a:hover {
-    background: #325cb2;
-    color: #fff;
-}
-</style>
+<!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+<script src="https://kit.fontawesome.com/e3409dba93.js"></script>
 
 <script type="text/javascript">
-		/*--------------시작------------------*/
+
 	
-   /* function fncGetList(currentPage) {
-      $('#currentPage').val(currentPage);
-      $('form').attr('action','/study/listStudy/').attr('method','POST').submit();
-   }
 
-      $('button:contains("검색")').on('click', function(){
-         
-         fncGetList('1');
-      })
-      
-   })
-   
-   $(function(){
-         
-          $("#searchKeyword").keydown(function (key) {
-          
-              if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
-                 fncGetList('1');
-              }
-          });
-      }); */
-  
-   /*  --------------------- 끝 ------------------------*/
-$(function() {
-	$('ul li div a:last-child').on('click', function() {
-      	let studyNo = $(this).find('input').val();
-      	alert(studyNo);
-        location.href = "/study/getStudy?studyNo="+studyNo;
-    });
+	function fncGetList() {
+		$('form').attr('action', '/study/listStudy?studyType=${studyType}')
+				.attr('method', 'POST').submit();
+	}
 	
-});
-      
-
-</script>
-</head>
-
-<body>
-	<%-- <jsp:include page="/WEB-INF/views/common/toolbar.jsp" /> --%>
-	
-	
-	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
-   <div class="container">
-	 <!-- <input type="hidden" name="startNum" id="startNum" value="0"> -->
-	 
-      <div class="page-header text-default">
-         <h3>그룹 스터디 목록</h3>
-      </div>
-	 <div class="list_wrap">
-            <ul>
-             <c:forEach var="study" items="${list}">
-                <li class="item item1">
-                    <div class="image">ㅇㅇ</div>
-                    <div class="cont">
-                        <strong>${study.studyName}</strong>
-                        <p> 모집 일자 ${study.recruitmentStartDate} ~ ${study.recruitmentEndDate} </p>
-                        <p>인 원 ${study.currentMember}/${study.maxMember}</p>
-                        <a href="#">상세보기
-                        	<input type="hidden" value="${study.studyNo}" />
-                        </a>
-                    </div>
-                </li>
-             </c:forEach>
-            </ul> 
-        </div>
-
-</div>
-<script>
-var page = 1;
-
-$(window).scroll(function() {
-	  if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight)){
-      console.log(++page);
-      /* $("body").append('<div class="big-box"><h1>Page ' + page + '</h1></div>'); */
+	function getInterestList(num) {
+		$('#studyInterest').val(num);
 		
-      $.ajax({
+		fncGetList();
+	}
+	
+	function getStudyList(page) {
+		$.ajax({
 			type : 'post',
 			url : "/study/json/listStudy",
-			data : JSON.stringify({currentPage: page}),
+			data : JSON.stringify({currentPage: page,
+									searchKeyword: $("#searchKeyword").val(),
+									studyType: "${studyType}",
+									studyInterest: $("#studyInterest").val(),
+									searchSort: $('#searchSort').val() }),
 			dataType: "json",
 			headers : {
 				"Accept" : "application/json",
 				"Content-Type" : "application/json"
 			},
-			success : function(result) {				
+			success : function(result) {			
 				var list = result.list;
-				if(list.length < 3) {
-				} else {
-					var addListHtml ="";
-					if(list.length > 0) {
-						$.each(list, function(index, list){
-							
-							addListHtml += "<li class='item item1'>";
-							addListHtml += "<div class='image'></div";
-							addListHtml += "<div class='cont'>";
-							addListHtml += "<strong>"+list.studyName+"</strong>";
-							addListHtml += "<p> 모집 일자"+list.recruitmentStartDate+" ~ " +list.recruitmentEndDate+"</p>";
-							addListHtml += "<a href='#'> 상세보기 ";
-							addListHtml += "<input type='hidden' value='"+list.studyNo+"'/>";
-							addListHtml += "</a>";
-							addListHtml += "</li>";
-								
-						});
-						$(".list_wrap").append(addListHtml);
-		
+				$("#totalCount").html("총 "+result.totalCount+"개의 스터디");
+				var addListHtml ="";
+				if(list.length > 0) {
+					$.each(list, function(index, study){
+						addListHtml += '<div class="col-xs-12 col-md-3">';
+						addListHtml += '<img class="img-fluid img-thumbnail rounded" src="/resources/upload_files/study/'+study.studyThumbnail+'" alt="None" onclick="entranceStudy('+study.studyNo+')">';
+						addListHtml += '<p class="text-center">';
+						if(study.studyRoomGrade == "premium"){
+							addListHtml += '<i class="fa fa-product-hunt"></i>&nbsp;';
+						}
+						addListHtml += study.studyName+' &nbsp;&nbsp;&nbsp;';
+						addListHtml += study.currentMember+'/'+study.maxMember;
+						if(study.selfStudyPassword != null){
+							addListHtml += '&nbsp;<i class="fas fa-lock"></i>';
+						}
+						addListHtml += '</p>';
+						addListHtml += '<p class="text-center">'+study.studyHashtag+'</p>';
+						if(study.studyType == "group"){
+							addListHtml += '<p class="text-center">모집기간:'+study.recruitmentStartDate+'~'+study.recruitmentEndDate+'</p>';
+						}
+						addListHtml += '</div>';
+					});
+				}else {
+					if(page == 1){
+						addListHtml += '<div class="col-md-12 text-center" id="notfound">'
+						addListHtml += '<i class="fas fa-exclamation-triangle"></i>';
+						addListHtml += ' 스터디가 없습니다';
+						addListHtml += '</div>'
 					}
-				
 				}
+				$("#list").append(addListHtml);
 			},
 			error:function(request, status, error){
 				
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
-      
-    }
-});
+	}
 
+	function entranceStudy(studyNo) {
+		location.href = "/study/getStudy?studyNo=" + studyNo;
+	}
+	
+	$(function() {
 
+		$('a.btn.btn-warning').on('click', function(){
+			location.href = "/study/addStudy?studyType=${studyType}";
+		});
+
+		$('button:contains("검색")').on('click', function() {
+
+			fncGetList();
+		});
+		
+		$("#searchKeyword").keydown(function(key) {
+
+			if (key.keyCode == 13) {//키가 13이면 실행 (엔터는 13)
+				fncGetList();
+			}
+		});
+		
+		$('#searchSort').on('change', function(){
+			$('#list').empty();
+			page = 1;
+			getStudyList(page);
+		})
+		
+		$('#studyInterest').on('change', function(){
+			$('#list').empty();
+			page = 1;
+			getStudyList(page);
+		})
+		
+		$('#popover').popover({
+			container : 'body'
+		})
+		
+
+	});
+
+	var page = 1;
+	$(window).scroll(function() {
+		if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight)) {
+			console.log(++page);
+			getStudyList(page);
+		}
+	});
 </script>
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
+}
+
+.row {
+	margin: 30px 0px 30px 0px;
+}
+
+img.img-thumbnail {
+	-webkit-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	transform: scale(1, 1);
+	transition-duration: 0.3s;
+	width: 300px;
+	height: 220px;
+}
+
+img.img-thumbnail:hover {
+	cursor: pointer;
+	-webkit-transform: scale(1.1, 1.1);
+	-ms-transform: scale(1.1, 1.1);
+	transform: scale(1.1, 1.1);
+	transition-duration: 0.3s;
+	box-shadow: 10px 10px 5px #888888;
+	z-index: 1;
+}
+
+#detailForm {
+	display: flex;
+    justify-content: flex-end;
+}
+
+#notfound {
+	margin: 80px 0px 80px 0px;
+}
+
+div.callout {
+	margin : 50px 0px 0px 0px;
+}
+div.jumbotron {
+	background-color: #FFDC3C;
+	margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+	<jsp:include page="../common/toolbar.jsp" />
+
+	<div class="container">
+
+		<div class="jumbotron">
+			<c:if test="${studyType == 'self'}">
+				<h1 class="display-4">자율스터디</h1>
+				<p class="lead">누구나 자유롭게 참여할 수 있는 자율스터디입니다.</p>
+				<hr class="my-4">
+				<p>스터디를 직접 개설해보세요.
+					<a type="button" id="popover"  data-container="body" 
+					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.">
+					<i class="fas fa-info-circle"></i></a>
+				</p>
+				<a class="btn btn-warning btn-lg" href="#" role="button">개설하기</a>
+			</c:if>
+			<c:if test="${studyType == 'group'}">
+				<h1 class="display-4">그룹스터디</h1>
+				<p class="lead">멤버를 모집하여 정해진 기간 동안 스터디를 진행하는 그룹스터디 입니다.</p>
+				<p class="lead">원하는 주제의 그룹스터디를 찾아보고 참가해보세요.</p>
+				<hr class="my-4">
+				<p>스터디를 직접 개설해보세요.
+					<a type="button" id="popover" data-container="body" 
+					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.(basic:20,premium:50)">
+					<i class="fas fa-info-circle"></i></a>
+				</p>
+				<a class="btn btn-warning btn-lg" id="addBtn" role="button">개설하기</a>
+			</c:if>
+		</div>
+
+		<hr/>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		<div class="row">
+
+			
+
+			<div class="col-md-12">
+				<form class="form-inline">
+					<c:if test="${studyType == 'group'}">
+						<div class="col-sm-12" id="groupInterest">
+							<input type="hidden" id="studyInterest" name="studyInterest" value="${search.studyInterest}" />
+				            <ol class="breadcrumb float-sm-center">
+				              <li class='breadcrumb-item' value="0">
+				              	${! empty search.studyInterest && search.studyInterest== 0 ? "전체" : '<a id="interest" href="javascript:void(0)" 
+				              		onclick="getInterestList(0)">전체</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="1">
+				              	${! empty search.studyInterest && search.studyInterest== 1 ? "독서" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(1)">독서</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="2">
+				              	${! empty search.studyInterest && search.studyInterest== 2 ? "어학" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(2)">어학</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="3">
+				              	${! empty search.studyInterest && search.studyInterest== 3 ? "임용" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(3)">임용</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="4">
+				              	${! empty search.studyInterest && search.studyInterest== 4 ? "취업" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(4)">취업</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="5">
+				              	${! empty search.studyInterest && search.studyInterest== 5 ? "공무원" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(5)">공무원</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="6">
+				              	${! empty search.studyInterest && search.studyInterest== 6 ? "자격증" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(6)">자격증</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="7">
+				              	${! empty search.studyInterest && search.studyInterest== 7 ? "자기계발" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(7)">자기계발</a>'  }
+				              </li>
+				              <li class='breadcrumb-item' value="8">
+				              	${! empty search.studyInterest && search.studyInterest== 8 ? "기타공부" : '<a id="interest" href="javascript:void(0)"
+				              		onclick="getInterestList(8)">기타공부</a>'  }
+				              </li>
+				            </ol>
+				        </div>
+			        </c:if>
+					
+					<div class="col-md-6 text-left">
+						<p class="text-default" id="totalCount">총 ${totalCount} 개의 스터디</p>
+					</div>
+					
+					<div class="col-md-6" id="detailForm">
+						<c:if test="${studyType == 'self'}">
+								<select class="form-control" id="studyInterest" name="studyInterest" data-width="120px">
+									<option value="0">전체</option>
+									<option value="1"
+										${! empty search.studyInterest && search.studyInterest== 1 ? "selected" : ""  }>독서</option>
+									<option value="2"
+										${! empty search.studyInterest && search.studyInterest== 2 ? "selected" : ""  }>어학</option>
+									<option value="3"
+										${! empty search.studyInterest && search.studyInterest== 3 ? "selected" : ""  }>임용</option>
+									<option value="4"
+										${! empty search.studyInterest && search.studyInterest== 4 ? "selected" : ""  }>취업</option>
+									<option value="5"
+										${! empty search.studyInterest && search.studyInterest== 5 ? "selected" : ""  }>공무원</option>
+									<option value="6"
+										${! empty search.studyInterest && search.studyInterest== 6 ? "selected" : ""  }>자격증</option>
+									<option value="7"
+										${! empty search.studyInterest && search.studyInterest== 7 ? "selected" : ""  }>자기계발</option>
+									<option value="8"
+										${! empty search.studyInterest && search.studyInterest== 8 ? "selected" : ""  }>기타공부</option>
+								</select>
+								&nbsp;
+						</c:if>
+						
+						<select class="form-control" id="searchSort" name="searchSort" data-width="120px">
+							<option value="0"
+								${! empty search.searchSort && search.searchSort== 0 ? "selected" : ""  }>최신순</option>
+							<option value="1"
+								${! empty search.searchSort && search.searchSort== 1 ? "selected" : ""  }>오래된순</option>
+							<option value="2"
+								${! empty search.searchSort && search.searchSort== 2 ? "selected" : ""  }>인원많은순</option>
+							<option value="3"
+								${! empty search.searchSort && search.searchSort== 3 ? "selected" : ""  }>인원적은순</option>
+						</select>
+						&nbsp;
+	
+						<div class="form-group">
+							<label class="sr-only" for="searchKeyword">검색어</label> <input
+								type="text" class="form-control" id="searchKeyword"
+								name="searchKeyword" placeholder="검색어"
+								value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+						</div>&nbsp;
+						<button type="button" class="btn btn-default">검색</button>
+						<input type="hidden" id="currentPage" name="currentPage" value="1" />
+					</div>
+					
+				</form>
+			</div>
+			
+			<br/>
+		</div>
+		<div class="row" id="list">
+			<c:forEach var="study" items="${list}">
+				<div class="col-xs-12 col-md-3">
+					<img class="img-fluid img-thumbnail rounded" src="/resources/upload_files/study/${study.studyThumbnail}" alt="None"
+					onclick="entranceStudy(${study.studyNo})">
+					<c:if test="${studyType == 'group'}">
+						<p class="text-center">모집기간:${study.recruitmentStartDate}~${study.recruitmentEndDate}</p>
+					</c:if>
+					<p class="text-center">
+					<c:if test="${study.studyRoomGrade == 'premium'}">
+						<i class="fa fa-product-hunt"></i>&nbsp;
+					</c:if>
+					${study.studyName}&nbsp;&nbsp;&nbsp;${study.currentMember}/${study.maxMember}
+					<c:if test="${study.selfStudyPassword != null}">
+						&nbsp;<i class="fas fa-lock"></i>
+					</c:if>
+					</p>
+					<p class="text-center">${study.studyHashtag}</p>
+					
+				</div>
+			</c:forEach>
+			<c:if test="${totalCount == 0}">
+				<div class="col-md-12 text-center" id="notfound">
+					<i class="fas fa-exclamation-triangle"></i>
+					스터디가 없습니다
+				</div>
+			</c:if>
+		</div>
+
+
+
+	</div>
+	<!--  table End /////////////////////////////////////-->
 </body>
 </html>
