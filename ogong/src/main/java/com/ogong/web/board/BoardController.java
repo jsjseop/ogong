@@ -124,17 +124,16 @@ public class BoardController {
 		return "redirect:/board/getBoard?boardNo=" + board.getBoardNo();
 	}
 
-	@PostMapping("addBoard")
-	public String addBoard(HttpSession session, @ModelAttribute("board") Board board) throws Exception {
-		User user = new User();
-		user = (User)session.getAttribute("user");
-		board.setWriter(user);
-
-		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
-		
-		int result = boardService.addBoard(board,fileList);
-		return "redirect:/board/getBoard?boardNo=" +result;
-	}
+	/*
+	 * @PostMapping("addBoard") public String addBoard(HttpSession
+	 * session, @ModelAttribute("board") Board board) throws Exception { User user =
+	 * new User(); user = (User)session.getAttribute("user"); board.setWriter(user);
+	 * 
+	 * List<MultipartFile> fileList = new ArrayList<MultipartFile>();
+	 * 
+	 * int result = boardService.addBoard(board,fileList); return
+	 * "redirect:/board/getBoard?boardNo=" +result; }
+	 */
 	
 
 	@GetMapping("addAnswer")

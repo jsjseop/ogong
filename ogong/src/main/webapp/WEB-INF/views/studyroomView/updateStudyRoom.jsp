@@ -116,58 +116,7 @@ function fncUpdateStudy() {
 			  </div>
 			</form>
 			<!-- form Start /////////////////////////////////////-->
-		    
-	 	</div>
-		  </div>
-		
-		  <div class="form-group">
-		    <label for="groupStudyInfo" class="col-sm-offset-1 col-sm-3 control-label">스터디 소개</label>
-		    <div class="col-sm-4">
-		      <textarea class="form-control" id="groupStudyInfo" name="groupStudyInfo">${study.groupStudyInfo}</textarea>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="studyHashtag" class="col-sm-offset-1 col-sm-3 control-label">해 시 태 그</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="studyHashtag" name="studyHashtag" value="${study.studyHashtag}" >
-		    </div>
-		  </div>
-		  
-		  
-		  <div class="form-group">
-		    <label for="" class="col-sm-offset-1 col-sm-3 control-label">모집 기간</label>
-		    <div class="col-sm-4">
-		      <input type="text" value="${study.recruitmentStartDate} ~ ${study.recruitmentEndDate} " readonly>
-		      <input type="hidden" name="recruitmentStartDate" value="${study.recruitmentStartDate}">
-		      <input type="hidden" name="recruitmentEndDate"value="${study.recruitmentEndDate}">
-		      <span id="helpBlock" class="help-block">
-		      	<strong class="text-danger">수정불가</strong>
-		      </span>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="" class="col-sm-offset-1 col-sm-3 control-label">진행 기간</label>
-		    <div class="col-sm-4">
-		      <input type="text" value="${study.studyStartDate} ~ ${study.studyEndDate}" readonly>
-		      <input type="hidden" name="studyStartDate" value="${study.studyStartDate}">
-		      <input type="hidden" name="studyEndDate"value="${study.studyEndDate}">
-		      
-		      <span id="helpBlock" class="help-block" >
-		      	<strong class="text-danger">수정불가</strong>
-		      </span>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <div class="col-sm-offset-10  col-sm-10 text-center">
-		      <button type="button" class="btn btn-primary"  >수 &nbsp;정</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
-		    </div>
-		  </div>
-		</form>
-		<!-- form Start /////////////////////////////////////-->
+
 	    
  	</div>
 
