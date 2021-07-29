@@ -2,7 +2,6 @@ package com.ogong.service.user;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -71,11 +70,12 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 
-		List<Board> list(User user) throws Exception;
 
 
 
 
+		//게시판 조회
+		List<Board> list(String email) throws Exception;
 
 
 

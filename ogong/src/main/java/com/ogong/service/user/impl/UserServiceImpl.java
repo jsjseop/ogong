@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ogong.service.board.BoardMapper;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.User;
 import com.ogong.service.user.UserMapper;
@@ -133,11 +132,13 @@ public class UserServiceImpl implements UserService{
 		userDAO.restore(user);
 	}
 
-
 	@Override
-	public List<Board> list(User list) throws Exception {
-		// TODO Auto-generated method stub
-		return userDAO.list(list);
+	public List<Board> list(String email) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(email, email);
+		
+		return userDAO.list(map);
 	}
 
 
@@ -158,4 +159,21 @@ public class UserServiceImpl implements UserService{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+	
+	
 

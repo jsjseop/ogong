@@ -89,41 +89,47 @@
 	</resultMap>
 
 
-	 <select id="list" resultMap="boardSelectMap" >
-	
+	 	 <select id="list" resultMap="boardSelectMap" >
 	SELECT
-    a.* ,b.*
+    board_no,
+    study_no,
+    email,
+    nickname,
+    board_category,
+    board_title,
+    board_contents,
+    board_interest,
+    board_reg_date,
+    view_count,
+    board_reg_banana,
+    file_flag
 FROM
-    board  b,
-    users  a
-WHERE
-    a.email = b.email
-    
-    
-
-	</select> 
-	
-
-	
-	
-	
-
-	 <select id="list"  resultMap="boardSelectMap" >
-	
-			
-SELECT
-    a.email , b.*
-FROM
-    board  b
-    LEFT JOIN
-    users  a
-    ON
-    b.email = a.email
-
-  </select>  
+    board
+    WHERE EMAIL = #{email:VARCHAR}
 
 
 	
+	</select>   
+	
+	
+<!-- 			<select id="getTotalCount"		parameterType="search"		resultType="int">
+						SELECT COUNT(*)
+						     FROM (	SELECT   board_email,board_boardTitle,board_viewCount
+											 FROM board 	
+											 <if test="searchCondition != null">
+											 <where>
+										<if test="searchCondition == 0 and searchKeyword !='' ">
+											 board_email = #{searchKeyword}
+											</if>
+										<if test="searchCondition == 1 and searchKeyword !='' ">
+										board_boardTitle = #{searchKeyword}
+										</if>)
+												 </where> 
+											 </if> )countTable
+	</select> -->
+	
+
+
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
     EMAIL,

@@ -91,7 +91,7 @@
 		</div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-primary"  >확인</button>
+<button type="button" class="btn btn-primary" onclick="window.open('http://localhost:5050/user/updateProfile')"  >수정</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 </div>
 
