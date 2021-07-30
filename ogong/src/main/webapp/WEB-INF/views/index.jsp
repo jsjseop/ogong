@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -51,7 +50,7 @@
                         <hr class="divider" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 mb-5">í•¨ê»˜í•˜ë©´ ê³µë¶€ê°€ ë”ìš± ì¦ê±°ì›Œì§„ë‹¤ !</p>
+                        <p class="text-white-75 mb-5">ÇÔ²²ÇÏ¸é °øºÎ°¡ ´õ¿í Áñ°Å¿öÁø´Ù !</p>
                         <a class="btn btn-primary btn-xl" href="#about">More</a>
                     </div>
                 </div>
@@ -64,7 +63,7 @@
                     <div class="col-lg-8 text-center">
                         <h2 class="text-white mt-0">We are Together !</h2>
                         <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">ì´ì œ í˜¼ìží•˜ì§€ ë§ˆì„¸ìš”,</br> ì›í•˜ëŠ” ìŠ¤í„°ë””ì— ì°¸ì—¬í•´ ë³´ì„¸ìš” !</p>
+                        <p class="text-white-75 mb-4">ÀÌÁ¦ È¥ÀÚÇÏÁö ¸¶¼¼¿ä,</br> ¿øÇÏ´Â ½ºÅÍµð¿¡ Âü¿©ÇØ º¸¼¼¿ä !</p>
                         <a class="btn btn-light btn-xl" href="#services">Get Started</a>
                     </div>
                 </div>
@@ -80,28 +79,28 @@
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Sharing information</h3>
-                            <p class="text-muted mb-0">ë‹¤ì–‘í•œ ìƒê°ì„ ê°–ê³ ìžˆëŠ” ì¹œêµ¬ë“¤ê³¼ </hr>ë‹¤ì–‘í•œ ì •ë³´ë¥¼ êµë¥˜ í•´ ë³´ì„¸ìš”.</p>
+                            <p class="text-muted mb-0">´Ù¾çÇÑ »ý°¢À» °®°íÀÖ´Â Ä£±¸µé°ú </hr>´Ù¾çÇÑ Á¤º¸¸¦ ±³·ù ÇØ º¸¼¼¿ä.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Target Time</h3>
-                            <p class="text-muted mb-0">í•˜ë£¨ ëª©í‘œ ê³µë¶€ì‹œê°„ì„ ì„¤ì •í•˜ê³ </br> ëª©í‘œë¥¼ ë‹¬ì„± í•´ ë³´ì„¸ìš”.</p>
+                            <p class="text-muted mb-0">ÇÏ·ç ¸ñÇ¥ °øºÎ½Ã°£À» ¼³Á¤ÇÏ°í</br> ¸ñÇ¥¸¦ ´Þ¼º ÇØ º¸¼¼¿ä.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Anywhere</h3>
-                            <p class="text-muted mb-0">ì‹œê°„ê³¼ ìž¥ì†Œ êµ¬ì• ë°›ì§€ ì•Šê³ <br/>ì›í•˜ëŠ” ì‹œê°„ê³¼ ìž¥ì†Œì—ì„œ ì¦ê²¨ë³´ì„¸ìš”.</p>
+                            <p class="text-muted mb-0">½Ã°£°ú Àå¼Ò ±¸¾Ö¹ÞÁö ¾Ê°í<br/>¿øÇÏ´Â ½Ã°£°ú Àå¼Ò¿¡¼­ Áñ°Üº¸¼¼¿ä.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Made with Love</h3>
-                            <p class="text-muted mb-0">í•¨ê»˜í•˜ë©´ ë”ìš± ë°°ê°€ë˜ëŠ” !</br> ê°™ì´ ê³µë¶€í•  ì¹œêµ¬ë“¤ì„ ì°¾ì•„ë³´ì„¸ìš”.</p>
+                            <p class="text-muted mb-0">ÇÔ²²ÇÏ¸é ´õ¿í ¹è°¡µÇ´Â !</br> °°ÀÌ °øºÎÇÒ Ä£±¸µéÀ» Ã£¾Æº¸¼¼¿ä.</p>
                         </div>
                     </div>
                 </div>
@@ -114,29 +113,29 @@
  
                   
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="ìžìœ ìŠ¤í„°ë””">
+                        <a class="portfolio-box" href="/" title="ÀÚÀ¯½ºÅÍµð">
                             <img class="img-fluid" src="../resources/images/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">ëˆ„êµ¬ë‚˜ ìžìœ ë¡­ê²Œ ì°¸ì—¬ê°€ ê°€ëŠ¥í•œ</div>
-                                <div class="project-name">ìžìœ ìŠ¤í„°ë””</div>
+                                <div class="project-category text-white-50">´©±¸³ª ÀÚÀ¯·Ó°Ô Âü¿©°¡ °¡´ÉÇÑ</div>
+                                <div class="project-name">ÀÚÀ¯½ºÅÍµð</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="ê·¸ë£¹ìŠ¤í„°ë””">
+                        <a class="portfolio-box" href="/" title="±×·ì½ºÅÍµð">
                             <img class="img-fluid" src="../resources/images/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">ì²´ê³„ì ì¸ ì‹œìŠ¤í…œìœ¼ë¡œ ê³µë¶€íš¨ìœ¨ up</div>
-                                <div class="project-name">ê·¸ë£¹ìŠ¤í„°ë””</div>
+                                <div class="project-category text-white-50">Ã¼°èÀûÀÎ ½Ã½ºÅÛÀ¸·Î °øºÎÈ¿À² up</div>
+                                <div class="project-name">±×·ì½ºÅÍµð</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="ìŠ¤í„°ë””ëª¨ì§‘">
+                        <a class="portfolio-box" href="/" title="½ºÅÍµð¸ðÁý">
                             <img class="img-fluid" src="../resources/images/333.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
-                                <div class="project-category text-white-50">ë‚´ê°€ ì§ì ‘ ë§Œë“œëŠ” ìŠ¤í„°ë””</div>
-                                <div class="project-name">ìŠ¤í„°ë””ëª¨ì§‘</div>
+                                <div class="project-category text-white-50">³»°¡ Á÷Á¢ ¸¸µå´Â ½ºÅÍµð</div>
+                                <div class="project-name">½ºÅÍµð¸ðÁý</div>
                             </div>
                         </a>
                     </div>
@@ -146,7 +145,7 @@
         <!-- Call to action-->
         <section class="page-section bg-dark text-white">
             <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mb-4">ìŠ¤í„°ë”” ì‹œìž‘í•˜ê¸°</h2>
+                <h2 class="mb-4">½ºÅÍµð ½ÃÀÛÇÏ±â</h2>
                 <a class="btn btn-light btn-xl" href="/">Study Now</a> 
             </div>
         </section>
@@ -157,8 +156,8 @@
                     <div class="col-lg-8 col-xl-6 text-center">
                         <h2 class="mt-0">Let's Get In Ogong!</h2>
                         <hr class="divider" />
-                        <p class="text-muted mb-5">ì˜¤ê³µì€ ì¦ê²ê²Œ ê³µë¶€í•  ìˆ˜ ìžˆëŠ” ë°©ë²•ì„ ì œê³µí•©ë‹ˆë‹¤.</br>
-                        	ì˜¤ë¥˜ ë° ì„œë¹„ìŠ¤ì™€ ê´€ë ¨ëœ ë¶ˆíŽ¸ì‚¬í•­ì€ ì´ê³³ìœ¼ë¡œ ì—°ë½ ì£¼ì„¸ìš”.</p>
+                        <p class="text-muted mb-5">¿À°øÀº Áñ°Ì°Ô °øºÎÇÒ ¼ö ÀÖ´Â ¹æ¹ýÀ» Á¦°øÇÕ´Ï´Ù.</br>
+                        	¿À·ù ¹× ¼­ºñ½º¿Í °ü·ÃµÈ ºÒÆí»çÇ×Àº ÀÌ°÷À¸·Î ¿¬¶ô ÁÖ¼¼¿ä.</p>
                     </div>
                 </div>
                 </div>
