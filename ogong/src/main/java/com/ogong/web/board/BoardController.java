@@ -58,8 +58,10 @@ public class BoardController {
 
 	@GetMapping("addBoard")
 	public String addBoard(@RequestParam("boardCategory") String boardCategory, Model model) throws Exception {
+		
+		
 		model.addAttribute("boardCategory", boardCategory);
-
+		System.out.println("확인 ::: "+boardCategory);
 		if (boardCategory.equals("2")) {
 			return "boardView/addQaBoard";
 		}
@@ -79,11 +81,14 @@ public class BoardController {
 		board.setWriter(user);
 
 		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
-		
+
 		int result = boardService.addBoard(board,fileList);
 		
 		//===========바나나 적립 및 소모 Start==================
 		Banana banana = new Banana();
+		System.out.println("asdasd ::: "+board.getBoardCategory());
+		
+		
 		if (board.getBoardCategory().equals("1")) {
 			banana.setBananaEmail(user);
 			banana.setBananaAmount(5);
@@ -172,16 +177,18 @@ public class BoardController {
 		System.out.println("boardNo" + boardNo);
 
 		User user = (User) session.getAttribute("user");
-
 		boardService.updateViewcnt(boardNo);
-
 		Board board = new Board();
 		board.setBoardNo(boardNo);
+		
 		// board.setBoardCategory(null);
-
+		
 		Map<String, Object> result = boardService.getBoard(board);
+
 		board = (Board) result.get("board");
+		System.out.println(board.getBoardCategory());
 		List<File> fileList = (List<File>) result.get("fileList");
+
 		model.addAttribute("board", board);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("user", session.getAttribute("user"));

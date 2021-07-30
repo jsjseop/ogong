@@ -78,7 +78,6 @@ hr {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
     margin-bottom: .5rem
 }
 
@@ -106,6 +105,7 @@ address {
 dl, ol, ul {
     margin-top: 0;
     margin-bottom: 1rem
+
 }
 
     ol ol, ol ul, ul ol, ul ul {
@@ -208,8 +208,7 @@ caption {
 }
 
 th {
-    text-align: inherit;
-    text-align: -webkit-match-parent
+
 }
 
 label {
@@ -5324,7 +5323,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    padding-left: 0;
+    padding-left: 490;
     list-style: none;
     border-radius: .25rem
 }
@@ -7176,7 +7175,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 }
 
 .border-top {
-    border-top: 1px solid #dee2e6 !important
+
 }
 
 .border-right {
@@ -10940,7 +10939,7 @@ a.text-dark:focus, a.text-dark:hover {
     }
 
     thead {
-        display: table-header-group
+        text-align:center;
     }
 
     img, tr {
@@ -13191,7 +13190,6 @@ body:not(.layout-fixed) .main-sidebar {
     }
 
 .main-header {
-    border-bottom: 1px solid #dee2e6;
     z-index: 1034
 }
 

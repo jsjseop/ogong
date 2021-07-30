@@ -147,7 +147,7 @@
         <section class="page-section bg-dark text-white">
             <div class="container px-4 px-lg-5 text-center">
                 <h2 class="mb-4">스터디 시작하기</h2>
-                <a class="btn btn-light btn-xl" href="/">Study Now</a> 
+                <a class="btn btn-light btn-xl" href="/user/loginView">Study Now</a> 
             </div>
         </section>
         <!-- Contact-->

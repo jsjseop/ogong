@@ -233,15 +233,16 @@
                 	<if test="search.searchKeyword!=null and search.searchKeyword!=''">
                 		<choose>
                 			<!-- <when test="searchCondition!=null and searchCondition==1"> -->
-                			<when test='search.searchCondition!=null and search.searchCondition.equals("1")'>
+                			<when test="search.searchCondition!=null and search.searchCondition==1">
+                				AND (board_title like '%'||#{search.searchKeyword}||'%'
+                				OR board_contents like '%'||#{search.searchKeyword}||'%')
+                			</when>
+                			<when test="search.searchCondition!=null and search.searchCondition==2">
                 				AND board_title like '%'||#{search.searchKeyword}||'%'
                 			</when>
-                			<when test="searchCondition!=null and searchCondition==2">
-                				AND board_contents like '%'||#{search.searchKeyword}||'%'
-                			</when>
-                			<otherwise>
+                			<when test="search.searchCondition!=null and search.searchCondition==3">
                 				AND nickname like '%'||#{search.searchKeyword}||'%'
-                			</otherwise>
+                			</when>
                 		</choose>
 					 </if>
 		      		<choose>
