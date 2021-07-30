@@ -145,16 +145,11 @@
 	 	UPDATE study
 		SET
 			study_name = #{studyName},
-			study_hashtag = #{studyHashtag:VARCHAR},
 			study_thumbnail = #{studyThumbnail:VARCHAR},
 			selfstudy_rule = #{selfStudyRule:VARCHAR},
 			groupstudy_info = #{groupStudyInfo:VARCHAR},
 			groupstudy_plan = #{groupStudyPlan:VARCHAR},
-			groupstudy_condition = #{groupStudyCondition:VARCHAR},
-			recruitment_start_date = #{recruitmentStartDate:DATE},
-			recruitment_end_date = #{recruitmentEndDate:DATE},
-			study_start_date = #{studyStartDate:DATE},
-			study_end_date = #{studyEndDate:DATE}
+			groupstudy_condition = #{groupStudyCondition:VARCHAR}
 		WHERE
 			study_no = #{studyNo}
 	 

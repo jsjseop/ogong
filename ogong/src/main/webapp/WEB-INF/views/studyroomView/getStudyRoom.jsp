@@ -123,6 +123,9 @@ $(function () {
                           <button id="sroomInfo">
                            <h6> 스터디 정보 조회 </h6> 
                           </button>
+                          <button class="float-right"id="chat">
+                           <h6> 채팅 접속 </h6> 
+                          </button>
                       </div>
 					<hr>
 					
@@ -150,12 +153,12 @@ $(function () {
 	                      <!-- First Action -->
 	                      <div class="desc">
 	                      	<div class="thumb">
-	                      		<img class="img-circle" src="/resources/images/ogong2.png" width="35px" height="35px" align="">
+	                      		<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px" align="">
 	                      	</div>
 	                      	<div class="details">
-	                      		<p><muted>출석일자 : ${aList.get("ATTENDANCE_DATE")}</muted><br/>
-	                      		   <a href="#"></a> 출석완료. <br/>
-	                      		</p>
+	                      		<muted >출석일자 : ${aList.get("ATTENDANCE_DATE")}</muted><!-- <br/> -->
+	                      		   <a href="#"></a> 출석. <br/>
+	                      		
 	                      	</div>
 	                      </div>
 	                    </c:forEach>
@@ -167,7 +170,7 @@ $(function () {
                       <!-- First Member -->
 	                     <div class="desc" id="studyMember">
 	                      	<div class="thumb">
-	                      		<img class="img-circle" src="/resources/images/ogong2.png" width="35px" height="35px" align="">
+	                      		<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px" align="">
 	                      	</div>
 	                      	<div class="details">
 	                      		<p>
@@ -284,48 +287,41 @@ $(function () {
                         <h4 class="modal-title"> 그룹스터디 정보 조회</h4>
                     </div>
                     <div class="modal-body">
-						<div class="row">
-							<input type="hidden" name="studyNo" value="${study.studyNo}"/>
-					  		<div class="col-xs-4 col-md-2 "><strong>스 터 디 명</strong></div>
-							<div class="col-xs-8 col-md-8">${study.studyName}</div>
-						</div>
-						
-						<hr/>
-						
-						<div class="row">
-					  		<div class="col-xs-4 col-md-2 "><strong>스터디 소개</strong></div>
-							<div class="col-xs-8 col-md-8">${study.groupStudyInfo}</div>
-						</div>
-						
-						<hr/>
-						
-						<div class="row">
-					  		<div class="col-xs-4 col-md-2 "><strong>해 시 태 그</strong></div>
-							<div class="col-xs-8 col-md-8">${study.studyHashtag}</div>
-						</div>
-						
-						<hr/>
-						
-						<div class="row">
-					  		<div class="col-xs-4 col-md-2"><strong>인원</strong></div>
-							<div class="col-xs-8 col-md-4">${study.currentMember} / ${study.maxMember}</div>
-						</div>
-						
-						<hr/>
-						
-						<div class="row">
-					  		<div class="col-xs-4 col-md-2 "><strong>모집 기간</strong></div>
-							<div class="col-xs-8 col-md-8">${study.recruitmentStartDate} ~ ${study.recruitmentEndDate}</div>
-						</div>
-						
-						<hr/>
-						
-						<div class="row">
-					  		<div class="col-xs-4 col-md-2 "><strong>진행 기간</strong></div>
-							<div class="col-xs-8 col-md-8">${study.studyStartDate} ~ ${study.studyEndDate}</div>
-						</div>
-						
-						<hr/>
+						<label for="studyName">스터디명</label> 
+							<div class="col-xs-8 col-md-12">${study.studyName}</div><hr/>
+							
+							<label for="studyInterest">관심주제</label> 	
+							<div class="col-xs-8 col-md-12">${study.studyInterest}</div><hr/>
+							
+							<label for="groupStudyInfo">스터디 소개</label>
+							<div class="col-xs-8 col-md-12">${study.groupStudyInfo}</div><hr/>
+							
+							<label for="groupStudyPlan">스터디 계획</label>
+							<div class="col-xs-8 col-md-12">${study.groupStudyPlan}</div><hr/>
+							
+							<label for="groupStudyCondition">스터디 참가조건</label>
+							<div class="col-xs-8 col-md-12">${study.groupStudyCondition}</div><hr/>
+							
+							<div class="hashTag_area">
+								<label for="studyHashtag">해시태그</label>
+								<div class="col-xs-8 col-md-12">${study.studyHashtag}</div>
+							</div><hr/>
+							
+							<label for="studyThumbnail">스터디 썸네일</label>
+							<div class="input-group mb-3">
+								<div class="studyThumbnail">
+									<img class="img-fluid img-thumbnail rounded" src="/resources/upload_files/study/${study.studyThumbnail}">
+								</div>
+							</div><hr/>
+
+							<label>모집 기간 </label>
+							<div class="col-xs-8 col-md-12">${study.recruitmentStartDate} ~ ${study.recruitmentEndDate}</div><hr/>
+							
+							<label>시작 기간 </label>
+							<div class="col-xs-8 col-md-12">${study.studyStartDate} ~ ${study.studyEndDate}</div><hr/>
+							
+							<label>인 원</label>
+							<div class="col-xs-8 col-md-12">${study.currentMember}명 / ${study.maxMember}명</div><hr/>
                     </div>
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
@@ -604,8 +600,8 @@ $(function () {
 	$(function (){
     	
 		
-    	var studyNo= $('#studyNo').val();
-    	var email= $('#email').val();
+    	var studyNo= $("#studyNo").val();
+    	var email= $("#email").val();
     	
     	
     	$("#chat").on("click", function (){
