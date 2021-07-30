@@ -10,12 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
 	
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/resources/css/hanjee/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/resources/css/hanjee/icheck-bootstrap.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="/resources/css/hanjee/adminlte.min.css">
   
@@ -36,6 +31,7 @@
 		th, 
 		td{
 		font-family: 'Do Hyeon', sans-serif;
+		font-size: 16px;
 		}
 		
 				
@@ -72,6 +68,47 @@
 
 	 	
 	})
+
+ 	$(function(){
+ 		$("ul li:nth-child(1)").on("click", function(){
+			
+			var email = $(this).find('input').val();
+			
+ 			$.ajax({
+				url : "/integration/json/getMyProfile/"+email,
+				method : "GET",
+				dataType : "JSON",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"	 						
+				} ,
+				
+				success : function(JSONData, status){
+					$("#profile").html(JSONData.nickname+" 의 프로필");
+					$("#email").html(JSONData.email);
+					$("#email2").html(JSONData.email);
+					$("#nickname").html(JSONData.nickname);
+					$("#name").html(JSONData.name);
+					$("#birth").html(JSONData.birth);
+					$("#goal").html(JSONData.goal);
+					if(JSONData.userImage != null){
+						$("#image").html("<img  src='/resources/images/"+JSONData.userImage+"' alt='User profile picture'>")	
+					}else{
+						$("#image").html("<img  src='/resources/images/basic.jpg' alt='User profile picture'>");
+					}
+					$("#interest1").html(JSONData.studyInterest1);
+					$("#interest2").html(JSONData.studyInterest2);
+					$("#interest3").html(JSONData.studyInterest3);
+					
+				}
+
+				
+				
+			}) 
+		
+		
+		})
+	}) 	
 	
 	$(function(){
 				
@@ -138,6 +175,14 @@
 
  		
 	})
+	
+	$(window).scroll(function() {
+	  	if(((window.innerHeight + window.scrollY) >= document.body.offsetHeight)){
+	    	console.log(++page); 
+	  	}
+	})
+
+	
 	</script>       	
   
 </head>
@@ -146,6 +191,7 @@
 	<jsp:include page="../common/toolbar.jsp" />
 	<jsp:include page="../integrationView/addSendMessage.jsp" />
 	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+	<jsp:include page="../integrationView/getMyProfile.jsp" />
 	<jsp:include page="../adminView/addReport.jsp" />	
 
 <div class="wrapper">
@@ -190,7 +236,7 @@
         </div>
         <!-- /.col -->
         <div class="col-md-9">
-          <div class="card card-primary card-outline">
+          <div class="card card-primary card-outline" style="border-top:#FFF">
             <div class="card-header">
               <h3 class="card-title">받은 쪽지</h3>
 
@@ -199,10 +245,10 @@
             <div class="card-body p-0">
               <div class="mailbox-controls">
                 <!-- Check all button -->                
-                <div class="btn-group">
+                <div class="btn-group float-left">
        					<div class="btn-group" role="group" >				
        						<div class="allCheck">
-								&nbsp&nbsp&nbsp&nbsp<input style="zoom:2.0;  " type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+								&nbsp&nbsp&nbsp<input style="zoom:2.0;  " type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
 									<script>
 										$("#allCheck").click(function() {
 											var chk = $("#allCheck").prop("checked");
@@ -270,7 +316,8 @@
 									${message.sender.email}
 								</a>
 								  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">프로필보기</a></li>
+								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
+								    <input type="hidden" value="${message.sender.email}" /></a></li>
 								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
 								    <input type="hidden" value="${message.sender.email}" /></a></li>
 								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModalReport">신고하기
@@ -305,9 +352,10 @@
             <div class="card-footer p-0">
               <div class="mailbox-controls">
                 <!-- Check all button -->
-       					<div class="btn-group" role="group" >				
+                <div class="btn-group float-left">
+       					&nbsp&nbsp&nbsp<div class="btn-group" role="group" >				
        						<div class="allCheck">
-						&nbsp&nbsp&nbsp&nbsp<input style="zoom:2.0;" type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+								<input style="zoom:2.0;  " type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
 									<script>
 										$("#allCheck").click(function() {
 											var chk = $("#allCheck").prop("checked");
@@ -320,13 +368,13 @@
 									</script>
 							</div>
 						</div>                
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm">
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModal">
                     <i class="far fa-trash-alt"></i>
                   </button>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="fas fa-reply"></i>
+                  <button type="button" class="btn btn-default btn-sm" name="refresh">
+                    <i class="fas fa-redo"></i>
                   </button>
+
                 </div>
                 <!-- /.btn-group -->
                 <div class="float-right">

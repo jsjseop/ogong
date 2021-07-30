@@ -20,7 +20,7 @@
 
 <script type="text/javascript">
 	function fncAddBoard() {
-
+		alert("asd");
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
 

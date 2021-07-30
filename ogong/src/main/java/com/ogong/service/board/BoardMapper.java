@@ -59,10 +59,13 @@ import com.ogong.service.domain.Recommend;
 		void addAnswer(Answer answer);
 		
 		//Q&A 답변 수정
-		void updateAnswer (Answer answer);
+		int updateAnswer (Answer answer);
 		
 		//Q&A 답변 삭제
-		void deleteAnswer (int answerNo);
+		int deleteAnswer (Answer answer);
+		
+		//Q&A 답변 조회
+		Answer getAnswer (Answer answer);
 		
 		//조회수
 		void updateViewcnt(int boardNo);
@@ -79,6 +82,26 @@ import com.ogong.service.domain.Recommend;
 		//추천수
 		Recommend getRecommendNo(Board board);
 		
+
+		//알림 게시글 상세보기
+		Board getNoticeBoard(int boardNo);
+
+		//채택수
+		void updateAdoption(int answerNo);
+		
+		//채택수
+		void updateBoardAdoption(int boardNo);
+			
+		//채택수
+		void deleteAdoption(int answerNo);
+		
+		//채택수
+		int adoptionCount(Board board);
+		
+		//채택수
+		Answer getAdoptionNo(Board board);
+
+		
 		//파일업로드
 		int addFile (File file);	
 		
@@ -88,7 +111,7 @@ import com.ogong.service.domain.Recommend;
 		//파일 다운로드
 		File getFile (File file);	
 		
-		// insert, delete, update는 반환값이 무조건 int다 
-		// select는 바뀌기때문에 
+		// insert, delete, update는 반환값이 무조건 int 
+		// select는 바뀌기때문에 x 
 		// DAO메소드의 매개변수는 무조건 하나다 
 	}

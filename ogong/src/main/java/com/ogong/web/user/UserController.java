@@ -86,18 +86,19 @@ public class UserController {
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
 		
 		
-		user.setBananaCount(10);
-		userService.addUser(user);
+		
 		
 		
 		//===========바나나 적립 Start==================
 		String email = user.getEmail();
 		Banana banana = new Banana();
 		banana.setBananaEmail(user);
-		banana.setBananaAmount(10);
+		banana.setBananaAmount(50);
 		banana.setBananaHistory("회원가입으로 인한 바나나 적립");
 		banana.setBananaCategory("1");
 		bananaService.addBanana(banana);
+		user.setBananaCount(50);
+		userService.addUser(user);
 		//===========바나나 적립 END==================
 		
 		return "/userView/loginView";

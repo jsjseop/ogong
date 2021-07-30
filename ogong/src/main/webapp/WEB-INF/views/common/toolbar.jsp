@@ -39,7 +39,7 @@
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">자율스터디</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">자율스터디목록</a></li>
+              <li><a href="#" class="dropdown-item">자율스터디</a></li>
               <li><a href="#" class="dropdown-item">모집게시판</a></li>
             </ul>
           </li>
@@ -47,18 +47,32 @@
             <a  class="nav-link">그룹스터디</a>
           </li>
           <li class="nav-item">
-            <a  class="nav-link">정보공유게시판</a>
-          </li>
-          <li class="nav-item">
-            <a  class="nav-link">Q&A게시판</a>
-          </li>
+            <a  class="nav-link">공부기록</a>
+          </li>      
           <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">쉼터게시판</a>
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">게시판</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a class="dropdown-item">자유게시판</a></li>
-              <li><a class="dropdown-item">합격후기게시판</a></li>
+              <li><a href="#" class="dropdown-item">정보공유게시판 </a></li>
+              <li><a href="#" class="dropdown-item">Q&A게시판</a></li>
+
+              <li class="dropdown-divider"></li>
+
+              <!-- Level two dropdown-->
+              <li class="dropdown-submenu dropdown-hover">
+                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">쉼터게시판</a>
+                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                  <li>
+                    <a tabindex="-1" href="#" class="dropdown-item">자유게시판</a>
+                  </li>
+                  <li>
+                    <a tabindex="-1" href="#" class="dropdown-item">합격후기게시판</a>
+                  </li>                  
+                  
+                </ul>
+              </li>
+              <!-- End Level two -->
             </ul>
-          </li> 
+          </li>                  
           <li class="nav-item">
             <a class="nav-link">관리자</a>
           </li>                                                 
@@ -243,7 +257,7 @@
 	 		 						
 	 		 						if(JSONData[i].noticeCategory == '1'){
 	 			 						display = "<h3 class='dropdown-item-title'>"
-	 			 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+	 			 								+ "<a href='/board/getBoard?boardNo="+JSONData[i].noticeBoard.boardNo+"'>"+JSONData[i].noticeBoard.boardTitle+"의 게시글에</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -253,7 +267,7 @@
 	 			 					}
 	 		 						else if (JSONData[i].noticeCategory == '2'){
 		 		 						display = "<h3 class='dropdown-item-title'>"
-		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+		 		 								+ "<a href='/board/getBoard?boardNo="+JSONData[i].noticeBoard.boardNo+"'>"+JSONData[i].noticeBoard.boardTitle+"의 게시글에</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -263,7 +277,7 @@
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '3'){
 		 		 						display = "<h3 class='dropdown-item-title'>"
-		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+		 		 								+ "<a href='/board/getBoard?boardNo="+JSONData[i].noticeBoard.boardNo+"'>"+JSONData[i].noticeBoard.boardTitle+"의 게시글에</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -273,7 +287,7 @@
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '4'){
 		 		 						display = "<h3 class='dropdown-item-title'>"
-		 		 								+ JSONData[i].noticeStudy.studyName+"의 스터디에"
+		 		 								+ "<a href='/study/getStudy?studyNo="+JSONData[i].noticeStudy.studyNo+"'>"+JSONData[i].noticeStudy.studyName+"의 스터디에"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -308,12 +322,12 @@
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
 		 		 								+ "</h>"
-		 		 								+ "<p class='text-sm'>개인별 목표시간이 완료되었습니다.</p>"
+		 		 								+ "<p class='text-sm'>목표시간이 완료되었습니다.</p>"
 		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '7'){
 		 		 						display = "<h3 class='dropdown-item-title' id='notice'>"
-		 		 								+ JSONData[i].sender.email+" 님에게"
+		 		 								+ "<a href=/integration/listSendMessage style=' font-weight:0;'>"+JSONData[i].sender.email+" 님에게</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
