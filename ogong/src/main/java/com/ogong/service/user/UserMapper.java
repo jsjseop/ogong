@@ -44,9 +44,8 @@ public interface UserMapper {
 	public void restore(User user);
 
 	//
-	List<Board> list(User list);
 
-	List<Board> list(Map<String, Object> map);
+	List<Board> list(String email);
 	
 
 	

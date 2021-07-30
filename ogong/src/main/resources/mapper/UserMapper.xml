@@ -87,7 +87,7 @@
 	</resultMap>
 
 
-	 	 <select id="list" resultMap="boardSelectMap" >
+ 	 	 <select id="list" resultType="string" resultMap="boardSelectMap" >
 	SELECT
     board_no,
     study_no,
@@ -103,11 +103,26 @@
     file_flag
 FROM
     board
+    where
+        	   	 email = #{email:VARCHAR}
     
 
 	</select>  
-	
+	 
 
+<!-- 	 <select id="list" resultMap="boardSelectMap" >
+		SELECT
+	a.* , b.*
+	FROM
+   users  a
+    JOIN
+     board  b  
+    ON
+    a.email = b.email AND
+    	   	 a.email = #{email:VARCHAR}
+	</select>   --> 
+	
+	
 	
 
 <!-- 			<select id="getTotalCount"		parameterType="search"		resultType="int">

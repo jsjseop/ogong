@@ -112,7 +112,27 @@ font-family: 'Do Hyeon', sans-serif;
 	<br><br/>
 		
 		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" enctype="multipart/form-data">
+
+
+				
+				
+	
+<!-- 모달 영역 -->
+<div class="container">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+
+			<form class="form-horizontal" enctype="multipart/form-data">
 
 
 		
@@ -158,42 +178,3 @@ font-family: 'Do Hyeon', sans-serif;
 		  
 
 		  </div>
-
-				
-				
-	
-		    
-		    
-		    
-		    
-		  </div>
-		</form>
-				
-				
-				
-				
-			</span>
-		</div>
-		
-		  
-
-		
-
-	
-</body>
-</html>
-
-
-
-
-		  
-		  
-		  
-		  
-		  
-
-		<!-- form Start /////////////////////////////////////-->
-		
- 	</div>
-</body>
-</html>

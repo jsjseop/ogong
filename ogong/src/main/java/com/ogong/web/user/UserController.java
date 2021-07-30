@@ -129,12 +129,15 @@ public class UserController {
 	
 	
 	@GetMapping("list")
-	public String list(HttpSession session, Model model, String email) throws Exception{
+	public String list(HttpSession session, Model model) throws Exception{
 		
+		System.out.println("리스트시작");
 		User user = (User) session.getAttribute("user");
-		
+		System.out.println("중간");
+		String email = user.getEmail();
+		System.out.println("또 중간");
 		List<Board> list = userService.list(email);
-		
+		System.out.println("더 중간 ::: "+list);
 		model.addAttribute("list", list);
 		
 		

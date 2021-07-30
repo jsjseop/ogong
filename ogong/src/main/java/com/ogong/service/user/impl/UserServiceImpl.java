@@ -138,10 +138,8 @@ public class UserServiceImpl implements UserService{
 
 	public List<Board> list(String email) throws Exception {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put(email, email);
 		
-		return userDAO.list(map);
+		return userDAO.list(email);
 	}
 
 
