@@ -88,14 +88,14 @@ text-align:center;
 
 					<input type="text" class="form-control" name="boardTitle" id="title" placeholder="제목을 입력해 주세요"
 					value="${boardTitle}">
-
+					<input type="hidden" name="boardCategory" id="boardCategory" value="${boardCategory}"/>
 				</div>				
 
 				<div class="mb-3">
 
 					<label for="content">내용</label>
 
-					<textarea class="form-control" rows="5" name="boardContent" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
+					<textarea class="form-control" rows="5" name="boardContents" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
 
 				</div>
 			

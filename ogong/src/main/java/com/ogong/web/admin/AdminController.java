@@ -54,7 +54,8 @@ public class AdminController {
 	
 	
 	@PostMapping("addReport")
-	public String addReport( @ModelAttribute("report") Report report, 
+	public String addReport( @ModelAttribute("report") Report report,
+							 HttpServletRequest request,
 							 HttpSession session,
 							 Model model) throws Exception{
 		
@@ -67,13 +68,13 @@ public class AdminController {
 		
 		System.out.println("report 확인 :::: "+report);
 
-		
+		String referer = request.getHeader("Referer");
 
 		
 		adminService.addReport(report);
 		
 		
-		return "index";
+		return "redirect:"+ referer;
 		
 	}
 	
@@ -232,7 +233,7 @@ public class AdminController {
 	}
 	
 	
-	@PostMapping("updateRestoreUser")
+	/*@PostMapping("updateRestoreUser")
 	public String updateRestoreUser(@ModelAttribute("report")Report report,Model model,
 									@RequestParam("receiveReporter")String email,
 								    @RequestParam("suspendType") String suspendType) throws Exception {
@@ -244,10 +245,10 @@ public class AdminController {
 		
 		report.setReceiveReporter(user);
 		
-		//adminService.updateUserRestore(report);
+		adminService.updateUserRestore(report);
 		
 		return "redirect:/admin/listUserReport";
-	}
+	}*/
 	
 	
 	@GetMapping("reportModal")

@@ -20,9 +20,7 @@
 		var reportReason = $("textarea[name='reportReason']").val();
 		
 		
-		alert(receiveReporter);
-		alert(reportBoard);
-		alert(reportReason);
+
 
 		
 
@@ -72,9 +70,21 @@
 						
 		<!-- 필수) 작성자 이메일은 기본적으로 나옴 신고 받는 사람의 이메일 -->
 						<div class="form-group" >
+							<c:if test = "${!empty board.boardTitle}">
+							<label>게시글 작성자 이메일</label>
+							<input type="text" class="form-control" id="receiveReporter" name="receiveReporter.email" 
+							maxLength="512" style="height: 30px" value="${board.writer.email}" ></input>
+							</c:if>
+							<c:if test = "${!empty answer.answerTitle}">
 							<label>작성자 이메일</label>
 							<input type="text" class="form-control" id="receiveReporter" name="receiveReporter.email" 
 							maxLength="512" style="height: 30px" value="${board.writer.email}" ></input>
+							</c:if>	
+							<c:if test = "${!empty message.receiver.email || !empty message.sender.email }">
+							<label>해당 유저 이메일</label>
+							<input type="text" class="form-control" id="receiveReporter" name="receiveReporter.email" 
+							maxLength="512" style="height: 30px" value="${message.receiver.email}" ></input>
+							</c:if>
 						</div>
 		<!-- 각 테이블마다 신고 출력과 삽입이 다르기 때문에 if문으로 구분 -->				
 						<div class="form-group" >
@@ -86,7 +96,7 @@
 							maxLength="512" style="height: 30px" value="${board.boardTitle}" readonly></input>
 							</c:if>
 							<c:if test = "${!empty answer.answerTitle}">
-							<label>게시글 제목</label>
+							<label>답변 내용</label>
 							<input type="text" class="form-control" id="answerTitle" name="reportAnswer.answerTitle" 
 							maxLength="512" style="height: 30px" value="${answer.answerTitle}" readonly></input>
 							</c:if>							

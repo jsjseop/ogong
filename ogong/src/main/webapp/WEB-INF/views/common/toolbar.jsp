@@ -10,15 +10,31 @@
 	width: 120px;
 	height: 50px;
 }
+
+	
+#hard {
+  width: 160px;
+  height: 80px;
+  object-fit: cover;
+  left: 50%;
+  margin-right: 3.5rem !important;
+  text-align : right;
+}
+
+#detail{
+	text-align: center; 
+}
 </style>
 
 <!-- Theme style -->
 <link rel="stylesheet" href="/resources/css/adminlte.min.css">
 <!-- Bootstrap 4 -->
 <script src="/resources/javascript/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/resources/javascript/adminlte.min.js"></script>
+
 <script src="https://kit.fontawesome.com/e3409dba93.js"></script>
+
+
+
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -39,7 +55,7 @@
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">자율스터디</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">자율스터디목록</a></li>
+              <li><a href="#" class="dropdown-item" id="free">자율스터디</a></li>
               <li><a href="#" class="dropdown-item">모집게시판</a></li>
             </ul>
           </li>
@@ -47,18 +63,32 @@
             <a  class="nav-link">그룹스터디</a>
           </li>
           <li class="nav-item">
-            <a  class="nav-link">정보공유게시판</a>
-          </li>
-          <li class="nav-item">
-            <a  class="nav-link">Q&A게시판</a>
-          </li>
+            <a  class="nav-link">공부기록</a>
+          </li>      
           <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">쉼터게시판</a>
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">게시판</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a class="dropdown-item">자유게시판</a></li>
-              <li><a class="dropdown-item">합격후기게시판</a></li>
+              <li><a href="#" class="dropdown-item">정보공유게시판 </a></li>
+              <li><a href="#" class="dropdown-item">Q&A게시판</a></li>
+
+              <li class="dropdown-divider"></li>
+
+              <!-- Level two dropdown-->
+              <li class="dropdown-submenu dropdown-hover">
+                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">쉼터게시판</a>
+                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                  <li>
+                    <a tabindex="-1" href="#" class="dropdown-item">자유게시판</a>
+                  </li>
+                  <li>
+                    <a tabindex="-1" href="#" class="dropdown-item">합격후기게시판</a>
+                  </li>                  
+                  
+                </ul>
+              </li>
+              <!-- End Level two -->
             </ul>
-          </li> 
+          </li>                  
           <li class="nav-item">
             <a class="nav-link">관리자</a>
           </li>                                                 
@@ -71,13 +101,10 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown" id="noticeCount">
         
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            
+          <a class="nav-link" data-toggle="dropdown" href="#">            
             <i class="far fa-bell"></i>	
-            
           </a>
-          
-          
+                   
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
@@ -100,25 +127,38 @@
           </div>
         </li>
         
-        
-        <li class="nav-item dropdown">
+      <li class="dropdown">
           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
           	<i class="fas fa-th-large"></i>
           </a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">프로필</a></li>
-              <li><a href="#" class="dropdown-item">로그아웃</a></li>
-              <li><a href="#" class="dropdown-item">쪽지</a></li>
-              <li><a href="#" class="dropdown-item">공부기록</a></li>
-              <li><a href="#" class="dropdown-item">나의스터디</a></li>
-              <li><a href="#" class="dropdown-item">나의게시글</a></li>
-              <li><a href="#" class="dropdown-item">바나나 조회</a></li>
-              <li><a href="#" class="dropdown-item">회원탈퇴</a></li>
-            </ul>          
-        </li>
-            
-        
-        
+
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="#" class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media" id="media">
+              <!-- <img src="/resources/images/jjang.jpg" alt="User Avatar" class="img-size-60 mr-4 img-circle"> -->
+              <div class="media-body">
+              	<h3 class="dropdown-item-title">&nbsp&nbsp</h3>
+                <h3 class="dropdown-item-title" id="nickname"></h3>
+                <h3 class="dropdown-item-title" id="email"></h3>
+              </div>
+            </div>
+            <span id="detail">
+              <a class="btn  btn-sm">&nbsp</a>
+              <a class="btn  btn-sm">프로필</a>
+              <a class="btn  btn-sm">쪽지</a>
+              <a class="btn  btn-sm">로그아웃</a>
+              <a class="btn  btn-sm">바나나조회</a>
+              <a class="btn  btn-sm">&nbsp</a>
+              <a class="btn  btn-sm">&nbsp</a>
+              <a class="btn  btn-sm">나의게시글</a>
+              <a class="btn  btn-sm">나의스터디</a>
+              <a class="btn  btn-sm">회원탈퇴</a>
+            </span>
+          </a>
+        </div>
+      </li>        
+      
       </ul>
     </div>
   </nav>
@@ -137,9 +177,7 @@
 	   	
 	   	
 	   	function noticeCount() {
-	   		
-	   		
-	   		
+
 	   			$.ajax(
 	   					{
  					url : "/integration/json/getNoticeCount/"+email ,
@@ -150,13 +188,14 @@
 						"Content-Type" : "application/json"	 						
  					} ,
 	   				success : function(JSONData, status){
-	   					/* alert(JSONData); */
+	   					
    						if (JSONData != 0){
 							let display = "<span class='badge badge-danger navbar-badge' id='test'>"+JSONData+"</span>";
 							$('#noticeCount > a > i').append(display); 
    						}
 	   				}
 	   			});	   		
+	   	
 	   	};
 	   	
 	   	$('#noticeCount').on('click', function(){
@@ -243,7 +282,7 @@
 	 		 						
 	 		 						if(JSONData[i].noticeCategory == '1'){
 	 			 						display = "<h3 class='dropdown-item-title'>"
-	 			 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+	 			 								+ "<a href='/board/getBoard?boardNo="+JSONData[i].noticeBoard.boardNo+"'>"+JSONData[i].noticeBoard.boardTitle+"의 게시글에</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -253,7 +292,7 @@
 	 			 					}
 	 		 						else if (JSONData[i].noticeCategory == '2'){
 		 		 						display = "<h3 class='dropdown-item-title'>"
-		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+		 		 								+ "<a href='/board/getBoard?boardNo="+JSONData[i].noticeBoard.boardNo+"'>"+JSONData[i].noticeBoard.boardTitle+"의 게시글에</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -263,7 +302,7 @@
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '3'){
 		 		 						display = "<h3 class='dropdown-item-title'>"
-		 		 								+ JSONData[i].noticeBoard.boardTitle+"의 게시글에"
+		 		 								+ "<a href='/board/getBoard?boardNo="+JSONData[i].noticeBoard.boardNo+"'>"+JSONData[i].noticeBoard.boardTitle+"의 게시글에</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -273,7 +312,7 @@
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '4'){
 		 		 						display = "<h3 class='dropdown-item-title'>"
-		 		 								+ JSONData[i].noticeStudy.studyName+"의 스터디에"
+		 		 								+ "<a href='/study/getStudy?studyNo="+JSONData[i].noticeStudy.studyNo+"'>"+JSONData[i].noticeStudy.studyName+"의 스터디에"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -308,12 +347,12 @@
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
 		 		 								+ "</h>"
-		 		 								+ "<p class='text-sm'>개인별 목표시간이 완료되었습니다.</p>"
+		 		 								+ "<p class='text-sm'>목표시간이 완료되었습니다.</p>"
 		 		 								+ "<p class='text-sm text-muted'><i class='far fa-clock mr-1'></i>"+JSONData[i].noticeDate+"</p>";
 		 		 					}
 	 		 						else if (JSONData[i].noticeCategory == '7'){
 		 		 						display = "<h3 class='dropdown-item-title' id='notice'>"
-		 		 								+ JSONData[i].sender.email+" 님에게"
+		 		 								+ "<a href=/integration/listSendMessage style=' font-weight:0;'>"+JSONData[i].sender.email+" 님에게</a>"
 		 		 								+ "<span class='float-right text-sm text-danger'>"
 		 		 								+ "<a href='javascript:deleteNotice("+JSONData[i].noticeNo+")'><i class='fas fa-star' style='color:red;'></i></a>"
 		 		 								+ "</span>"
@@ -336,6 +375,35 @@
 		 
 	 	
 	 };
+	 
+ 		$.ajax({
+			
+			url : "/admin/json/adminGetUser/"+email,
+			method : "GET" ,
+			dataType : "json" ,
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			
+			success : function(JSONData, status){
+				
+				
+				
+				var display2 = JSONData.email;
+				var display3 = JSONData.nickname;
+				if(JSONData.userImage == null){
+					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/basic.jpg' alt='User Avatar' id='hard' class='img-circle'>";
+					$('#media').append(display);	
+				}else if(JSONData.userImage != null){
+					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/"+JSONData.userImage+"' alt='User Avatar' id='hard' class='img-circle'>";
+					$('#media').append(display);
+				}
+				$('#email').html(display2);
+				$('#nickname').html(display3);
+			}
+			
+		})	  
 	 	
    	</script>
    	
@@ -346,7 +414,7 @@
 		}) ;   	
    	   	
 		//=============  자율스터디목록 Event  처리 =============
-	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
+	 	$( "#free" ).on("click" , function() {
 	 		location.href = "/study/listStudy?studyType=self";
 		});
 		
@@ -392,9 +460,9 @@
 	 	});	 
 	 	
 	 	//=============  프로필 Event  처리 =============
-	 	$( "a:contains('프로필')").on("click", function(){
-	 		location.href = "/";
-	 	});	 
+ 	 	$( "a:contains('프로필')").on("click", function(){
+	 		location.href = "/user/getProfile/#myModal";
+	 	});	  
 	 	
 	 	//=============  로그아웃 Event  처리 =============
 	 	$( "a:contains('로그아웃')").on("click", function(){
@@ -417,18 +485,23 @@
 	 	});	 
 	 	
 	 	//=============  나의 게시글 Event  처리 =============
-	 	$( "a:contains('나의 게시글')").on("click", function(){
-	 		location.href = "/";
+	 	$( "a:contains('나의게시글')").on("click", function(){
+	 		location.href = "/user/list";
 	 	});	 
 	 	
 	 	//=============  바나나 조회 Event  처리 =============
-	 	$( "a:contains('바나나 조회')").on("click", function(){
+	 	$( "a:contains('바나나조회')").on("click", function(){
 	 		location.href = "/banana/listBanana";
 	 	});
-	 	
+	 	//=============  비밀번호변경 Event  처리 =============
+	 	$( "a:contains('비밀번호 변경')").on("click", function(){
+	 		location.href = "/user/Changedpassword";
+	 	});	
 	 	//=============  회원탈퇴 Event  처리 =============
 	 	$( "a:contains('회원탈퇴')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/withdrawreason";
 	 	});	 	 	
 	
-	</script> 
+	</script>
+	
+	<jsp:include page="../userView/getProfile.jsp" /> 

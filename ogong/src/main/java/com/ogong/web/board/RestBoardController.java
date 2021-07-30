@@ -27,7 +27,9 @@ import com.ogong.service.domain.Answer;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
 import com.ogong.service.domain.File;
+import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
+import com.ogong.service.integration.IntegrationService;
 
 //@Controller
 @RestController
@@ -37,7 +39,9 @@ public class RestBoardController {
     @Autowired
     BoardService boardService;
 
-
+    @Autowired
+    IntegrationService integrationService;
+    
 	@PostMapping("/json/addBoard")
 	public int addBoard(MultipartHttpServletRequest request, @ModelAttribute("board") Board board) throws Exception {
 		List<MultipartFile> fileList = request.getFiles("file");
@@ -83,8 +87,17 @@ public class RestBoardController {
 	}  
     
     @PostMapping("addComment")
-	public Boolean addComment(HttpServletRequest request, HttpSession session, @RequestBody Comment comment) throws Exception {
+	public Boolean addComment(HttpServletRequest request, HttpSession session, @RequestBody Comment comment, Notice notice) throws Exception {
     	User user = (User)session.getAttribute("user");
+    	
+    	// 알림 처리를 위한 인서트~
+    	Board board = boardService.getNoticeBoard(comment.getBoardNo());
+    	notice.setNoticeUser(board.getWriter());
+    	notice.setNoticeBoard(board);
+    	notice.setNoticeCategory("1");
+    	notice.setNoticeCondition("2");
+    	integrationService.addNotice(notice);
+
 		comment.setCommentWriter(user);
 		
 		return boardService.addComment(comment);
@@ -122,10 +135,19 @@ public class RestBoardController {
        	HttpSession session = request.getSession();
        	User user = (User)session.getAttribute("user");
        	answer.setAnswerWriter(user);
+
        		
    		boardService.updateAnswer(answer);
    		return "/board/getBoard";
+
+
+       	
+       	boardService.updateAnswer(answer);
+       	
+   		return true;
+
        }
+       
        
       @PostMapping("deleteAnswer")
    	public Boolean deleteAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
@@ -134,6 +156,7 @@ public class RestBoardController {
        	answer.setAnswerWriter(user);
    		
        	return boardService.deleteAnswer(answer);
+
        }
        
    	@PostMapping("/json/listStudyBoard/")

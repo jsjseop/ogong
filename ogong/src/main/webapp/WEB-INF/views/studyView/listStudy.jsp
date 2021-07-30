@@ -4,6 +4,7 @@
 
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>스터디 목록</title>
 <!-- <link rel="stylesheet" href="/resources/css/adminlte.min.css"> -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

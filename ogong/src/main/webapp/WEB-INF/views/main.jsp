@@ -36,7 +36,10 @@ div h5 {
 	<div class="content-wrapper">
 
 		<!-- Main content -->
+
 		<div class="content">
+		<div class="content" style="padding-top:7px">
+
 			<div class="container">
 			
 				<div class="row">
@@ -170,10 +173,55 @@ div h5 {
 												<c:set var="i" value="${i+1}" />
 												<tr>
 													<td>${i}위</td>
+
 													<td>${answer.answerWriter.email}</td>
 													<td>${answer.adoptionCount}</td>
 												</tr>
 											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							
+							<div class="card col-lg-4">
+								<div class="card-header border-0">
+									<h3 class="card-title" align="center">채택수 랭킹</h3>
+								</div>
+								<div class="card-body table-responsive p-0">
+									<table class="table table-striped table-valign-middle">
+										<thead align="center">
+											<tr>
+												<th>순 위</th>
+												<th>닉네임</th>
+												<th>채택수</th>
+											</tr>
+										</thead>
+										<tbody align="center">
+											<c:set var="i" value="0" />
+											<c:forEach var="answer" items="${list}">
+												<c:set var="i" value="${i+1}" />
+												<tr>
+													<td>${i}위</td>
+													<td>${answer.answerWriter.email}</td>
+													<td>${answer.adoptionCount}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+					</div> <!-- row -->
+			</div> <!-- container-fluid -->
+				
+		</div>
+	</div>
+
+</body>
+
+													<td>${answer.answerWriter.nickname}</td>
+													<td>${answer.adoptionCount}</td>
+												</tr>
+										<%-- </c:forEach> --%>
 										</tbody>
 									</table>
 								</div>

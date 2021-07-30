@@ -1,14 +1,9 @@
 package com.ogong.common.web;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.ogong.service.domain.User;
@@ -30,5 +25,21 @@ public class LogonCheckInterceptor implements HandlerInterceptor{
 	            
 	        return true; // 로그인 된 경우 다음 인터페이스나 페이지 컨트롤러를 실행
 	    }
-	
+
+	  
+		/*
+		 * @Override public void postHandle(HttpServletRequest request,
+		 * HttpServletResponse response, Object handler, ModelAndView modelAndView){
+		 * 
+		 * 
+		 * HttpSession session = request.getSession(); User loginusUser = (User)
+		 * session.getAttribute("user"); System.out.println("인터셉터 : " + loginusUser);
+		 * 
+		 * if (loginusUser == null) {
+		 * 
+		 * }
+		 * 
+		 * 
+		 * }
+		 */
 }

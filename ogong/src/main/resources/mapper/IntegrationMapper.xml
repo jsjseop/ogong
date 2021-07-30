@@ -102,7 +102,8 @@
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE receiver_email = #{message.receiver.email}
-											 AND   message_category = 1		      									
+											 AND   message_category = 1	
+											 ORDER BY send_date DESC     									
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
@@ -120,7 +121,8 @@
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE sender_email = #{message.sender.email}
-											 AND   message_category = 2		      									
+											 AND   message_category = 2	
+											 ORDER BY send_date	DESC      									
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
@@ -162,12 +164,13 @@
 	<select id="listChooseCountRanking" parameterType="hashmap" resultMap="AnswerSelectMap">
 		SELECT outer_table.*
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-						FROM		( SELECT inner.email, inner.adoption_count
-											 FROM (SELECT email,  COUNT(adoption_flag) adoption_count
-											 	   FROM	  ANSWER
-											 	   WHERE  adoption_flag = '1'
-											 	   GROUP BY email) inner
-											 	   ORDER BY inner.adoption_count DESC
+						FROM		( SELECT inner.email, inner.nickname, inner.adoption_count             
+										FROM (SELECT a.email, u.nickname,  COUNT(a.adoption_flag) adoption_count                 
+											FROM   ANSWER a, users u           
+											WHERE  adoption_flag = '1'                 
+											   AND   a.email = u.email                 
+											GROUP BY a.email, u.nickname ) inner                 
+											ORDER BY inner.adoption_count DESC
 											 ) inner_table
 											 
 						   				WHERE ROWNUM &lt;= 5) outer_table
@@ -212,7 +215,9 @@
 		notice_no, 
 		notice_category,
 		TO_CHAR(notice_date, 'YYYY-MM-DD HH24:MI:SS') notice_date,
+		board_no,
 		board_title, 
+		study_no,
 		study_name, 
 		approval_flag, 
 		sender_email, 
