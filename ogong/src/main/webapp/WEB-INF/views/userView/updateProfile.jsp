@@ -3,12 +3,18 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link rel="stylesheet" href="/resources/css/up.css">
+	
+	
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6/css/bootstrap.min.css" >
@@ -28,7 +34,11 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/resources/javascript/demo.js"></script>
 
+
+
 <script type="text/javascript">
+
+
 
 
 /////////////////////////////////////////////////////////// 관심사 
@@ -120,6 +130,9 @@
 	
 </script>
 	<style>
+
+	
+	
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 }      
@@ -145,9 +158,7 @@ font-family: 'Do Hyeon', sans-serif;
 		  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 
 		
-		<input type="file" name="profile_pt" id="profile_pt"  id="userImage" name="userImage value="${user.userImage}"  onchange="previewImage(this,'View_area')">
-<div id='View_area' style='position:relative; width: 100px; height: 100px; color: black; border: 0px solid black; dispaly: inline; '></div>
-		
+
 		
 		
 		  <div class="form-group">

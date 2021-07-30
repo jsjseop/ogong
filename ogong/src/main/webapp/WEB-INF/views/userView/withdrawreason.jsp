@@ -84,22 +84,12 @@
 	
 </script>
 
-	<style>
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
-font-family: 'Do Hyeon', sans-serif;
-}      
-     </style>
 <style >
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 
 }
 </style>
-	<style>
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');body, table, div, p, th, td{
-font-family: 'Do Hyeon', sans-serif;
-}      
-     </style>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
@@ -112,31 +102,11 @@ font-family: 'Do Hyeon', sans-serif;
 	<br><br/>
 		
 		<!-- form Start /////////////////////////////////////-->
-
-
-				
-				
-	
-<!-- 모달 영역 -->
-<div class="container">
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="container">
-
-			<form class="form-horizontal" enctype="multipart/form-data">
+		<form class="form-horizontal" enctype="multipart/form-data">
 
 
 		
-				<h1 class="text-center">회원 탈퇴</h1>
+				<h1 class="bg-info text-center">회원 탈퇴</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" enctype="multipart/form-data">
@@ -145,14 +115,14 @@ font-family: 'Do Hyeon', sans-serif;
 		  <div class="form-group">
 		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+		      <input type="password" class="form-control" id="password" name="password" placeholder="변경비밀번호">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">비밀번호 확인</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인">
+		      <input type="password" class="form-control" id="password2" name="password2" placeholder="변경비밀번호 확인">
 		    </div>
 		  </div>
 		  		  <div class="form-group">
@@ -178,3 +148,42 @@ font-family: 'Do Hyeon', sans-serif;
 		  
 
 		  </div>
+
+				
+				
+	
+		    
+		    
+		    
+		    
+		  </div>
+		</form>
+				
+				
+				
+				
+			</span>
+		</div>
+		
+		  
+
+		
+
+	
+</body>
+</html>
+
+
+
+
+		  
+		  
+		  
+		  
+		  
+
+		<!-- form Start /////////////////////////////////////-->
+		
+ 	</div>
+</body>
+</html>

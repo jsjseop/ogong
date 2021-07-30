@@ -95,6 +95,7 @@ font-family: 'Do Hyeon', sans-serif;
 				<tr>
 					<th align="left">작성일</th>
 					<th align="left">제목</th>
+					<th align="left">댓글수</th>
 					<th align="left">조회수</th>
 				</tr>
 				  			  <input type="hidden" id="email" name="email"	value="${user.email}"/>  <!--  히든값 -->
@@ -103,10 +104,11 @@ font-family: 'Do Hyeon', sans-serif;
 							<tr>
 								<td align="left" >${board.boardRegDate}</td>
 								<td align="left" >${board.boardTitle}</td>
+								<td align="left" >${board.commentCount}</td>
 								<td align="left" >${board.viewCount}</td>
 							</tr>   
 						</c:forEach>
-				
+			
 			</thead>
 			<tbody id="tableBody"></tbody>
 		</table>
