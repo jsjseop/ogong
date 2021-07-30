@@ -1,5 +1,7 @@
 package com.ogong.service.user;
 
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +22,6 @@ public interface UserService {
 	  public User getUser(User email) throws Exception;
 		  
 	  
-		//게시물보기
-		List<Board> boardlist (int boardNo) throws Exception;
 
 	  	  
 	   //프로필 보기
@@ -45,11 +45,13 @@ public interface UserService {
 	 // 회원복구
 		void restore(User user) throws Exception;
 
+	//List<Board> list(Board user) throws Exception;
+
+
+
+
 		
-	// 내 게시판 리스트	
-	//	public List<Board> myboardlist() throws Exception;
-		
-		public List<Board> getList();
+	
 		
 	// 닉네임 중복확인
 		public int idCheck(String nickname) throws Exception;
@@ -70,7 +72,12 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 
-		List<Board> myboardlist(Map<String, Object> map) throws Exception;
+
+
+
+
+		//게시판 조회
+		List<Board> list(String email) throws Exception;
 
 
 

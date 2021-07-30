@@ -225,16 +225,18 @@
 			}
 		});
 	}
-
 	
 	$(function(){
 		
-		/*  		$("body #div3 #listComment").on("click", function(){
+		/*  		
+				$("body #div3 #listComment").on("click", function(){
 					alert("asdasd");
-					$("#myModal3").find('#receiver2').val($(this).find('#writer1').val());
-				    $("#myModal3").find('#receiver2').val($(this).find('input').val()); 
-					$("#myModalReport2").find('#commentContents2').val("값이 들어가는지 확인");
-				});  */
+				$("#myModal3").find('#receiver2').val($(this).find('#writer1').val());
+				$("#myModal3").find('#receiver2').val($(this).find('input').val()); 
+				$("#myModalReport2").find('#commentContents2').val("값이 들어가는지 확인");
+				});  
+		*/
+
 
 		 		$(document).on('click','.dropdown',function(){
 
@@ -281,7 +283,7 @@
 		 				})  	          
 		 	     });  
 			
-			})
+			});
 
 
 	function more() {
@@ -363,6 +365,8 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 	<jsp:include page="../integrationView/addSendMessage2.jsp" />
 	<jsp:include page="../integrationView/addSendMessage3.jsp" />
 
+<%-- 	<jsp:include page="../integrationView/addSendMessage3.jsp" / > --%>
+
 	<div class="container" id="div1">
 		<div class="page-header">
 		<br/>
@@ -383,7 +387,9 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop1">
 
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
+
 				    <input type="hidden" id="boardWriter" value="${board.writer.email}" /></a></li>
+
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
 					<input type="hidden" value="${board.writer.email}" /></a></li>
 				</ul>

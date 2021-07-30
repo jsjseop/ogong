@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,19 +24,19 @@ import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.integration.IntegrationService;
-import com.ogong.service.study.StudyService;
 import com.ogong.service.studyroom.StudyroomService;
+import com.ogong.service.user.UserService;
 
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/studyroom/*")
 public class RestStudyroomController {
 	
 	@Autowired
-	private StudyService studyService;
+	private StudyroomService studyroomService;
 	
 	@Autowired
-	private StudyroomService studyroomService;
+	private UserService userService;
 	
 	@Autowired
 	private BananaService bananaService;
@@ -171,6 +172,14 @@ public class RestStudyroomController {
 		 
 		
 		return result;
+	}
+	
+	@GetMapping("json/getUser/{email}")
+	public User getUser(@PathVariable String email, HttpServletResponse response) throws Exception {
+		
+		User user = userService.getProfile(email);
+		
+		return user;
 	}
 	
 }

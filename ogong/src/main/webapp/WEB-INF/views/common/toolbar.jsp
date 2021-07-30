@@ -131,6 +131,7 @@
           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
           	<i class="fas fa-th-large"></i>
           </a>
+
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
@@ -158,9 +159,6 @@
         </div>
       </li>        
       
-            
-        
-        
       </ul>
     </div>
   </nav>
@@ -462,9 +460,9 @@
 	 	});	 
 	 	
 	 	//=============  프로필 Event  처리 =============
-	 	$( "a:contains('프로필')").on("click", function(){
-	 		location.href = "/";
-	 	});	 
+ 	 	$( "a:contains('프로필')").on("click", function(){
+	 		location.href = "/user/getProfile/#myModal";
+	 	});	  
 	 	
 	 	//=============  로그아웃 Event  처리 =============
 	 	$( "a:contains('로그아웃')").on("click", function(){
@@ -488,17 +486,22 @@
 	 	
 	 	//=============  나의 게시글 Event  처리 =============
 	 	$( "a:contains('나의게시글')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/list";
 	 	});	 
 	 	
 	 	//=============  바나나 조회 Event  처리 =============
 	 	$( "a:contains('바나나조회')").on("click", function(){
 	 		location.href = "/banana/listBanana";
 	 	});
-	 	
+	 	//=============  비밀번호변경 Event  처리 =============
+	 	$( "a:contains('비밀번호 변경')").on("click", function(){
+	 		location.href = "/user/Changedpassword";
+	 	});	
 	 	//=============  회원탈퇴 Event  처리 =============
 	 	$( "a:contains('회원탈퇴')").on("click", function(){
-	 		location.href = "/";
+	 		location.href = "/user/withdrawreason";
 	 	});	 	 	
 	
-	</script> 
+	</script>
+	
+	<jsp:include page="../userView/getProfile.jsp" /> 
