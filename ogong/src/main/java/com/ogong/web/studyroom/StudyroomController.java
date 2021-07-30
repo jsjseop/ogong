@@ -1,5 +1,7 @@
 package com.ogong.web.studyroom;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +38,18 @@ public class StudyroomController {
 	}
 	
 	@GetMapping("getStudyRoom")
-	public String getStudyRoom ( @RequestParam("studyNo") String studyNo,
+	public String getStudyRoom ( @RequestParam("studyNo") int studyNo,
 								Model model, HttpSession session) throws Exception{
-		
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("studyNo", studyNo);
+		map.put("email", ((User)session.getAttribute("user")).getEmail());
+				
 		model.addAttribute("studyNo", studyNo);
+		model.addAttribute("study", studyService.getStudy(studyNo));
+		model.addAttribute("list", studyroomService.getGSMemberList(studyNo));
+		model.addAttribute("result", studyroomService.getAttendanceList(map));
+		System.out.println("ㅇ");
 		
 		return "/studyroomView/getStudyRoom";
 	}
@@ -64,7 +74,8 @@ public class StudyroomController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("studyNo", studyNo);		
+		model.addAttribute("studyNo", studyNo);
+		model.addAttribute("study",studyService.getStudy(studyNo));
 		return "/studyroomView/listParticipation";
 	}
 	
@@ -77,36 +88,32 @@ public class StudyroomController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("studyNo", studyNo);
+		model.addAttribute("study", studyService.getStudy(studyNo));
 		
 		return "/studyroomView/listGroupStudyMember";
-	}
-	
-	@GetMapping("getStudyroomInfo")
-	public String getStudy ( @RequestParam("studyNo") int studyNo,
-								Model model ) throws Exception{
-		
-		
-		model.addAttribute("study", studyService.getStudy(studyNo));
-		model.addAttribute("studyNo", studyNo);
-		
-		return "/studyroomView/getStudyRoomInfo";
 	}
 	
 	@GetMapping("updateStudy")
 	public String updateStudyView ( @RequestParam("studyNo") int studyNo,
 									Model model) throws Exception{
 		
+		model.addAttribute("studyNo", studyNo);
 		model.addAttribute("study", studyService.getStudy(studyNo));
 		
 		return "/studyroomView/updateStudyRoom";
 	}
 	
 	@PostMapping("updateStudy")
-	public String updateStudy( @ModelAttribute("study") Study study) throws Exception {
+	public String updateStudy( @ModelAttribute("study") Study study,
+								Model model) throws Exception {
 		
 		studyroomService.updateStudy(study);
 		
-		return "/studyroomView/getStudyRoomInfo";
+		model.addAttribute("studyNo", study.getStudyNo());
+		model.addAttribute("study",study);
+		
+		return "redirect:/studyroom/getStudyRoom";
+
 	}
 	
 	@PostMapping("addAttendance")

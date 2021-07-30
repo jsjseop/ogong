@@ -12,8 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script>
-
-
     let boardNo = "<c:out value='${board.boardNo}'/>";
 	let boardCategory = "<c:out value='${board.boardCategory}'/>";
 	
@@ -21,14 +19,10 @@
 	let pageSize = 10;
 	
 	function fncDeleteBoard() {
-
 		if (confirm("삭제하시겠습니까?")) {
-
 			location.href = "/board/deleteBoard?boardNo="+`${board.boardNo}`+"&boardCategory="+`${board.boardCategory}`; 
 		}
 	}
-
-
 	
 	function recommend() {
 		var cnt = $('#cnt');
@@ -78,7 +72,6 @@
 					commentContents.text(record.commentContents);
 					commentRegDate.text(record.commentRegDate);
 					nickname.text(record.nickname);
-
 					commentContents.appendTo(li);
 					commentRegDate.appendTo(li);
 					nickname.appendTo(li);
@@ -99,7 +92,6 @@
 		$('#commentNo').val(commentNo);
 		$('#commentCts').text(commentContents);
 		$('#modal').show();
-
 	}
 	
 	function modalClose() {
@@ -200,7 +192,6 @@
 			}
 		});
 	}
-
 	function more() {
 		getCommentList('M');
 	}
@@ -214,24 +205,18 @@
 		
 		
 		$('button:contains("수 정")').on('click', function() {
-
 			location.href = "/board/updateBoard?boardNo=" + boardNo;
 		})
-
 		$('button:contains("삭 제")').on('click', function() {
-
 			fncDeleteBoard();
 		})
-
 		$('button:contains("목 록")').on('click', function() {
-
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
 		
 	
 		
 		$('#updatebtn').on('click', function() {
-
 			updateComment();
 		})
 		
@@ -243,20 +228,16 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
 	;
-
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
 }
-
 pre {
 	border: 0;
 	background-color: transparent;
 }
-
 td {
 	text-align: left !important;
 }
-
 #modal {
 	display: none;
 	width: 400px;
@@ -268,18 +249,15 @@ td {
 	border: 1px solid #e9e9e9;
 	z-index: 20;
 }
-
 pre:LINK, pre:VISITED {
 	text-decoration: none;
 	color: black;
 }
-
 pre:HOVER { /* 마우스 커서 올렸을때 */
 	text-decoration: underline;
 	color: #6E92A1;
 	font-weight: bold;
 }
-
 pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 	text-decoration: none;
 	color: black;
@@ -346,8 +324,6 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 			</div>
 		</div>
 		<hr />
-
-
 		<div align="right">
 			<div id="recommend" class="btn-sm btn-danger" onclick="recommend()"
 				style="width: 60px;">
@@ -358,20 +334,16 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 		<br/>
 			<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
 				<c:if test="${user.userId == board.email}"> --%>
-
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;"
 				data-toggle="modal" data-target="#myModalReport">신 고</button>
-
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;">수 정</button>
 			<%-- 				</c:if> --%>
-
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;">삭 제<input type="hidden" value="${message.sender.email}" />
 			</button>
 			<%-- 			</c:if> --%>
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;">목 록</button>
 		</div>
 	</div>
-
 	<div class="container">
 		<div>
 			<div>
@@ -398,7 +370,6 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 	
 	<div id="modal">
 		<input type="hidden" id="commentNo">
-
 		<textarea style="width: 500px" id="commentCts" rows="3" cols="30"
 			placeholder="수정할 내용을 입력하세요"></textarea>
 		<div>

@@ -341,7 +341,6 @@
    	</script>
    	
    	<script type="text/javascript">
-
 		//=============  오공 Event  처리 =============
 		$(".Ogong").on("click", function(){
 			location.href = "/integration/mainPage";
@@ -437,7 +436,3 @@
 	 	});	 	 	
 	
 	</script> 
-
-
-
-

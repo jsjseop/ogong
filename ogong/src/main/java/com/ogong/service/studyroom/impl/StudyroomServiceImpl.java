@@ -1,5 +1,6 @@
 package com.ogong.service.studyroom.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,18 @@ public class StudyroomServiceImpl implements StudyroomService {
 		public GroupStudyMember getGSMember(GroupStudyMember gsm) throws Exception {
 			// TODO Auto-generated method stub
 			return studyroomMapper.getGSMember(gsm);
+		}
+
+		@Override
+		public void updateMember(int studyNo) throws Exception {
+			// TODO Auto-generated method stub
+			studyroomMapper.updateMember(studyNo);
+		}
+
+		@Override
+		public List<Map<String, Object>> getAttendanceList(Map<String, Object> map) throws Exception {
+			
+			return studyroomMapper.getAttendanceList(map);
 		}
 		
 		
