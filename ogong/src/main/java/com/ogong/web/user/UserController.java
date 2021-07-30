@@ -105,6 +105,9 @@ public class UserController {
 	}
 	
 	
+	
+	
+	
 	// 로그인 화면
 	@GetMapping("loginView")
 	public String loginView() throws Exception {
@@ -395,6 +398,9 @@ public class UserController {
 			
 			return "success";	// 중복 닉네임 x
 		}
+		
+		
+
 	}
 }
 			

@@ -22,12 +22,7 @@
 		<result property="studyEndDate" 		column="study_end_date" 		jdbcType="VARCHAR" />
 		<result property="adoptionFlag" 		column="adoption_flag" 			jdbcType="VARCHAR" />
 
-		
-		
-<!-- 	<association property="StudyNo"  javaType="study">
-			<id property="studyNo" column="study_no" jdbcType="NUMERIC"/>
-		</association> -->
-		
+
 
  		<association property="writer"  javaType="user">
 			<id property="email" column="email" jdbcType="VARCHAR"/>

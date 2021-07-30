@@ -34,4 +34,8 @@ public interface StudyroomService {
 	public String checkAttendance(Map<String, Object> map ) throws Exception;
 	
 	public GroupStudyMember getGSMember(GroupStudyMember gsm) throws Exception;
+	
+	public void updateMember(int studyNo) throws Exception;
+	
+	public List<Map<String, Object>> getAttendanceList(Map<String, Object> map) throws Exception; 
 }

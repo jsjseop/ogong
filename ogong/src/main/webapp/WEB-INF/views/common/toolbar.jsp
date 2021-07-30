@@ -18,7 +18,7 @@
 <script src="/resources/javascript/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/resources/javascript/adminlte.min.js"></script>
-
+<script src="https://kit.fontawesome.com/e3409dba93.js"></script>
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -340,7 +340,6 @@
    	</script>
    	
    	<script type="text/javascript">
-
 		//=============  오공 Event  처리 =============
 		$(".Ogong").on("click", function(){
 			location.href = "/integration/mainPage";
@@ -348,7 +347,7 @@
    	   	
 		//=============  자율스터디목록 Event  처리 =============
 	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
-	 		location.href = "/selfStudy/listStudy?studyType=self";
+	 		location.href = "/study/listStudy?studyType=self";
 		});
 		
 	 	//=============  모집게시판 Event  처리 =============
@@ -358,7 +357,7 @@
 	 	});
 	 	//=============  그룹스터디 Event  처리 =============
 	 	$( "a:contains('그룹스터디')").on("click", function(){
-	 		location.href = "/study/listStudy";
+	 		location.href = "/study/listStudy?studyType=group";
 	 	});		 	
 	 	
 	 	//=============  정보공유게시판 Event  처리 =============
@@ -413,8 +412,8 @@
 	 	});	 
 	 	
 	 	//=============  나의 스터디 Event  처리 =============
-	 	$( "a:contains('나의 스터디')").on("click", function(){
-	 		location.href = "/";
+	 	$( "a:contains('나의스터디')").on("click", function(){
+	 		location.href = "/study/getMyStudy";
 	 	});	 
 	 	
 	 	//=============  나의 게시글 Event  처리 =============
@@ -433,7 +432,3 @@
 	 	});	 	 	
 	
 	</script> 
-
-
-
-
