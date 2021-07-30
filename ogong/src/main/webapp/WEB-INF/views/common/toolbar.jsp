@@ -106,7 +106,7 @@
           	<i class="fas fa-th-large"></i>
           </a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">프로필</a></li>
+              <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModal">프로필</a></li>
               <li><a href="#" class="dropdown-item">로그아웃</a></li>
               <li><a href="#" class="dropdown-item">쪽지</a></li>
               <li><a href="#" class="dropdown-item">공부기록</a></li>
@@ -393,9 +393,9 @@
 	 	});	 
 	 	
 	 	//=============  프로필 Event  처리 =============
-	 	$( "a:contains('프로필')").on("click", function(){
+/* 	 	$( "a:contains('프로필')").on("click", function(){
 	 		location.href = "/user/getProfile/#myModal";
-	 	});	 
+	 	});	  */
 	 	
 	 	//=============  로그아웃 Event  처리 =============
 	 	$( "a:contains('로그아웃')").on("click", function(){
@@ -418,8 +418,8 @@
 	 	});	 
 	 	
 	 	//=============  나의 게시글 Event  처리 =============
-	 	$( "a:contains('나의 게시글')").on("click", function(){
-	 		location.href = "/";
+	 	$( "a:contains('나의게시글')").on("click", function(){
+	 		location.href = "/user/list";
 	 	});	 
 	 	
 	 	//=============  바나나 조회 Event  처리 =============
@@ -435,4 +435,6 @@
 	 		location.href = "/user/withdrawreason";
 	 	});	 	 	
 	
-	</script> 
+	</script>
+	
+	<jsp:include page="../userView/getProfile.jsp" /> 

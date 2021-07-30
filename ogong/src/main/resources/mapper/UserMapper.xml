@@ -103,24 +103,13 @@
     file_flag
 FROM
     board
-
-    
     
 
-	</select> 
+	</select>  
 	
 
 	
-	
-	
 
-
-
-
-
-	
-	
-	
 <!-- 			<select id="getTotalCount"		parameterType="search"		resultType="int">
 						SELECT COUNT(*)
 						     FROM (	SELECT   board_email,board_boardTitle,board_viewCount

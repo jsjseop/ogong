@@ -92,18 +92,18 @@ font-family: 'Do Hyeon', sans-serif;
 		  </div>
 		 
  		 <div class="radio">
-<%--   <label>
-    <input type="radio" name="gender" id="gender" value="${user.gender}" checked>
+   <label>
+    <input type="radio" name="gender" id="gender" value="남성" checked>
     남성
   </label>
 </div>
 <div class="radio">
   <label>
-    <input type="radio" name="gender" id="gender" value="${user.gender}">
+    <input type="radio" name="gender" id="gender" value="여성">
     여성
   </label> 
 </div>
-<div class="radio disabled"> --%>
+<div class="radio disabled"> 
 
 </div>
 		 
@@ -126,7 +126,6 @@ font-family: 'Do Hyeon', sans-serif;
 				
 				
 	 			<select class="form-control" name="studyInterest1">
-						<option>관심사1</option>						
 						<option>${user.studyInterest1}</option>						
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
@@ -141,7 +140,6 @@ font-family: 'Do Hyeon', sans-serif;
 				</select> 
 				
 				<select class="form-control" name="studyInterest2">
-						<option>관심사2</option>
 						<option>${user.studyInterest2}</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>
@@ -156,7 +154,6 @@ font-family: 'Do Hyeon', sans-serif;
 				</select> 
 				
 				<select  class="form-control" name="studyInterest3"> 
-						<option>관심사3</option>
 						<option>${user.studyInterest3}</option>
 						<option value="어학">어학</option>
 						<option value="공무원">공무원</option>

@@ -97,7 +97,6 @@ font-family: 'Do Hyeon', sans-serif;
 					<th align="left">제목</th>
 					<th align="left">조회수</th>
 				</tr>
-			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
 				
 				<c:forEach items="${list}" var = "board">
 							<tr>
@@ -150,5 +149,6 @@ font-family: 'Do Hyeon', sans-serif;
 	
 </body>
 </html>
+  			  <input type="hidden" name="email"	value="${user.email}"/>  <!--  히든값 -->
   
  
