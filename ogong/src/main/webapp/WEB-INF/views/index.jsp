@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 	<c:if test="${ ! empty user }">
@@ -50,7 +50,7 @@
                         <hr class="divider" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 mb-5">гт╡╡го╦И ╟Ь╨н╟║ ╢У©М аЯ╟е©ЖаЬ╢ы !</p>
+                        <p class="text-white-75 mb-5">О©╫Б▒ёО©╫О©╫О©╫О╖▌О©╫ Ф─╗К⌠╛О©╫Е╙⌡О©╫ О©╫О©╫О©╫О©╫ О╖²О©╫Е╚└ЙЁ≈О©╫О©╫О╖·О©╫О©╫О©╫ !</p>
                         <a class="btn btn-primary btn-xl" href="#about">More</a>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="col-lg-8 text-center">
                         <h2 class="text-white mt-0">We are Together !</h2>
                         <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">юла╕ х╔юзгоаЖ ╦╤╪╪©Д,</br> ©Ьго╢б ╫╨ем╣П©║ бЭ©╘гь ╨╦╪╪©Д !</p>
+                        <p class="text-white-75 mb-4">О©╫К▄│О©╫О©╫ О©╫Л┤╠О©╫О©╫О©╫О©╫О╖·О©╫ О╖█О©╫О©╫К╙└О©╫О©╫,</br> О©╫О©╫О©╫О©╫О©╫О©╫ О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫О©╫О©╫ О╖║К╙└О©╫я▀О©╫О©╫ Х╧┌К▄│О©╫К╙└О©╫О©╫ !</p>
                         <a class="btn btn-light btn-xl" href="#services">Get Started</a>
                     </div>
                 </div>
@@ -79,28 +79,28 @@
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Sharing information</h3>
-                            <p class="text-muted mb-0">╢ы╬Ггя ╩Щ╟╒ю╩ ╟╝╟Мюж╢б дё╠╦╣И╟З </hr>╢ы╬Ггя а╓╨╦╦╕ ╠Ё╥Ы гь ╨╦╪╪©Д.</p>
+                            <p class="text-muted mb-0">О©╫Ц┘╪О©╫О©╫О©╫О©╫ О©╫О©╫Е╙⌡О©╫О©╫О©╫ Е╙⌡О©╫Ф─╗О©╫О©╫О©╫О©╫О©╫ Г╖╩О©╫Ф▐╢я┴О©╫Ц┘╨К┌╣ </hr>О©╫Ц┘╪О©╫О©╫О©╫О©╫ О©╫О©╫Х╧┌К▄─О©╫О©╫ Ф▐╢О©╫Г▒°О©╫ О©╫О©╫ Х╧┌К▄│О©╫К╙└О©╫О©╫.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Target Time</h3>
-                            <p class="text-muted mb-0">го╥Г ╦Яг╔ ╟Ь╨н╫ц╟ёю╩ ╪Ёа╓го╟М</br> ╦Яг╔╦╕ ╢ч╪╨ гь ╨╦╪╪©Д.</p>
+                            <p class="text-muted mb-0">О©╫О©╫Г▄╥О©╫ О╖▐Б▒╨О©╫О©╫ Ф─╗К⌠╛О©╫О©╫О©╫Е╙⌡О©╫О©╫О©╫ О©╫Ц┘╪О©╫О©╫О©╫О©╫Ф─╗О©╫</br> О╖▐Б▒╨О©╫О©╫Г▒°О©╫ О©╫я┼О©╫О©╫ О©╫О©╫ Х╧┌К▄│О©╫К╙└О©╫О©╫.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Anywhere</h3>
-                            <p class="text-muted mb-0">╫ц╟ё╟З юЕ╪р ╠╦╬ж╧чаЖ ╬й╟М<br/>©Ьго╢б ╫ц╟ё╟З юЕ╪р©║╪╜ аЯ╟э╨╦╪╪©Д.</p>
+                            <p class="text-muted mb-0">О©╫О©╫Е╙⌡О©╫Ф─╗О©╫ О©╫н╪О©╫О©╫ Ф▐╢я┼О©╫О©╫Х╚⌡О©╫О╖·О©╫ О©╫О©╫Ф─╗О©╫<br/>О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫Е╙⌡О©╫Ф─╗О©╫ О©╫н╪О©╫О©╫О©╫О©╫О©╫О©╫ О╖²О©╫Е╞┐Б▒╓К┌╚О©╫К╙└О©╫О©╫.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Made with Love</h3>
-                            <p class="text-muted mb-0">гт╡╡го╦И ╢У©М ╧Х╟║╣г╢б !</br> ╟╟юл ╟Ь╨нгр дё╠╦╣Ию╩ цё╬ф╨╦╪╪©Д.</p>
+                            <p class="text-muted mb-0">О©╫Б▒ёО©╫О©╫О©╫О╖▌О©╫ О©╫О©╫О©╫О©╫ Х╚⌡ЙЁ▄О©╫О©╫О©╫О©╫О©╫ !</br> Е╙⌡О©╫О©╫О©╫ Ф─╗К⌠╛О©╫О©╫О©╫ Г╖╩О©╫Ф▐╢я┴О©╫Ц┘╪О©╫О©╫ О╖║Л√═О©╫О©╫Х╧┌К▄│О©╫К╙└О©╫О©╫.</p>
                         </div>
                     </div>
                 </div>
@@ -113,29 +113,29 @@
  
                   
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="юзю╞╫╨ем╣П">
+                        <a class="portfolio-box" href="/" title="О©╫О©╫О©╫О©╫О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫">
                             <img class="img-fluid" src="../resources/images/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">╢╘╠╦Ё╙ юзю╞╥с╟т бЭ©╘╟║ ╟║╢игя</div>
-                                <div class="project-name">юзю╞╫╨ем╣П</div>
+                                <div class="project-category text-white-50">О©╫О©╫Ф▐╢я┴О©╫О©╫ О©╫О©╫О©╫О©╫Ф©║О©╫Е╞┐О©╫ О╖║К╙└О©╫я┬О©╫ Е╙⌡О©╫О©╫н╫О©╫О©╫</div>
+                                <div class="project-name">О©╫О©╫О©╫О©╫О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="╠в╥Л╫╨ем╣П">
+                        <a class="portfolio-box" href="/" title="Ф╢╧К╙┐О╪≥О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫">
                             <img class="img-fluid" src="../resources/images/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">ц╪╟ХюШюн ╫ц╫╨ешю╦╥н ╟Ь╨нх©ю╡ up</div>
-                                <div class="project-name">╠в╥Л╫╨ем╣П</div>
+                                <div class="project-category text-white-50">О╖ёК▀©О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫Ц┘╫О©╫О©╫О©╫Л┤╟О©╫ Ф─╗К⌠╛О©╫О©╫Б▒╔О©╫О©╫ up</div>
+                                <div class="project-name">Ф╢╧К╙┐О╪≥О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="╫╨ем╣П╦ПаЩ">
+                        <a class="portfolio-box" href="/" title="О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫О╖▐Б▒╔О©╫">
                             <img class="img-fluid" src="../resources/images/333.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
-                                <div class="project-category text-white-50">Ё╩╟║ аВа╒ ╦╦╣Е╢б ╫╨ем╣П</div>
-                                <div class="project-name">╫╨ем╣П╦ПаЩ</div>
+                                <div class="project-category text-white-50">О©╫К▀©О©╫ О╖·О©╫О©╫О©╫ О╖█О©╫О©╫О©╫О©╫О©╫ О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫</div>
+                                <div class="project-name">О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫О╖▐Б▒╔О©╫</div>
                             </div>
                         </a>
                     </div>
@@ -145,7 +145,7 @@
         <!-- Call to action-->
         <section class="page-section bg-dark text-white">
             <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mb-4">╫╨ем╣П ╫цюшго╠Б</h2>
+                <h2 class="mb-4">О©╫Ц┘╫О©╫ЙЁ∙О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫Ф╧╡О©╫</h2>
                 <a class="btn btn-light btn-xl" href="/">Study Now</a> 
             </div>
         </section>
@@ -156,15 +156,15 @@
                     <div class="col-lg-8 col-xl-6 text-center">
                         <h2 class="mt-0">Let's Get In Ogong!</h2>
                         <hr class="divider" />
-                        <p class="text-muted mb-5">©ю╟Ью╨ аЯ╟л╟т ╟Ь╨нгр ╪Ж юж╢б ╧Ф╧Щю╩ а╕╟Ьгу╢о╢ы.</br>
-                        	©ю╥Ы ╧в ╪╜╨Я╫╨©м ╟Э╥ц╣х ╨рфМ╩Ггвю╨ юл╟Вю╦╥н ©╛╤Т аж╪╪©Д.</p>
+                        <p class="text-muted mb-5">О©╫Ц┘╨К┌╛О©╫О©╫ О╖²О©╫Е╞┐О©╫Е╞┐О©╫ Ф─╗К⌠╛О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫ Х╚⌡Б▒╦О©╫О©╫О©╫ О©╫О©╫Ф─╗К⌠╞О©╫Б▒╦О©╫О©╫О©╫О©╫.</br>
+                        	О©╫Ц┘╩О©╫ Х╚⌡О©╫ О©╫О©╫И█╝О©╫О©╫Ц┘╪О©╫О©╫ Ф└©О©╫О©╫Б▒╓О©╫О©╫ И│╨О©╫О©╫К╙└О©╫я▀О©╫О©╫О©╫О©╫ О©╫К▀©К┌╘О©╫Л┤╟О©╫ О©╫ЙЁ∙О©╫О©╫ Д╨▄Л┤╠О©╫К╙└О©╫О©╫.</p>
                     </div>
                 </div>
                 </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-4 text-center mb-5 mb-lg-0">
                         <i class="bi-phone fs-2 mb-3 text-muted"></i>
-                        <div>02-123-5050</div>
+                        <div>02-123-5050</div>     
                     </div>
                 </div>
             </div>

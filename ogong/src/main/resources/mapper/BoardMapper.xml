@@ -20,6 +20,7 @@
 		<result property="answerCount" 			column="answer_count" 			jdbcType="NUMERIC" />
 		<result property="studyStartDate" 		column="study_start_date" 		jdbcType="VARCHAR" />
 		<result property="studyEndDate" 		column="study_end_date" 		jdbcType="VARCHAR" />
+		<result property="adoptionFlag" 		column="adoption_flag" 			jdbcType="VARCHAR" />
 
 
 
@@ -42,30 +43,28 @@
 	</resultMap>
 	
 	
-	
-	
 	<resultMap id="answerSelectMap" 	type="answer">
-		<result property="answerNo" 			column="answer_no" 				jdbcType="NUMERIC" />
-		<result property="boardNo" 				column="board_no" 				jdbcType="NUMERIC"/>
-		<result property="answerWriter.email" 	column="email" 					jdbcType="VARCHAR" />
-		<result property="answerContents"		column="answer_contents" 		jdbcType="VARCHAR" />
-		<result property="adoptionFlag" 		column="adoption_flag" 			jdbcType="NUMERIC" />  
-		<result property="answerRegDate" 		column="answer_reg_date" 		jdbcType="DATE" /> 
-		<result property="answerWriter.nickname" column="nickname" 				jdbcType="VARCHAR" />
-		<result property="adoptionDate" 		column="adoption_date" 			jdbcType="DATE" />
+		<result property="answerNo" 			 column="answer_no" 				jdbcType="NUMERIC" />
+		<result property="boardNo" 				 column="board_no" 					jdbcType="NUMERIC"/>
+		<result property="answerWriter.email" 	 column="email" 					jdbcType="VARCHAR" />
+		<result property="answerContents"		 column="answer_contents" 			jdbcType="VARCHAR" />
+		<result property="adoptionFlag" 		 column="adoption_flag" 			jdbcType="NUMERIC" />  
+		<result property="answerRegDate" 		 column="answer_reg_date" 			jdbcType="DATE" /> 
+		<result property="answerWriter.nickname" column="nickname" 					jdbcType="VARCHAR" />
+		<result property="adoptionDate" 		 column="adoption_date" 			jdbcType="DATE" />
+		<result property="adoptionNo" 			 column="adoption_no" 				jdbcType="NUMERIC" />
+	</resultMap>
+	
+	
+	<resultMap id="recommendSelectMap" 			type="recommend">
+		<result property="recommendNo" 			column="recommend_no" 				jdbcType="NUMERIC" />
+	</resultMap>
+	
 
+	<resultMap id="fileSelectMap" 				type="file">
+		<result property="fileNo" 				column="file_info_no" 				jdbcType="NUMERIC" />
+		<result property="fileName" 			column="file_name" 					jdbcType="VARCHAR" />
 	</resultMap>
-	
-	
-	<resultMap id="recommendSelectMap" 	type="recommend">
-		<result property="recommendNo" 				column="recommend_no" 			jdbcType="NUMERIC" />
-	</resultMap>
-	
-	<resultMap id="fileSelectMap" 	type="file">
-		<result property="fileNo" 				column="file_info_no" 			jdbcType="NUMERIC" />
-		<result property="fileName" 				column="file_name" 			jdbcType="VARCHAR" />
-	</resultMap>
-	
 	
 	
 <!-- 게시판 등록 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 
@@ -93,10 +92,14 @@
 					file_flag, 
 					study_start_date,
 					study_end_date,
-					view_count)
+					view_count,
+				<if test="boardCategory='2'">
+					adoption_flag
+				</if>	
+					)
 			VALUES( #{boardNo},
 					<if test="study!=null and study.studyNo!=null">
-						#{study.studyNo:NUMERIC},
+						#{study.studyNo},
 					</if>
 					#{writer.email},
 					#{writer.nickname:VARCHAR},
@@ -111,9 +114,13 @@
 					#{fileFlag},
 					#{studyStartDate:VARCHAR},
 					#{studyEndDate:VARCHAR},		
-					0 
+					0,
+				<if test="boardCategory='2'">
+					'2'
+				</if>	 
 					)
-	</insert>		
+	</insert>	
+
 
 	
 <!-- 게시판 보기 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판
@@ -138,7 +145,9 @@
                 (SELECT COUNT(*)
                      FROM answer a
                      WHERE a.board_no = #{boardNo}) answer_count,
-				file_flag
+				file_flag,
+				adoption_flag
+			
 			FROM 
 				board
 			WHERE 
@@ -176,7 +185,9 @@
 	
 <!-- 게시판 목록 
 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 4.자유게시판 5.자율스터디 모집게시판 6.파일공유 게시판
+
 검색조건- 제목,내용,작성자
+
 정렬순- 기본정렬:최신순, 1.조회수, 2.추천수-->
 	
 	<select 	id="listBoard" parameterType="hashmap" resultMap="boardSelectMap">
@@ -299,6 +310,7 @@
 	
 	<!-- 댓글 목록 -->
 <!-- 		<select 	id="listComment" parameterType="map" resultMap="boardSelectMap">
+
 		SELECT
 	  		a.*
 	  	FROM
@@ -315,6 +327,7 @@
                     board a
                 WHERE
                 	board_category = #{board.boardCategory}
+
                 ORDER BY board_no DESC
 	  		) a	
 	</select> 
@@ -413,7 +426,7 @@
 	</select>
 
 
- <!-- 답변 수 -->
+	<!-- 답변 수 -->
  
 	<select id="listCommentCount" parameterType="map" resultType="int">
 		SELECT
@@ -449,7 +462,7 @@
 	<insert  id="addAnswer"	parameterType="answer">
 	
 		INSERT
-		INTO answer  
+		INTO answer  		
 		VALUES (
 			seq_answer_no.nextval,
 			#{boardNo},
@@ -459,13 +472,14 @@
 			SYSDATE,
 			#{answerWriter.nickname},
 			#{adoptionDate:DATE}
+			
 		)
 
 	</insert>
 
 
  
- <!-- Q&A 게시판 답변 수정 -->
+ 	<!-- Q&A 게시판 답변 수정 -->
 
 	<update  id="updateAnswer"	parameterType="answer">
 	
@@ -474,24 +488,48 @@
 		SET		
 			answer_contents = #{answerContents}
 		WHERE 
-			answer_no = #{answerNo}		
+			answer_no = #{answerNo}	
+		AND	board_no = #{boardNo}
+		AND email = #{answerWriter.email}				
 	</update> 
 	
 	
+	
+	
+	<!-- Q&A 답변 조회 -->
+	
+	<select  id="getAnswer"	parameterType="answer"  resultMap="answerSelectMap">
+		SELECT 
+			 answer_no
+			,board_no
+			,email
+			,answer_contents
+			,adoption_flag
+			,answer_reg_date
+			,nickname
+			,adoption_date
+		FROM		
+			answer
+		WHERE 
+			answer_no = #{answerNo}	
+		AND email = #{answerWriter.email}				
+	</select> 
 
-<!-- Q&A 게시판 답변 삭제 -->	
+	<!-- Q&A 게시판 답변 삭제 -->	
 	
 	<delete id="deleteAnswer" parameterType="answer" >
 		DELETE
 		FROM 
 			answer
 		WHERE
-			answer_no = #{value}
+			answer_no = #{answerNo}
+		AND board_no = #{boardNo}
+		AND email = #{answerWriter.email}		
 	</delete>
 	
 	
-	
 <!-- 게시판 조회수 -->	
+
 	
 	<update id="updateViewcnt" parameterType="int">
 		UPDATE
@@ -546,6 +584,61 @@
 		AND	board_no = #{boardNo}  		 
 	</select> 
 	
+
+	
+	
+	<!-- 답변 채택 -->
+	<select id="adoptionCount" parameterType="answer" resultType="int">
+		SELECT		
+			count(*)		
+		FROM 
+			answer
+		WHERE 
+			answer_no = #{answerNo}  		 
+	</select> 
+	
+		
+	<delete id="deleteAdoption" parameterType="int" >
+		DELETE
+		FROM 
+			answer
+		WHERE
+			adoption_no = #{value}
+	</delete>
+	
+	
+	<select id="getAdoptionNo" parameterType="answer" resultMap="answerSelectMap">
+		SELECT		
+			adoption_no		
+		FROM 
+			answer
+		WHERE 
+			nickname = #{answerWriter.nickname}
+		AND	board_no = #{boardNo}  		 
+	</select> 
+	
+	<update id="updateAdoption" parameterType="int" >
+			UPDATE 
+				answer 
+			SET
+				adoption_Flag = 1	
+				,adoption_Date = Sysdate		
+			WHERE 
+				answer_no = #{answerNo}
+				
+	</update>
+	
+	<update id="updateBoardAdoption" parameterType="int" >
+			UPDATE 
+				board 
+			SET
+				adoption_Flag = 1			
+			WHERE 
+				board_no = #{boardNo}
+				
+	</update>
+		
+	<!-- 파일업로드 -->
 	
 	<insert id="addFile" parameterType="file">
 		INSERT
@@ -578,4 +671,26 @@
 		WHERE 
 			file_info_no = #{fileNo}	  		 
 	</select> 
+	
+	<!-- 알림을 위한 게시글 상세보기 -->
+	<select id="getNoticeBoard" parameterType="int" resultMap="boardSelectMap">
+		SELECT
+			board_no,
+			nickname,
+			email,
+			board_category,
+			board_title,
+			board_contents,
+			board_interest,
+			board_reg_date,
+			view_count,
+			study_start_date,
+			study_end_date
+		FROM 
+			board
+		WHERE 
+			board_no = #{boardNo}
+	</select> 	
+	
+	
 </mapper>

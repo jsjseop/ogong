@@ -10,11 +10,11 @@
 <title>글 쓰기</title>
 <!-- jQuery -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
 <!-- Bootstrap CSS -->
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
 
 
@@ -88,14 +88,14 @@ text-align:center;
 
 					<input type="text" class="form-control" name="boardTitle" id="title" placeholder="제목을 입력해 주세요"
 					value="${boardTitle}">
-
+					<input type="hidden" name="boardCategory" id="boardCategory" value="${boardCategory}"/>
 				</div>				
 
 				<div class="mb-3">
 
 					<label for="content">내용</label>
 
-					<textarea class="form-control" rows="5" name="boardContent" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
+					<textarea class="form-control" rows="5" name="boardContents" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
 
 				</div>
 			

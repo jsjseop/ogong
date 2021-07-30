@@ -9,29 +9,32 @@
 <title>글 쓰기</title>
 
 <!-- jQuery -->
-
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- Bootstrap CSS -->
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+
+	
+</script>
 
 <script type="text/javascript">
 	function fncAddBoard() {
 
-		let boardContents = $('input[name="boardContents"]').val();	
+		let contents = $('input[name="boardContents"]').val();	
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
 		let boardRegBanana = $("input[name='boardRegBanana']").val();
 		
-		alert(boardContents);
+		alert(boardRegBanana);
 		
 		if (name == null || name.length < 1) {
 			alert("제목을 입력해주세요.");
 			return;
 		}
 
-		$('form').attr('method', 'POST').attr('action', "/board/addBoard")
+		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory=")
 				.submit();
 	}
 
@@ -113,14 +116,14 @@ text-align:center;
 
 				<input type="text" class="form-control" name="boardRegBanana" id="banana" placeholder="채택에 필요한 바나나 수를 입력해주세요"
 				value="${boardRegBanana}">
-				<input type="hidden" name="boardCategory" id="boardCategory" value="${boardCategory}"/>
+
 				</div>			
 
 				<div class="mb-3">
 
 					<label for="content">내용</label>
 
-					<textarea class="form-control" rows="5" name="boardContents" id="content" placeholder="내용을 입력해 주세요"></textarea>
+					<textarea class="form-control" rows="5" name="boardContent" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
 
 				</div>
 			

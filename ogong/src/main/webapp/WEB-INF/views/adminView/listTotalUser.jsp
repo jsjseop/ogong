@@ -112,17 +112,19 @@
 						
 					}
 				})
+				alert("복구가 완료되었습니다.")
 				$("#trRemove").remove();
+				$("#ohmy").remove();
 			
 			
 		})
 		
  	 	$("td:nth-child(2)").on("click",function(){
-	 		alert("asd");
+	 		
 	 		
 	 		var email = $(this).find("input").val();
 	 		
-	 		alert(email)
+	 		
 				$.ajax({
 				
 					url : "/admin/json/adminGetUser/"+email,
@@ -134,13 +136,37 @@
 					},
 					
 					success : function(JSONData, status){
-						alert(JSONData.email);
 						
-						var display = "<div id='userEmail' style='height: 80px' class='getUser'>"
-									+ "<span> 이메일 ="+JSONData.email+"</span>"
-									+ "<span> 상태 ="+JSONData.condition+"</span>"
-									+ "<span> 닉네임 ="+JSONData.nickname+"</span>"
-									+ "</div>";
+						
+						var display = "<div id='userEmail' style='height: 80px; width: 200px; font-size: 16px;' class='getUser'>"
+									+ "<div class='text-center'>"
+									+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img  src='/resources/images/"+JSONData.userImage+"'alt='User profile picture'>"
+									+ "</div>"
+									+ "<div>&nbsp&nbsp&nbsp</div>"
+									+ "<div class='text-center'>"+JSONData.email+" 님의 회원 정보입니다.</div>"
+									+ "<div>&nbsp&nbsp&nbsp</div>"
+									+ "<div> 닉네임   : "+JSONData.nickname+"</div>"
+									+ "<div>&nbsp&nbsp&nbsp</div>"
+									+ "<div> 가입일자 : "+JSONData.regDate+"</div>"
+									+ "<div>&nbsp&nbsp&nbsp</div>";
+					    if(JSONData.role == '1'){
+							display += "<div> 현재 활동중인 회원 </div>"
+							+ "<div>&nbsp&nbsp&nbsp</div>";
+						}else if(JSONData.role == '2'){
+							display += "<div> 현재 정지중인 회원 </div>"
+							+ "<div>&nbsp&nbsp&nbsp</div>";
+						}
+					    if(JSONData.goal != null){
+					    	display += "<div> 목표 : "+JSONData.goal+" </div>"
+					    	+ "<div>&nbsp&nbsp&nbsp</div>";
+					    }
+					    if(JSONData.gender != null){
+					    	display += "<div> 성별 : "+JSONData.gender+" </div>"
+					    	+ "<div>&nbsp&nbsp&nbsp</div>";
+					    }					    
+					    	display += "<div> 바나나 수 : "+JSONData.bananaCount+" 바나나</div>";
+					    	+ "<div>&nbsp&nbsp&nbsp</div>"
+							display += "</div>";
 						$('#userEmail').remove();
 						$("#ohmy").append(display);
 					}
@@ -154,11 +180,11 @@
  
 	</script>   	
 </head>
-<body class="contatiner">
+<body>
 
       
 
-            
+      <div>
 			<jsp:include page="../common/adminSideBar.jsp" />
 			
 			
@@ -169,10 +195,10 @@
                                     <h6 class="m-0 font-weight-bold text-primary">회원 정보 보기</h6>                                    
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
+                                <div class="card-body" style="height: 600px; width: 200px;">
                                     <div class="chart-pie pt-4">
-										<ul id="ohmy">
-										</ul>                                    
+										<div id="ohmy">
+										</div>                                    
                                     </div>
                                 </div>
                             </div>
@@ -319,7 +345,7 @@
 												<c:if test="${listType == 4}">
 													<td align="left">${user.suspendStartDate}</td>
 													<td align="left">${user.suspendEndDate}</td>
-													<td align="left">복구 
+													<td align="left">복구
 														<input type="hidden" name="email" value="${user.email}" />
 													</td>
 												</c:if>
@@ -337,17 +363,17 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                            <div class="text-muted">Ogong &copy; Main Project 2021</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
+                                <a href="#">Group Name</a>
                                 &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                <a href="#">Bo Ram Sam Jo</a>
                             </div>
                         </div>
                     </div>
                 </footer> 
             </div>
-                  
+        </div>    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="/resources/javascript/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

@@ -57,8 +57,12 @@ body {
 		});
 		
 		
-		$("a").on("click", function(){
-			
+		$(".logo").on("click", function(){
+			self.location = "/studyroom/getStudyRoom?studyNo="+${studyNo}
+		})
+		
+		$(".logout").on("click", function(){
+			self.location = "/integration/mainPage"
 		})
 	});
 
@@ -73,11 +77,11 @@ body {
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>STUDY ROOM</b></a>
+            <a href="#" class="logo"><b>STUDY ROOM</b></a>
             <!--logo end-->
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">나 가 기</a></li>
+                    <li><a class="logout" href="#">메인 화면 이동</a></li>
             	</ul>
             </div>
         </header>
@@ -92,13 +96,14 @@ body {
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><img src="/resources/images/Ogong.png" class="img-circle" width="100"></p>
+              	  <p class="centered"><img src="/resources/images/ogong2.png" class="img-circle" width="150"></p>
               	  	<!-- class="active" -->
                   <li class="mt">
                       <a  id="roomMain" href="#">
                           <i class="fa fa-dashboard"></i>
                           <span>스터디룸 홈</span>
                           <input type="hidden" id="studyNo" value="${studyNo}">
+                          <input type="hidden" id="email" value="${user.email}">
                       </a>
                   </li>
 				

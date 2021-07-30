@@ -1,5 +1,6 @@
 package com.ogong.service.user.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,11 +102,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 
-	@Override
-	public int idCheck(String nickname) throws Exception {
-		// TODO Auto-generated method stub
-		return userDAO.idCheck(nickname);
-	}
+
+
 
 
 
@@ -125,18 +123,7 @@ public class UserServiceImpl implements UserService{
 
 
 
-	@Override
-	public List<Board> getList() {
-		// TODO Auto-generated method stub
-		return userDAO.getList();
-	}
 
-
-	@Override
-	public List<Board> myboardlist(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 	@Override
@@ -145,17 +132,49 @@ public class UserServiceImpl implements UserService{
 		userDAO.restore(user);
 	}
 
-	//게시물보기
-	@Override
-	public List<Board> boardlist(int boardNo) throws Exception {
-		// TODO Auto-generated method stub
-		return userDAO.boardlist(boardNo);
+
+
+
+
+	public List<Board> list(String email) throws Exception {
+		
+		
+		return userDAO.list(email);
 	}
 
-	/*
-	 * @Override public User getUser(String email) throws Exception { // TODO
-	 * Auto-generated method stub return userDAO.getUser(email); }
-	 */
-	
-	
+
+	@Override
+	public int idCheck(String nickname) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+	
+	
+

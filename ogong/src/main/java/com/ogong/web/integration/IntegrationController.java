@@ -1,15 +1,20 @@
 package com.ogong.web.integration;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Timer;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ogong.common.Page;
 import com.ogong.common.Search;
 import com.ogong.service.admin.AdminService;
+import com.ogong.service.banana.BananaService;
 import com.ogong.service.domain.Answer;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.LearningHistory;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
@@ -33,6 +40,8 @@ import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
+@Configuration 
+@EnableScheduling
 @Controller
 @RequestMapping("/integration/*")
 public class IntegrationController {
@@ -47,6 +56,8 @@ public class IntegrationController {
 	private UserService userService;
 	@Autowired
 	private StudyService studyService;
+	@Autowired
+	private BananaService bananaService;	
 	
 	public IntegrationController() {
 		System.out.println(this.getClass());
@@ -71,7 +82,7 @@ public class IntegrationController {
 		
 	}*/
 	
-	@Transactional
+	//쪽지 전송을 위한 메소드
 	@PostMapping("addSendMessage")
 	public String addSendMessage( @ModelAttribute("message") Message message,
 								  HttpSession session, 
@@ -105,7 +116,7 @@ public class IntegrationController {
 		return "redirect:/integration/listSendMessage?sender.email="+message.getSender().getEmail();
 	}
 	
-	
+	//받은 쪽지 목록
 	@RequestMapping(value="listSendMessage")
 	public String listSendMessage(@ModelAttribute("search") Search search, HttpSession session,
 									@ModelAttribute("message") Message message, Model model)throws Exception {
@@ -143,6 +154,7 @@ public class IntegrationController {
 		return "/integrationView/listSendMessage";
 	}
 	
+	//보낸 쪽지 목록
 	@RequestMapping(value="listReceiveMessage")
 	public String listReceiveMessage(@ModelAttribute("search") Search search, Model model, HttpSession session, Message message  )throws Exception {
 		
@@ -183,7 +195,7 @@ public class IntegrationController {
 		return "/integrationView/listReceiveMessage";
 	}
 	
-	
+	//쪽지 선택삭제
 	@PostMapping("deleteTest")
 	public void deleteTest(@RequestParam(value = "messageNo[]") List<String> messageArr, 
 						  Message message) throws Exception{
@@ -216,7 +228,7 @@ public class IntegrationController {
 	}
 
 	
-
+	//메인페이지의 필요한 모든 것
 	@GetMapping("mainPage")
 	public String mainPage(Model model, Answer answer, HttpSession session) throws Exception{
 		
@@ -259,12 +271,12 @@ public class IntegrationController {
 		model.addAttribute("mySelfStudyList", mySelfStudyList);
 		model.addAttribute("myGroupStudyList", myGroupStudyList);
 		
-		
 		//////랭킹
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<User> banana = integrationService.listBananaRanking(map);
 		List<Answer> choose = integrationService.listChooseCountRanking(map);
 		List<LearningHistory> learningTime = integrationService.listLearningTimeRanking(map);
+
 		map.put("banana", banana);
 		map.put("choose", choose);
 		map.put("learningTime", learningTime);
@@ -277,25 +289,136 @@ public class IntegrationController {
 		return "/index";
 	}
 	
-	
-	
-	
-	public void updateTimeTask() throws Exception {
+	//매 주 월요일 자정에 매소드 실행
+	@Scheduled(cron = "0 0 12 ? * MON") 
+	public void bananaAdd() throws Exception{
 		
+		System.out.println("바나나 수 랭킹 일정시간 포인트 지급을 확인합시다.");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<User> bananaRank = integrationService.listBananaRanking(map);
+		
+		User user = new User();
+		Banana banana1 = new Banana();
+		Banana banana2 = new Banana();
+		Banana banana3 = new Banana();
+		
+		//바나나 랭킹 1위
+		banana1.setBananaEmail(bananaRank.get(0));
+		banana1.setBananaAmount(100);
+		banana1.setBananaHistory("바나나 랭킹 1위로 인한 포인트 지급");
+		banana1.setBananaCategory("1");
+		bananaService.addBanana(banana1);
+		user.setEmail(bananaRank.get(0).getEmail());
+		user.setBananaCount(100);
+		bananaService.updateAcquireBanana(user);
+		//바나나 랭킹 2위
+		banana2.setBananaEmail(bananaRank.get(1));
+		banana2.setBananaAmount(50);
+		banana2.setBananaHistory("바나나 랭킹 2위로 인한 포인트 지급");
+		banana2.setBananaCategory("1");
+		bananaService.addBanana(banana2);
+		user.setEmail(bananaRank.get(1).getEmail());
+		user.setBananaCount(50);
+		bananaService.updateAcquireBanana(user);
+		//바나나 랭킹 3위
+		banana3.setBananaEmail(bananaRank.get(0));
+		banana3.setBananaAmount(30);
+		banana3.setBananaHistory("바나나 랭킹 3위로 인한 포인트 지급");
+		banana3.setBananaCategory("1");
+		bananaService.addBanana(banana3);
+		user.setEmail(bananaRank.get(2).getEmail());
+		user.setBananaCount(30);
+		bananaService.updateAcquireBanana(user);
+	
+	}
+	
+	//채택수 랭킹 1위~3위 일주일에 한 번 바나나 지급
+	//매 주 월요일 자정에 매소드 실행
+	@Scheduled(cron = "0 0 12 ? * MON")
+	public void chooseAdd() throws Exception{
+		
+		System.out.println("바나나 수 랭킹 일정시간 포인트 지급을 확인합시다.");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<Answer> chooseRank = integrationService.listChooseCountRanking(map);
+		
+		User user = new User();
+		Banana choose1 = new Banana();
+		Banana choose2 = new Banana();
+		Banana choose3 = new Banana();
+		
+		//채택랭킹 1위
+		choose1.setBananaEmail(chooseRank.get(0).getAnswerWriter());
+		choose1.setBananaAmount(100);
+		choose1.setBananaHistory("채택수 랭킹 1위로 인한 포인트 지급");
+		choose1.setBananaCategory("1");
+		bananaService.addBanana(choose1);
+		user.setEmail(chooseRank.get(0).getAnswerWriter().getEmail());
+		user.setBananaCount(100);
+		bananaService.updateAcquireBanana(user);
+		//채택랭킹 2위
+		choose2.setBananaEmail(chooseRank.get(1).getAnswerWriter());
+		choose2.setBananaAmount(50);
+		choose2.setBananaHistory("채택수 랭킹 2위로 인한 포인트 지급");
+		choose2.setBananaCategory("1");
+		bananaService.addBanana(choose2);
+		user.setEmail(chooseRank.get(1).getAnswerWriter().getEmail());
+		user.setBananaCount(50);
+		bananaService.updateAcquireBanana(user);
+		//채택랭킹 3위
+		choose2.setBananaEmail(chooseRank.get(2).getAnswerWriter());
+		choose2.setBananaAmount(30);
+		choose2.setBananaHistory("채택수 랭킹 3위로 인한 포인트 지급");
+		choose2.setBananaCategory("1");
+		bananaService.addBanana(choose3);
+		user.setEmail(chooseRank.get(2).getAnswerWriter().getEmail());
+		user.setBananaCount(30);
+		bananaService.updateAcquireBanana(user);
+		
+		
+		
+
+	}
+	
+	// 정지 회원 자동 복구
+	// 매일 정오 12시에 해당 매소드 실행
+	@Scheduled(cron =  "0 0 12 * * ?" )
+	public void updateSuspendUser() throws Exception{
+		
+		Search search = new Search();
+		int pageSize = 15;
+		int pageUnit = 15;
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
 		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("listType", 4);
+		map.put("search", search);
+		
 		Map<String,Object> result = adminService.getlistTotalUser(map);
-		List<Object> list = (List<Object>)map.get("list");
+		List<User> list = (List<User>)result.get("list");
 		
-		map.get(list);
-		User user = new User();
-		user.getSuspendEndDate();
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+		String today = sdf.format(date);
 		
-		
-		Timer timer = new Timer();
-		timer.schedule(null, null);
+		for(int i = 0; i <= list.size(); i++) {
+			if(list.get(i).getSuspendEndDate().equals(today)){
+				try {
+					System.out.println("여기 이제 업데이트 시작");
+					adminService.updateUserRestore(list.get(i).getEmail());
+				} catch (IndexOutOfBoundsException e){
+					
+				}
+			}else {
+				
+			}
+		}
 		
 	}
 	

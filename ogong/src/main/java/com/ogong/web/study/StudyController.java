@@ -62,7 +62,9 @@ public class StudyController {
 	private BananaService bananaService;
 	
 	@Autowired
-	private IntegrationService integrationService;	
+	private IntegrationService integrationService;
+
+
 	
 	@Value("8")
 	int pageSize;

@@ -82,6 +82,10 @@ import com.ogong.service.domain.Recommend;
 		//추천수
 		Recommend getRecommendNo(Board board);
 		
+
+		//알림 게시글 상세보기
+		Board getNoticeBoard(int boardNo);
+
 		//채택수
 		void updateAdoption(int answerNo);
 		
@@ -96,6 +100,7 @@ import com.ogong.service.domain.Recommend;
 		
 		//채택수
 		Answer getAdoptionNo(Board board);
+
 		
 		//파일업로드
 		int addFile (File file);	

@@ -17,10 +17,7 @@
 		var receiver = $("textarea[name='receiver.email']").val();
 		var messageContents = $("textarea[name='messageContents']").val();
 		
-		alert(sender);
-		alert(receiver);
-		alert(messageContents);
-		
+
 		if(receiver == null || receiver.length<1){
 			alert("수신자 이메일은 반드시 입력해야 합니다.");
 			return;
@@ -99,8 +96,7 @@
 					</div>
 					<div class="modal-footer">
 						<button id="btn1" class="btn btn-default">전송하기</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫
-							기</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
 			</div>

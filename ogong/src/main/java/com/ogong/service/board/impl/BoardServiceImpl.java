@@ -237,4 +237,10 @@ public class BoardServiceImpl implements BoardService {
 			}
 		}
 	}
+
+	//알림 게시글 상세보기
+	public Board getNoticeBoard(int boardNo) throws Exception{
+		
+		return boardMapper.getNoticeBoard(boardNo);
+	}
 }

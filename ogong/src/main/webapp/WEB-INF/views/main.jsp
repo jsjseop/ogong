@@ -89,6 +89,14 @@ img.w-100:hover {
 			}
 		});
 	}
+	
+	function entranceStudy(studyNo){
+		location.href = "/study/getStudy?studyNo=" + studyNo;
+	};
+	
+	function entranceStudyRoom(studyNo){
+		location.href = "/studyroom/getStudyRoom?studyNo=" + studyNo;
+	};
 
 </script>
 </head>
@@ -117,10 +125,11 @@ img.w-100:hover {
 								  <div class="carousel-inner">
 								  	<c:if test="${mySelfStudyList.size() == 0 && myGroupStudyList.size() == 0}">
 								  		<div class="carousel-item active">
-									      <h5><i class="fas fa-exclamation-triangle"></i>&nbsp;
-									      진행중인 스터디가 없습니다.</h5>
+									      &nbsp;&nbsp;&nbsp;&nbsp;
+									      <i class="fas fa-exclamation-triangle"></i>진행중인 스터디가 없습니다.
 									    </div>
 								  	</c:if>
+								  	
 								  	<c:forEach var="study" items="${mySelfStudyList}" varStatus="vs">
 								  		<c:if test="${vs.first}">
 								  			<div class="carousel-item active">
@@ -128,9 +137,10 @@ img.w-100:hover {
 								  		<c:if test="${!vs.first}">
 								  			<div class="carousel-item">
 								  		</c:if>
-									      <img src="/resources/upload_files/study/${study.studyThumbnail}" height="260px" class="w-100" alt="...">
+									      <img src="/resources/upload_files/study/${study.studyThumbnail}" height="260px" class="w-100" alt="..."
+									      onclick="entranceStudy(${study.studyNo})">
 									      <div class="carousel-caption d-none d-md-block"></div>
-									      <h5>${study.studyName} &nbsp;${study.currentMember}/${study.maxMember}</h5>
+									      <h5>${study.studyName} &nbsp;&nbsp;${study.currentMember}/${study.maxMember}</h5>
 									    </div>
 								  	</c:forEach>
 								    <c:forEach var="study" items="${myGroupStudyList}" varStatus="vs">
@@ -141,7 +151,8 @@ img.w-100:hover {
 								  			<div class="carousel-item">
 								  		</c:if>
 								  		<div class="carousel-item active">
-									      <img src="/resources/upload_files/study/${study.studyThumbnail}" height="260px" class="w-100" alt="...">
+									      <img src="/resources/upload_files/study/${study.studyThumbnail}" height="260px" class="w-100" alt="..."
+									      onclick="entranceStudyRoom(${study.studyNo})">
 									      <div class="carousel-caption d-none d-md-block"></div>
 									      <h5>"${study.studyName}"</h5>
 									    </div>
@@ -172,7 +183,7 @@ img.w-100:hover {
 							<div class="card-body">
 								<div>
 									<p class="d-flex flex-column">
-										<span class="text-lg">오늘 공부한 시간 / 목표 시간&nbsp;
+										<span class="text-lg">오늘 공부한 시간 / 목표시간&nbsp;
 										<i class="fa fa-clock-o" aria-hidden="true"></i></span>
 										
 									</p>
@@ -215,7 +226,7 @@ img.w-100:hover {
 								<div>
 									<p id="targetp" class="d-flex">
 										<c:if test="${user.userTargetTime == 0}">
-											<span id="setText" class="text-lg">목표 시간이 없습니다...목표 시간을 설정해주세요.</span>&nbsp;&nbsp;
+											<span id="setText" class="text-lg">목표시간이 없습니다...목표시간을 설정해주세요.</span>&nbsp;&nbsp;
 											<button id="setBtn" class="btn btn-primary" onclick="setTargetTime()">설정하기</button>
 										</c:if>
 										<c:if test="${user.userTargetTime != 0}">
@@ -230,7 +241,7 @@ img.w-100:hover {
 					</div>
 				</div> <!-- row -->
 				
-			</div> <!-- container-fluid -->
+			</div> <!-- container -->
 				
 			<div class="container">
 					<div class="row">
@@ -318,8 +329,6 @@ img.w-100:hover {
 								</div>
 							</div>
 					</div> <!-- row -->
-			</div> <!-- container-fluid -->
-		
+			</div> <!-- container -->
 		</div>
 </body>
-

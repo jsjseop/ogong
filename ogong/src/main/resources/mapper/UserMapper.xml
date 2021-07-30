@@ -32,7 +32,9 @@
 		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
 		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
 		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
-		
+	
+	
+
 		
 	</resultMap> 
 	
@@ -58,16 +60,88 @@
 		</association>
 
 	</resultMap>
+
+		<resultMap id="studySelectMap" type="study">
+		<result property="studyNo" 					column="study_no" 					jdbcType="NUMERIC"/>
+		<result property="studyMaker.email"			column="email" 						jdbcType="VARCHAR" />
+		<result property="studyName" 				column="study_name" 				jdbcType="VARCHAR" />
+		<result property="studyHashtag" 			column="study_hashtag" 				jdbcType="VARCHAR" />
+		<result property="studyThumbnail" 			column="study_thumbnail" 			jdbcType="VARCHAR" />
+		<result property="studyStartDate" 			column="study_start_date" 			jdbcType="VARCHAR" />
+		<result property="studyEndDate" 			column="study_end_date" 			jdbcType="VARCHAR" />
+		<result property="studyRegDate" 			column="study_reg_date" 			jdbcType="DATE" />
+		<result property="currentMember" 			column="current_member" 			jdbcType="NUMERIC"  />
+		<result property="maxMember" 				column="max_member" 				jdbcType="NUMERIC" />
+		<result property="selfStudyRule" 			column="selfstudy_rule" 			jdbcType="VARCHAR" />
+		<result property="selfStudyOpenFlag" 		column="selfstudy_open_flag" 		jdbcType="CHAR" />
+		<result property="selfStudyPassword" 		column="selfstudy_password" 		jdbcType="VARCHAR"  />
+		<result property="groupStudyInfo" 			column="groupstudy_info" 			jdbcType="VARCHAR" />
+		<result property="groupStudyPlan" 			column="groupstudy_plan" 			jdbcType="VARCHAR" />
+		<result property="groupStudyCondition" 		column="groupstudy_condition" 		jdbcType="VARCHAR" />
+		<result property="recruitmentStartDate" 	column="recruitment_start_date" 	jdbcType="VARCHAR"  />
+		<result property="recruitmentEndDate" 		column="recruitment_end_date" 		jdbcType="VARCHAR" />
+		<result property="studyEndFlag" 			column="study_end_flag" 			jdbcType="CHAR" />
+		<result property="studyRoomGrade" 			column="studyroom_grade" 			jdbcType="VARCHAR" />
+		<result property="studyType" 				column="study_type" 				jdbcType="VARCHAR"  />
+		<result property="studyInterest" 			column="study_interest" 			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+ 	 	 <select id="list" resultType="string" resultMap="boardSelectMap" >
+	SELECT
+    board_no,
+    study_no,
+    email,
+    nickname,
+    board_category,
+    board_title,
+    board_contents,
+    board_interest,
+    board_reg_date,
+    view_count,
+    board_reg_banana,
+    file_flag
+FROM
+    board
+    where
+        	   	 email = #{email:VARCHAR}
+    
+
+	</select>  
+	 
+
+<!-- 	 <select id="list" resultMap="boardSelectMap" >
+		SELECT
+	a.* , b.*
+	FROM
+   users  a
+    JOIN
+     board  b  
+    ON
+    a.email = b.email AND
+    	   	 a.email = #{email:VARCHAR}
+	</select>   --> 
+	
+	
 	
 
-	<!-- <select id="boardlist" parameterType="list" resultType="boardSelectMap" >
-
-	
+<!-- 			<select id="getTotalCount"		parameterType="search"		resultType="int">
+						SELECT COUNT(*)
+						     FROM (	SELECT   board_email,board_boardTitle,board_viewCount
+											 FROM board 	
+											 <if test="searchCondition != null">
+											 <where>
+										<if test="searchCondition == 0 and searchKeyword !='' ">
+											 board_email = #{searchKeyword}
+											</if>
+										<if test="searchCondition == 1 and searchKeyword !='' ">
+										board_boardTitle = #{searchKeyword}
+										</if>)
+												 </where> 
+											 </if> )countTable
 	</select> -->
+	
 
-	
-	
-	
 
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
