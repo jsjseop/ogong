@@ -10,7 +10,7 @@
 
 <!-- jQuery -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- Bootstrap CSS -->
 
@@ -21,29 +21,39 @@
 </script>
 
 <script type="text/javascript">
-	function fncAddBoard() {
 
-		let contents = $('input[name="boardContents"]').val();	
-		let name = $('input[name="boardTitle"]').val();
-		let detail = $('textarea').val();
-		let boardRegBanana = $("input[name='boardRegBanana']").val();
-		
-		alert(boardRegBanana);
-		
-		if (name == null || name.length < 1) {
-			alert("제목을 입력해주세요.");
-			return;
-		}
+	let boardNo = "<c:out value='${answer.boardNo}'/>";
+	let answerNo = "<c:out value='${answer.answerNo}'/>";
 
-		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory="+`${boardCategory}`)
-				.submit();
+	function fnUpdateBoard() {
+		var answerContents = $('textarea').val();
+		
+		$.ajax({
+			url:'/board/updateAnswer',
+			type:'post',
+	        headers : {
+	            "Accept" : "application/json",
+	            "Content-Type" : "application/json"
+	        },
+	        data : JSON.stringify({
+	        	"answerNo" : answerNo,
+	        	"boardNo" : boardNo,
+	        	"answerContents" : answerContents
+	        }), 
+			dateType:'json',
+			success:function(JSONData, status){
+				if(!JSONData){
+					alert("실패");
+				}
+			}
+		}); 
 	}
 
 	$(function() {
 
 		$('button:contains("등 록")').on('click', function() {
 			
-			fncAddBoard();
+			fnUpdateBoard();
 		});
 
 		$('button:contains("취 소")').on('click', function() {
@@ -98,45 +108,18 @@ text-align:center;
 	<br/>
 		<div class="container" role="main">
 		
-			<h3>Q&A 게시글 등록</h3>
-
+			<h3>Q&A 게시글 수정</h3>
 			<form name="AddBoard" id="form" method="post">
-
 				<div class="mb-3">
-
-					<label for="title">제목</label>
-
-					<input type="text" class="form-control" name="boardTitle" id="title" placeholder="제목을 입력해 주세요"
-					value="${boardTitle}">
-
-				</div>
-				
-				<div class="mb-3">
-
-					<label for="banana">바나나 수</label>
-
-				<input type="text" class="form-control" name="boardRegBanana" id="banana" placeholder="채택에 필요한 바나나 수를 입력해주세요"
-				value="${boardRegBanana}">
-
-				</div>			
-
-				<div class="mb-3">
-
 					<label for="content">내용</label>
-
-					<textarea class="form-control" rows="5" name="boardContent" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
-
+					<textarea class="form-control" rows="5" name="answerContent" id="content" placeholder="내용을 입력해 주세요">${answer.answerContents}</textarea>
 				</div>
-			
-
 			</form>
 
 		</div>
 
 <br/>
 	</article>
-
-
 			<div align="center">
 				<button type="button" class="btn btn-warning" style="width: 60px;">등 록</button>
 				<button type="button" class="btn btn-warning" style="width: 60px;">취 소</button>

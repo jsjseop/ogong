@@ -6,25 +6,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>글 수정</title>
+<title>게시판</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-
-<!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 <script>
-	function fncUpdateBoard() {
+	function fncAddBoard() {
 
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
@@ -46,7 +35,7 @@
 		
 		$('button:contains("수 정")').on('click',function(){
 			
-			fncUpdateBoard();
+			fncAddBoard();
 		})
 		
 		$('button:contains("취 소")').on('click',function(){
@@ -57,13 +46,27 @@
 	
 </script>
 <style>
-body {
-	padding-top: 30px;
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+	body, table, div, p, th, td {
+	
+	
+font-family: 'Do Hyeon', sans-serif;
 }
+
+
+h3 {
+
+text-align:center;
+}
+
+
 </style>
 </head>
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
+	<br/>
+	<br/>
 	<div class="container">
 		<form>
 			<input type="hidden" name="userId" value="${writer.email}" />
@@ -71,6 +74,7 @@ body {
 			<div class="page-header">
 				<h3 class=" text-default">글 수정</h3>
 			</div>
+			<br/>
 
 			<div class="row">
 				<div class="col-xs-4 col-md-2">
@@ -82,8 +86,8 @@ body {
 				</div>
 			</div>
 
-			<hr />
-
+		<br/>
+		<br/>
 			<div class="row">
 				<div class="col-xs-4 col-md-2">
 					<strong>내 용</strong>
@@ -94,9 +98,9 @@ body {
 				</div>
 			</div>
 
-			<hr />
-
-			<div align="right">
+			<br/>
+			<br/>
+			<div align="center">
 				<button type="button" class="btn btn-default" style="width: 60px;">수 정</button>
 				<button type="button" class="btn btn-default" style="width: 60px;">취 소</button>
 			</div>

@@ -200,10 +200,11 @@ class BoardTest {
 	}
 
 	// @Test
-	@DisplayName("Q&A 답변 삭제")
-	void deleteAnswer() throws Exception {
-
-		boardService.deleteAnswer(10020);
-
-	}
+	/*
+	 * @DisplayName("Q&A 답변 삭제") deleteAnswer() throws Exception {
+	 * 
+	 * boardService.deleteAnswer(null);
+	 * 
+	 * }
+	 */
 }

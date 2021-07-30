@@ -15,6 +15,8 @@
 	let boardNo = "<c:out value='${board.boardNo}'/>";
 	let boardCategory = "<c:out value='${board.boardCategory}'/>";
 	let boardTitle = "<c:out value='${board.boardTitle}'/>";
+	let adoptionFlag = "<c:out value='${board.adoptionFlag}'/>";
+	
 	
 	let currentPage = 1;
 	let pageSize = 10;
@@ -28,6 +30,28 @@
 	}
 
 	
+	function adoption(answerNo) {
+		var adp = $('#adp');
+		var ul = $('#listAnswer');
+		$.ajax({
+			url:'/board/json/updateAdoption/'+answerNo+'/'+boardNo,
+			type:'get',
+            headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json"
+             },
+			dateType:'json',
+			success:function(JSONData, status){
+				adoptionFlag = 1
+				ul.empty()
+				getAnswerList() 
+			}
+		});
+			
+	}
+	
+	
+
 	function getAnswerList() {
 		var cnt = $('#cnt');
 		$.ajax({
@@ -37,39 +61,98 @@
 			success:function(res){
 				var list = res;
 				var ul = $('#listAnswer');
-
+				var display = "";
+						
+				$("#answerCnt").text(list.length);
 				for(var i=0 ; i<list.length ; i++){
 					var record = list[i];
-					var div = $("<div>");
-
-					var title = $("<div class='boardTitle'>");
-					var answerContents = $("<div class='answerContents'>");
-					var answerDate = $("<div class='answerDate'>");
-					var nickname = $("<div class='nickname'>");
-					var button = $("<a id='modal-872384' href='#modal-container-872384' role='button'"
-							+"class='btn' data-toggle='modal'>채택</a>");
-					
-					title.text(boardTitle);
-					answerContents.text(record.answerContents);
-					answerDate.text(record.answerRegDate);
-					nickname.text(record.answerWriter.nickname);
-				
-					title.appendTo(div);
-					answerContents.appendTo(div);
-					answerDate.appendTo(div);
-					nickname.appendTo(div);
-					
-					div.appendTo(ul);
-					
-					ul.append()
+              		 if (adoptionFlag != '1') {
+						display += '<div id="recommend" class="btn-sm btn-danger" onclick="adoption('+record.answerNo+')" style="width: 60px;">채택<span id="cnt"></span></div>';
+              		}
+              		 if (record.adoptionFlag == '1'){
+              			 display += '<div class="btn-sm btn-warning" style="width: 60px;">채택되었습니당<span id="cnt"></span>'
+              					 + '</div>'
+              		 }
+              			 
+						display += '<br />'
+						+ '<table class="cell" border ="2">'
+						+ '<tbody>'
+						+ '<tr class="article-title">'
+						+ '<th>제목:</th>'
+						+ '<td colspan="4">RE:'+boardTitle+'</td>'
+						+ '<th>작성자</th>'
+						+ '<td colspan="4">'+record.answerWriter.nickname+'</td>'
+						+ '</tr>'
+						+ '<tr class="article-info">'
+						+ '<th>등록일자</th>'
+						+ '<td colspan="8">'+record.answerRegDate+'</td>'
+						+ '</tr>'
+						+ '<tr class="article-body">'
+						+ '<th>내용</th>'
+						+ '<td colspan="8"><br />'
+						+ '<br />'
+						+ '<br />'
+						+ '<br />'
+						+ '<br />'
+						+ '<br />'+record.answerContents+'<br />'
+						+ '<br />'
+						+ '<br />'
+						+ '<br />'
+						+ '<br />'
+						+ '<br />'
+						+ '<br /></td>'
+						+ '</tr>'
+						+ '</tbody>'
+						+ '</table>'
+						+ "<button type='button' class='btn btn-warning' onclick='updateAnswer(\""+record.answerNo+"\")' style='height: 40px;'>답변 수정</button>"
+						+ '<button type="button" class="btn btn-warning" onclick="deleteAnswer('+record.answerNo+')" style="height: 40px;">답변 삭제</button>'
+						+ '<br/>';
 				}
-			}
+				
+				$("#listAnswer").append(display);
+							
+
+				}
 		});
 	}
 
 	
+	function updateAnswer(answerNo) {
+		location.href = "/board/updateAnswer?answerNo=" + answerNo;
+	}
+	
+	
+	
+	function deleteAnswer(answerNo) {
+		 $.ajax({
+			url:'/board/deleteAnswer',
+			type:'post',
+            headers : {
+                "Accept" : "application/json",
+                "Content-Type" : "application/json"
+            },
+            data : JSON.stringify({
+            	"answerNo" : answerNo,
+            	"boardNo" : boardNo
+            }), 
+			dateType:'json',
+			success:function(JSONData, status){
+				if(JSONData){
+					$("#listAnswer").children().remove();
+					getAnswerList();
+					
+				} else{
+					alert("실패");
+				}
+			}
+		});
+	}
+	
+	
+	
 	$(function() {
 		getAnswerList();
+		
 		
 		$('button:contains("답변등록")').on('click', function() {
 
@@ -90,6 +173,7 @@
 
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
+		
 	})
 	
 	
@@ -102,7 +186,7 @@
 
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
-	font-size: 15px;
+	text-align: center;
 }
 
 @import
@@ -160,7 +244,7 @@ font-family: 'Do Hyeon', sans-serif;
 					<th>제목:</th>
 					<td colspan="4">${board.boardTitle}</td>
 					<th>작성자</th>
-					<td colspan="4">${board.writer.email}</td>
+					<td colspan="4">${board.writer.nickname}</td>
 				</tr>
 				<tr class="article-info">
 					<th>등록일자</th>
@@ -175,7 +259,7 @@ font-family: 'Do Hyeon', sans-serif;
 					<br />
 					<br />
 					<br />
-					<br />${board.boardContents}<br />
+					<br />${answer.boardContents}<br />
 					<br />
 					<br />
 					<br />
@@ -194,21 +278,24 @@ font-family: 'Do Hyeon', sans-serif;
 		<button type="button" class="btn btn-success" style="width: 80px;">답변등록</button>
 
 		<c:if test="${user.email == board.writer.email}">
-			<button type="button" class="btn btn-warning" style="width: 60px;">수정</button>
-			<button type="button" class="btn btn-warning" style="width: 60px;">삭제</button>
+			<button type="button" class="btn btn-warning" style="width: 60px;">수 정</button>
+			<button type="button" class="btn btn-warning" style="width: 60px;">삭 제</button>
 		</c:if>
-		<button type="button" class="btn btn-warning" style="width: 60px;">목록</button>
-		<button type="button" class="btn btn-danger" style="width: 60px;">신고</button>
+		<button type="button" class="btn btn-warning" style="width: 60px;">목 록</button>
+		<button type="button" class="btn btn-danger" style="width: 60px;">신 고</button>
 	</div>
 
 	<br/>
+	<br/>
+	<br/>
 	<hr/>
 	<div class="answer-header">
-		<h1>${board.answerCount}개의 답변이 달렸습니다.</h1>
+	<h1>&nbsp&nbsp&nbsp<span id="answerCnt">${board.answerCount}</span>개의 답변이 달렸습니다.</h1>
 	</div>
-	<ul id="listAnswer">
 
-	</ul>
+<ul id="listAnswer">	
+</ul>
+
 	<div class="modal fade" id="modal-container-872384" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -230,11 +317,6 @@ font-family: 'Do Hyeon', sans-serif;
 		</div>
 	</div>
 
-
-	</div>
-
-	</div>
-	</div>
 
 </body>
 </html>

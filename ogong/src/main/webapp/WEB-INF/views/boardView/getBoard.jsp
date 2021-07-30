@@ -11,6 +11,8 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
 
 
@@ -62,36 +64,35 @@
 			success:function(res){
 				var list = res.list;
 				var ul = $('#listComment');
+				var li = "";
 				var div = $('#commentContainer');
 				var commentMore = $('<button type="buttonn" class="btn btn-danger" onclick="more()" style="margin-left:50px;" >더보기</button>');
 				for(var i=0 ; i<list.length ; i++){
 					var record = list[i];
-					var li = $("<li>");
-					
-					var commentContents = $("<div class='commentContents'>");
-					var commentRegDate = $("<div class='commentRegDate'>");
-					var nickname = $("<div class='nickname'>");
-					var commentNo = $("<input type='hidden' class='commentNo'>");
-					var updateButton = $("<button type='button' onClick='updateModal(\""+record.commentNo+"\",\""+record.commentContents+"\")' class='btn-sm btn-primary'>수정</button>")
-					var deleteButton = $("<button type='button' onClick='commentDelete("+record.commentNo+")' class='btn-sm btn-danger'>삭제</button>")
-					
-					commentContents.text(record.commentContents);
-					commentRegDate.text(record.commentRegDate);
-					nickname.text(record.nickname);
-
-					commentContents.appendTo(li);
-					commentRegDate.appendTo(li);
-					nickname.appendTo(li);
-					updateButton.appendTo(li);
-					deleteButton.appendTo(li);
-					
-					li.appendTo(ul);
+					    li += "<li>"
+							+ "<div class=>"+record.commentContents+"</div>"
+							+ "<div class=>"+record.commentRegDate+"</div>"
+							+ "<div class='dropdown'>"
+ 			  				+ "		<a id='dropdownMenu2' data-toggle='dropdown' aria-expanded='true'>"
+ 							+ 			record.nickname
+							+ "		</a>"
+							+ "		<ul class='dropdown-menu' role='menu' aria-labelledby='dropdownMenu1' id='drop2'>"
+							+ "			<li role='presentation'><a role='menuitem' tabindex='-1' href='#'>프로필보기</a></li>"
+							+ "			<li role='presentation'><a role='menuitem' id='commentDrop' tabindex='-1' href='#' data-toggle='modal' data-target='#myModal2'>쪽지보내기"
+							+ "				<input type='hidden' value='"+record.commentWriter.email+"' /></a></li>"
+							+ "			<li role='presentation'><a role='menuitem' tabindex='-1' href='#' data-toggle='modal' data-target='#myModalReport'>신고하기"
+							+ "				<input type='hidden' value='"+record.commentWriter.email+"' /></a></li>"
+							+ "		</ul>"
+							+ "</div>"
+							+ "		<input type='hidden' class='commentNo'>"
+							+ "<button type='button' onClick='updateModal(\""+record.commentNo+"\",\""+record.commentContents+"\")' class='btn-sm btn-primary'>수정</button>"
+							+ "<button type='button' onClick='commentDelete("+record.commentNo+")' class='btn-sm btn-danger'>삭제</button>"
+							+ "</li>";
 				}
-				if (list.length > 0) {
-					commentMore.appendTo(div);
-				}
+					$("#listComment").append(li);
 				
 			}
+			
 		});
 	}
 	
@@ -124,10 +125,11 @@
 			},
 			dateType:'json',
 			success:function(res){
-				if (res == true) {
+				if (res) {
 					$('#modal').hide();
 					var ul = $('#listComment');
 					ul.children('li').remove();
+					$('#commentCts').val("");
 					
 					getCommentList();
 				} else{
@@ -170,8 +172,32 @@
 		}
 	}
 	
+	$().ready(function () {
+	    $(".commentDelete").click(function () {
+	        Swal.fire({
+	            title: '정말로 그렇게 하시겠습니까?',
+	            text: "다시 되돌릴 수 없습니다. 신중하세요.",
+	            icon: 'warning',
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '승인',
+	            cancelButtonText: '취소'
+	        }).then((result) => {
+	            if (result.isConfirmed) {
+	                Swal.fire(
+	                    'success'
+	                )
+	            }
+	        })
+	    });
+	});
+		
+	
 	function addComment() {
 		var commentContents = $('#comment').val();
+		
+		
 		currentPage = 1; 
 		$.ajax({
 			url:'/board/addComment',
@@ -235,7 +261,7 @@
 			updateComment();
 		})
 		
-	}) 
+	}) 	
 	
 	
 </script>
@@ -261,11 +287,9 @@ td {
 	display: none;
 	width: 400px;
 	height: 365px;
-	background-color: white;
-	position: absolute;
+	position: fixed;
 	top: 350px;
-	left: 40%;
-	border: 1px solid #e9e9e9;
+	right: 50%;
 	z-index: 20;
 }
 
@@ -290,6 +314,8 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 	<jsp:include page="../adminView/addReport.jsp" />
+	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+<%-- 	<jsp:include page="../integrationView/addSendMessage3.jsp" / > --%>
 
 	<div class="container">
 		<div class="page-header">
@@ -298,14 +324,22 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 		</div>
 		<br/>
 
-		<input type="hidden" name="boardEmail" id="boardEmail"
-			value="${board.writer.email}" />
+		<input type="hidden" name="boardEmail" id="boardEmail" value="${board.writer.email}" />
 
 		<div class="row">
 			<div class="col-xs-4 col-md-2">
 				<strong>게시글 작성자</strong>
 			</div>
-			<div class="col-xs-8 col-md-4">${board.writer.nickname}</div>
+			<div class="dropdown">
+				<div class="col-xs-8 col-md-4"  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+					${board.writer.nickname}
+				</div>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop1">
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">프로필보기</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
+					<input type="hidden" value="${board.writer.email}" /></a></li>
+				</ul>
+			</div>
 		</div>
 		<hr />
 		<div class="row">
@@ -340,8 +374,7 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 
 			<div class="col-xs-6 col-md-4">
 				<c:forEach var="file" items="${fileList}">
-					<pre onClick="fileDown(${file.fileNo})"
-						style="cursor: pointer; width: 250px; height: 80px; "cursor:pointer;">${file.fileName}</pre>
+					<pre onClick="fileDown(${file.fileNo})" style="cursor: pointer; width: 250px; height: 80px; "cursor:pointer;">${file.fileName}</pre>
 				</c:forEach>
 			</div>
 		</div>
@@ -349,8 +382,7 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 
 
 		<div align="right">
-			<div id="recommend" class="btn-sm btn-danger" onclick="recommend()"
-				style="width: 60px;">
+			<div id="recommend" class="btn-sm btn-danger" onclick="recommend()" style="width: 60px;">
 				추 천 <span id="cnt">0</span>
 			</div>
 		<div>
@@ -359,8 +391,7 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 			<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
 				<c:if test="${user.userId == board.email}"> --%>
 
-			<button type="button" class="btn-sm btn-warning" style="width: 60px;"
-				data-toggle="modal" data-target="#myModalReport">신 고</button>
+			<button type="button" class="btn-sm btn-warning" style="width: 60px;" data-toggle="modal" data-target="#myModalReport">신 고</button>
 
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;">수 정</button>
 			<%-- 				</c:if> --%>
@@ -391,6 +422,7 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 			</div>
 		</div>
 	</div>
+	
 	<div class="container" id="commentContainer">
 		<ul id="listComment">
 		</ul>
