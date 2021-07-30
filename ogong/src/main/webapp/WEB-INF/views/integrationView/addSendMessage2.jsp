@@ -59,7 +59,7 @@
 
 <div class="contatiner">
 	<!-- Modal 쪽지 보내기-->
-	<form name="addSendMessage2">
+	<form name="addSendMessage2" style="text-align='';">
 		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">

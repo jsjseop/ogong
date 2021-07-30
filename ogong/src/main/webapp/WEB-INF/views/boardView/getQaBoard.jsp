@@ -251,7 +251,7 @@
 
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
-	text-align: center;
+
 }
 
 @import

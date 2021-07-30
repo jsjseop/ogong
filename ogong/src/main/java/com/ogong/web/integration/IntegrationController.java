@@ -223,11 +223,12 @@ public class IntegrationController {
 	
 	//메인페이지의 필요한 모든 것
 	@GetMapping("mainPage")
-	public String mainPage(Model model, Answer answer, User user, HttpSession session) throws Exception{
+	public String mainPage(Model model, Answer answer, HttpSession session) throws Exception{
 		
 		System.out.println("mainPage 메소드가 실행되는지 확인합시다."); 
 		
-		User email = (User)session.getAttribute("user");
+		User user = (User)session.getAttribute("user");
+		String email = user.getEmail();
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		

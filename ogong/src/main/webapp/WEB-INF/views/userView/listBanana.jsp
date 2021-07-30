@@ -252,8 +252,8 @@ body, table, div, p, th, td {
     </c:forEach>  
 	</div>
 
-                                  	<form class="form-inline" name="detailForm">
-					  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+                    <form class="form-inline" name="detailForm">
+					  	<!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 					</form>
         <!-- /.row -->

@@ -48,7 +48,7 @@
 		<result property="boardNo" 				 column="board_no" 					jdbcType="NUMERIC"/>
 		<result property="answerWriter.email" 	 column="email" 					jdbcType="VARCHAR" />
 		<result property="answerContents"		 column="answer_contents" 			jdbcType="VARCHAR" />
-		<result property="adoptionFlag" 		 column="adoption_flag" 			jdbcType="NUMERIC" />  
+		<result property="adoptionFlag" 		 column="adoption_flag" 			jdbcType="VARCHAR" />  
 		<result property="answerRegDate" 		 column="answer_reg_date" 			jdbcType="DATE" /> 
 		<result property="answerWriter.nickname" column="nickname" 					jdbcType="VARCHAR" />
 		<result property="adoptionDate" 		 column="adoption_date" 			jdbcType="DATE" />
@@ -65,6 +65,7 @@
 		<result property="fileNo" 				column="file_info_no" 				jdbcType="NUMERIC" />
 		<result property="fileName" 			column="file_name" 					jdbcType="VARCHAR" />
 	</resultMap>
+	
 	
 	
 <!-- 게시판 등록 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판 
@@ -119,8 +120,7 @@
 					'2'
 				</if>	 
 					)
-	</insert>	
-
+	</insert>		
 
 	
 <!-- 게시판 보기 1.정보공유 게시판 2.Q&A게시판 3.합격후기 게시판
@@ -233,10 +233,10 @@
                 	<if test="search.searchKeyword!=null and search.searchKeyword!=''">
                 		<choose>
                 			<!-- <when test="searchCondition!=null and searchCondition==1"> -->
-                			<when test='search.searchCondition!=null and search.searchCondition.equals("1")'>
+                			<when test='search.searchCondition!=null and search.searchCondition==1'>
                 				AND board_title like '%'||#{search.searchKeyword}||'%'
                 			</when>
-                			<when test="searchCondition!=null and searchCondition==2">
+                			<when test='search.searchCondition!=null and search.searchCondition==2'>
                 				AND board_contents like '%'||#{search.searchKeyword}||'%'
                 			</when>
                 			<otherwise>
@@ -422,7 +422,7 @@
 	</select>
 
 
-	<!-- 답변 수 -->
+ <!-- 답변 수 -->
  
 	<select id="listCommentCount" parameterType="map" resultType="int">
 		SELECT
@@ -475,7 +475,7 @@
 
 
  
- 	<!-- Q&A 게시판 답변 수정 -->
+ <!-- Q&A 게시판 답변 수정 -->
 
 	<update  id="updateAnswer"	parameterType="answer">
 	
@@ -511,7 +511,7 @@
 		AND email = #{answerWriter.email}				
 	</select> 
 
-	<!-- Q&A 게시판 답변 삭제 -->	
+<!-- Q&A 게시판 답변 삭제 -->	
 	
 	<delete id="deleteAnswer" parameterType="answer" >
 		DELETE
@@ -525,7 +525,6 @@
 	
 	
 <!-- 게시판 조회수 -->	
-
 	
 	<update id="updateViewcnt" parameterType="int">
 		UPDATE
@@ -667,26 +666,4 @@
 		WHERE 
 			file_info_no = #{fileNo}	  		 
 	</select> 
-	
-	<!-- 알림을 위한 게시글 상세보기 -->
-	<select id="getNoticeBoard" parameterType="int" resultMap="boardSelectMap">
-		SELECT
-			board_no,
-			nickname,
-			email,
-			board_category,
-			board_title,
-			board_contents,
-			board_interest,
-			board_reg_date,
-			view_count,
-			study_start_date,
-			study_end_date
-		FROM 
-			board
-		WHERE 
-			board_no = #{boardNo}
-	</select> 	
-	
-	
 </mapper>

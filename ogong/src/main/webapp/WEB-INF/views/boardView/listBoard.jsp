@@ -10,7 +10,7 @@
 <title>정보공유 게시판</title>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script type="text/javascript">
 	function fncGetList(currentPage) {

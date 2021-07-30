@@ -10,15 +10,31 @@
 	width: 120px;
 	height: 50px;
 }
+
+	
+#hard {
+  width: 160px;
+  height: 80px;
+  object-fit: cover;
+  left: 50%;
+  margin-right: 3.5rem !important;
+  text-align : right;
+}
+
+#detail{
+	text-align: center; 
+}
 </style>
 
 <!-- Theme style -->
 <link rel="stylesheet" href="/resources/css/adminlte.min.css">
 <!-- Bootstrap 4 -->
 <script src="/resources/javascript/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/resources/javascript/adminlte.min.js"></script>
+
 <script src="https://kit.fontawesome.com/e3409dba93.js"></script>
+
+
+
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -39,7 +55,7 @@
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">자율스터디</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">자율스터디</a></li>
+              <li><a href="#" class="dropdown-item" id="free">자율스터디</a></li>
               <li><a href="#" class="dropdown-item">모집게시판</a></li>
             </ul>
           </li>
@@ -85,13 +101,10 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown" id="noticeCount">
         
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            
+          <a class="nav-link" data-toggle="dropdown" href="#">            
             <i class="far fa-bell"></i>	
-            
           </a>
-          
-          
+                   
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
@@ -114,22 +127,37 @@
           </div>
         </li>
         
-        
-        <li class="nav-item dropdown">
+      <li class="dropdown">
           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
           	<i class="fas fa-th-large"></i>
           </a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">프로필</a></li>
-              <li><a href="#" class="dropdown-item">로그아웃</a></li>
-              <li><a href="#" class="dropdown-item">쪽지</a></li>
-              <li><a href="#" class="dropdown-item">공부기록</a></li>
-              <li><a href="#" class="dropdown-item">나의스터디</a></li>
-              <li><a href="#" class="dropdown-item">나의게시글</a></li>
-              <li><a href="#" class="dropdown-item">바나나 조회</a></li>
-              <li><a href="#" class="dropdown-item">회원탈퇴</a></li>
-            </ul>          
-        </li>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="#" class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media" id="media">
+              <!-- <img src="/resources/images/jjang.jpg" alt="User Avatar" class="img-size-60 mr-4 img-circle"> -->
+              <div class="media-body">
+              	<h3 class="dropdown-item-title">&nbsp&nbsp</h3>
+                <h3 class="dropdown-item-title" id="nickname"></h3>
+                <h3 class="dropdown-item-title" id="email"></h3>
+              </div>
+            </div>
+            <span id="detail">
+              <a class="btn  btn-sm">&nbsp</a>
+              <a class="btn  btn-sm">프로필</a>
+              <a class="btn  btn-sm">쪽지</a>
+              <a class="btn  btn-sm">로그아웃</a>
+              <a class="btn  btn-sm">바나나조회</a>
+              <a class="btn  btn-sm">&nbsp</a>
+              <a class="btn  btn-sm">&nbsp</a>
+              <a class="btn  btn-sm">나의게시글</a>
+              <a class="btn  btn-sm">나의스터디</a>
+              <a class="btn  btn-sm">회원탈퇴</a>
+            </span>
+          </a>
+        </div>
+      </li>        
+      
             
         
         
@@ -151,9 +179,7 @@
 	   	
 	   	
 	   	function noticeCount() {
-	   		
-	   		
-	   		
+
 	   			$.ajax(
 	   					{
  					url : "/integration/json/getNoticeCount/"+email ,
@@ -164,13 +190,14 @@
 						"Content-Type" : "application/json"	 						
  					} ,
 	   				success : function(JSONData, status){
-	   					/* alert(JSONData); */
+	   					
    						if (JSONData != 0){
 							let display = "<span class='badge badge-danger navbar-badge' id='test'>"+JSONData+"</span>";
 							$('#noticeCount > a > i').append(display); 
    						}
 	   				}
 	   			});	   		
+	   	
 	   	};
 	   	
 	   	$('#noticeCount').on('click', function(){
@@ -350,6 +377,35 @@
 		 
 	 	
 	 };
+	 
+ 		$.ajax({
+			
+			url : "/admin/json/adminGetUser/"+email,
+			method : "GET" ,
+			dataType : "json" ,
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			
+			success : function(JSONData, status){
+				
+				
+				
+				var display2 = JSONData.email;
+				var display3 = JSONData.nickname;
+				if(JSONData.userImage == null){
+					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/basic.jpg' alt='User Avatar' id='hard' class='img-circle'>";
+					$('#media').append(display);	
+				}else if(JSONData.userImage != null){
+					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/"+JSONData.userImage+"' alt='User Avatar' id='hard' class='img-circle'>";
+					$('#media').append(display);
+				}
+				$('#email').html(display2);
+				$('#nickname').html(display3);
+			}
+			
+		})	  
 	 	
    	</script>
    	
@@ -360,7 +416,7 @@
 		}) ;   	
    	   	
 		//=============  자율스터디목록 Event  처리 =============
-	 	$( "a:contains('자율스터디목록')" ).on("click" , function() {
+	 	$( "#free" ).on("click" , function() {
 	 		location.href = "/study/listStudy?studyType=self";
 		});
 		
@@ -431,12 +487,12 @@
 	 	});	 
 	 	
 	 	//=============  나의 게시글 Event  처리 =============
-	 	$( "a:contains('나의 게시글')").on("click", function(){
+	 	$( "a:contains('나의게시글')").on("click", function(){
 	 		location.href = "/";
 	 	});	 
 	 	
 	 	//=============  바나나 조회 Event  처리 =============
-	 	$( "a:contains('바나나 조회')").on("click", function(){
+	 	$( "a:contains('바나나조회')").on("click", function(){
 	 		location.href = "/banana/listBanana";
 	 	});
 	 	
