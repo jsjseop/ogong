@@ -24,6 +24,7 @@ public class Board {
 	private Study study;
 	private String studyStartDate;
 	private String studyEndDate;
+	private String adoptionFlag;
 	
 }	
 	

@@ -79,7 +79,7 @@ body, table, div, p, th, td {
 				if(list.length > 0){
 					
 					$.each(list, function(index, list){
-						
+
 						if(list.bananaCategory == '1'){
 							display += '<div class="card row col-md-10 "style="margin:20px; height:170px;" id="divRemove">'
 									+ '<div class="card-body row" style="text-align: center;">'

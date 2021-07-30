@@ -300,5 +300,73 @@
 	 		study_no = #{value}
 	 
 	 </delete>
+	 
+	 <select id="getMySelfStudy" parameterType="string" resultMap="studySelectMap">
+	 
+	 	SELECT
+			study_no, 
+			email, 
+			study_name, 
+			study_hashtag, 
+			study_thumbnail, 
+			TO_CHAR(study_start_date,'YYYY/MM/DD') study_start_date, 
+			TO_CHAR(study_end_date,'YYYY/MM/DD') study_end_date, 
+   			current_member, 
+			max_member, 
+			TO_CHAR(recruitment_start_date,'YYYY/MM/DD') recruitment_start_date, 
+			TO_CHAR(recruitment_end_date,'YYYY/MM/DD') recruitment_end_date, 
+			studyroom_grade,
+			study_type,
+			study_interest
+   			FROM study
+   			<where>
+   				study_end_flag = '1' AND study_type = 'self'
+				AND email = #{email}
+     		</where>
+     		ORDER BY study_no ASC
+     		
+	 </select>
+	 
+	 <select id="getMyStudy" parameterType="map" resultMap="studySelectMap">
+	 
+	 	SELECT
+			study_no, 
+			email, 
+			study_name, 
+			study_hashtag, 
+			study_thumbnail, 
+			TO_CHAR(study_start_date,'YYYY/MM/DD') study_start_date, 
+			TO_CHAR(study_end_date,'YYYY/MM/DD') study_end_date, 
+   			current_member, 
+			max_member, 
+			selfstudy_password,
+			TO_CHAR(recruitment_start_date,'YYYY/MM/DD') recruitment_start_date, 
+			TO_CHAR(recruitment_end_date,'YYYY/MM/DD') recruitment_end_date, 
+			studyroom_grade,
+			study_type,
+			study_interest
+   			FROM study
+   			<where>
+   				<if test="endFlag == 1">
+					study_end_flag = '1'
+				</if>
+				<if test="endFlag == 2">
+					study_end_flag = '2'
+				</if>
+   				AND study_type = 'group'
+   				AND study_no IN (SELECT study_no
+   								 FROM groupstudy_member
+   								 WHERE email = #{email}
+   								 <if test="approvalFlag == 0">
+   								 	AND approval_flag IS NULL
+   								 </if>
+   								 <if test="approvalFlag == 1">
+   								 	AND approval_flag = '1'
+   								 </if>
+   								 )
+     		</where>
+     		ORDER BY study_no ASC
+     		
+	 </select>
 	
 </mapper>

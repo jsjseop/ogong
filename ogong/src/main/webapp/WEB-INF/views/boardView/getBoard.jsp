@@ -11,9 +11,9 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
-
-
     let boardNo = "<c:out value='${board.boardNo}'/>";
 	let boardCategory = "<c:out value='${board.boardCategory}'/>";
 	
@@ -21,14 +21,10 @@
 	let pageSize = 10;
 	
 	function fncDeleteBoard() {
-
 		if (confirm("삭제하시겠습니까?")) {
-
 			location.href = "/board/deleteBoard?boardNo="+`${board.boardNo}`+"&boardCategory="+`${board.boardCategory}`; 
 		}
 	}
-
-
 	
 	function recommend() {
 		var cnt = $('#cnt');
@@ -143,6 +139,8 @@
 							+ "<button type='button' onClick='updateModal(\""+record.commentNo+"\",\""+record.commentContents+"\")' class='btn-sm btn-primary'>수정</button>"
 							+ "<button type='button' onClick='commentDelete("+record.commentNo+")' class='btn-sm btn-danger'>삭제</button>"
 							+ "</li>";
+
+					
 				}
 					$("#listComment").append(li);
 				
@@ -155,7 +153,6 @@
 		$('#commentNo').val(commentNo);
 		$('#commentCts').text(commentContents);
 		$('#modal').show();
-
 	}
 	
 	function modalClose() {
@@ -184,6 +181,7 @@
 					$('#modal').hide();
 					var ul = $('#listComment');
 					ul.children('li').remove();
+					$('#commentCts').val("");
 					
 					getCommentList();
 				} else{
@@ -226,6 +224,28 @@
 		}
 	}
 	
+	$().ready(function () {
+	    $(".commentDelete").click(function () {
+	        Swal.fire({
+	            title: '정말로 그렇게 하시겠습니까?',
+	            text: "다시 되돌릴 수 없습니다. 신중하세요.",
+	            icon: 'warning',
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '승인',
+	            cancelButtonText: '취소'
+	        }).then((result) => {
+	            if (result.isConfirmed) {
+	                Swal.fire(
+	                    'success'
+	                )
+	            }
+	        })
+	    });
+	});
+		
+	
 	function addComment() {
 		var commentContents = $('#comment').val();
 		
@@ -258,6 +278,7 @@
 			}
 		});
 	}
+<<<<<<< HEAD
 	
  	$(function(){
  		$("ul li:nth-child(1)").on("click", function(){
@@ -300,6 +321,8 @@
 		})
 	}) 	
 
+=======
+>>>>>>> refs/remotes/origin/master
 	function more() {
 		getCommentList('M');
 	}
@@ -313,24 +336,18 @@
 		
 		
 		$('button:contains("수 정")').on('click', function() {
-
 			location.href = "/board/updateBoard?boardNo=" + boardNo;
 		})
-
 		$('button:contains("삭 제")').on('click', function() {
-
 			fncDeleteBoard();
 		})
-
 		$('button:contains("목 록")').on('click', function() {
-
 			location.href = "/board/listBoard?boardCategory=" + boardCategory;
 		})
 		
 	
 		
 		$('#updatebtn').on('click', function() {
-
 			updateComment();
 		})
 		
@@ -342,43 +359,34 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
 	;
-
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
 }
-
 pre {
 	border: 0;
 	background-color: transparent;
 }
-
 td {
 	text-align: left !important;
 }
-
 #modal {
 	display: none;
 	width: 400px;
 	height: 365px;
-	background-color: white;
-	position: absolute;
+	position: fixed;
 	top: 350px;
-	left: 40%;
-	border: 1px solid #e9e9e9;
+	right: 50%;
 	z-index: 20;
 }
-
 pre:LINK, pre:VISITED {
 	text-decoration: none;
 	color: black;
 }
-
 pre:HOVER { /* 마우스 커서 올렸을때 */
 	text-decoration: underline;
 	color: #6E92A1;
 	font-weight: bold;
 }
-
 pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 	text-decoration: none;
 	color: black;
@@ -389,10 +397,15 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 	<jsp:include page="../adminView/addReport.jsp" />
+<<<<<<< HEAD
 	<jsp:include page="../adminView/addReport2.jsp" />
 	<jsp:include page="../integrationView/getMyProfile.jsp" />
 	<jsp:include page="../integrationView/addSendMessage2.jsp" />
 	<jsp:include page="../integrationView/addSendMessage3.jsp" />
+=======
+	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+<%-- 	<jsp:include page="../integrationView/addSendMessage3.jsp" / > --%>
+>>>>>>> refs/remotes/origin/master
 
 	<div class="container" id="div1">
 		<div class="page-header">
@@ -412,6 +425,7 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 					${board.writer.nickname}
 				</div>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop1">
+
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
 				    <input type="hidden" value="${board.writer.email}" /></a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
@@ -457,8 +471,6 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 			</div>
 		</div>
 		<hr />
-
-
 		<div align="right">
 			<div id="recommend" class="btn-sm btn-danger" onclick="recommend()" style="width: 60px;">
 				추 천 <span id="cnt">0</span>
@@ -469,10 +481,13 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 			<%-- 			<c:if test="${user.userId == board.email || user.role == 'admin'}">
 				<c:if test="${user.userId == board.email}"> --%>
 
-			<button type="button" class="btn-sm btn-warning" style="width: 60px;" data-toggle="modal" data-target="#myModalReport">신 고</button>
+
+			<button type="button" class="btn-sm btn-warning" style="width: 60px;"
+				data-toggle="modal" data-target="#myModalReport">신 고</button>
 
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;">수 정</button>
 			<%-- 				</c:if> --%>
+
 
 			<button type="button" class="btn-sm btn-warning" style="width: 60px;">삭 제
 				<input type="hidden" value="${message.sender.email}" />
@@ -482,7 +497,11 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 		</div>
 	</div>
 
+
 	<div class="container" id="div2">
+
+	<div class="container">
+
 		<div>
 			<div>
 				<span><strong>comment</strong></span> <span id="cnt"></span>
@@ -502,7 +521,11 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 		</div>
 	</div>
 	
-	<div class="container" id="div3">
+
+
+
+	<div class="container" id="commentContainer">
+
 		<ul id="listComment">
 		
 		</ul>
@@ -510,7 +533,6 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 	
 	<div id="modal">
 		<input type="hidden" id="commentNo">
-
 		<textarea style="width: 500px" id="commentCts" rows="3" cols="30"
 			placeholder="수정할 내용을 입력하세요"></textarea>
 		<div>

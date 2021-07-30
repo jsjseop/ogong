@@ -58,20 +58,29 @@ public class RestBoardController {
     
     @PostMapping("updateRecommend")
 	public int updateRecommend(HttpServletRequest request, @RequestParam("boardNo") int boardNo) throws Exception {
-		String commentNo = "a";	
 		Board board = new Board();
 		board.setBoardNo(boardNo);		
 //		HttpSession session = request.getSession(true);
 //		User user = (User)session.getAttribute("user");
 //		board.setWriter(user);	
 		User user = new User();
-		user.setEmail("user10");
 		board.setWriter(user);
 		int result = boardService.recommend(board);
 		
 		return result;
 		
 	}
+    
+    @GetMapping("/json/updateAdoption/{answerNo}/{boardNo}")
+	public void updateAdoption(@PathVariable("answerNo") int answerNo, @PathVariable("boardNo") int boardNo) throws Exception {
+		Answer answer = new Answer();
+		answer.setAnswerNo(answerNo);		
+
+		boardService.updateAdoption(answerNo);
+		boardService.updateBoardAdoption(boardNo);
+		
+	}
+    
     
     @GetMapping("listComment")
 	public Map<String, Object> listComment(@RequestParam("boardNo") int boardNo, Search search) throws Exception {		
@@ -129,22 +138,22 @@ public class RestBoardController {
        	HttpSession session = request.getSession();
        	User user = (User)session.getAttribute("user");
        	answer.setAnswerWriter(user);
+
        	
        	boardService.updateAnswer(answer);
        	
    		return true;
        }
        
-       @PostMapping("deleteAnswer")
+       
+      @PostMapping("deleteAnswer")
    	public Boolean deleteAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
        	HttpSession session = request.getSession();
        	User user = (User)session.getAttribute("user");
        	answer.setAnswerWriter(user);
    		
-       	//boardService.deleteAnswer(answer);
-       	
-       	return true;
-  		
+       	return boardService.deleteAnswer(answer);
+
        }
        
    	@PostMapping("/json/listStudyBoard/")

@@ -21,6 +21,19 @@ public class SelfStudyTest {
 	private StudyService studyService;
 	
 	@Test
+	void testMyStudy() throws Exception {
+		
+		//진행중인 자율스터디
+		List<Study> mySelfStudyList = studyService.getMySelfStudy("user01");
+		//진행중인 그룹스터디
+		List<Study> myGroupStudyList = studyService.getMyStudy("user01", "1", "1");
+		//참가신청중인 그룹스터디
+		List<Study> myApprovalGroupStudyList = studyService.getMyStudy("user01", "1", "0");
+		//종료된 그룹스터디
+		List<Study> myEndGroupStudyList = studyService.getMyStudy("user01", "2", "1");
+	}
+	
+	//@Test
 	@DisplayName("자율 스터디 생성")
 	void testAddStudy() throws Exception {
 		

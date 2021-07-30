@@ -173,6 +173,23 @@ public class BoardController {
 		
 		return "redirect:/board/getBoard?boardNo=" + answer.getBoardNo();
 	}
+	
+	@GetMapping("updateAnswer")
+	public String updateAnswer(HttpSession session, @RequestParam("answerNo") int answerNo, Model model) throws Exception {
+
+		User user = (User) session.getAttribute("user");
+		
+		Answer answer = new Answer();
+		answer.setAnswerNo(answerNo);	
+		answer.setAnswerWriter(user);
+		
+		Answer result = boardService.getAnswer(answer);
+		
+		model.addAttribute("answer", result);
+
+		return "/boardView/updateAnswerBoard";
+	}
+
 
 	@GetMapping("getBoard")
 	public String getBoard(@RequestParam("boardNo") int boardNo, HttpSession session, Model model, Search search) throws Exception {

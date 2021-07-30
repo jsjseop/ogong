@@ -61,7 +61,7 @@
 									+ '<input type="hidden" value="${board.boardNo}" />'
 									+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
 									+ '<td align="center">'+list.writer.nickname+'</td>'
-									+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+									+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
 									+ '<td align="left">'+list.boardRegDate+'</td>'
 									+ '</div>'
 									+ '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">'

@@ -72,4 +72,21 @@ public class StudyServiceImpl implements StudyService {
 		studyMapper.addParticipation(gsm);
 	}
 
+	@Override
+	public List<Study> getMySelfStudy(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return studyMapper.getMySelfStudy(email);
+	}
+
+	@Override
+	public List<Study> getMyStudy(String email, String endFlag, String approvalFlag) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("endFlag", endFlag);
+		map.put("approvalFlag", approvalFlag);
+		
+		return studyMapper.getMyStudy(map);
+	}
+
 }

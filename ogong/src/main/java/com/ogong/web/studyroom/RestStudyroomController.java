@@ -48,11 +48,15 @@ public class RestStudyroomController {
 		System.out.println(this.getClass());
 	}
 	
+
 	//신청
-	@GetMapping("json/applyParticipation/{email}")
-	public String updateApproval( @PathVariable String email) throws Exception{
+	@GetMapping("json/applyParticipation/{email}/{studyNo}")
+	public String updateApproval( @PathVariable String email,
+									@PathVariable int studyNo) throws Exception{
+
 		
 		studyroomService.applyParticipation(email);
+		studyroomService.updateMember(studyNo);
 		
 		return "성공";
 	}
@@ -120,8 +124,10 @@ public class RestStudyroomController {
 	@PostMapping("json/updateCalendar")
 	public Boolean updateCalendar (@RequestBody Calendar cal)throws Exception{
 		Boolean result = false;
-		cal.setCalendarStartDate(cal.getCalendarStartDate().substring(0,10));
-		cal.setCalendarEndDate(cal.getCalendarEndDate().substring(0,10));		
+		cal.setCalendarStartDate(cal.getCalendarStartDate().replaceAll("T", " "));
+		cal.setCalendarStartDate(cal.getCalendarStartDate().replaceAll("Z", "").substring(0, 16));
+		cal.setCalendarEndDate(cal.getCalendarEndDate().replaceAll("T", " "));
+		cal.setCalendarEndDate(cal.getCalendarEndDate().replaceAll("Z", "").substring(0, 16));
 		
 		if(cal !=null) {
 			studyroomService.updateCalendar(cal);

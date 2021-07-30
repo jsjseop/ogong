@@ -1,8 +1,6 @@
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 	<c:if test="${ ! empty user }">
@@ -53,7 +51,7 @@
                         <hr class="divider" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 mb-5">�④���硫� 怨듬�媛� ���� 利�嫄곗��吏��� !</p>
+                        <p class="text-white-75 mb-5">함께하면 공부가 더욱 즐거워진다 !</p>
                         <a class="btn btn-primary btn-xl" href="#about">More</a>
                     </div>
                 </div>
@@ -66,7 +64,7 @@
                     <div class="col-lg-8 text-center">
                         <h2 class="text-white mt-0">We are Together !</h2>
                         <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">�댁�� �쇱����吏� 留��몄��,</br> ������ �ㅽ�곕���� 李몄�ы�� 蹂댁�몄�� !</p>
+                        <p class="text-white-75 mb-4">이제 혼자하지 마세요,</br> 원하는 스터디에 참여해 보세요 !</p>
                         <a class="btn btn-light btn-xl" href="#services">Get Started</a>
                     </div>
                 </div>
@@ -82,28 +80,28 @@
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Sharing information</h3>
-                            <p class="text-muted mb-0">�ㅼ���� ��媛��� 媛�怨����� 移�援щ�ㅺ낵 </hr>�ㅼ���� ��蹂대�� 援�瑜� �� 蹂댁�몄��.</p>
+                            <p class="text-muted mb-0">다양한 생각을 갖고있는 친구들과 </hr>다양한 정보를 교류 해 보세요.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Target Time</h3>
-                            <p class="text-muted mb-0">��猷� 紐⑺�� 怨듬���媛��� �ㅼ����怨�</br> 紐⑺��瑜� �ъ�� �� 蹂댁�몄��.</p>
+                            <p class="text-muted mb-0">하루 목표 공부시간을 설정하고</br> 목표를 달성 해 보세요.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Anywhere</h3>
-                            <p class="text-muted mb-0">��媛�怨� �μ�� 援ъ��諛�吏� ��怨�<br/>������ ��媛�怨� �μ������ 利�寃⑤낫�몄��.</p>
+                            <p class="text-muted mb-0">시간과 장소 구애받지 않고<br/>원하는 시간과 장소에서 즐겨보세요.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Made with Love</h3>
-                            <p class="text-muted mb-0">�④���硫� ���� 諛곌����� !</br> 媛��� 怨듬��� 移�援щ�ㅼ�� 李얠��蹂댁�몄��.</p>
+                            <p class="text-muted mb-0">함께하면 더욱 배가되는 !</br> 같이 공부할 친구들을 찾아보세요.</p>
                         </div>
                     </div>
                 </div>
@@ -116,29 +114,29 @@
  
                   
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="�����ㅽ�곕��">
+                        <a class="portfolio-box" href="/" title="자유스터디">
                             <img class="img-fluid" src="../resources/images/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">��援щ�� ����濡�寃� 李몄�ш� 媛��ν��</div>
-                                <div class="project-name">�����ㅽ�곕��</div>
+                                <div class="project-category text-white-50">누구나 자유롭게 참여가 가능한</div>
+                                <div class="project-name">자유스터디</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="洹몃９�ㅽ�곕��">
+                        <a class="portfolio-box" href="/" title="그룹스터디">
                             <img class="img-fluid" src="../resources/images/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">泥닿����� ���ㅽ���쇰� 怨듬��⑥�� up</div>
-                                <div class="project-name">洹몃９�ㅽ�곕��</div>
+                                <div class="project-category text-white-50">체계적인 시스템으로 공부효율 up</div>
+                                <div class="project-name">그룹스터디</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="/" title="�ㅽ�곕��紐⑥�">
+                        <a class="portfolio-box" href="/" title="스터디모집">
                             <img class="img-fluid" src="../resources/images/333.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
-                                <div class="project-category text-white-50">�닿� 吏��� 留����� �ㅽ�곕��</div>
-                                <div class="project-name">�ㅽ�곕��紐⑥�</div>
+                                <div class="project-category text-white-50">내가 직접 만드는 스터디</div>
+                                <div class="project-name">스터디모집</div>
                             </div>
                         </a>
                     </div>
@@ -148,7 +146,7 @@
         <!-- Call to action-->
         <section class="page-section bg-dark text-white">
             <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mb-4">�ㅽ�곕�� ������湲�</h2>
+                <h2 class="mb-4">스터디 시작하기</h2>
                 <a class="btn btn-light btn-xl" href="/">Study Now</a> 
             </div>
         </section>
@@ -159,8 +157,8 @@
                     <div class="col-lg-8 col-xl-6 text-center">
                         <h2 class="mt-0">Let's Get In Ogong!</h2>
                         <hr class="divider" />
-                        <p class="text-muted mb-5">�ㅺ났�� 利�寃�寃� 怨듬��� �� ���� 諛⑸��� ��怨듯�⑸����.</br>
-                        	�ㅻ� 諛� ��鍮��ㅼ�� 愿��⑤�� 遺��몄�ы���� �닿납�쇰� �곕�� 二쇱�몄��.</p>
+                        <p class="text-muted mb-5">오공은 즐겁게 공부할 수 있는 방법을 제공합니다.</br>
+                        	오류 및 서비스와 관련된 불편사항은 이곳으로 연락 주세요.</p>
                     </div>
                 </div>
                 </div>
@@ -186,5 +184,4 @@
        
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
-
 </html>
