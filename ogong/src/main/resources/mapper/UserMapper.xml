@@ -197,7 +197,7 @@ SELECT count(*)
 	 
  	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
 		SELECT *
-		form users
+		from users
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
 	 
