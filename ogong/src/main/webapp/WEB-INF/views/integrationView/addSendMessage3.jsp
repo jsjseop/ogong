@@ -14,10 +14,7 @@
 		var sender = $("#sender2").val();
 		var receiver = $("#receiver2").val();
 		var messageContents = $("#messageContents3").val();
-		
-		alert(sender);
-		alert(receiver);
-		alert(messageContents);
+
 		
 		if(receiver == null || receiver.length<1){
 			alert("수신자 이메일은 반드시 입력해야 합니다.");
@@ -78,8 +75,8 @@
 							<div class="form-group">
 								<label>발신자 이메일</label> 
 								  <!-- 쪽지목록에서 쪽지를 보낼 때 -->
-									<label type="hidden" class="form-control" id="sender2" name="sender.email" 
-									maxLength="512" style="height: 30px"> ${user.email} </label>
+									<label type="hidden" class="form-control" id="sender" name="sender.email" 
+									maxLength="512" style="height: 30px">${user.email}</label>
 							</div>
 							
 							<div class="form-group">

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ogong.common.Search;
+import com.ogong.service.banana.BananaService;
 import com.ogong.service.domain.Notice;
+import com.ogong.service.domain.User;
 import com.ogong.service.integration.IntegrationService;
 
 @RestController
@@ -20,6 +22,9 @@ public class IntegrationRestController {
 	
 	@Autowired
 	private IntegrationService integrationService;
+	
+	@Autowired
+	private BananaService bananaService;	
 	
 	public IntegrationRestController() {
 		System.out.println(this.getClass());
@@ -79,7 +84,15 @@ public class IntegrationRestController {
 		integrationService.deleteMessage(messageNo);
 	}
 	
-
+	@GetMapping(value="json/getMyProfile/{email}")
+	public User	getMyProfile(@PathVariable("email") String email) throws Exception{
+		
+		
+		
+		return bananaService.adminGetUser(email);
+	}
+	
+	
 	
 	
 	/* @PostMapping(value="json/deleteMessage/{email}") */

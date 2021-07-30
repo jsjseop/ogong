@@ -15,9 +15,7 @@
 		var receiver = $("#receiver").val();
 		var messageContents = $("#messageContents2").val();
 		
-		alert(sender);
-		alert(receiver);
-		alert(messageContents);
+
 		
 		if(receiver == null || receiver.length<1){
 			alert("수신자 이메일은 반드시 입력해야 합니다.");

@@ -1,10 +1,12 @@
 package com.ogong.service.admin;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.ogong.common.Search;
 import com.ogong.service.domain.Report;
+import com.ogong.service.domain.User;
 
 public interface AdminService {
 	
@@ -25,5 +27,6 @@ public interface AdminService {
 	
 	// 회원 복구하기
 	public void updateUserRestore(String email) throws Exception;
+	
 	
 }

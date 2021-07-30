@@ -8,16 +8,14 @@
 <script type="text/javascript">
 
 
-	function fncAddReport(){
+	function fncAddReport2(){
 		
-		var receiveReporter = $("input[name='receiveReporter.email']").val();			
-		var reportReason = $("textarea[name='reportReason']").val();
+		var receiveReporter = $("#receiveReporter2").val();			
+		var reportReason = $("#reportReason2").val();
+		var commentContents = $("input[name='reportComment.commentContents']").val();
+		var reportComment = $("input[name='reportComment.commentNo']").val();
 		
 		
-		alert(receiveReporter);
-		alert(reportBoard);
-		alert(reportReason);
-
 		
 
 		
@@ -35,7 +33,7 @@
 	$(function(){
 		// 신고
 		$( "#btn5" ).on("click" , function() {
-			fncAddReport();
+			fncAddReport2();
 		});
 		
 	})
@@ -67,20 +65,21 @@
 		<!-- 필수) 작성자 이메일은 기본적으로 나옴 신고 받는 사람의 이메일 -->
 						<div class="form-group" >
 							<label>댓글 작성자 이메일</label>
-							<input type="text" class="form-control" id="receiveReporter" name="receiveReporter.email" 
-							maxLength="512" style="height: 30px" value="${board.writer.email}" ></input>						
+							<input type="text" class="form-control" id="receiveReporter2" name="receiveReporter.email" 
+							maxLength="512" style="height: 30px" value="" ></input>						
 						</div>
-		<!-- 각 테이블마다 신고 출력과 삽입이 다르기 때문에 if문으로 구분 -->				
-						<div class="form-group" >							
+						<input type="hidden" id="commentNo" name="reportComment.commentNo" val="">	
+		<!-- 댓글 입력 -->				
+						<div class="form-group" >
 							<label>댓글 내용</label>
-							<input type="text" class="form-control" id="commentContents" name="comment.commentContents" 
-							maxLength="512" style="height: 30px" value="record.commentContents" readonly></input>					
+							<input type="text" class="form-control" id="commentContents2" name="reportComment.commentContents" 
+							maxLength="512" style="height: 30px" value="" readonly></input>					
 						</div>						
 		<!-- 구분 END -->	
 		<!-- 필수) 신고사유 -->															
 						<div class="form-group">
 							<label>신고사유</label>
-							<textarea type="text" class="form-control" id="reportReason" name="reportReason" maxLength="2048" style="height: 180px" placeholder="신고사유를 입력해 주세요."></textarea>
+							<textarea type="text" class="form-control" id="reportReason2" name="reportReason" maxLength="2048" style="height: 180px" placeholder="신고사유를 입력해 주세요."></textarea>
 						</div>
 		<!-- 신고사유 END -->
 					</form>

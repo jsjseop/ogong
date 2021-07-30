@@ -1,8 +1,12 @@
 package com.ogong.web.integration;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.ogong.common.Page;
 import com.ogong.common.Search;
 import com.ogong.service.admin.AdminService;
@@ -248,8 +253,8 @@ public class IntegrationController {
 		return "/index";
 	}
 	
-	//바나나 랭킹 1위~3위 일주일에 한 번 바나나 지급
-	//@Scheduled(fixedRate = 20000) 
+	//매 주 월요일 자정에 매소드 실행
+	@Scheduled(cron = "0 0 12 ? * MON") 
 	public void bananaAdd() throws Exception{
 		
 		System.out.println("바나나 수 랭킹 일정시간 포인트 지급을 확인합시다.");
@@ -292,8 +297,9 @@ public class IntegrationController {
 	
 	}
 	
-	//채택수 랭킹 1위~3위 일주일에 한 번 바나나 지급	
-	//@Scheduled(fixedRate = 20000)
+	//채택수 랭킹 1위~3위 일주일에 한 번 바나나 지급
+	//매 주 월요일 자정에 매소드 실행
+	@Scheduled(cron = "0 0 12 ? * MON")
 	public void chooseAdd() throws Exception{
 		
 		System.out.println("바나나 수 랭킹 일정시간 포인트 지급을 확인합시다.");
@@ -337,6 +343,47 @@ public class IntegrationController {
 		
 		
 
+	}
+	
+	// 정지 회원 자동 복구
+	// 매일 정오 12시에 해당 매소드 실행
+	@Scheduled(cron =  "0 0 12 * * ?" )
+	public void updateSuspendUser() throws Exception{
+		
+		Search search = new Search();
+		int pageSize = 15;
+		int pageUnit = 15;
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("listType", 4);
+		map.put("search", search);
+		
+		Map<String,Object> result = adminService.getlistTotalUser(map);
+		List<User> list = (List<User>)result.get("list");
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+		String today = sdf.format(date);
+		
+		for(int i = 0; i <= list.size(); i++) {
+			if(list.get(i).getSuspendEndDate().equals(today)){
+				try {
+					System.out.println("여기 이제 업데이트 시작");
+					adminService.updateUserRestore(list.get(i).getEmail());
+				} catch (IndexOutOfBoundsException e){
+					
+				}
+			}else {
+				
+			}
+		}
+		
 	}
 	
 	

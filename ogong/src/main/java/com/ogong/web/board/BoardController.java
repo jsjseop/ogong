@@ -90,14 +90,17 @@ public class BoardController {
 		
 		//===========바나나 적립 및 소모 Start==================
 		Banana banana = new Banana();
+		User bananaUser = new User();
 		if (board.getBoardCategory().equals("1")) {
 			banana.setBananaEmail(user);
 			banana.setBananaAmount(5);
 			banana.setBananaHistory("정보공유게시판 게시글 등록으로 인한 바나나 적립");
 			banana.setBananaCategory("1");
 			bananaService.addBanana(banana);
-			user.setBananaCount(5);
-			bananaService.updateAcquireBanana(user);
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(5);
+			bananaService.updateAcquireBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()+5);
 		} else if (board.getBoardCategory().equals("2")) {
 			int regBanana = board.getBoardRegBanana();
 			banana.setBananaEmail(user);
@@ -105,16 +108,20 @@ public class BoardController {
 			banana.setBananaHistory("Q&A 게시글 등록으로 바나나 소모");
 			banana.setBananaCategory("2");
 			bananaService.addBanana(banana);
-			user.setBananaCount(regBanana);
-			bananaService.updateUseBanana(user);
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(regBanana);
+			bananaService.updateUseBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()-regBanana);
 		} else if (board.getBoardCategory().equals("3")) {
 			banana.setBananaEmail(user);
 			banana.setBananaAmount(3);
 			banana.setBananaHistory("합격후기게시판 게시글 등록으로 인한 바나나 적립");
 			banana.setBananaCategory("1");
 			bananaService.addBanana(banana);
-			user.setBananaCount(3);
-			bananaService.updateAcquireBanana(user);
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(3);
+			bananaService.updateAcquireBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()-3);
 		}
 		// ===========바나나 적립 및 소모 END==================
 		
@@ -175,7 +182,7 @@ public class BoardController {
 		User user = (User) session.getAttribute("user");
 		
 		boardService.updateViewcnt(boardNo);
-		Comment comment = (Comment)boardService.listComment(boardNo, search);
+		/* Comment comment = (Comment)boardService.listComment(boardNo, search); */
 		
 		
 		
@@ -187,7 +194,7 @@ public class BoardController {
 		board = (Board) result.get("board");
 		List<File> fileList = (List<File>) result.get("fileList");
 		model.addAttribute("board", board);
-		model.addAttribute("comment", comment);
+		/* model.addAttribute("comment", comment); */
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("user", session.getAttribute("user"));
 

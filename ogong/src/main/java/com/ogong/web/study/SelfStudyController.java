@@ -93,6 +93,7 @@ public class SelfStudyController {
 		studyService.addStudy(study);
 		
 		//바나나
+		User bananaUser = new User();
 		Banana banana = new Banana();
 		if(study.getStudyRoomGrade().equals("basic")) {
 			banana.setBananaEmail(user);
@@ -100,16 +101,20 @@ public class SelfStudyController {
 			banana.setBananaHistory("Basic 등급 스터디 개설로 인한 바나나 소모 ");
 			banana.setBananaCategory("2");
 			bananaService.addBanana(banana);
-			user.setBananaCount(-20);
-			bananaService.updateUseBanana(user);
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(20);
+			bananaService.updateUseBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()-20);
 		}else if(study.getStudyRoomGrade().equals("premium")) {
 			banana.setBananaEmail(user);
 			banana.setBananaAmount(-50);
 			banana.setBananaHistory("Premium 등급 스터디 개설로 인한 바나나 소모 ");
 			banana.setBananaCategory("2");
 			bananaService.addBanana(banana);
-			user.setBananaCount(-50);
-			bananaService.updateUseBanana(user);			
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(50);
+			bananaService.updateUseBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()-50);
 		}
 		
 		if(studyType.equals("group")) {

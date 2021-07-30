@@ -95,6 +95,7 @@ body, table, div, p, th, td {
 									+ '<div class="form-group" style="text-align: left; ">'
 									+ list.bananaHistory
 									+ '</div>'
+									+ '<div class="form-group" style="text-align: left; float:right; display:inline-block; font-size:30px">+'+list.bananaAmount+'</div>'
 									+ '<div class="form-group" style="text-align: left; ">'
 									+ list.bananaHistoryDate
 									+ '</div>'
@@ -116,6 +117,7 @@ body, table, div, p, th, td {
 									+ '<div class="form-group" style="text-align: left; ">'
 									+ list.bananaHistory
 									+ '</div>'
+							 		+ '<div class="form-group" style="text-align: left; float:right; display:inline-block; font-size:30px">'+list.bananaAmount+'</div>'
 									+ '<div class="form-group" style="text-align: left; ">'
 									+ list.bananaHistoryDate
 									+ '</div>'
@@ -123,7 +125,12 @@ body, table, div, p, th, td {
 									+ '</div>'
 									+ '</div>';									
 						}
-						
+			        <c:if test="${banana.bananaCategory == '1'}">
+			            <div class="form-group" style="text-align: left; float:right; display:inline-block; font-size:30px">+${banana.bananaAmount}</div>
+		            </c:if>
+		            <c:if test="${banana.bananaCategory == '2'}">
+			            <div class="form-group" style="text-align: left; float:right; display:inline-block; font-size:30px">-${banana.bananaAmount}</div>
+		            </c:if>						
 						
 						
 					});
@@ -159,7 +166,7 @@ body, table, div, p, th, td {
           <div class="col-md-4">
 
             <!-- Profile Image -->
-            <div class="card card-primary card-outline" style="margin:20px;">
+            <div class="card card-primary card-outline" style="margin:20px; border-top:#FFF">
               <div class="card-body box-profile">
               <c:if test="${empty user.userImage}">
                 <div class="text-center">                	
@@ -187,7 +194,7 @@ body, table, div, p, th, td {
                     <b>바나나포인트</b> <a class="float-right">${user.bananaCount} 바나나</a>
                   </li>
                 </ul>
-                <a href="#" class="btn btn-primary btn-block" style="background-color:#FFDC3C;">
+                <a href="#" class="btn btn-primary btn-block" style="background-color:#FFDC3C; border-color:#FFF">
                 	<b id="myprofile">
                 		내프로필
                 	</b>
@@ -220,13 +227,22 @@ body, table, div, p, th, td {
           <div class="col-8" style="">
             <div class="form-group" id="deleteBanana" style="text-align: right; margin-bottom: 0.5rem; ">
             	
-             <a>삭제
+             <a>내역삭제
              	<input type="hidden" value="${banana.bananaNo}" name="bananaNo"/>
              </a>
-            </div>          
-            <div class="form-group" style="text-align: left; ">
-              ${banana.bananaHistory}
             </div>
+                     
+            <div class="form-group" style="text-align: left; ">
+              ${banana.bananaHistory} 
+            </div>
+            
+            <c:if test="${banana.bananaCategory == '1'}">
+	            <div class="form-group" style="text-align: left; float:right; display:inline-block; font-size:30px">+${banana.bananaAmount}</div>
+            </c:if>
+            <c:if test="${banana.bananaCategory == '2'}">
+	            <div class="form-group" style="text-align: left; float:right; display:inline-block; font-size:30px">-${banana.bananaAmount}</div>
+            </c:if>
+                        
             <div class="form-group" style="text-align: left; ">
               ${banana.bananaHistoryDate}
             </div>

@@ -2,6 +2,7 @@ package com.ogong.service.admin;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -41,6 +42,8 @@ public interface AdminMapper {
 	
 	//유저 페이지 수
 	int	getUserTotalCount(HashMap<String, Object> map);
+	
+
 	
 	
 	

@@ -66,6 +66,47 @@
 			}
 		});
 	}
+	
+ 	$(function(){
+ 		$("ul li:nth-child(1)").on("click", function(){
+			
+			var email = $(this).find('input').val();
+			
+ 			$.ajax({
+				url : "/integration/json/getMyProfile/"+email,
+				method : "GET",
+				dataType : "JSON",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"	 						
+				} ,
+				
+				success : function(JSONData, status){
+					$("#profile").html(JSONData.nickname+" 의 프로필");
+					$("#email").html(JSONData.email);
+					$("#email2").html(JSONData.email);
+					$("#nickname").html(JSONData.nickname);
+					$("#name").html(JSONData.name);
+					$("#birth").html(JSONData.birth);
+					$("#goal").html(JSONData.goal);
+					if(JSONData.userImage != null){
+						$("#image").html("<img  src='/resources/images/"+JSONData.userImage+"' alt='User profile picture'>")	
+					}else{
+						$("#image").html("<img  src='/resources/images/basic.jpg' alt='User profile picture'>");
+					}
+					$("#interest1").html(JSONData.studyInterest1);
+					$("#interest2").html(JSONData.studyInterest2);
+					$("#interest3").html(JSONData.studyInterest3);
+					
+				}
+
+				
+				
+			}) 
+		
+		
+		})
+	}) 		
 
 	
 	$(function() {
@@ -149,6 +190,7 @@ font-family: 'Do Hyeon', sans-serif;
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+	<jsp:include page="../integrationView/getMyProfile.jsp" />
 	<jsp:include page="../adminView/addReport.jsp" />	
 
 	<br/>
@@ -168,7 +210,8 @@ font-family: 'Do Hyeon', sans-serif;
 								${board.writer.nickname}
 							</a>
 							  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">프로필보기</a></li>
+							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
+							    <input type="hidden" value="${board.writer.email}" /></a></li>
 							    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
 							    <input type="hidden" value="${board.writer.email}" /></a></li>
 							  </ul>									

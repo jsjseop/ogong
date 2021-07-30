@@ -47,15 +47,58 @@
 	
 	$(function(){
 		
-		$("body #div3 #listComment").on("click", function(){
-			$("#myModal3").find('#receiver2').val($(this).find('input').val());
-		});
+/*  		$("body #div3 #listComment").on("click", function(){
+			alert("asdasd");
+			$("#myModal3").find('#receiver2').val($(this).find('#writer1').val());
+		    $("#myModal3").find('#receiver2').val($(this).find('input').val()); 
+			$("#myModalReport2").find('#commentContents2').val("값이 들어가는지 확인");
+		});  */
 
-		$("ul2 li:nth-child(3)").on("click", function(){
-			$("#myModalReport2").find('#receiveReporter').val($(this).find('input').val());
-		});		
+ 		$(document).on('click','.dropdown',function(){
+
+ 	          $("#myModalReport2").find('#receiveReporter2').val($(this).find('#drop2').find('#writer1').val());
+ 	          $("#myModalReport2").find('#commentContents2').val($(this).find('#drop2').find('#writer3').val());
+ 	          $("#myModal3").find('#receiver2').val($(this).find('#drop2').find('#writer1').val());
+ 	          $("#myModalReport2").find('#commentNo').val($(this).find('#drop2').find('#writer4').val());
+ 	          
+ 				var email = $(this).find('#drop2').find('#writer1').val()
+ 				
+ 	 			$.ajax({
+ 					url : "/integration/json/getMyProfile/"+email,
+ 					method : "GET",
+ 					dataType : "JSON",
+ 					headers : {
+ 						"Accept" : "application/json",
+ 						"Content-Type" : "application/json"	 						
+ 					} ,
+ 					
+ 					success : function(JSONData, status){
+ 						$("#profile").html(JSONData.nickname+" 의 프로필");
+ 						$("#email").html(JSONData.email);
+ 						$("#email2").html(JSONData.email);
+ 						$("#nickname").html(JSONData.nickname);
+ 						$("#name").html(JSONData.name);
+ 						$("#birth").html(JSONData.birth);
+ 						$("#goal").html(JSONData.goal);
+ 						if(JSONData.userImage != null){
+ 							$("#image").html("<img  src='/resources/images/"+JSONData.userImage+"' alt='User profile picture'>")	
+ 						}else{
+ 							$("#image").html("<img  src='/resources/images/basic.jpg' alt='User profile picture'>");
+ 						}
+ 						$("#interest1").html(JSONData.studyInterest1);
+ 						$("#interest2").html(JSONData.studyInterest2);
+ 						$("#interest3").html(JSONData.studyInterest3);
+ 						
+ 					}
+
+ 					
+ 					
+ 				})  	          
+ 	     });  
 	
 	})
+	
+	
 	
 	function getCommentList(type) {
 		if('M' === type){
@@ -78,19 +121,22 @@
 				var commentMore = $('<button type="buttonn" class="btn btn-danger" onclick="more()" style="margin-left:50px;" >더보기</button>');
 				for(var i=0 ; i<list.length ; i++){
 					var record = list[i];
-					    li += "<li>"
-							+ "<div class=>"+record.commentContents+"</div>"
+					    li += "<li id='listComment2'>"
+							+ "<div class='comment' value='"+record.commentContents+"'>"+record.commentContents+"</div>"
 							+ "<div class=>"+record.commentRegDate+"</div>"
 							+ "<div class='dropdown'>"
  			  				+ "		<a id='dropdownMenu2' data-toggle='dropdown' aria-expanded='true'>"
  							+ 			record.nickname
 							+ "		</a>"
 							+ "		<ul class='dropdown-menu' role='menu' aria-labelledby='dropdownMenu1' id='drop2'>"
-							+ "			<li role='presentation'><a role='menuitem' tabindex='-1' href='#'>프로필보기</a></li>"
-							+ "			<li role='presentation'><a role='menuitem' id='commentDrop' tabindex='-1' href='#' data-toggle='modal' data-target='#myModal3'>쪽지보내기"
-							+ "				<input type='hidden' id='commentWriterEmail' value='"+record.commentWriter.email+"' /></a></li>"
-							+ "			<li role='presentation'><a role='menuitem' tabindex='-1' href='#' data-toggle='modal' data-target='#myModalReport2'>신고하기"
+							+ "			<li role='presentation'><a role='menuitem' tabindex='-1' href='#' data-toggle='modal' data-target='#getMyProfile'>프로필보기"
 							+ "				<input type='hidden' value='"+record.commentWriter.email+"' /></a></li>"
+							+ "			<li role='presentation'><a role='menuitem' id='commentDrop' tabindex='-1' href='#' data-toggle='modal' data-target='#myModal3'>쪽지보내기"
+							+ "				<input type='hidden' id='writer1' value='"+record.commentWriter.email+"' /></a></li>"
+							+ "			<li role='presentation'><a role='menuitem' tabindex='-1' href='#' data-toggle='modal' data-target='#myModalReport2'>신고하기"
+							+ "				<input type='hidden' id='writer2' value='"+record.commentWriter.email+"' /></a></li>"
+							+ "				<input type='hidden' id='writer3' value='"+record.commentContents+"' /></a></li>"
+							+ "				<input type='hidden' id='writer4' value='"+record.commentNo+"' /></a></li>"
 							+ "		</ul>"
 							+ "</div>"
 							+ "		<input type='hidden' class='commentNo'>"
@@ -212,6 +258,47 @@
 			}
 		});
 	}
+	
+ 	$(function(){
+ 		$("ul li:nth-child(1)").on("click", function(){
+			
+			var email = $(this).find('input').val();
+			
+ 			$.ajax({
+				url : "/integration/json/getMyProfile/"+email,
+				method : "GET",
+				dataType : "JSON",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"	 						
+				} ,
+				
+				success : function(JSONData, status){
+					$("#profile").html(JSONData.nickname+" 의 프로필");
+					$("#email").html(JSONData.email);
+					$("#email2").html(JSONData.email);
+					$("#nickname").html(JSONData.nickname);
+					$("#name").html(JSONData.name);
+					$("#birth").html(JSONData.birth);
+					$("#goal").html(JSONData.goal);
+					if(JSONData.userImage != null){
+						$("#image").html("<img  src='/resources/images/"+JSONData.userImage+"' alt='User profile picture'>")	
+					}else{
+						$("#image").html("<img  src='/resources/images/basic.jpg' alt='User profile picture'>");
+					}
+					$("#interest1").html(JSONData.studyInterest1);
+					$("#interest2").html(JSONData.studyInterest2);
+					$("#interest3").html(JSONData.studyInterest3);
+					
+				}
+
+				
+				
+			}) 
+		
+		
+		})
+	}) 	
 
 	function more() {
 		getCommentList('M');
@@ -303,6 +390,7 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 	<jsp:include page="../common/toolbar.jsp" />
 	<jsp:include page="../adminView/addReport.jsp" />
 	<jsp:include page="../adminView/addReport2.jsp" />
+	<jsp:include page="../integrationView/getMyProfile.jsp" />
 	<jsp:include page="../integrationView/addSendMessage2.jsp" />
 	<jsp:include page="../integrationView/addSendMessage3.jsp" />
 
@@ -324,7 +412,8 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 					${board.writer.nickname}
 				</div>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">프로필보기</a></li>
+				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
+				    <input type="hidden" value="${board.writer.email}" /></a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
 					<input type="hidden" value="${board.writer.email}" /></a></li>
 				</ul>
@@ -415,6 +504,7 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 	
 	<div class="container" id="div3">
 		<ul id="listComment">
+		
 		</ul>
 	</div>
 	

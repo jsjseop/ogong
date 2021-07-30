@@ -76,7 +76,8 @@
 						FROM		( SELECT <if test="reportType == 1">
 											 r.receive_reporter_email,
 											 r.send_reporter_email, 
-											 r.report_no, 
+											 r.report_no,
+											 b.board_no, 
 											 b.board_title, 
 											 r.report_reason, 
 											 u.nickname, 
@@ -90,27 +91,33 @@
 											 r.receive_reporter_email, 
 											 r.send_reporter_email,
 											 r.report_no, 
+											 a.answer_no,
+											 a.board_no,
 											 a.answer_contents, 
 											 u.nickname, 
 											 r.report_reason, 
 											 TO_CHAR(r.report_date,'YYYY-MM-DD') report_date, 
 											 u.condition
-											 FROM REPORT r, ANSWER a, USERS u
+											 FROM REPORT r, ANSWER a, USERS u, BOARD b
 											 WHERE r.receive_reporter_email = u.email
 											 AND    a.answer_no = r.answer_no
+											 AND	b.board_no = a.answer_no
 											 </if>
 											 <if test="reportType == 3">
 											 r.receive_reporter_email, 
 											 r.send_reporter_email,
 											 r.report_no, 
-											 c.comment_contents, 
+											 c.comment_no,
+											 c.comment_contents,
+											 c.board_no, 
 											 u.nickname, 
 											 r.report_reason, 
 											 TO_CHAR(r.report_date,'YYYY-MM-DD') report_date, 
 											 u.condition
-											 FROM COMMENT_INFO c, REPORT r, USERS u
+											 FROM COMMENT_INFO c, REPORT r, USERS u, BOARD b
 											 WHERE   r.receive_reporter_email = u.email
-											 AND    c.comment_no = r.comment_no											 
+											 AND    c.comment_no = r.comment_no
+											 AND 	b.board_no = c.board_no											 
 											 </if>
 											 <if test="search.searchCondition != null">
 											 	<choose>
@@ -386,5 +393,7 @@
 											 </if>
 											 ) countTable
 	</select>
+	
+
 	<!-- ㅁㄴㅇㅁㄴㅇ -->
 </mapper>
