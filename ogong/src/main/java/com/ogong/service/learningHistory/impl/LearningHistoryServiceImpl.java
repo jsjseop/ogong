@@ -45,5 +45,17 @@ public class LearningHistoryServiceImpl implements LearningHistoryService {
 		// TODO Auto-generated method stub
 		return learningHistoryMapper.getTotalLearningTime(email);
 	}
+
+	@Override
+	public List<LearningHistory> getlineChartTime(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return learningHistoryMapper.getlineChartTime(map);
+	}
+
+	@Override
+	public List<LearningHistory> getPieChartTime(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return learningHistoryMapper.getPieChartTime(map);
+	}
 	
 }

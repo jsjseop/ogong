@@ -1,34 +1,37 @@
 package com.ogong.web.integration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ogong.common.Page;
 import com.ogong.common.Search;
 import com.ogong.service.admin.AdminService;
 import com.ogong.service.domain.Answer;
+import com.ogong.service.domain.LearningHistory;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
+import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.integration.IntegrationService;
+import com.ogong.service.learningHistory.LearningHistoryService;
+import com.ogong.service.study.StudyService;
+import com.ogong.service.user.UserService;
 
 @Controller
 @RequestMapping("/integration/*")
@@ -38,6 +41,12 @@ public class IntegrationController {
 	private IntegrationService integrationService;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private LearningHistoryService learningHistoryService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private StudyService studyService;
 	
 	public IntegrationController() {
 		System.out.println(this.getClass());
@@ -209,21 +218,59 @@ public class IntegrationController {
 	
 
 	@GetMapping("mainPage")
-	public String mainPage(Model model, Answer answer, User user, HttpSession session) throws Exception{
+	public String mainPage(Model model, Answer answer, HttpSession session) throws Exception{
 		
 		System.out.println("mainPage 메소드가 실행되는지 확인합시다."); 
 		
-		User email = (User)session.getAttribute("user");
+		User user = (User)session.getAttribute("user");
+		String email = user.getEmail();
 		
+		User Newuser = userService.getProfile(email);
+		session.setAttribute("user", Newuser);
+		
+		///////공부시간 및 목표시간
+		int targetTime = Newuser.getUserTargetTime();
+		String todayLearningTime = learningHistoryService.getTodayLearningTime(email);
+		String splitTime[] = todayLearningTime.split(":");
+		String gage = "";
+		//////목표시간 달성률
+		if(targetTime != 0) {
+			Float rate = ((Float.parseFloat(splitTime[0]) * 60) + Float.parseFloat(splitTime[1])) / ((float)targetTime*60) * 100;
+			if(rate > 100) {
+				gage = "100";
+			}else {
+				gage = String.format("%.1f", rate);
+			}
+		}else {
+			gage = "0";
+		}
+		
+		model.addAttribute("targetTime", targetTime);
+		model.addAttribute("todayHour", splitTime[0]);
+		model.addAttribute("todayMinute", splitTime[1]);
+		model.addAttribute("gage", gage);
+		
+		
+		//진행중인 자율스터디
+		List<Study> mySelfStudyList = studyService.getMySelfStudy(email);
+		//진행중인 그룹스터디
+		List<Study> myGroupStudyList = studyService.getMyStudy(email, "1", "1");
+		
+		model.addAttribute("mySelfStudyList", mySelfStudyList);
+		model.addAttribute("myGroupStudyList", myGroupStudyList);
+		
+		
+		//////랭킹
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<User> banana = integrationService.listBananaRanking(map);
 		List<Answer> choose = integrationService.listChooseCountRanking(map);
+		List<LearningHistory> learningTime = integrationService.listLearningTimeRanking(map);
 		map.put("banana", banana);
 		map.put("choose", choose);
-		
-		
+		map.put("learningTime", learningTime);
 		
 		model.addAttribute("user", session.getAttribute("user"));
+		model.addAttribute("list3", map.get("learningTime"));
 		model.addAttribute("list2", map.get("banana"));
 		model.addAttribute("list", map.get("choose"));
 		
@@ -252,6 +299,13 @@ public class IntegrationController {
 		
 	}
 	
+	@ResponseBody
+	@PostMapping("setTargetTime")
+	public String setTargetTime(@RequestBody User user) throws Exception {
+		integrationService.setTargetTime(user);
+		
+		return "success";
+	}
 	
 }
 

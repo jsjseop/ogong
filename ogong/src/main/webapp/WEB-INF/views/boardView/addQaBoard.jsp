@@ -10,32 +10,28 @@
 
 <!-- jQuery -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- Bootstrap CSS -->
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-
-	
-</script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" >
 
 <script type="text/javascript">
 	function fncAddBoard() {
 
-		let contents = $('input[name="boardContents"]').val();	
+		let boardContents = $('input[name="boardContents"]').val();	
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
 		let boardRegBanana = $("input[name='boardRegBanana']").val();
 		
-		alert(boardRegBanana);
+		alert(boardContents);
 		
 		if (name == null || name.length < 1) {
 			alert("제목을 입력해주세요.");
 			return;
 		}
 
-		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory="+`${boardCategory}`)
+		$('form').attr('method', 'POST').attr('action', "/board/addBoard")
 				.submit();
 	}
 
@@ -100,7 +96,7 @@ text-align:center;
 		
 			<h3>Q&A 게시글 등록</h3>
 
-			<form name="AddBoard" id="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
+			<form name="AddBoard" id="form" method="post">
 
 				<div class="mb-3">
 
@@ -115,16 +111,16 @@ text-align:center;
 
 					<label for="banana">바나나 수</label>
 
-				<input type="text" class="form-control" name="boardBanana" id="title" placeholder="채택에 필요한 바나나 수를 입력해주세요"
+				<input type="text" class="form-control" name="boardRegBanana" id="banana" placeholder="채택에 필요한 바나나 수를 입력해주세요"
 				value="${boardRegBanana}">
-
+				<input type="hidden" name="boardCategory" id="boardCategory" value="${boardCategory}"/>
 				</div>			
 
 				<div class="mb-3">
 
 					<label for="content">내용</label>
 
-					<textarea class="form-control" rows="5" name="boardContent" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
+					<textarea class="form-control" rows="5" name="boardContents" id="content" placeholder="내용을 입력해 주세요"></textarea>
 
 				</div>
 			

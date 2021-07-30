@@ -44,10 +44,10 @@ import com.ogong.service.domain.User;
 @RequestMapping("/board/*")
 public class BoardController {
 
-	@Value("5")
+	@Value("4")
 	int pageUnit;
 
-	@Value("10")
+	@Value("4")
 	int pageSize;
 
 	@Autowired
@@ -58,8 +58,10 @@ public class BoardController {
 
 	@GetMapping("addBoard")
 	public String addBoard(@RequestParam("boardCategory") String boardCategory, Model model) throws Exception {
+		
+		
 		model.addAttribute("boardCategory", boardCategory);
-
+		System.out.println("확인 ::: "+boardCategory);
 		if (boardCategory.equals("2")) {
 			return "boardView/addQaBoard";
 		}
@@ -79,11 +81,14 @@ public class BoardController {
 		board.setWriter(user);
 
 		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
-		
+
 		int result = boardService.addBoard(board,fileList);
 		
 		//===========바나나 적립 및 소모 Start==================
 		Banana banana = new Banana();
+		System.out.println("asdasd ::: "+board.getBoardCategory());
+		
+		
 		if (board.getBoardCategory().equals("1")) {
 			banana.setBananaEmail(user);
 			banana.setBananaAmount(5);
@@ -148,6 +153,23 @@ public class BoardController {
 	
 		return "redirect:/board/getBoard?boardNo=" + answer.getBoardNo();
 	}
+	
+	@GetMapping("updateAnswer")
+	public String updateAnswer(HttpSession session, @RequestParam("answerNo") int answerNo, Model model) throws Exception {
+
+		User user = (User) session.getAttribute("user");
+		
+		Answer answer = new Answer();
+		answer.setAnswerNo(answerNo);	
+		answer.setAnswerWriter(user);
+		
+		Answer result = boardService.getAnswer(answer);
+		
+		model.addAttribute("answer", result);
+
+		return "/boardView/updateAnswerBoard";
+	}
+
 
 	@GetMapping("getBoard")
 	public String getBoard(@RequestParam("boardNo") int boardNo, HttpSession session, Model model) throws Exception {
@@ -155,16 +177,18 @@ public class BoardController {
 		System.out.println("boardNo" + boardNo);
 
 		User user = (User) session.getAttribute("user");
-
 		boardService.updateViewcnt(boardNo);
-
 		Board board = new Board();
 		board.setBoardNo(boardNo);
+		
 		// board.setBoardCategory(null);
-
+		
 		Map<String, Object> result = boardService.getBoard(board);
+
 		board = (Board) result.get("board");
+		System.out.println(board.getBoardCategory());
 		List<File> fileList = (List<File>) result.get("fileList");
+
 		model.addAttribute("board", board);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("user", session.getAttribute("user"));

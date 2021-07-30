@@ -20,7 +20,7 @@
 
 <script type="text/javascript">
 	function fncAddBoard() {
-
+		alert("asd");
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
 
@@ -111,8 +111,7 @@ text-align:center;
 				<button type="button" class="btn btn-default" style="width: 60px;">등 록</button>
 				<button type="button" class="btn btn-default" style="width: 60px;">취 소</button>
 			</div>
-		</form>
-	</div>
+
 	<script>
 
 	</script>	

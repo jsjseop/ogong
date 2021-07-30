@@ -45,27 +45,33 @@ public interface BoardService {
 		
 		//Q&A 답변 등록
 		public void addAnswer(Answer answer) throws Exception;
-		
-		//Q&A 답변 수정
-		public void updateAnswer(Answer answer) throws Exception;
+			
+		//Q&A 답변 등록
+		public Answer getAnswer(Answer answer) throws Exception;
 		
 		//Q&A 답변 목록
 		public List<Answer> listAnswer(int boardNo) throws Exception;
 		
+		//Q&A 답변 수정
+		public Boolean updateAnswer(Answer answer) throws Exception;
+			
 		//Q&A 답변 삭제
-		public void deleteAnswer(int answerNo) throws Exception;
+		public Boolean deleteAnswer(Answer answer) throws Exception;
 		
 		//조회수
 		public void updateViewcnt(int boardNo) throws Exception;
 		
-		//조회수
+		//추천수
 		public int recommend(Board board) throws Exception;
+		
+		//채택수
+		public void updateAdoption(int answerNo) throws Exception;
+		
+		//채택수
+		public void updateBoardAdoption(int boardNo) throws Exception;
 		
 		//파일 다운
 		public void fileDown(HttpServletResponse response, File file) throws Exception;
 
-
-		
-		
 		
 }

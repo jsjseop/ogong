@@ -16,4 +16,8 @@ public interface LearningHistoryService {
 	public String getAverageLearningTime(String email) throws Exception;
 	
 	public String getTotalLearningTime(String email) throws Exception;
+	
+	public List<LearningHistory> getlineChartTime(Map<String, Object> map) throws Exception;
+	
+	public List<LearningHistory> getPieChartTime(Map<String, Object> map) throws Exception;
 }

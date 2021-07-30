@@ -1,14 +1,9 @@
 package com.ogong.common.web;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.ogong.service.domain.User;

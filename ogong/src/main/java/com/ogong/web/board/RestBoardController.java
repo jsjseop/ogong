@@ -1,5 +1,6 @@
 package com.ogong.web.board;
  
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,10 +41,10 @@ public class RestBoardController {
 	@PostMapping("/json/addBoard")
 	public int addBoard(MultipartHttpServletRequest request, @ModelAttribute("board") Board board) throws Exception {
 		List<MultipartFile> fileList = request.getFiles("file");
-		System.out.println("파일리스트~~~"+fileList);
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		board.setWriter(user);
+		
 
 		int result = boardService.addBoard(board, fileList);
 		return result;  
@@ -52,20 +53,27 @@ public class RestBoardController {
     
     @PostMapping("updateRecommend")
 	public int updateRecommend(HttpServletRequest request, @RequestParam("boardNo") int boardNo) throws Exception {
-		String commentNo = "a";	
 		Board board = new Board();
 		board.setBoardNo(boardNo);		
-//		HttpSession session = request.getSession(true);
-//		User user = (User)session.getAttribute("user");
-//		board.setWriter(user);	
-		User user = new User();
-		user.setEmail("user10");
-		board.setWriter(user);
+		HttpSession session = request.getSession(true);
+		User user = (User)session.getAttribute("user");
+		board.setWriter(user);	
 		int result = boardService.recommend(board);
 		
 		return result;
 		
 	}
+    
+    @GetMapping("/json/updateAdoption/{answerNo}/{boardNo}")
+	public void updateAdoption(@PathVariable("answerNo") int answerNo, @PathVariable("boardNo") int boardNo) throws Exception {
+		Answer answer = new Answer();
+		answer.setAnswerNo(answerNo);		
+
+		boardService.updateAdoption(answerNo);
+		boardService.updateBoardAdoption(boardNo);
+		
+	}
+    
     
     @GetMapping("listComment")
 	public Map<String, Object> listComment(@RequestParam("boardNo") int boardNo, Search search) throws Exception {		
@@ -88,7 +96,9 @@ public class RestBoardController {
     	User user = (User)session.getAttribute("user");
     	comment.setCommentWriter(user);
     	
-		return boardService.updateComment(comment);
+    	boardService.updateComment(comment);
+    	
+		return true;
     }
     
     @PostMapping("deleteComment")
@@ -106,6 +116,46 @@ public class RestBoardController {
     	
     	return list;
 	}  
+    
+    @PostMapping("updateAnswer")
+   	public String updateAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
+       	HttpSession session = request.getSession();
+       	User user = (User)session.getAttribute("user");
+       	answer.setAnswerWriter(user);
+       		
+   		boardService.updateAnswer(answer);
+   		return "/board/getBoard";
+       }
+       
+      @PostMapping("deleteAnswer")
+   	public Boolean deleteAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
+       	HttpSession session = request.getSession();
+       	User user = (User)session.getAttribute("user");
+       	answer.setAnswerWriter(user);
+   		
+       	return boardService.deleteAnswer(answer);
+       }
+       
+   	@PostMapping("/json/listStudyBoard/")
+   	public Map<String, Object> listStudyBoard(HttpServletRequest request, @RequestBody Search search, 
+   			Model model, Board board)throws Exception {
+   		
+    	//HttpSession session = request.getSession();
+    	//User user = (User)session.getAttribute("user");
+   		
+   		board.setBoardCategory("5");
+   		search.setPageSize(4);
+   		HashMap<String, Object> map = new HashMap<String, Object>();
+   		map.put("search", search);
+   		map.put("board", board);
+   		
+   		
+   		System.out.println("오류 확인");
+   		
+   		Map<String, Object> result = boardService.listBoard(map);
+   		
+   		return result;
+   	}
     
     @GetMapping("fileDown")
    	public void fileDown(HttpServletResponse response, @RequestParam("fileNo") int fileNo) throws Exception {		

@@ -21,4 +21,8 @@ public interface LearningHistoryMapper {
 	String getAverageLearningTime(String email);
 	
 	String getTotalLearningTime(String email);
+	
+	List<LearningHistory> getlineChartTime(Map<String, Object> map);
+	
+	List<LearningHistory> getPieChartTime(Map<String, Object> map);
 }

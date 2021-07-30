@@ -54,6 +54,11 @@
 		<result property="adoptionCount"				 column="adoption_count" 	 jdbcType="NUMERIC"/>
 	</resultMap>
 	
+	<resultMap id="learningHistorySelectMap" type="learningHistory">
+		<result property="learningTime" 			column="learning_time" 			jdbcType="VARCHAR" />
+		<result property="email"					column="email"					jdbcType="VARCHAR" />
+	</resultMap>
+	
 	<!-- 쪽지 보내기 (1) -->
 	<insert id="addSendMessage"		parameterType="message">
 		INSERT
@@ -161,17 +166,39 @@
 	<!-- 채택수 랭킹 목록 -->
 	<select id="listChooseCountRanking" parameterType="hashmap" resultMap="AnswerSelectMap">
 		SELECT outer_table.*
+	      FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+	                  FROM      ( SELECT inner.email, inner.nickname, inner.adoption_count             
+	                              FROM (SELECT a.email, u.nickname,  COUNT(a.adoption_flag) adoption_count                 
+	                                 FROM   ANSWER a, users u           
+	                                 WHERE  adoption_flag = '1'                 
+	                                    AND   a.email = u.email                 
+	                                 GROUP BY a.email, u.nickname ) inner                 
+	                                 ORDER BY inner.adoption_count DESC
+	                                  ) inner_table
+	                                  
+	                                 WHERE ROWNUM &lt;= 5) outer_table
+	                           WHERE row_seq BETWEEN 1 AND 5    
+	</select>
+	
+	<!-- 공부시간 랭킹 목록 -->
+	<select id="listLearningTimeRanking" parameterType="hashmap" resultMap="learningHistorySelectMap">
+		SELECT outer_table.*
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-						FROM		( SELECT inner.email, inner.adoption_count
-											 FROM (SELECT email,  COUNT(adoption_flag) adoption_count
-											 	   FROM	  ANSWER
-											 	   WHERE  adoption_flag = '1'
-											 	   GROUP BY email) inner
-											 	   ORDER BY inner.adoption_count DESC
-											 ) inner_table
-											 
-						   				WHERE ROWNUM &lt;= 5) outer_table
-									WHERE row_seq BETWEEN 1 AND 5	 
+                FROM		( SELECT    TO_CHAR (TRUNC (NVL(total,'0') / 3600), 'fm00')
+                                   || ':'
+                                   || TO_CHAR (TRUNC (ABS (MOD (NVL(total,'0'), 3600)) / 60), 'fm00')
+                                   || ':'
+                                   || TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') learning_time, users.nickname AS email
+                                FROM (SELECT SUM (
+                                                TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
+                                              + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
+                                              + TO_NUMBER (SUBSTR (learning_time, 7, 2))) TOTAL, email
+                                        FROM learning_history
+                                        GROUP BY email) a, users
+                                WHERE a.email = users.email
+                                ORDER BY total DESC) inner_table
+                                WHERE ROWNUM &lt;= 5) outer_table
+                            WHERE row_seq BETWEEN 1 AND 5	 
 	</select>
 	
 	<!-- 알림 도착 -->
@@ -282,6 +309,10 @@
 											 ) countTable
 	</select>
 
-	
+	<update id="setTargetTime" parameterType="user">
+		UPDATE users
+		SET user_target_time = #{userTargetTime}
+		WHERE email = #{email}
+	</update>
 	
 </mapper>
