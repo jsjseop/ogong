@@ -58,6 +58,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
 
+
 body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 
@@ -83,13 +84,21 @@ color: white;
 }                 
  
 tr {    
-height: 1em;    }
+height: 1em;    
+}
  
 table tr:nth-child(even) {            
-    background-color: #FFF8D7;     }
+    background-color: #FFF8D7;     
+    }
  
 table tr:nth-child(odd) {           
-background-color:#fff;      }
+background-color:#fff;  
+}
+
+#searchForm{
+	display: flex;
+	justify-content: flex-end;
+}
  
 </style>
 </head>
@@ -126,7 +135,7 @@ background-color:#fff;      }
 			</div>
 
 			<div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm">
+				<form class="form-inline" name="detailForm" id="searchForm">
 
 					<div class="form-group">
 						<select name="searchCondition" class="form-control"

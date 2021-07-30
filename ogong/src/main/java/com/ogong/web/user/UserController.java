@@ -72,15 +72,25 @@ public class UserController {
 		userService.addUser(user);
 
 		// ===========바나나 적립 Start==================
+		
+		
+		
+		
+		
+		//===========바나나 적립 Start==================
 		String email = user.getEmail();
 		Banana banana = new Banana();
 		banana.setBananaEmail(user);
-		banana.setBananaAmount(10);
+		banana.setBananaAmount(50);
 		banana.setBananaHistory("회원가입으로 인한 바나나 적립");
 		banana.setBananaCategory("1");
 		bananaService.addBanana(banana);
 		// ===========바나나 적립 END==================
 
+		user.setBananaCount(50);
+		userService.addUser(user);
+		//===========바나나 적립 END==================
+		
 		return "/userView/loginView";
 
 	}
@@ -409,48 +419,3 @@ public class UserController {
 		  
 
 	
-	
-	/*
-	 * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
-	 * 
-	 * Log.info("게시판 진입");
-	 * 
-	 * model.addAttribute("list", userService.getList());
-	 * 
-	 * return "/userView/loginView"; }
-	 */
-
-	/*
-	 * // 닉네임 중복 검사
-	 * 
-	 * @RequestMapping(value = "idCheck", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String idCheck(String nickname) throws Exception{
-	 * 
-	 * logger.info("memberIdChk() 진입");
-	 * 
-	 * logger.info("idCheck() 진입");
-	 * 
-	 * int result = userService.idCheck(nickname);
-	 * 
-	 * logger.info("결과값 = " + result);
-	 * 
-	 * if(result != 0) {
-	 * 
-	 * return "fail"; // 중복 닉네임 존재
-	 * 
-	 * } else {
-	 * 
-	 * return "success"; // 중복 닉네임 x }
-	 */
-
-
-/*
- * @GetMapping("Mypostlist") public String Mypostlist(Model model) {
- * 
- * Log.info("게시판 진입");
- * 
- * model.addAttribute("list", userService.getList() );
- * 
- * return "/userView/loginView"; }
- */

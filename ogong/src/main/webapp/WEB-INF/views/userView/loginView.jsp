@@ -10,7 +10,6 @@
 <!------ Include the above in your HEAD tag ---------->
 <link rel="stylesheet" href="/resources/css/log.css">
 
-<!DOCTYPE html>
 
 <html>
     	<script type="text/javascript">

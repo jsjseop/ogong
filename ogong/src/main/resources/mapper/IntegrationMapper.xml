@@ -102,7 +102,8 @@
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE receiver_email = #{message.receiver.email}
-											 AND   message_category = 1		      									
+											 AND   message_category = 1	
+											 ORDER BY send_date DESC     									
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
@@ -120,7 +121,8 @@
 											 TO_CHAR(send_date,'YYYY-MM-DD') send_date
 											 FROM message
 											 WHERE sender_email = #{message.sender.email}
-											 AND   message_category = 2		      									
+											 AND   message_category = 2	
+											 ORDER BY send_date	DESC      									
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}		
@@ -212,7 +214,9 @@
 		notice_no, 
 		notice_category,
 		TO_CHAR(notice_date, 'YYYY-MM-DD HH24:MI:SS') notice_date,
+		board_no,
 		board_title, 
+		study_no,
 		study_name, 
 		approval_flag, 
 		sender_email, 

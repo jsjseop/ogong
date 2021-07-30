@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
     
@@ -265,6 +264,3 @@
 	
 </body>
 </html>
-
-=======
->>>>>>> refs/heads/연습용2

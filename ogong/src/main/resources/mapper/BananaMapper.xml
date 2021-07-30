@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -21,7 +19,11 @@
 		<result property="role"						 	 column="ROLE"				 jdbcType="VARCHAR"/>
 		<result property="condition"					 column="CONDITION"			 jdbcType="VARCHAR"/>
 		<result property="nickname"					   	 column="NICKNAME"			 jdbcType="VARCHAR"/>
+		<result property="name"					   	 	 column="NAME"				 jdbcType="VARCHAR"/>
+		<result property="birth"					   	 column="BIRTH"				 jdbcType="VARCHAR"/>
 		<result property="userImage"					 column="USER_IMAGE"		 jdbcType="VARCHAR"/>
+		<result property="gender"					 	 column="GENDER"			 jdbcType="VARCHAR"/>
+		<result property="goal"					 		 column="GOAL"				 jdbcType="VARCHAR"/>
 		<result property="withdrawDate"					 column="WITHDRAW_DATE"		 jdbcType="VARCHAR"/>
 		<result property="withdrawReason"				 column="WITHDRAW_REASON"	 jdbcType="VARCHAR"/>
 		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="VARCHAR"/>
@@ -31,6 +33,9 @@
 		<result property="suspendStartDate"				 column="SUSPEND_START_DATE" jdbcType="VARCHAR"/>
 		<result property="suspendEndDate"				 column="SUSPEND_END_DATE"   jdbcType="VARCHAR"/>
 		<result property="bananaCount"				 	 column="BANANA_COUNT"   	 jdbcType="NUMERIC"/>
+		<result property="studyInterest1"				 column="STUDY_INTEREST1" 	 jdbcType="VARCHAR"/>
+		<result property="studyInterest2"				 column="STUDY_INTEREST2"    jdbcType="VARCHAR"/>
+		<result property="studyInterest3"				 column="STUDY_INTEREST3"    jdbcType="VARCHAR"/>
 	</resultMap>	
 	
 	<!-- 회원 상세보기 -->
@@ -38,7 +43,11 @@
 		SELECT
 		email,
 		role,
-		user_image, 
+		name,
+		TO_CHAR(birth,'YYYY-MM-DD') birth,
+		user_image,
+		gender,
+		goal, 
 		condition, 
 		nickname, 
 		TO_CHAR(withdraw_date,'YYYY-MM-DD') withdraw_date, 
@@ -49,7 +58,10 @@
 		TO_CHAR(reg_date,'YYYY-MM-DD') reg_date,
 		TO_CHAR(suspend_start_date,'YYYY-MM-DD') suspend_start_date,
 		TO_CHAR(suspend_end_date,'YYYY-MM-DD') suspend_end_date,
-		banana_count
+		banana_count,
+		study_interest1,
+		study_interest2,
+		study_interest3
 		FROM users
 		WHERE email = #{value}
 		
@@ -89,6 +101,7 @@
 											 FROM users u, banana_info b
 										  	 WHERE u.email = b.banana_email
 											 AND  b.banana_email = #{banana.bananaEmail.email}
+											 ORDER BY banana_history_date
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
@@ -170,3 +183,5 @@
 	
 	
 </mapper>
+
+

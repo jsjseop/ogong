@@ -14,14 +14,62 @@
 	;
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
+	
 }
 </style>
 </head>
 
 <body>
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
-			
+	
+	<body>
 
+	
+	<div class="contatiner">
+		<table class="table table-bordered">
+		  	<thead>   
+		  	    <tr>	       		
+   					<th align="center">1~5 위</th>
+   					<th align="left">닉네임</th>
+   					<th align="left">채택수</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody class="ct_list_pop">
+	    		<c:set var="i" value="0"/>
+	    		<c:forEach var="answer" items="${list}">
+	    			<c:set var="i" value="${i+1}"/>
+				    		<tr>
+				    			<td align="center">${i}위</td>
+				    			<td align="left">${answer.answerWriter.email}</td>
+				    			<td align="left">${answer.adoptionCount}</td>
+				    		</tr>
+	    		</c:forEach>
+	    	</tbody>	
+		</table>
+		
+		<table class="table table-bordered">
+		  	<thead>   
+		  	    <tr>	       		
+   					<th align="center">1~5 위</th>
+   					<th align="left">닉네임</th>
+   					<th align="left">바나나 수</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody class="ct_list_pop">
+		 	 	<c:set var="i" value="0" />
+		  		<c:forEach var="user" items="${list2}">
+		  			<c:set var="i" value="${ i+1 }" />
+		  			<tr>
+			  			<td align="center">${i}위</td>
+			  			<td align="left">${user.nickname}</td>
+			  			<td align="left">${user.bananaCount}</td>
+		  			</tr>
+		  		</c:forEach>
+	    	</tbody>	
+		</table>
+				
+	</div>
 
+  	 
 
 </body>

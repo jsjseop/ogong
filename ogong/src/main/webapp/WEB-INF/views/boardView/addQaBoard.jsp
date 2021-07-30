@@ -100,7 +100,7 @@ text-align:center;
 		
 			<h3>Q&A 게시글 등록</h3>
 
-			<form name="AddBoard" id="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
+			<form name="AddBoard" id="form" method="post">
 
 				<div class="mb-3">
 
@@ -115,7 +115,7 @@ text-align:center;
 
 					<label for="banana">바나나 수</label>
 
-				<input type="text" class="form-control" name="boardBanana" id="title" placeholder="채택에 필요한 바나나 수를 입력해주세요"
+				<input type="text" class="form-control" name="boardRegBanana" id="banana" placeholder="채택에 필요한 바나나 수를 입력해주세요"
 				value="${boardRegBanana}">
 
 				</div>			
