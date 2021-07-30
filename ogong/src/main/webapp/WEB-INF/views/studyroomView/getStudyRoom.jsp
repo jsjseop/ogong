@@ -102,6 +102,12 @@ $(function () {
 	$('#sroomInfo').on('click', function(){
 		$("#roomModal").modal("show");
 	});
+	
+	$('#camstudy').on("click", function (){
+		popWin = window.open("https://wnstjqtest.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
+                "CamStudy",
+                "height=" + screen.height + ",width=" + screen.width + "fullscreen=yes");
+	});
 });
 
 </script>
@@ -125,6 +131,9 @@ $(function () {
                           </button>
                           <button class="float-right"id="chat">
                            <h6> 채팅 접속 </h6> 
+                          </button>
+                          <button class="float-right"id="camstudy">
+                           <h6> 화상 스터디 </h6> 
                           </button>
                       </div>
 					<hr>

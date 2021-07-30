@@ -60,6 +60,10 @@ body {
 		$(".logo").on("click", function(){
 			self.location = "/studyroom/getStudyRoom?studyNo="+${studyNo}
 		})
+		
+		$(".logout").on("click", function(){
+			self.location = "/integration/mainPage"
+		})
 	});
 
 </script>
@@ -77,7 +81,7 @@ body {
             <!--logo end-->
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">나 가 기</a></li>
+                    <li><a class="logout" href="#">메인 화면 이동</a></li>
             	</ul>
             </div>
         </header>
