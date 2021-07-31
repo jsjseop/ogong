@@ -24,7 +24,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ogong.common.Search;
 import com.ogong.service.board.BoardService;
 import com.ogong.service.domain.Answer;
-import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
 import com.ogong.service.domain.File;
@@ -46,10 +45,10 @@ public class RestBoardController {
 	@PostMapping("/json/addBoard")
 	public int addBoard(MultipartHttpServletRequest request, @ModelAttribute("board") Board board) throws Exception {
 		List<MultipartFile> fileList = request.getFiles("file");
-		System.out.println("파일리스트~~~"+fileList);
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		board.setWriter(user);
+		
 
 		int result = boardService.addBoard(board, fileList);
 		return result;  
@@ -60,11 +59,9 @@ public class RestBoardController {
 	public int updateRecommend(HttpServletRequest request, @RequestParam("boardNo") int boardNo) throws Exception {
 		Board board = new Board();
 		board.setBoardNo(boardNo);		
-//		HttpSession session = request.getSession(true);
-//		User user = (User)session.getAttribute("user");
-//		board.setWriter(user);	
-		User user = new User();
-		board.setWriter(user);
+		HttpSession session = request.getSession(true);
+		User user = (User)session.getAttribute("user");
+		board.setWriter(user);	
 		int result = boardService.recommend(board);
 		
 		return result;
@@ -134,15 +131,15 @@ public class RestBoardController {
 	}  
     
     @PostMapping("updateAnswer")
-   	public Boolean updateAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
+   	public String updateAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
        	HttpSession session = request.getSession();
        	User user = (User)session.getAttribute("user");
        	answer.setAnswerWriter(user);
 
-       	
-       	boardService.updateAnswer(answer);
-       	
-   		return true;
+       		
+   		boardService.updateAnswer(answer);
+   		return "/board/getBoard";
+
        }
        
        

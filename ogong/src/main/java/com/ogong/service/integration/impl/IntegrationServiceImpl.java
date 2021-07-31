@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ogong.common.Search;
 import com.ogong.service.domain.Answer;
+import com.ogong.service.domain.LearningHistory;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
@@ -69,13 +70,6 @@ public class IntegrationServiceImpl implements IntegrationService {
 		// TODO Auto-generated method stub
 		integrationMapper.addNotice(notice);
 	}
-
-	@Override
-	public Map<String, Object> listLearningHistoryRanking() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 	@Override
 	public List<User> listBananaRanking(HashMap<String, Object> map) throws Exception {
@@ -90,6 +84,14 @@ public class IntegrationServiceImpl implements IntegrationService {
 	public List<Answer> listChooseCountRanking(HashMap<String, Object> map) throws Exception {
 		
 		List<Answer> list = integrationMapper.listChooseCountRanking(map);
+		
+		return list;
+	}
+
+	@Override
+	public List<LearningHistory> listLearningTimeRanking(HashMap<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		List<LearningHistory> list = integrationMapper.listLearningTimeRanking(map);
 		
 		return list;
 	}
@@ -133,6 +135,12 @@ public class IntegrationServiceImpl implements IntegrationService {
 	@Override
 	public void deleteTest(Message message) throws Exception{
 		integrationMapper.deleteTest(message);
+	}
+
+	@Override
+	public void setTargetTime(User user) throws Exception {
+		// TODO Auto-generated method stub
+		integrationMapper.setTargetTime(user);
 	}
 
 }

@@ -13,15 +13,16 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/csssss/font-awesome.min.css">
+
 <script>
     let boardNo = "<c:out value='${board.boardNo}'/>";
 	let boardCategory = "<c:out value='${board.boardCategory}'/>";
-	
 	let currentPage = 1;
 	let pageSize = 10;
 	
 	function fncDeleteBoard() {
-		if (confirm("삭제하시겠습니까?")) {
+		if (swal("삭제 하시겠습니까?")) {
 			location.href = "/board/deleteBoard?boardNo="+`${board.boardNo}`+"&boardCategory="+`${board.boardCategory}`; 
 		}
 	}
@@ -93,6 +94,8 @@
  	     });  
 	
 	})
+	
+	
 	
 	
 	
@@ -193,58 +196,47 @@
 	}
 	
 	function commentDelete(commentNo) {
-		if (confirm("삭제하시겠습니까?")) {
-			$.ajax({
-				url:'/board/deleteComment',
-				type:'POST',
-				data: JSON.stringify({
-					'commentNo': commentNo,
-					'boardNo': boardNo
-				}),
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				dateType:'json',
-				success:function(res){
-					if (res) {
-						alert('삭제가 완료되었습니다.');
-						var ul = $('#listComment');
-						var div = $('#commentContainer');
-						
-						ul.children('li').remove();
-						div.children('button').remove();
-						getCommentList();
-					} else{
-						alert('다시 시도해주세요');
-					}
-				}
-			});
-			
-		}
-	}
-	
-	$().ready(function () {
-	    $(".commentDelete").click(function () {
-	        Swal.fire({
-	            title: '정말로 그렇게 하시겠습니까?',
-	            text: "다시 되돌릴 수 없습니다. 신중하세요.",
-	            icon: 'warning',
-	            showCancelButton: true,
-	            confirmButtonColor: '#3085d6',
-	            cancelButtonColor: '#d33',
-	            confirmButtonText: '승인',
-	            cancelButtonText: '취소'
-	        }).then((result) => {
-	            if (result.isConfirmed) {
-	                Swal.fire(
-	                    'success'
-	                )
-	            }
-	        })
-	    });
-	});
+	        swal({
+	        	  title: "삭제 하시겠습니까?",
+	        	  icon: "warning",
+	        	  buttons: true,
+	        	  dangerMode: true,
+	        	})
+	        	.then((willDelete) => {
+	        	  if (willDelete) {
+	        		  $.ajax({
+	      				url:'/board/deleteComment',
+	      				type:'POST',
+	      				data: JSON.stringify({
+	      					'commentNo': commentNo,
+	      					'boardNo': boardNo
+	      				}),
+	      				headers : {
+	      					"Accept" : "application/json",
+	      					"Content-Type" : "application/json"
+	      				},
+	      				dateType:'json',
+	      				success:function(res){
+	      					if (res) {
+	      						swal('삭제가 완료되었습니다.','','success');
+	      						var ul = $('#listComment');
+	      						var div = $('#commentContainer');
+	      						
+	      						ul.children('li').remove();
+	      						div.children('button').remove();
+	      						getCommentList();
+	      					} else{
+	      						alert('다시 시도해주세요');
+	      					}
+	      				}
+	      			});
+	        	  } else {
+	        	    swal("취소되었습니다.");
+	        	  }
+	        	});
 		
+		}
+	
 	
 	function addComment() {
 		var commentContents = $('#comment').val();
@@ -278,8 +270,7 @@
 			}
 		});
 	}
-<<<<<<< HEAD
-	
+
  	$(function(){
  		$("ul li:nth-child(1)").on("click", function(){
 			
@@ -321,8 +312,66 @@
 		})
 	}) 	
 
-=======
->>>>>>> refs/remotes/origin/master
+	$(function(){
+		
+		/*  		
+				$("body #div3 #listComment").on("click", function(){
+					alert("asdasd");
+				$("#myModal3").find('#receiver2').val($(this).find('#writer1').val());
+				$("#myModal3").find('#receiver2').val($(this).find('input').val()); 
+				$("#myModalReport2").find('#commentContents2').val("값이 들어가는지 확인");
+				});  
+		*/
+
+
+		 		$(document).on('click','.dropdown',function(){
+
+		 	          $("#myModalReport2").find('#receiveReporter2').val($(this).find('#drop2').find('#writer1').val());
+		 	          $("#myModalReport2").find('#commentContents2').val($(this).find('#drop2').find('#writer3').val());
+		 	          $("#myModal3").find('#receiver2').val($(this).find('#drop2').find('#writer1').val());
+		 	          $("#myModalReport2").find('#commentNo').val($(this).find('#drop2').find('#writer4').val());
+		 	          if($(this).find('#drop2').find('#writer1').val() != null){
+		 				var email = $(this).find('#drop2').find('#writer1').val()
+		 	          }else if($(this).find('#drop1').find('#boardWriter').val() != null){
+		 	        	 var email = $(this).find('#drop1').find('#boardWriter').val()
+		 	          }
+		 				
+		 	 			$.ajax({
+		 					url : "/integration/json/getMyProfile/"+email,
+		 					method : "GET",
+		 					dataType : "JSON",
+		 					headers : {
+		 						"Accept" : "application/json",
+		 						"Content-Type" : "application/json"	 						
+		 					} ,
+		 					
+		 					success : function(JSONData, status){
+		 						$("#profile").html(JSONData.nickname+" 의 프로필");
+		 						$("#email").html(JSONData.email);
+		 						$("#email2").html(JSONData.email);
+		 						$("#nickname").html(JSONData.nickname);
+		 						$("#userNickname").html(JSONData.name);
+		 						$("#birth").html(JSONData.birth);
+		 						$("#goal").html(JSONData.goal);
+		 						if(JSONData.userImage != null){
+		 							$("#image").html("<img  src='/resources/images/"+JSONData.userImage+"' alt='User profile picture'>")	
+		 						}else{
+		 							$("#image").html("<img  src='/resources/images/basic.jpg' alt='User profile picture'>");
+		 						}
+		 						$("#interest1").html(JSONData.studyInterest1);
+		 						$("#interest2").html(JSONData.studyInterest2);
+		 						$("#interest3").html(JSONData.studyInterest3);
+		 						
+		 					}
+
+		 					
+		 					
+		 				})  	          
+		 	     });  
+			
+			});
+
+
 	function more() {
 		getCommentList('M');
 	}
@@ -397,15 +446,22 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 	<jsp:include page="../adminView/addReport.jsp" />
-<<<<<<< HEAD
+<%-- 	<jsp:include page="../adminView/addReport2.jsp" /> --%>
+<%-- <jsp:include page="../integrationView/getMyProfile.jsp" />
+	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+	<jsp:include page="../integrationView/addSendMessage3.jsp" />
+	<jsp:include page="../integrationView/addSendMessage2.jsp" /> --%>
+<%-- <jsp:include page="../integrationView/addSendMessage3.jsp" / > --%>
+
+	<jsp:include page="../common/toolbar.jsp" />
+	<jsp:include page="../adminView/addReport.jsp" />
 	<jsp:include page="../adminView/addReport2.jsp" />
 	<jsp:include page="../integrationView/getMyProfile.jsp" />
 	<jsp:include page="../integrationView/addSendMessage2.jsp" />
 	<jsp:include page="../integrationView/addSendMessage3.jsp" />
-=======
-	<jsp:include page="../integrationView/addSendMessage2.jsp" />
+
 <%-- 	<jsp:include page="../integrationView/addSendMessage3.jsp" / > --%>
->>>>>>> refs/remotes/origin/master
+
 
 	<div class="container" id="div1">
 		<div class="page-header">
@@ -427,7 +483,13 @@ pre:ACTIVE { /* 마우스 버튼을 눌렀을때 */
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop1">
 
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
+
 				    <input type="hidden" value="${board.writer.email}" /></a></li>
+
+
+				    <input type="hidden" id="boardWriter" value="${board.writer.email}" /></a></li>
+
+
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
 					<input type="hidden" value="${board.writer.email}" /></a></li>
 				</ul>

@@ -92,9 +92,9 @@ function getCommentList(type) {
 
 	$(function(){
  		$("ul li:nth-child(1)").on("click", function(){
-			alert("asdaasd");
+			
 			var email = $(this).find('input').val();
-			alert(email);
+			
  			$.ajax({
 				url : "/integration/json/getMyProfile/"+email,
 				method : "GET",
@@ -108,7 +108,7 @@ function getCommentList(type) {
 					$("#profile").html(JSONData.nickname+" 의 프로필");
 					$("#email").html(JSONData.email);
 					$("#email2").html(JSONData.email);
-					$("#nickname").html(JSONData.nickname);
+					$("#userNickname").html(JSONData.nickname);
 					$("#name").html(JSONData.name);
 					$("#birth").html(JSONData.birth);
 					$("#goal").html(JSONData.goal);

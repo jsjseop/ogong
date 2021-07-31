@@ -100,6 +100,7 @@
 			var email = $('#email2').val()
 			/* alert(email); */			
 			fncupdateUserSuspend(email)
+			alert("정지가 완료되었습니다.")
 		}); 
 		
 		// 기억해_

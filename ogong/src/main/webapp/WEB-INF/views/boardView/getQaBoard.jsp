@@ -93,12 +93,13 @@
 						display += '<div id="recommend" class="btn-sm btn-danger" onclick="adoption('+record.answerNo+')" style="width: 60px;">채택<span id="cnt"></span></div>';
               		}
               		 if (record.adoptionFlag == '1'){
-              			 display += '<div class="btn-sm btn-warning" style="width: 60px;">채택되었습니당<span id="cnt"></span>'
+              			 display += '<div class="btn-sm btn-warning" id="adoptionc" style="width: 60px;">채택완료<span id="cnt"></span>'
               					 + '</div>'
               		 }
               			 
 						display += '<br />'
-						+ '<table class="cell" border ="2">'
+						+ '<div>'
+						+ '<table class="cell text-scenter"   border ="2">'
 						+ '<tbody>'
 						+ '<tr class="article-title">'
 						+ '<th>제목:</th>'
@@ -126,10 +127,23 @@
 						+ '<br /></td>'
 						+ '</tr>'
 						+ '</tbody>'
+						+ '</table>';
+						if (record.answerWriter.email == "${user.email}"){
+	              			 display += "<div class='row'>"
+	              					 + '<div class="col-sm-12 text-center">'   
+	              					 + '<br/>'
+	              				 	 + "<button type='button' class='btn btn-warning' onclick='updateAnswer(\""+record.answerNo+"\")' style='height: 40px;'>답변 수정</button>&nbsp;"
+	              					 + '<button type="button" class="btn btn-warning" onclick="deleteAnswer('+record.answerNo+')" style="height: 40px;">답변 삭제</button>';
+	              					 + '</div>'
+	              					 + '</div>' 
+	              		 }
+						display += '<br/>';
+
 						+ '</table>'
 						+ "<button type='button' class='btn btn-warning' onclick='updateAnswer(\""+record.answerNo+"\")' style='height: 40px;'>답변 수정</button>"
 						+ '<button type="button" class="btn btn-warning" onclick="deleteAnswer('+record.answerNo+')" style="height: 40px;">답변 삭제</button>'
 						+ '<br/>';
+
 
 				}
 				
@@ -251,7 +265,7 @@
 
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
-	text-align: center;
+
 }
 
 @import
@@ -288,6 +302,14 @@ border-color : black;
 
 h1.con{
 font-family: 'Do Hyeon', sans-serif; 
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+    margin: 0 auto;
 }
 
 </style>
