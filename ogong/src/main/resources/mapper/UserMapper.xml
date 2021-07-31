@@ -271,7 +271,7 @@ SELECT count(*)
 	 
  	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
 		SELECT *
-		from users
+		FROM users
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
 	 
@@ -332,7 +332,6 @@ SELECT count(*)
   	  	  </select> -->
   	  	  
   	  	  
-
 	 
 
 </mapper>

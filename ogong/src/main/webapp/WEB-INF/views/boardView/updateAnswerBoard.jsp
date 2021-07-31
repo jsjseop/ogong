@@ -42,9 +42,7 @@
 	        }), 
 			dateType:'json',
 			success:function(JSONData, status){
-				if(!JSONData){
-					alert("실패");
-				}
+				
 			}
 		}); 
 	}
@@ -54,6 +52,7 @@
 		$('button:contains("등 록")').on('click', function() {
 			
 			fnUpdateBoard();
+			location.href = "/board/getBoard?boardNo=" + boardNo;
 		});
 
 		$('button:contains("취 소")').on('click', function() {

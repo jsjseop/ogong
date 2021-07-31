@@ -228,24 +228,19 @@ public class BoardServiceImpl implements BoardService {
 	// 파일 업로드
 	private void makDir(String path) {
 		java.io.File folder = new java.io.File(path);
+		if (!folder.exists()) // 폴더 존재여부 확인 (존재: true)
+		{
+			try {
+				folder.mkdir(); // 폴더 생성
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+		}
+	}
 
-	      if(!folder.exists()) //폴더 존재여부 확인 (존재: true) 
-	      {
-	         try {
-	            folder.mkdir(); //폴더 생성
-	          }catch(Exception e) {
-	             e.getStackTrace();
-	         }        
-	       }
-	  }
-	
 	//알림 게시글 상세보기
 	public Board getNoticeBoard(int boardNo) throws Exception{
 		
 		return boardMapper.getNoticeBoard(boardNo);
 	}
-	
-
-
-
 }

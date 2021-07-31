@@ -83,11 +83,12 @@
 				} ,
 				
 				success : function(JSONData, status){
+					alert(JSONData.nickname);
 					$("#profile").html(JSONData.nickname+" 의 프로필");
 					$("#email").html(JSONData.email);
 					$("#email2").html(JSONData.email);
-					$("#nickname").html(JSONData.nickname);
-					$("#name").html(JSONData.name);
+					$("#asd").html(JSONData.nickname);
+					$("#userNickname").html(JSONData.name);
 					$("#birth").html(JSONData.birth);
 					$("#goal").html(JSONData.goal);
 					if(JSONData.userImage != null){
@@ -195,7 +196,7 @@
   <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-      <div class="row">
+      <div class="row" style="padding-top:7px">
         <div class="col-md-3">
           <a href="compose.html" class="btn btn-primary btn-block mb-3" style="background-color:#FFDC3C; border-color:#fff;" data-toggle="modal" data-target="#myModal">쪽지보내기</a>
 
@@ -229,7 +230,7 @@
           
         </div>
         <!-- /.col -->
-        <div class="col-md-9">
+        <div class="col-md-9" >
           <div class="card card-primary card-outline" style="border-top:#FFF">
             <div class="card-header">
               <h3 class="card-title">보낸 쪽지</h3>

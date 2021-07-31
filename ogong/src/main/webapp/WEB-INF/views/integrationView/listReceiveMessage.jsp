@@ -87,7 +87,7 @@
 					$("#profile").html(JSONData.nickname+" 의 프로필");
 					$("#email").html(JSONData.email);
 					$("#email2").html(JSONData.email);
-					$("#nickname").html(JSONData.nickname);
+					$("#userNickname").html(JSONData.nickname);
 					$("#name").html(JSONData.name);
 					$("#birth").html(JSONData.birth);
 					$("#goal").html(JSONData.goal);
@@ -459,14 +459,9 @@
 			</div>            
             
         
-<!-- jQuery -->
-<script src="/resources/javascript/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<!-- <script src="/resources/javascript/bootstrap.bundle.min.js"></script> -->
-<!-- AdminLTE App -->
+
 <script src="/resources/javascript/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/resources/javascript/demo.js"></script>
+
 
 </body>
 </html>

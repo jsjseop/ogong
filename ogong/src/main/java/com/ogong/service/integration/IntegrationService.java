@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.ogong.common.Search;
 import com.ogong.service.domain.Answer;
+import com.ogong.service.domain.LearningHistory;
 import com.ogong.service.domain.Message;
 import com.ogong.service.domain.Notice;
 import com.ogong.service.domain.User;
@@ -33,14 +34,14 @@ public interface IntegrationService {
 	//알림
 	public void addNotice(Notice notice) throws Exception;
 	
-	//공부시간 랭킹
-	public Map<String, Object> listLearningHistoryRanking() throws Exception;
-	
 	//바나나 랭킹
 	public List<User> listBananaRanking(HashMap<String, Object> map) throws Exception;
 	
 	//채택수 랭킹
 	public List<Answer> listChooseCountRanking(HashMap<String, Object> map) throws Exception;
+	
+	//공부시간 랭킹
+	public List<LearningHistory> listLearningTimeRanking(HashMap<String, Object> map) throws Exception;
 	
 	//알림 조회
 	public Notice getNotice(int noticeNo) throws Exception;
@@ -60,7 +61,8 @@ public interface IntegrationService {
 	//알림 카운트
 	int getNoticeCount (String email) throws Exception;
 	
-	
+	//목표시간 설정
+	void setTargetTime(User user) throws Exception;
 	
 	
 	

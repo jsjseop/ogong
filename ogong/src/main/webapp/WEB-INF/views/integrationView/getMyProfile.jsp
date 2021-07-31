@@ -41,7 +41,7 @@
 							<div class="col-xs-4 col-md-2 ">
 								<strong>´Ð³×ÀÓ</strong>
 							</div>
-							<div class="col-xs-8 col-md-4" id="nickname"></div>
+							<div class="col-xs-8 col-md-4" id="userNickname"></div>
 						</div>
 
 						<hr />
