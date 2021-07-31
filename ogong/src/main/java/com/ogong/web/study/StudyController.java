@@ -142,10 +142,12 @@ public class StudyController {
 			
 			gsm.setStudy(study);
 			gsm.setMember(user);
+			gsm.setStudyRole("1");
 			gsm.setApprovalFlag("1");
 			studyService.addParticipation(gsm);
 			
 			calendar.setStudy(study);
+			calendar.setCalendarTitle("스터디 진행 기간");
 			calendar.setCalendarStartDate(study.getStudyStartDate());
 			calendar.setCalendarEndDate(study.getStudyEndDate());
 			

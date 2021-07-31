@@ -241,10 +241,9 @@ public class IntegrationController {
 		map.put("banana", banana);
 		map.put("choose", choose);
 			
-		System.out.println("확인합시다. ::: "+choose.get(0));
-		System.out.println("확인합시다. ::: "+choose.get(1));
-		System.out.println("확인합시다. ::: "+choose.get(2));
-		
+//		System.out.println("확인합시다. ::: "+choose.get(0));
+//		System.out.println("확인합시다. ::: "+choose.get(1));
+//		System.out.println("확인합시다. ::: "+choose.get(2));	
 		
 		model.addAttribute("user", session.getAttribute("user"));
 		model.addAttribute("list2", map.get("banana"));

@@ -47,12 +47,11 @@
 		<result property="answerNo" 			 column="answer_no" 				jdbcType="NUMERIC" />
 		<result property="boardNo" 				 column="board_no" 					jdbcType="NUMERIC"/>
 		<result property="answerWriter.email" 	 column="email" 					jdbcType="VARCHAR" />
-		<result property="answerContents"		 column="answer_contents" 			jdbcType="VARCHAR" />
-		<result property="adoptionFlag" 		 column="adoption_flag" 			jdbcType="NUMERIC" />  
+		<result property="answerContents"		 column="answer_contents" 			jdbcType="VARCHAR" /> 
 		<result property="answerRegDate" 		 column="answer_reg_date" 			jdbcType="DATE" /> 
 		<result property="answerWriter.nickname" column="nickname" 					jdbcType="VARCHAR" />
 		<result property="adoptionDate" 		 column="adoption_date" 			jdbcType="DATE" />
-		<result property="adoptionNo" 			 column="adoption_no" 				jdbcType="NUMERIC" />
+		<result property="adoptionFlag" 		 column="adoption_flag" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	
