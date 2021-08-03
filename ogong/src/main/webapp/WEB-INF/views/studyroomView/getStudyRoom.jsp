@@ -106,6 +106,18 @@ element.style {
     padding: 4px;
     color: black;
 }
+.panel-heading1 {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.panel-heading span {
+	margin-top: -20px;
+	font-size: 15px;
+}
+.glyphicon-chevron-up:before {
+    content: "\e113";
+    color: antiquewhite;
+}
 </style>
 </head>
 
@@ -133,6 +145,50 @@ $(function () {
                 "CamStudy",
                 "height=" + screen.height + ",width=" + screen.width + "fullscreen=yes");
 	});
+	
+	
+	$('.panel-title').on('click', function(e){
+	    var $this = $(this);
+		if(!$this.hasClass('panel-collapsed')) {
+			$this.parents('.panel').find('.panel-body').slideUp();
+			$this.addClass('panel-collapsed');
+		} else {
+			$this.parents('.panel').find('.panel-body').slideDown();
+			$this.removeClass('panel-collapsed');
+		}
+	});
+	
+	$('#addNoticeBtn').on('click', function(){
+		$("#noticeModal").modal("show");
+	});
+	
+	$('#addNotice').one('click', function(){
+		studyNo = ${study.studyNo};
+		groupStudyNotice = $('#groupStudyNotice').val();
+		$.ajax({
+			type: 'post',
+			url: '/studyroom/json/updateNotice',
+			data : JSON.stringify({
+				studyNo:studyNo,
+				groupStudyNotice:groupStudyNotice
+			}),
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			datatype : 'json',
+			success : function(data) {
+				$("#noticeModal").modal("hide");
+				$('.panel-body').empty();
+				$('.panel-body').append(data);
+			},
+			error:function(request, status, error){
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}		
+		});	
+		
+	});
+	
 });
 
 </script>
@@ -179,23 +235,39 @@ $(function () {
                   
                   <div class="col-lg-3 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
+	                    <div class="panel panel-default">
+							<div class="panel-heading1">
+								<h3 class="panel-title">공 지 사 항 : CLICK</h3>
+								<span class="pull-right clickable"></span>
+							</div>
+							<div class="panel-body"><span>${study.groupStudyNotice}</span>
+								<c:if test="${study.studyMaker.email == user.email}">
+									<div class="col-2" style='text-align: right;'>
+										<button id="addNoticeBtn">등록/저장</button>
+									</div>
+								</c:if>
+							</div>
+						</div>
+                    
 						<a id=attendance href="#">
 							<h3>출석 체크</h3>
 							<input type="hidden" id="email" value="${email}">
 						</a>
-	                    <c:forEach var="aList" items="${result}">                      
-	                      <!-- First Action -->
-	                      <div class="desc">
-	                      	<div class="thumb">
-	                      		<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px" align="">
-	                      	</div>
-	                      	<div class="details">
-	                      		<muted >출석일자 : ${aList.get("ATTENDANCE_DATE")}</muted><!-- <br/> -->
-	                      		   <a href="#"></a> 출석. <br/>
-	                      		
-	                      	</div>
-	                      </div>
-	                    </c:forEach>
+						<div id = "attList">
+		                    <c:forEach var="aList" items="${result}">                      
+		                      <!-- First Action -->
+		                      <div class="desc">
+		                      	<div class="thumb">
+		                      		<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px" align="">
+		                      	</div>
+		                      	<div class="details">
+		                      		<muted >출석일자 : ${aList.get("ATTENDANCE_DATE")}</muted><!-- <br/> -->
+		                      		   <a href="#"></a> 출석. <br/>
+		                      		
+		                      	</div>
+		                      </div>
+		                    </c:forEach>
+	                    </div>
            
 
                        <!-- USERS ONLINE SECTION -->
@@ -221,7 +293,7 @@ $(function () {
 								   </span>
 	                      		</p>
 	                      		<muted>
-	                      			${gMember.determination}
+	                      			각오 : ${gMember.determination}
 	                      		</muted>
 	                      	</div>
 	                      </div>
@@ -359,6 +431,30 @@ $(function () {
                     </div>
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 공지사항 등록 모달 -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="noticeModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"> 공지사항 등록 </h4>
+                    </div>
+                    <div class="modal-body">
+						<label for="groupStudyNoice">공지사항</label> 
+						 <div>
+						 	<input type="hidden" name="studyNo" value="${study.studyNo}">
+						 	<textarea class="inputModal" id="groupStudyNotice" name="groupStudyNotice" style="width:570px; height:150px;"></textarea>
+						 </div>
+                    </div>
+                    <div class="modal-footer modalBtnContainer-addEvent">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-info" id="addNotice">저장</button>
                     </div>
                 </div>
             </div>
@@ -638,15 +734,36 @@ $(function () {
     		$.ajax({
     			url: "/studyroom/json/addAttendance/"+studyNo,
     			method : "GET" ,
-    			dataType : "text",
+    			dataType : "json",
+     			headers : {
+ 					"Accept" : "application/json",
+ 					"Content-Type" : "application/json"
+ 				}, 
     			success: function (data, status){
-    				if(data == ""){
+    				if(data != ""){
     					swal({
       					  title: "출석체크 완료",
       					  icon: "success",
       					  button: "확 인",
       					});
-    				}else if (data != null){
+    					var display ='';
+    					$('#attList').empty();
+    					$.each(data, function(index, data){
+    						display = '<div class="desc">'
+    								+'<div class="thumb">'
+    								+'<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px">'
+    								+'</div>'
+    								+ '<div class="details">'
+    								+'<muted> 출석일자 : '+data.ATTENDANCE_DATE+'</muted>'
+    								+'<a href="#"></a> 출석. <br>'
+    								+'</div>'
+    								+'</div>';
+    								
+    						$('#attList').append(display);
+    					});
+    					
+    						
+    				}else if (data == ""){
         				swal({
           					title: "이미 출석체크 하셨습니다.",
           					icon: "warning",

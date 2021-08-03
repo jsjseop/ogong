@@ -36,4 +36,6 @@ public interface StudyMapper {
 	List<Study> getMySelfStudy(String email) throws Exception;
 	
 	List<Study> getMyStudy(Map<String, Object> map) throws Exception;
+	
+	void updateNotice(Study study);
 }

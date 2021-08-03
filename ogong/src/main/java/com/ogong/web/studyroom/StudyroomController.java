@@ -140,8 +140,4 @@ public class StudyroomController {
 
 	}
 	
-	@PostMapping("addAttendance")
-	public String addAttendance()throws Exception{
-		return null;
-	}
 }

@@ -27,6 +27,7 @@
 		<result property="studyRoomGrade" 			column="studyroom_grade" 			jdbcType="VARCHAR" />
 		<result property="studyType" 				column="study_type" 				jdbcType="VARCHAR"  />
 		<result property="studyInterest" 			column="study_interest" 			jdbcType="VARCHAR" />
+		<result property="groupStudyNotice" 		column="groupstudy_notice" 			jdbcType="VARCHAR" />
 		
 		<association property="studyMaker"  javaType="user">
 			<id property="email" column="email" jdbcType="VARCHAR"/>
@@ -148,7 +149,8 @@
 			TO_CHAR(recruitment_end_date,'YYYY/MM/DD') recruitment_end_date, 
 			studyroom_grade, 
 			study_type,
-			study_interest
+			study_interest,
+			groupstudy_notice
 		FROM study
 		WHERE study_no = #{value}
 	 	
@@ -368,5 +370,14 @@
      		ORDER BY study_no ASC
      		
 	 </select>
+	 
+	 <update id="updateNotice"	parameterType="study">
+	 	UPDATE
+	 		study
+	 	SET
+	 		groupstudy_notice = #{groupStudyNotice}
+	 	WHERE
+	 		study_no = #{studyNo}
+	 </update>
 	
 </mapper>

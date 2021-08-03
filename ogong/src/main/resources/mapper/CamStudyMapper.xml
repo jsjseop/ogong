@@ -10,6 +10,7 @@
 		<result property="email" 				column="email" 				jdbcType="VARCHAR"/>
 		<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
 		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
+		<result property="userImage"			column="user_image"			jdbcType="VARCHAR" />
 	</resultMap> 
 	
 	<resultMap id="camStudyMemberSelectMap" type="CamStudyMember">
