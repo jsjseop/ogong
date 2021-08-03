@@ -395,7 +395,7 @@
 					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/basic.jpg' alt='User Avatar' id='hard' class='img-circle'>";
 					$('#media').append(display);	
 				}else if(JSONData.userImage != null){
-					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/"+JSONData.userImage+"' alt='User Avatar' id='hard' class='img-circle'>";
+					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/upload_files/user_images/"+JSONData.userImage+"' alt='User Avatar' id='hard' class='img-circle'>";
 					$('#media').append(display);
 				}
 				$('#email').html(display2);
