@@ -29,7 +29,10 @@ font-size: 15px;
 .wrapper{
 	margin-left:10px;
 } */
-.con
+#studyThumbnail {
+	width: 500px;
+	height: 500px;
+}
 </style>
     
 
@@ -96,7 +99,7 @@ function handleImgFileSelect(e) {
 				</div><hr/>
 				<div class="form-group">
 					<label for="studyInterest">관심주제</label> 
-					<input type="text" id="studyName" name="studyName" value="${study.studyInterest}" class="form-control col-sm-4" maxlength="15" readonly>
+					<input type="text" id="studyInterest" name="studyInterest" value="${study.studyInterest}" class="form-control col-sm-4" maxlength="15" readonly>
 				</div><hr/>
 				
 				<div class="form-group">
@@ -129,7 +132,7 @@ function handleImgFileSelect(e) {
 
 				<div class="form-group">
 					<label for="studyThumbnail">스터디 썸네일</label>
-					<img src="/resources/upload_files/study/${study.studyThumbnail}">
+					<img  id="studyThumbnail" src="/resources/upload_files/study/${study.studyThumbnail}">
 					<div class="input-group mb-3">
 						<div class="custom-file col-sm-4">
 							<input type="file" class="custom-file-input" id="file" name="file"> 

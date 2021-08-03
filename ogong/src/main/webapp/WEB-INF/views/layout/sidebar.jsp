@@ -33,6 +33,10 @@ body {
     padding-top : 100px;
     align:left;
 }
+.fa-bars:before {
+    content: "\f0c9";
+    color: white;
+}
 
 </style>
 <script type="text/javascript">
@@ -100,7 +104,6 @@ body {
               	  	<!-- class="active" -->
                   <li class="mt">
                       <a  id="roomMain" href="#">
-                          <i class="fa fa-dashboard"></i>
                           <span>스터디룸 홈</span>
                           <input type="hidden" id="studyNo" value="${studyNo}">
                           <input type="hidden" id="email" value="${user.email}">
@@ -111,14 +114,12 @@ body {
                  
            		  <li class="sub-menu">
                       <a href="#" id="updateInfo" >
-                          <i class="fa fa-desktop"></i>
                           <span>스터디룸 정보 수정</span>
                       </a>
                   </li>
 				 
                   <li class="sub-menu">
                       <a href="#" id="applyMemberList">
-                          <i class="fa fa-cogs"></i>
                           <span>스터디룸 참가신청 회원 목록</span>
                       </a>
                   </li>
@@ -127,7 +128,6 @@ body {
                 
                   <li class="sub-menu" >
                       <a href="#" id="MemberList">
-                          <i class="fa fa-th"></i>
                           <span>스터디원 목록</span>
                       </a>
                   </li>

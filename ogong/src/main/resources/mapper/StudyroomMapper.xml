@@ -116,9 +116,11 @@
 			(select ag.email, ag.study_no, count(a.attendance_date) c
                 FROM attendance a, groupstudy_member ag
                 WHERE
-                    a.email(+) = ag.email
-                AND    
-                    ag.study_no = #{value}  
+                    a.email(+)= ag.email
+                AND 
+                    a.study_no(+) = ag.study_no
+                AND 
+                    ag.study_no = #{value}
                 GROUP BY 
                 	ag.email, ag.study_no) count		
 		WHERE g.email = u.email

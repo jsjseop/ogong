@@ -24,7 +24,11 @@ div h5 {
 	justify-content: center;
 }
 div.content{
-	margin-top: 50px;
+	
+}
+div.content-wrapper{
+	padding: 50px;
+	height: 550px;
 }
 img.w-100 {
 	-webkit-transform: scale(1, 1);
@@ -107,11 +111,13 @@ img.w-100:hover {
 
 		<!-- Main content -->
 		<div class="content">
+			<div class="content-wrapper">
 			<div class="container">
 			
 				<div class="row">
 				
 					<div class="col-lg-4">
+					
 						<div class="card">
 							<div class="card-header border-0">
 								<div class="d-flex justify-content-between">
@@ -140,20 +146,26 @@ img.w-100:hover {
 									      <img src="/resources/upload_files/study/${study.studyThumbnail}" height="260px" class="w-100" alt="..."
 									      onclick="entranceStudy(${study.studyNo})">
 									      <div class="carousel-caption d-none d-md-block"></div>
+									      <h5>(자율스터디)</h5>
 									      <h5>${study.studyName} &nbsp;&nbsp;${study.currentMember}/${study.maxMember}</h5>
 									    </div>
 								  	</c:forEach>
 								    <c:forEach var="study" items="${myGroupStudyList}" varStatus="vs">
 								    	<c:if test="${vs.first}">
-								  			<div class="carousel-item active">
+								    		<c:if test="${mySelfStudyList.size() == 0}">
+								    		<div class="carousel-item active">
+								    		</c:if>
+								  			<c:if test="${mySelfStudyList.size() != 0}">
+								    		<div class="carousel-item">
+								    		</c:if>
 								  		</c:if>
 								  		<c:if test="${!vs.first}">
 								  			<div class="carousel-item">
 								  		</c:if>
-								  		<div class="carousel-item active">
 									      <img src="/resources/upload_files/study/${study.studyThumbnail}" height="260px" class="w-100" alt="..."
 									      onclick="entranceStudyRoom(${study.studyNo})">
 									      <div class="carousel-caption d-none d-md-block"></div>
+									      <h5>(그룹스터디)</h5>
 									      <h5>"${study.studyName}"</h5>
 									    </div>
 								  	</c:forEach>
@@ -168,15 +180,17 @@ img.w-100:hover {
 								  </a>
 								</div>
 							</div>
-						</div>
-						<!-- /.card -->
-					</div>
+						</div><!-- card -->
+					</div><!-- col-lg-4 -->
+					
+						
+					
 					
 					<div class="col-lg-8">
 						<div class="card">
 							<div class="card-header border-0">
 								<div class="d-flex justify-content-between">
-									<h3 class="card-title">내 목표시간</h3>
+									<h3 class="card-title">오늘의 공부 시간</h3>
 									<a href="/learningHistory/learningHistoryPage">공부기록 > </a>
 								</div>
 							</div>
@@ -236,19 +250,25 @@ img.w-100:hover {
 									</p>
 								</div>
 							</div>
-						</div>
-						
-					</div>
+						</div><!-- card -->
+					</div><!-- col-lg-8 -->
+					
+					
 				</div> <!-- row -->
 				
 			</div> <!-- container -->
-				
+			</div>
+			
+			<br/>
 			<div class="container">
-					<div class="row">
+					<div class="card col-lg-12">
+						<div class="card-header border-0">
+							<h2 class="card-title">오공 랭킹</h2>
+						</div>
+						<div class="row">
 							<div class="card col-lg-4">
-								<div class="card-header border-0">
-									<h3 class="card-title" align="center">바나나 랭킹</h3>
-								</div>
+								<h3 class="card-title" style="padding-top:13px" align="center">바나나</h3>
+								<hr/>
 								<div class="card-body table-responsive p-0">
 									<table class="table table-striped table-valign-middle">
 										<thead align="center">
@@ -265,7 +285,7 @@ img.w-100:hover {
 												<tr>
 													<td>${i}위</td>
 													<td>${user.nickname}</td>
-													<td>${user.bananaCount} 바나나</td>
+													<td>${user.bananaCount}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -274,9 +294,35 @@ img.w-100:hover {
 							</div>
 
 							<div class="card col-lg-4">
-								<div class="card-header border-0">
-									<h3 class="card-title" align="center">채택수 랭킹</h3>
+								<h3 class="card-title" style="padding-top:13px" align="center">공부시간</h3>
+								<hr/>
+								<div class="card-body table-responsive p-0">
+									<table class="table table-striped table-valign-middle">
+										<thead align="center">
+											<tr>
+												<th>순 위</th>
+												<th>닉네임</th>
+												<th>공부시간</th>
+											</tr>
+										</thead>
+										<tbody align="center">
+											<c:set var="i" value="0" />
+											<c:forEach var="learning" items="${list3}">
+												<c:set var="i" value="${i+1}" />
+												<tr>
+													<td>${i}위</td>
+													<td>${learning.email}</td>
+													<td>${learning.learningTime}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
+							</div>
+
+							<div class="card col-lg-4">
+								<h3 class="card-title" style="padding-top:13px" align="center">채택수</h3>
+								<hr/>
 								<div class="card-body table-responsive p-0">
 									<table class="table table-striped table-valign-middle">
 										<thead align="center">
@@ -301,34 +347,12 @@ img.w-100:hover {
 								</div>
 							</div>
 							
-							<div class="card col-lg-4">
-								<div class="card-header border-0">
-									<h3 class="card-title" align="center">공부시간 랭킹</h3>
-								</div>
-								<div class="card-body table-responsive p-0">
-									<table class="table table-striped table-valign-middle">
-										<thead align="center">
-											<tr>
-												<th>순 위</th>
-												<th>닉네임</th>
-												<th>공부시간</th>
-											</tr>
-										</thead>
-										<tbody align="center">
-											<c:set var="i" value="0" />
-											<c:forEach var="learning" items="${list3}">
-												<c:set var="i" value="${i+1}" />
-												<tr>
-													<td>${i}위</td>
-													<td>${learning.email}</td>
-													<td>${learning.learningTime}</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-							</div>
-					</div> <!-- row -->
+						</div> <!-- row -->
+	
+					</div>
 			</div> <!-- container -->
+			
+			
+			
 		</div>
 </body>

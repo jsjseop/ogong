@@ -55,24 +55,24 @@ hr {
 }
 
 .fc .fc-button-primary:disabled {
-    color: #fff;
-    color: var(--fc-button-text-color, #fff);
-    background-color: #2C3E50;
-    background-color: var(--fc-button-bg-color, #2C3E50);
-    border-color: #2C3E50;
-    border-color: var(--fc-button-border-color, #2C3E50);
+    color: black;
+    background-color: #eee;
+    background-color: var(--fc-button-bg-color, #eee;);
+    border-color: #333;
+    border-color: var(--fc-button-border-color, #eee;);
 }
 .fc .fc-button:disabled {
     opacity: 0.65;
 }
 .fc .fc-button-primary {
-	background-color: #FFDC3C;
-	border: 1px solid #c9aa5f;
+	background-color: #eee;
+	color: black;
+	/* border: 1px solid #fff; */
 } 
 .fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
-	background-color: #FFDC3C;
-	border: 1px solid #c9aa5f;
-	color: #fff;
+	background-color: #eee;
+	/* border: 1px solid #fff; */
+	color: black;
 }
 .swal-button {
   padding: 7px 19px;
@@ -80,6 +80,31 @@ hr {
   background-color: #7cd1f9;
   font-size: 12px;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+.fc .fc-col-header-cell-cushion {
+    color: black;
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: large;
+}
+.border-head {
+	text-align:right;
+}
+element.style {
+    position: relative;
+    top: 17px;
+    float: right;
+    width: 6px;
+    height: 415px;
+    background-color: black;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
+.fc .fc-daygrid-day-number {
+    position: relative;
+    z-index: 4;
+    padding: 4px;
+    color: black;
 }
 </style>
 </head>
@@ -125,15 +150,15 @@ $(function () {
               <div class="row">
                   <div class="col-lg-9 main-chart">			
                       <!--CUSTOM CHART START -->
-                      <div class="border-head" id="room-head" align="left">
+                      <div class="border-head" id="room-head">
                           <button id="sroomInfo">
-                           <h6> 스터디 정보 조회 </h6> 
+                           <h5> 스터디 정보 조회 </h5> 
                           </button>
                           <button class="float-right"id="chat">
-                           <h6> 채팅 접속 </h6> 
+                           <h5> 채팅 접속 </h5> 
                           </button>
                           <button class="float-right"id="camstudy">
-                           <h6> 화상 스터디 </h6> 
+                           <h5> 화상 스터디 </h5> 
                           </button>
                       </div>
 					<hr>
@@ -422,7 +447,7 @@ $(function () {
 			    	click: function() {
 			     		$("#myModal").modal("show");
 			     		
-			     		$("#save").on("click", function(){
+			     		$("#save").one("click", function(){
 			     			
 			     			var title = $('#title').val();
 			     			var startDate = $('#start').val();
@@ -460,8 +485,7 @@ $(function () {
 				     						title: title,
 				     						start: startDate,
 				     						end: endDate,
-				     						backgroundColor:calendarColor,
-				     						textColor:"#fc0101",
+				     						backgroundColor:calendarColor
 				     					});
 				     					$("#myModal").modal("hide");
 				     				},
@@ -478,7 +502,6 @@ $(function () {
 			buttonText:{
 				list : '주간 일정표'
 			},
-			initialDate: '2021-07-20', 
 			navLinks: true,
 			selectable: true, 
 			selectMirror: true, 
@@ -486,16 +509,6 @@ $(function () {
 				console.log(arg); 
 				
 				var title = prompt('입력할 일정:'); 
-				if (title) { 
-					/* calendar.addEvent({
-						title: title,
-						start: arg.start,
-						end: arg.end,
-						allDay: arg.allDay,
-						backgroundColor:"#9501fc",
-						textColor:"#fc0101" 
-					})  */
-				}  
 			calendar.unselect() 
 			},
 			eventDrop : function(info){

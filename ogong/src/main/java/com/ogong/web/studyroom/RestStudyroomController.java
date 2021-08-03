@@ -41,9 +41,6 @@ public class RestStudyroomController {
 	@Autowired
 	private BananaService bananaService;
 	
-	@Autowired
-	private IntegrationService integrationService;
-	
 	
 	public RestStudyroomController(){
 		System.out.println(this.getClass());

@@ -38,7 +38,7 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="background-color:#FFDC3C; color:#FFDC3C;">
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="background-color:#f19347; color:#FFDC3C;">
         &nbsp&nbsp&nbsp&nbsp&nbsp<a class="navbar-brand">
         <img src="/resources/images/ogong2.png" align="left" class="Ogong" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       </a>
