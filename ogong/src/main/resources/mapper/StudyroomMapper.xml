@@ -111,7 +111,7 @@
 			g.determination,
 			u.nickname,
 			s.study_end_date-s.study_start_date,
-			TRUNC((count.c/((SYSDATE+1)-s.study_start_date))*100,1) attendance_rate
+			TRUNC((count.c/TRUNC(((SYSDATE+1)-s.study_start_date)))*100,1) attendance_rate
 		FROM groupstudy_member g, users u, study s, 
 			(select ag.email, ag.study_no, count(a.attendance_date) c
                 FROM attendance a, groupstudy_member ag
