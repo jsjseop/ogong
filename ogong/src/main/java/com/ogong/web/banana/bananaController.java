@@ -39,7 +39,7 @@ public class bananaController {
 							HttpSession session, Model model, Banana banana)throws Exception {
 		System.out.println("/bananaController/listBanana : GET");
 		
-		int pageSize = 3;
+		int pageSize = 4;
 		int pageUnit = 5;
 		
 		if(search.getCurrentPage() == 0) {

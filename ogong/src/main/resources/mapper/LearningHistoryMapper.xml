@@ -76,11 +76,11 @@
 	 
 	 <select	id="getAverageLearningTime"	parameterType="string" resultType="string">
 	 
-	 	SELECT    TO_CHAR (TRUNC (total / 3600), 'fm00')
+	 	SELECT    TO_CHAR (TRUNC (NVL(total,'0') / 3600), 'fm00')
        		|| ':'
-       		|| TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
+       		|| TO_CHAR (TRUNC (ABS (MOD (NVL(total,'0'), 3600)) / 60), 'fm00')
        		|| ':'
-       		|| TO_CHAR (MOD (total, 60), 'fm00') time
+       		|| TO_CHAR (MOD (NVL(total,'0'), 60), 'fm00') time
 		FROM(SELECT AVG(total) total
 			 FROM (SELECT SUM(
 	                    	TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
@@ -114,7 +114,7 @@
        		|| ':'
        		|| TO_CHAR (TRUNC (ABS (MOD (total, 3600)) / 60), 'fm00')
        		|| ':'
-       		|| TO_CHAR (MOD (total, 60), 'fm00') AS learning_time, total AS learning_type, day AS learning_date
+       		|| TO_CHAR (MOD (total, 60), 'fm00') AS learning_time, TRUNC(total/60) AS learning_type, day AS learning_date
          FROM (SELECT SUM(
                         TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
                         + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
@@ -128,10 +128,10 @@
 	 <select	id="getPieChartTime"	parameterType="map" resultMap="learningHistorySelectMap">
 	 
 	 	SELECT total AS learning_time, learning_type
-        FROM (SELECT SUM(
+        FROM (SELECT TRUNC(SUM(
                        TO_NUMBER (SUBSTR (learning_time, 1, 2)) * 60 * 60
                         + TO_NUMBER (SUBSTR (learning_time, 4, 2)) * 60
-                        + TO_NUMBER (SUBSTR (learning_time, 7, 2))) TOTAL, learning_type
+                        + TO_NUMBER (SUBSTR (learning_time, 7, 2)))/60) TOTAL, learning_type
               FROM learning_history
               WHERE email = #{email} AND TO_CHAR(learning_date,'yyyy-mm-dd') LIKE #{month}||'%'
               GROUP BY learning_type)

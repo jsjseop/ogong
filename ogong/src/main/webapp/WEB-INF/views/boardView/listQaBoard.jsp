@@ -4,6 +4,8 @@
 
 <html>
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Q&A 게시판</title>
 
 
@@ -25,7 +27,7 @@
 
 	$(function() {
 
-		$('tbody td:nth-child(2)').on('click', function() {
+		$('tbody td:nth-child(1)').on('click', function() {
 			let boardNo = $(this).children('input').val();
 			location.href = "/board/getBoard?boardNo=" + boardNo;
 		})
@@ -57,6 +59,7 @@
 
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
 }
 
 
@@ -68,32 +71,16 @@ h1 {
 table.one {
 	margin-bottom: 3em;
 	border-collapse: collapse;
+}            
+ 
+#addBtn {
+	background-color:#88b3fa;
 }
-
-td { /* removed the border from the table data rows  */
-	text-align: center;
-	width: 10em;
-	padding: 1em;
-}
-
-th { /* removed the border from the table heading row  */
-	text-align: center;
-	padding: 1em;
-	background-color: #FFDC3C;
-	/* added a red background color to the heading cells  */
+#addBtn:hover {
 	color: white;
-} /* added a white font color to the heading text */
-tr {
-	height: 1em;
 }
+ 
 
-table tr:nth-child(even) { /* added all even rows a #eee color  */
-	background-color: #FFF8D7;
-}
-
-table tr:nth-child(odd) { /* added all odd rows a #fff color  */
-	background-color: #fff; 
-}
 #searchForm{
 	display: flex;
 	justify-content: flex-end;
@@ -107,7 +94,7 @@ table tr:nth-child(odd) { /* added all odd rows a #fff color  */
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 
-	<div class="container">
+	<div class="container" style="margin-top:50px;">
 
 		<div class="page-header text-default">
 			<c:if test="${boardCategory == '1'}">
@@ -145,11 +132,11 @@ table tr:nth-child(odd) { /* added all odd rows a #fff color  */
 						<select name="searchCondition" class="form-control"
 							style="width: 110px">
 							<option value="0"
-								${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
+								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목+내용</option>
 							<option value="1"
-								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
+								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>제목</option>
 							<option value="2"
-								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+								${! empty search.searchCondition && search.searchCondition== 3 ? "selected" : ""  }>작성자</option>
 						</select>
 					</div>
 
@@ -160,40 +147,37 @@ table tr:nth-child(odd) { /* added all odd rows a #fff color  */
 							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
 					</div>
 
-					<button type="button" class="btn btn-warning">검색</button>
+					<button type="button" class="btn btn-default">검색</button>
 
 					<input type="hidden" id="currentPage" name="currentPage" value="" />
 				</form>
 			</div>
 		</div>
 
-		<table class="table table-hover table-striped">
+		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th align="center">No</th>
-					<th align="left">제목</th>
-					<th align="left">작성자</th>
-					<th align="left">조회수</th>
-					<th align="left">등록일</th>
+					<th class="col-md-7 text-center">제목</th>
+					<th class="col-md-2 text-center">작성자</th>
+					<th class="col-md-2 text-center">등록일</th>
+					<th class="col-md-1 text-center">조회수</th>
 				</tr>
 			</thead>
 			<!-- ---------------------------- -->
 			<tbody>
 				<c:forEach var="board" items="${list}">
 					<tr>
-						<td align="center">${board.boardNo}</td>
-						<td align="left">${board.boardTitle}<input type="hidden"
-							value="${board.boardNo}" /></td>
-						<td align="left">${board.writer.nickname}</td>
-						<td align="left">${board.viewCount}</td>
-						<td align="left">${board.boardRegDate}</td>
+						<td class="col-md-7 text-center">${board.boardTitle}<input type="hidden" value="${board.boardNo}" /></td>
+						<td class="col-md-2 text-center">${board.writer.nickname}</td>
+						<td class="col-md-2 text-center">${board.boardRegDate}</td>
+						<td class="col-md-1 text-center">${board.viewCount}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 			<!-- ----------------------------- -->
 		</table>
 		<div align="right">
-			<button type="button" class="btn btn-warning" style="width: 80px;"
+			<button type="button" class="btn" id="addBtn" style="width: 80px;"
 				onclick="javascript:fncWrite('${writer.email}')">글쓰기</button>
 		</div>
 	</div>

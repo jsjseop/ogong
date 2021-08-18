@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.LearningHistory;
+import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.learningHistory.LearningHistoryService;
 import com.ogong.service.study.CamStudyService;
@@ -31,8 +32,7 @@ public class CamStudyRestController {
 	
 	@Autowired
 	private LearningHistoryService learningHistoryService;
-
-	private CamStudyRestController studyService;
+	
 	
 	@GetMapping("/json/getUser/{email}")
 	public User getUser(@PathVariable String email, HttpServletResponse response) throws Exception {
@@ -40,6 +40,14 @@ public class CamStudyRestController {
 		User user = camStudyService.getUser(email);
 		
 		return user;
+	}
+	
+	@GetMapping("/json/getStudy/{studyNo}")
+	public Study getStudy(@PathVariable int studyNo, HttpServletResponse response) throws Exception {
+		
+		Study study = camStudyService.getStudy(studyNo);
+		
+		return study;
 	}
 	
 	@GetMapping("/json/getCamStudyMemberList/{studyNo}")

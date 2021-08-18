@@ -53,7 +53,7 @@
 					labels: labels, //X축 제목
 					
 					datasets: [{ //실제값
-						label: '공부시간(초)', 
+						label: '공부시간(분)', 
 						data: data,
 						backgroundColor: [ //백그라운드 색상 지정하는 부분 
 							'rgba(255, 206, 86, 0.2)'
@@ -166,6 +166,7 @@
 			success : function(result) {	
 				$("#table").children("tr").remove();
 				$("#table").children("div").remove();
+				$("#notfound").remove();
 				var addListHtml ="";
 				if(result.length > 0) {
 					$.each(result, function(index, list){
@@ -254,6 +255,9 @@ body, table, div, p, th, td {
 #notfound {
 	margin: 10px 0px 10px 0px;
 }
+a.page-link {
+	color: black;
+}
 </style>
 </head>
 <body>
@@ -264,7 +268,6 @@ body, table, div, p, th, td {
 <div class="wrapper">
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container">
@@ -286,7 +289,7 @@ body, table, div, p, th, td {
         <div class="row">
           <div class="col-lg-4 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-white">
               <div class="inner">
               	<p>오늘 공부한 시간</p>
                 <h3>${todayLearningTime}</h3>
@@ -296,7 +299,7 @@ body, table, div, p, th, td {
           <!-- ./col -->
           <div class="col-lg-4 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-white">
               <div class="inner">
               	<p>하루 평균 공부시간</p>
                 <h3>${averageLearningTime}</h3>
@@ -306,7 +309,7 @@ body, table, div, p, th, td {
           <!-- ./col -->
           <div class="col-lg-4 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-white">
               <div class="inner">
               	<p>전체 공부시간</p>
                 <h3>${totalLearningTime}</h3>
@@ -314,7 +317,7 @@ body, table, div, p, th, td {
             </div>
           </div>
           <!-- ./col -->
-        </div>
+        </div><br><hr><br>
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
@@ -421,7 +424,6 @@ body, table, div, p, th, td {
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-  </div>
 </div>
 <!-- ./wrapper -->
 

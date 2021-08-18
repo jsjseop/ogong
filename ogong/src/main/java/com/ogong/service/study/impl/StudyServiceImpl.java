@@ -88,5 +88,11 @@ public class StudyServiceImpl implements StudyService {
 		
 		return studyMapper.getMyStudy(map);
 	}
+	
+	@Override
+	public void updateNotice(Study study) throws Exception {
+		// TODO Auto-generated method stub
+		studyMapper.updateNotice(study);
+	}
 
 }

@@ -10,8 +10,8 @@
 <title>글 쓰기</title>
 <!-- jQuery -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Bootstrap CSS -->
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
@@ -20,16 +20,15 @@
 
 <script type="text/javascript">
 	function fncAddBoard() {
-		alert("asd");
 		let name = $('input[name="boardTitle"]').val();
 		let detail = $('textarea').val();
 
 		if (name == null || name.length < 1) {
-			alert("제목을 입력해주세요.");
+			swal("제목을 입력해주세요.","","warning");
 			return;
 		}
 		if (detail == null || detail.length < 5) {
-			alert("5글자 이상 입력해주세요.");
+			swal("내용을 5글자 이상 입력해주세요.","","warning");
 			return;
 		}
 
@@ -48,7 +47,7 @@
 
 		$('button:contains("취 소")').on('click', function() {
 
-			$('form')[0].reset();
+			history.back();
 		});
 
 	});
@@ -57,16 +56,22 @@
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
-	body, table, div, p, th, td {
-	
-	
-font-family: 'Do Hyeon', sans-serif;
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
 }
-
-
 h3 {
-
-text-align:center;
+	text-align:center;
+}
+#main {
+	padding-top: 50px;
+}
+button.btn {
+	background-color:#88b3fa;
+}
+button.btn:hover {
+	background-color:#88b3fa;
+	color: white;
 }
 </style>
 </head>
@@ -74,43 +79,40 @@ text-align:center;
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 
-		<article>
-	<br/>
-		<div class="container" role="main">
-		
-			<h3>게시글 등록</h3>
+	<div class="container" id="main">
+	
+		<h3>게시글 쓰기</h3>
 
-			<form name="AddBoard" id="form" method="post" action="">
+		<form name="AddBoard" id="form" method="post" action="">
 
-				<div class="mb-3">
+			<div class="mb-3">
 
-					<label for="title">제목</label>
+				<label for="title">제목</label>
 
-					<input type="text" class="form-control" name="boardTitle" id="title" placeholder="제목을 입력해 주세요"
-					value="${boardTitle}">
-					<input type="hidden" name="boardCategory" id="boardCategory" value="${boardCategory}"/>
-				</div>				
+				<input type="text" class="form-control" name="boardTitle" id="boardTitle" placeholder="제목을 입력해 주세요"
+				value="${boardTitle}">
+				<input type="hidden" name="boardCategory" id="boardCategory" value="${boardCategory}"/>
+			</div>				
 
-				<div class="mb-3">
+			<div class="mb-3">
 
-					<label for="content">내용</label>
+				<label for="content">내용</label>
 
-					<textarea class="form-control" rows="5" name="boardContents" id="content" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
+				<textarea class="form-control" rows="5" name="boardContents" id="boardContents" placeholder="내용을 입력해 주세요" value="${boardTitle}"></textarea>
 
-				</div>
-			
-
-			</form>
-
-		</div>
-
-<br/>
-	</article>
-
-			<div align="right">
-				<button type="button" class="btn btn-default" style="width: 60px;">등 록</button>
-				<button type="button" class="btn btn-default" style="width: 60px;">취 소</button>
 			</div>
+		
+
+		</form>
+		
+		<div align="center">
+			<button type="button" class="btn" style="width: 60px;">등 록</button>
+			<button type="button" class="btn" style="width: 60px;">취 소</button>
+		</div>
+	</div>
+
+
+			
 
 	<script>
 

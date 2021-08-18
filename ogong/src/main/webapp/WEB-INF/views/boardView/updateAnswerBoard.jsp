@@ -75,6 +75,13 @@ h3 {
 
 text-align:center;
 }
+button.btn {
+	background-color:#88b3fa;
+}
+button.btn:hover {
+	background-color:#88b3fa;
+	color: white;
+}
 </style>
 </head>
 
@@ -120,8 +127,8 @@ text-align:center;
 <br/>
 	</article>
 			<div align="center">
-				<button type="button" class="btn btn-warning" style="width: 60px;">등 록</button>
-				<button type="button" class="btn btn-warning" style="width: 60px;">취 소</button>
+				<button type="button" class="btn" style="width: 60px;">등 록</button>
+				<button type="button" class="btn" style="width: 60px;">취 소</button>
 			</div>
 		</div>
 	

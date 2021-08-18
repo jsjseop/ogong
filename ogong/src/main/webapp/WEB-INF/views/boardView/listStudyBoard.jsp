@@ -22,14 +22,9 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/resources/css/boardStudy.css" rel="stylesheet" />
 
-<!-- jQuery -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
 <!-- Bootstrap CSS -->
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-
 
 <script>
 
@@ -141,17 +136,16 @@
 										<h5 class="fw-bolder">${board.boardTitle}</h5>
 									</div>
 									<input type="hidden" value="${board.boardNo}" />
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<td align="center">${board.writer.nickname}</td>
-									<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<td align="left">${board.boardRegDate}</td>
 								</div>
 								<!-- actions-->
 								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 									<div class="text-center">
 										<a class="btn btn-outline-dark mt-auto"
-											href="/board/getBoard?boardNo=${board.boardNo}">View
-											Study</a>
+											href="/board/getBoard?boardNo=${board.boardNo}">View</a>
 									</div>
 								</div>
 							</div>

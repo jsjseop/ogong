@@ -46,4 +46,5 @@ public interface StudyroomMapper {
 	void updateMember (int studyNo);
 	
 	List<Map<String, Object>> getAttendanceList(Map<String, Object> map);
+	
 }

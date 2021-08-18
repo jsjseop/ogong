@@ -87,6 +87,10 @@
 				}
 			}
 		})
+		
+		$("#cancel").on("click", function(){
+			history.back();
+		})
 	});
 	
 	function fncAddStudy() {
@@ -301,6 +305,10 @@ div.col-12 {
 	justify-content: center;
 }
 
+div.card-header{
+	background-color: #7dbcff;
+}
+
 .img_wrap {
 	width: 300px;
 	margin-top: 50px;
@@ -308,6 +316,14 @@ div.col-12 {
 
 .img_wrap img {
 	max-width: 100%;
+}
+
+#create{
+	background-color: #88b3fa;
+	border: none;
+}
+#create:hover{
+	color:white;
 }
 </style>
 </head>
@@ -319,7 +335,7 @@ div.col-12 {
 		<section class="content">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="card card-warning">
+					<div class="card">
 						<div class="card-header">
 						<c:if test="${studyType == 'self'}">
 							<h3 class="card-title">자율스터디</h3>
@@ -476,9 +492,8 @@ div.col-12 {
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<input type="button" value="개설하기" id="create"
-						class="btn-lg btn-warning vertical-center">&nbsp;&nbsp; 
-					<button id="cancel" class="btn-lg btn-secondary float-center">취소</button>
+					<button id="create" class="btn-lg vertical-center">개설하기</button>&nbsp;&nbsp; 
+					<button id="cancel" class="btn-lg btn-default float-center">취소</button>
 				</div>
 			</div>
 		</section>

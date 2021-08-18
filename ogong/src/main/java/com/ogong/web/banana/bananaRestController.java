@@ -48,7 +48,7 @@ public class bananaRestController {
 		
 		banana.setBananaEmail(user);
 		
-		search.setPageSize(3);
+		search.setPageSize(4);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
 		map.put("banana", banana);

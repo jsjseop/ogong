@@ -32,24 +32,36 @@
 	</resultMap>
 	
 	<resultMap id="UserSelectMap" type="user">
-		<result property="email"						 column="EMAIL"				 jdbcType="VARCHAR"/>
-		<result property="condition"					 column="CONDITION"			 jdbcType="VARCHAR"/>
-		<result property="nickname"					   	 column="NICKNAME"			 jdbcType="VARCHAR"/>
-		<result property="withdrawDate"					 column="WITHDRAW_DATE"		 jdbcType="DATE"/>
-		<result property="withdrawReason"				 column="WITHDRAW_REASON"	 jdbcType="VARCHAR"/>
-		<result property="restoreDate"					 column="RESTORE_DATE"		 jdbcType="DATE"/>
-		<result property="restoreReason"				 column="RESTORE_REASON"	 jdbcType="VARCHAR"/>
-		<result property="userTargetTime"				 column="USER_TARGET_TIME"	 jdbcType="NUMERIC"/>
-		<result property="regDate"						 column="REG_DATE"			 jdbcType="VARCHAR"/>
-		<result property="suspendStartDate"				 column="SUSPEND_START_DATE" jdbcType="DATE"/>
-		<result property="suspendEndDate"				 column="SUSPEND_END_DATE"   jdbcType="DATE"/>
-		<result property="bananaCount"					 column="BANANA_COUNT"		 jdbcType="NUMERIC"/>
+		<result property="email" 				column="email" 				jdbcType="VARCHAR"/>
+		<result property="role"					column="role" 				jdbcType="VARCHAR" />
+		<result property="condition" 			column="condition" 			jdbcType="VARCHAR" />
+		<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
+		<result property="password" 			column="password" 			jdbcType="VARCHAR" />
+		<result property="name" 				column="name" 				jdbcType="VARCHAR" />
+		<result property="birth" 				column="birth" 				jdbcType="DATE" />
+		<result property="gender" 				column="gender" 			jdbcType="VARCHAR"  />
+		<result property="userImage" 			column="user_image" 		jdbcType="VARCHAR" />
+		<result property="goal" 				column="goal" 				jdbcType="VARCHAR" />
+		<result property="withdrawDate" 		column="withdraw_date" 		jdbcType="DATE" />
+		<result property="withdrawReason" 		column="withdraw_reason" 	jdbcType="VARCHAR" />
+		<result property="restoreDate" 			column="restore_date" 		jdbcType="DATE" />
+		<result property="restoreReason" 		column="restore_reason" 	jdbcType="VARCHAR" />
+		<result property="diligenceRate" 		column="diligence_rate" 	jdbcType="NUMERIC" />
+		<result property="participationRate" 	column="participation_rate" jdbcType="NUMERIC" />
+		<result property="suspendStartDate" 	column="suspend_start_date" jdbcType="DATE" />
+		<result property="suspendEndDate" 		column="suspend_end_date" 	jdbcType="DATE" />
+		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
+		<result property="regDate" 				column="reg_date" 			jdbcType="DATE" />
+		<result property="bananaCount" 			column="banana_count" 		jdbcType="NUMERIC" />
+		<result property="studyInterest1" 		column="study_interest1" 	jdbcType="VARCHAR" />
+		<result property="studyInterest2" 		column="study_interest2" 	jdbcType="VARCHAR" />
+		<result property="studyInterest3" 		column="study_interest3" 	jdbcType="VARCHAR" />
 	</resultMap> 
 	
 	<resultMap id="AnswerSelectMap" type="answer">
 		<result property="answerNo"						 column="ANSWER_NO"			 jdbcType="NUMERIC"/>
-		<result property="answerWriter.email" 			 column="EMAIL" 			 jdbcType="VARCHAR"/>
-		<result property="answerWriter.nickname" 		 column="NICKNAME" 			 jdbcType="VARCHAR"/>
+		<result property="email" 			 			 column="EMAIL" 			 jdbcType="VARCHAR"/>
+		<result property="nickname" 					 column="NICKNAME" 			 jdbcType="VARCHAR"/>
 		<result property="adoptionFlag"					 column="ADOPTION_FLAG" 	 jdbcType="VARCHAR"/>
 		<result property="adoptionCount"				 column="adoption_count" 	 jdbcType="NUMERIC"/>
 	</resultMap>

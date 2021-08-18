@@ -128,7 +128,7 @@ class BoardTest {
 		user.setNickname("꼬미");
 		//comment.setCommentBoard(board);
 		comment.setCommentWriter(user);
-		comment.setCommentRegDate(Date.valueOf("2021-07-22"));
+		comment.setCommentRegDate("2021-07-22");
 		comment.setCommentContents("뽀글아 안녕~");
 
 		boardService.addComment(comment);
@@ -181,7 +181,7 @@ class BoardTest {
 		user.setNickname("비트캠프");
 		//answer.setAnswerContents("답변 등록 성공");
 		//answer.setBoard(board);
-		answer.setAnswerWriter(user);
+		answer.setEmail(user.getEmail());
 		answer.setAdoptionFlag("2");
 
 		boardService.addAnswer(answer);

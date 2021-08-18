@@ -10,6 +10,7 @@
 		<result property="email" 				column="email" 				jdbcType="VARCHAR"/>
 		<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
 		<result property="userTargetTime" 		column="user_target_time" 	jdbcType="NUMERIC" />
+		<result property="userImage" 			column="user_image" 		jdbcType="VARCHAR" />
 	</resultMap> 
 	
 	<resultMap id="camStudyMemberSelectMap" type="CamStudyMember">
@@ -23,12 +24,61 @@
 		<result property="totalLearningTime" 	column="total_learning_time" jdbcType="VARCHAR" />
 	</resultMap> 
 	
+	<resultMap id="studySelectMap" type="study">
+		<result property="studyNo" 					column="study_no" 					jdbcType="NUMERIC"/>
+		<result property="studyName" 				column="study_name" 				jdbcType="VARCHAR" />
+		<result property="studyHashtag" 			column="study_hashtag" 				jdbcType="VARCHAR" />
+		<result property="studyThumbnail" 			column="study_thumbnail" 			jdbcType="VARCHAR" />
+		<result property="studyStartDate" 			column="study_start_date" 			jdbcType="DATE" />
+		<result property="studyEndDate" 			column="study_end_date" 			jdbcType="DATE" />
+		<result property="studyRegDate" 			column="study_reg_date" 			jdbcType="DATE" />
+		<result property="currentMember" 			column="current_member" 			jdbcType="NUMERIC"  />
+		<result property="maxMember" 				column="max_member" 				jdbcType="NUMERIC" />
+		<result property="selfStudyRule" 			column="selfstudy_rule" 			jdbcType="VARCHAR" />
+		<result property="selfStudyPassword" 		column="selfstudy_password" 		jdbcType="VARCHAR"  />
+		<result property="groupStudyInfo" 			column="groupstudy_info" 			jdbcType="VARCHAR" />
+		<result property="groupStudyPlan" 			column="groupstudy_plan" 			jdbcType="VARCHAR" />
+		<result property="groupStudyCondition" 		column="groupstudy_condition" 		jdbcType="VARCHAR" />
+		<result property="recruitmentStartDate" 	column="recruitment_start_date" 	jdbcType="DATE"  />
+		<result property="recruitmentEndDate" 		column="recruitment_end_date" 		jdbcType="DATE" />
+		<result property="studyEndFlag" 			column="study_end_flag" 			jdbcType="CHAR" />
+		<result property="studyRoomGrade" 			column="studyroom_grade" 			jdbcType="VARCHAR" />
+		<result property="studyType" 				column="study_type" 				jdbcType="VARCHAR"  />
+		<result property="studyInterest" 			column="study_interest" 			jdbcType="VARCHAR" />
+		
+		<association property="studyMaker"  javaType="user">
+			<id property="email" column="email" jdbcType="VARCHAR"/>
+		</association>
+	</resultMap>
+	
 	
 	<select id="getUser" parameterType="string"	resultMap="userSelectMap">
 	  		select *
 			from users
 			where EMAIL=#{email}
 	</select> 
+	
+	<select	id="getStudy"	parameterType="int"	resultMap="studySelectMap">
+	 
+	 	SELECT 
+			study_no, 
+			email, 
+			study_name, 
+			study_hashtag, 
+			study_thumbnail, 
+			TO_CHAR(study_start_date,'YYYY/MM/DD') study_start_date, 
+			TO_CHAR(study_end_date,'YYYY/MM/DD') study_end_date, 
+			current_member, 
+			max_member, 
+			selfstudy_rule, 
+			selfstudy_password, 
+			studyroom_grade, 
+			study_type,
+			study_interest
+		FROM study
+		WHERE study_no = #{value}
+	 	
+	 </select>
 	
 	<insert 	id="addCamStudyMember" parameterType="CamStudyMember">
 	 	INSERT

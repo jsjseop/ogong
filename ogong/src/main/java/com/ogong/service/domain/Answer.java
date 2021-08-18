@@ -9,8 +9,10 @@ public class Answer {
 
 	private int answerNo;
 	private String answerContents;
-	private Date answerRegDate;
-	private User answerWriter;
+	private String answerRegDate;
+	private String email;
+	private String nickname;
+	private String userImage;
 	private int boardNo;
 	private String adoptionFlag;
 	private Date adoptionDate;

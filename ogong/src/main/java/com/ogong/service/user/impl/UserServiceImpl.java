@@ -1,8 +1,6 @@
 package com.ogong.service.user.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +27,6 @@ public class UserServiceImpl implements UserService{
 	  
 	  return userDAO.getUser(email); }
 	 
-	
-
-
-
 	@Override
 	public User getProfile(String email) throws Exception {
 		// TODO 자동 생성된 메소드 스텁
@@ -44,20 +38,16 @@ public class UserServiceImpl implements UserService{
 		userDAO.updateProfile(user);
 	}
 
-	
 	  @Override public void Changedpassword(User user) throws Exception {
 		  userDAO.Changedpassword(user);
 	  
 	  }
 	 
-
-
 	@Override
 	public User getPassword(String email) throws Exception {
 		// TODO Auto-generated method stub
 		return userDAO.getPassword(email);
 	}
-
 
 	@Override
 	public void updateNickname(User user) throws Exception {
@@ -65,13 +55,11 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
-
 	@Override
 	public void updatestudyInterest(User user) throws Exception {
 		userDAO.updatestudyInterest(user);
 		
 	}
-
 
 	@Override
 	public void updatename(User user) throws Exception {
@@ -79,20 +67,17 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
-
 	@Override
 	public void updatebirth(User user) throws Exception {
 		userDAO.updatebirth(user);
 		
 	}
 
-
 	@Override
 	public void updategender(User user) throws Exception {
 		userDAO.updategender(user);
 		
 	}
-
 
 	@Override
 	public void updategoal(User user) throws Exception {
@@ -101,17 +86,6 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
-
-
-
-
-
-
-
-	/*
-	 * @Override public List<Board> userboardList(Board board) throws Exception { //
-	 * TODO Auto-generated method stub return null; }
-	 */
 	//회원탈퇴
 	@Override
 	public void withdrawreason(User user) throws Exception {
@@ -120,20 +94,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 
-
-
-
-
-
-
 	@Override
 	public void restore(User user) throws Exception {
 		// TODO Auto-generated method stub
 		userDAO.restore(user);
 	}
-
-
-
 
 
 	public List<Board> list(String email) throws Exception {
@@ -146,7 +111,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int idCheck(String nickname) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return userDAO.idCheck(nickname);
 	}
 }
 

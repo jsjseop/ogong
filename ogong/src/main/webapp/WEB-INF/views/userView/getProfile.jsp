@@ -4,7 +4,7 @@
 
 	<!-- 모달 영역 -->
 <div class="container">
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	<div class="modal fade" id="getProfile" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -18,13 +18,16 @@
 					<div class="container">
 
 						<div class="page-header">
-							<h1>${user.nickname}의프로필</h1>
+							<h1>${user.nickname} 님의 프로필</h1>
 						</div>
 
 						<input type="hidden" name="email" value="${user.email}" />
 						<!--  히든값 -->
 
-
+						<div class='text-center'>
+								<img id="userImage" src='/resources/upload_files/user_images/${user.userImage}' alt='User profile picture'>
+						</div>	
+						
 						<hr />
 
 						<div class="row">
@@ -63,20 +66,24 @@
 						</div>
 						<hr>
 						<div class="row">
-
-
-							<div class="col-xs-4 col-md-2">
-								<strong>관심사</strong>
+							<div class="col-xs-4 col-md-2" >
+								<strong>관심사1</strong>
 							</div>
+							<div class="col-xs-4 col-md-2" id="interest1">${user.studyInterest1}</div>
+							<div class="col-xs-4 col-md-2" >
+								<strong>관심사2</strong>
+							</div>							
+							<div class="col-xs-4 col-md-2" id="interest2">${user.studyInterest2}</div>
+							<div class="col-xs-4 col-md-2" >
+								<strong>관심사3</strong>
+							</div>							
+							<div class="col-xs-4 col-md-2" id="interest3">${user.studyInterest3}</div>
 
-							<button type="button" class="btn btn-default btn-lg">${user.studyInterest1}</button>
-							<button type="button" class="btn btn-default btn-lg">${user.studyInterest2}</button>
-							<button type="button" class="btn btn-default btn-lg">${user.studyInterest3}</button>
 
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="window.open('http://localhost:5050/user/updateProfile')">수정</button>
+						<button type="button" class="btn btn-primary" id="updateBtn">수정</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 					</div>
 				</div>
@@ -84,3 +91,9 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$("#updateBtn").on("click", function(){
+		location.href="/user/updateProfile";
+	})
+</script>

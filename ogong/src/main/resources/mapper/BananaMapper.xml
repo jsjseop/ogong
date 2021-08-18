@@ -101,7 +101,7 @@
 											 FROM users u, banana_info b
 										  	 WHERE u.email = b.banana_email
 											 AND  b.banana_email = #{banana.bananaEmail.email}
-											 ORDER BY banana_history_date
+											 ORDER BY banana_history_date DESC
 											 ) inner_table
 						   				WHERE ROWNUM &lt;= #{search.endRowNum}) outer_table
 									WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}

@@ -146,6 +146,7 @@ public class StudyController {
 			studyService.addParticipation(gsm);
 			
 			calendar.setStudy(study);
+			calendar.setCalendarTitle("스터디 진행 기간");
 			calendar.setCalendarStartDate(study.getStudyStartDate());
 			calendar.setCalendarEndDate(study.getStudyEndDate());
 			
@@ -214,7 +215,7 @@ public class StudyController {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
-		
+		search.setStudyEndFlag(1);		
 		Map<String, Object> map = studyService.getStudyList(search);
 		System.out.println("map : "+map);
 		

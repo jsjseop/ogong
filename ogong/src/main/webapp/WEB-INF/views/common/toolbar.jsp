@@ -10,7 +10,14 @@
 	width: 120px;
 	height: 50px;
 }
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
 
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
+}
 	
 #hard {
   width: 160px;
@@ -24,21 +31,38 @@
 #detail{
 	text-align: center; 
 }
+
+.btn:hover {
+	background-color: #3395ff;
+	color: white;
+	font-weight: bold;
+}
+#userImage {
+	width: 300px;
+	height: 300px;
+	margin-top: 10px;
+	object-fit: cover;
+  	left: 50%;
+  	border-radius: 3.0rem !important;
+  	max-width: 100%;
+}
 </style>
 
 <!-- Theme style -->
 <link rel="stylesheet" href="/resources/css/adminlte.min.css">
 <!-- Bootstrap 4 -->
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
 <script src="/resources/javascript/bootstrap.bundle.min.js"></script>
 
 <script src="https://kit.fontawesome.com/e3409dba93.js"></script>
 
 
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
 
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="background-color:#FFDC3C; color:#FFDC3C;">
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="background-color:#ecf1f7; color:#FFDC3C;">
         &nbsp&nbsp&nbsp&nbsp&nbsp<a class="navbar-brand">
         <img src="/resources/images/ogong2.png" align="left" class="Ogong" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       </a>
@@ -88,10 +112,12 @@
               </li>
               <!-- End Level two -->
             </ul>
-          </li>                  
-          <li class="nav-item">
-            <a class="nav-link">관리자</a>
-          </li>                                                 
+          </li>    
+          <c:if test="${user.role == 2}">
+          	<li class="nav-item">
+	           <a class="nav-link">관리자</a>
+	        </li>  
+          </c:if>                                                           
         </ul>
 
       </div>
@@ -123,41 +149,41 @@
               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
-            	<a href="javascript:deleteNoticeAll()" class="dropdown-item dropdown-footer">전 체 삭 제</a>
+            <a href="javascript:deleteNoticeAll()" class="dropdown-item dropdown-footer">전 체 삭 제</a>
           </div>
         </li>
         
-      <li class="dropdown">
-          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
-          	<i class="fas fa-th-large"></i>
-          </a>
-
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media" id="media">
-              <!-- <img src="/resources/images/jjang.jpg" alt="User Avatar" class="img-size-60 mr-4 img-circle"> -->
-              <div class="media-body">
-              	<h3 class="dropdown-item-title">&nbsp&nbsp</h3>
-                <h3 class="dropdown-item-title" id="nickname"></h3>
-                <h3 class="dropdown-item-title" id="email"></h3>
-              </div>
-            </div>
-            <span id="detail">
-              <a class="btn  btn-sm">&nbsp</a>
-              <a class="btn  btn-sm">프로필</a>
-              <a class="btn  btn-sm">쪽지</a>
-              <a class="btn  btn-sm">로그아웃</a>
-              <a class="btn  btn-sm">바나나조회</a>
-              <a class="btn  btn-sm">&nbsp</a>
-              <a class="btn  btn-sm">&nbsp</a>
-              <a class="btn  btn-sm">나의게시글</a>
-              <a class="btn  btn-sm">나의스터디</a>
-              <a class="btn  btn-sm">회원탈퇴</a>
-            </span>
-          </a>
-        </div>
-      </li>        
+	      <li class="dropdown">
+	          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+	          	<i class="fas fa-th-large"></i>
+	          </a>
+	
+	        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+	          <a href="#" class="dropdown-item">
+	            <!-- Message Start -->
+	            <div class="media" id="media">
+	              <!-- <img src="/resources/images/jjang.jpg" alt="User Avatar" class="img-size-60 mr-4 img-circle"> -->
+	              <div class="media-body">
+	              	<h3 class="dropdown-item-title">&nbsp&nbsp</h3>
+	                <h3 class="dropdown-item-title" id="nickname"></h3>
+	                <h3 class="dropdown-item-title" id="email"></h3>
+	              </div>
+	            </div>
+	            <span id="detail">
+	              <a class="btn  btn-sm">&nbsp</a>
+	              <a class="btn  btn-sm" data-toggle="modal" data-target="#getProfile">프로필</a>
+	              <a class="btn  btn-sm">쪽지</a>
+	              <a class="btn  btn-sm">로그아웃</a>
+	              <a class="btn  btn-sm">바나나조회</a>
+	              <a class="btn  btn-sm">&nbsp</a>
+	              <a class="btn  btn-sm">&nbsp</a>
+	              <a class="btn  btn-sm">나의게시글</a>
+	              <a class="btn  btn-sm">나의스터디</a>
+	              <a class="btn  btn-sm">회원탈퇴</a>
+	            </span>
+	          </a>
+	        </div>
+	      </li>        
       
       </ul>
     </div>
@@ -393,10 +419,10 @@
 				var display2 = JSONData.email;
 				var display3 = JSONData.nickname;
 				if(JSONData.userImage == null){
-					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/basic.jpg' alt='User Avatar' id='hard' class='img-circle'>";
+					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/upload_files/user_images/basic.jpg' alt='User Avatar' id='hard' class='img-circle'>";
 					$('#media').append(display);	
 				}else if(JSONData.userImage != null){
-					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/images/"+JSONData.userImage+"' alt='User Avatar' id='hard' class='img-circle'>";
+					var display = "&nbsp&nbsp&nbsp&nbsp<img src='/resources/upload_files/user_images/"+JSONData.userImage+"' alt='User Avatar' id='hard' class='img-circle'>";
 					$('#media').append(display);
 				}
 				$('#email').html(display2);
@@ -461,7 +487,7 @@
 	 	
 	 	//=============  프로필 Event  처리 =============
  	 	$( "a:contains('프로필')").on("click", function(){
-	 		location.href = "/user/getProfile/#myModal";
+	 		//location.href = "/user/getProfile/#myModal";
 	 	});	  
 	 	
 	 	//=============  로그아웃 Event  처리 =============
@@ -504,4 +530,4 @@
 	
 	</script>
 	
-	<jsp:include page="../userView/getProfile.jsp" /> 
+	<jsp:include page="../userView/getProfile.jsp" />

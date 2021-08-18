@@ -1,5 +1,6 @@
 package com.ogong.web.studyroom;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ import com.ogong.service.domain.Calendar;
 import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
-import com.ogong.service.integration.IntegrationService;
+import com.ogong.service.study.StudyService;
 import com.ogong.service.studyroom.StudyroomService;
 import com.ogong.service.user.UserService;
 
@@ -36,13 +37,13 @@ public class RestStudyroomController {
 	private StudyroomService studyroomService;
 	
 	@Autowired
+	private StudyService studyService;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private BananaService bananaService;
-	
-	@Autowired
-	private IntegrationService integrationService;
 	
 	
 	public RestStudyroomController(){
@@ -71,33 +72,44 @@ public class RestStudyroomController {
 		return "성공";
 	}
 	
-	//출석체크 
+	//출석체크
+	//경고를 무시하는 어노테이션
+	@SuppressWarnings("unused")
 	@GetMapping("json/addAttendance/{studyNo}")
-	public String addAttendance (  @PathVariable int studyNo,
+	public List<Map<String, Object>> addAttendance (  @PathVariable int studyNo,
 									HttpSession session) throws Exception {
-		//바나나를 줘 봅시다~
-		User user = (User)session.getAttribute("user");
-		User bananaUser = new User();
-		Banana banana = new Banana();
-		banana.setBananaEmail(user);
-		banana.setBananaAmount(5);
-		banana.setBananaHistory("출석체크로 인한 바나나 적립");
-		banana.setBananaCategory("1");
-		bananaService.addBanana(banana);
-		bananaUser.setEmail(user.getEmail());
-		bananaUser.setBananaCount(5);
-		bananaService.updateAcquireBanana(bananaUser);
-		user.setBananaCount(user.getBananaCount()-5);
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", ((User)session.getAttribute("user")).getEmail());
 		map.put("studyNo", studyNo);
 		
 		String result = studyroomService.checkAttendance(map);
+		System.out.println(result);
 		if(result == null) {
 			studyroomService.addAttendance(map);
+			
+			//바나나를 줘 봅시다~
+			User user = (User)session.getAttribute("user");
+			User bananaUser = new User();
+			Banana banana = new Banana();
+			banana.setBananaEmail(user);
+			banana.setBananaAmount(5);
+			banana.setBananaHistory("출석체크로 인한 바나나 적립");
+			banana.setBananaCategory("1");
+			bananaService.addBanana(banana);
+			bananaUser.setEmail(user.getEmail());
+			bananaUser.setBananaCount(5);
+			bananaService.updateAcquireBanana(bananaUser);
+			user.setBananaCount(user.getBananaCount()-5);
+			
+			list = studyroomService.getAttendanceList(map);
+			
+		} else if (result == null ) {
+			return null;
 		}
-		return result;
+		return list;
 	}
 	
 	
@@ -180,6 +192,14 @@ public class RestStudyroomController {
 		User user = userService.getProfile(email);
 		
 		return user;
+	}
+	
+	@PostMapping("json/updateNotice")
+	public String updateNotice(@RequestBody Study study) throws Exception{
+		
+		studyService.updateNotice(study);
+		
+		return study.getGroupStudyNotice();
 	}
 	
 }

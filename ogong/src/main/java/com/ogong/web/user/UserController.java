@@ -1,5 +1,9 @@
 package com.ogong.web.user;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -12,21 +16,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ogong.service.banana.BananaService;
-import com.ogong.service.board.BoardService;
 import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Board;
+import com.ogong.service.domain.GroupStudyMember;
+import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
-import com.ogong.service.study.StudyService;
 import com.ogong.service.user.UserService;
 
 @Controller
@@ -42,25 +49,13 @@ public class UserController {
 	private JavaMailSender mailSender;
 
 	@Autowired
-	private BoardService boardService;
-
-	@Autowired
-	private StudyService studyService;
-
-	@Autowired
 	private BananaService bananaService;
-
 
 
 	// 회원가입 페이지 진입
 	@GetMapping("addUser")
 	public String addUser() throws Exception {
 
-		
-		
-		
-		
-		
 		return "/userView/addUser";
 	}
 
@@ -68,14 +63,9 @@ public class UserController {
 	@PostMapping("addUser")
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
 
-		user.setBananaCount(10);
+		user.setBananaCount(50);
+		user.setUserImage("basic.jpg");
 		userService.addUser(user);
-
-		// ===========바나나 적립 Start==================
-		
-		
-		
-		
 		
 		//===========바나나 적립 Start==================
 		String email = user.getEmail();
@@ -86,25 +76,11 @@ public class UserController {
 		banana.setBananaCategory("1");
 		bananaService.addBanana(banana);
 		// ===========바나나 적립 END==================
-
-		user.setBananaCount(50);
-		userService.addUser(user);
-		//===========바나나 적립 END==================
 		
 		return "/userView/loginView";
 
 	}
 	
-	
-	
-	
-	
-	
-
-
-	
-
-
 	// 로그인 화면
 	@GetMapping("loginView")
 	public String loginView() throws Exception {
@@ -113,16 +89,14 @@ public class UserController {
 	}
 
 	// 로그인
-
 	@PostMapping("loginView")
 	public String getUser(@ModelAttribute("email") User user, HttpServletRequest req, RedirectAttributes rttr)
 			throws Exception {
 
 		HttpSession session = req.getSession();
 		User login = userService.getUser(user);
-
-		int condition = 1;
-		if (login == null) {
+		
+		if (login == null || login.getWithdrawDate() != null) {
 			System.out.println("아이디또는 비밀번호가 맞지 않습니다");
 			session.setAttribute("user", null);
 			rttr.addFlashAttribute("msg", false);
@@ -134,9 +108,6 @@ public class UserController {
 
 		return "redirect:/integration/mainPage";
 	}
-	
-	
-	
 	
 	@GetMapping("list")
 	public String list(HttpSession session, Model model) throws Exception{
@@ -150,39 +121,9 @@ public class UserController {
 		System.out.println("더 중간 ::: "+list);
 		model.addAttribute("list", list);
 		
-		
 		return "userView/list";
 	}
-	
-	
-	
-	
-	/*
-	 * // 게시판 목록 조회
-	 * 
-	 * @RequestMapping(value = "/list", method = RequestMethod.GET) public String
-	 * list(HttpSession session, Model model,Board email) throws Exception{
-	 * logger.info("list");
-	 * 
-	 * System.out.println("/user/list 실행");
-	 * 
-	 * 
-	 * 
-	 * model.addAttribute("list",userService.list(email));
-	 * model.addAttribute("user", (User)session.getAttribute("user"));
-	 * 
-	 * return "userView/list";
-	 * 
-	 * }
-	 */
 	 
-	
-
-
-	  
-
-	
-
 	// 로그아웃
 	@GetMapping("logout")
 	public String logout(HttpSession session) throws Exception {
@@ -209,7 +150,6 @@ public class UserController {
 	}
 
 	// 비밀번호 변경 화면이동
-
 	@GetMapping("Changedpassword")
 	public String Changedpassword() throws Exception {
 
@@ -217,7 +157,6 @@ public class UserController {
 	}
 
 	// 비밀번호 변경
-
 	@PostMapping("Changedpassword")
 	public String Changedpassword(User user, HttpSession session) throws Exception {
 
@@ -271,43 +210,64 @@ public class UserController {
 
 	@GetMapping("updateProfile")
 	public String updateProfile(HttpSession session, Model model) throws Exception {
-
+		
 		model.addAttribute("user", (User) session.getAttribute("user"));
 
 		return "/userView/updateProfile";
 	}
 
 	// 프로필 수정
-
 	@RequestMapping(value = "updateProfile", method = RequestMethod.POST)
-	public String updateProfile(@ModelAttribute("user") User user, Model model, HttpSession session) throws Exception {
+	public String updateProfile(@ModelAttribute("user") User user, @RequestParam("file") MultipartFile file, 
+												Model model, HttpServletRequest request, HttpSession session) throws Exception {
 
 		System.out.println("/user/updateUser : POST");
-		// Business Logic
-		userService.updateProfile(user);
-
-		String sessionId = ((User) session.getAttribute("user")).getEmail();
-		if (sessionId.equals(user.getEmail())) {
-			session.setAttribute("user", user);
+		
+		User bananaUser = new User();
+		Banana banana = new Banana();
+		banana.setBananaEmail(user);
+		banana.setBananaAmount(20);
+		banana.setBananaHistory("프로필 작성으로 인한 바나나 획득");
+		banana.setBananaCategory("1");
+		bananaService.addBanana(banana);
+		bananaUser.setEmail(user.getEmail());
+		bananaUser.setBananaCount(20);
+		bananaService.updateUseBanana(bananaUser);
+		user.setBananaCount(user.getBananaCount()+20);
+		
+		//파일 업로드
+		if(file.getOriginalFilename().equals("")) {    //파일 선택안했을때
+			user.setUserImage(user.getUserImage());
+		}else {
+			String root_path = request.getSession().getServletContext().getRealPath("/");  
+			String attach_path = "resources/upload_files/user_images";
+			
+			String temDir = root_path+attach_path;
+			String fileName = file.getOriginalFilename();
+			File uploadFile = new File(temDir, fileName);
+			try {
+				file.transferTo(uploadFile);
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(uploadFile.getPath());
+			user.setUserImage(fileName);
 		}
+		
+		userService.updateProfile(user);
+		user = userService.getProfile(user.getEmail());
+		
+		session.setAttribute("user", user);
 
 		return "index";
 	}
-
-
-		
-		
-		  //프로필 보기
-	  
-		  
-		  @GetMapping("getProfile") 
-		  public String getProfile() throws Exception {
-		    	  
-		  return "/userView/getProfile"; }
-		  
-	 
-		  
-
+	
+	   //프로필 보기 
+	  @GetMapping("getProfile") 
+	  public String getProfile() throws Exception {
+	    	  
+		  return "/userView/getProfile"; 
+	  }
 
 	// 회원탈퇴 이동
 	@GetMapping("withdrawreason")
@@ -318,7 +278,7 @@ public class UserController {
 
 	// 회원탈퇴
 	@PostMapping("withdrawreason")
-	public String Withdrawal(User user, HttpSession session) throws Exception {
+	public String Withdrawal(@ModelAttribute("user") User user, HttpSession session) throws Exception {
 
 		userService.withdrawreason(user);
 		session.invalidate();
@@ -383,15 +343,7 @@ public class UserController {
 		return num;
 	}
 
-	
 
-
-
-	
-
- 
-
- 
 	// 닉네임 중복 검사
 	@RequestMapping(value = "idCheck", method = RequestMethod.POST)
 	@ResponseBody
@@ -406,16 +358,12 @@ public class UserController {
 		logger.info("결과값 = " + result);
 		
 		if(result != 0) {
-			
 			return "fail";	// 중복 닉네임 존재
-			
 		} else {
-			
 			return "success";	// 중복 닉네임 x
 		}
-		
 	}
-		  }
+}
 		  
 
 	

@@ -87,27 +87,25 @@
 	</resultMap>
 
 
- 	 	 <select id="list" resultType="string" resultMap="boardSelectMap" >
+ 	<select id="list" resultType="string" resultMap="boardSelectMap" >
 	SELECT
-    board_no,
-    study_no,
-    email,
-    nickname,
-    board_category,
-    board_title,
-    board_contents,
-    board_interest,
-    board_reg_date,
-    view_count,
-    board_reg_banana,
-    file_flag
-FROM
-    board
+	    board_no,
+	    study_no,
+	    email,
+	    nickname,
+	    board_category,
+	    board_title,
+	    board_contents,
+	    board_interest,
+	    board_reg_date,
+	    view_count,
+	    board_reg_banana,
+	    file_flag
+	FROM
+    	board b
     where
-        	   	 email = #{email:VARCHAR}
-    
-
-	</select>  
+       	email = #{email:VARCHAR}
+	</select>
 	 
 
 <!-- 	 <select id="list" resultMap="boardSelectMap" >
@@ -145,60 +143,56 @@ FROM
 
 	<insert 	id="addUser"		parameterType="user" >
       	INSERT INTO users (
-    EMAIL,
-    ROLE,
-    CONDITION,
-    NICKNAME,
-    PASSWORD,
-    NAME,
-    BIRTH,
-    GENDER,
-    USER_IMAGE,
-    GOAL,
-    WITHDRAW_DATE,
-    WITHDRAW_REASON,
-    RESTORE_DATE,
-    RESTORE_REASON,
-    DILIGENCE_RATE,
-    PARTICIPATION_RATE,
-    SUSPEND_START_DATE,
-    SUSPEND_END_DATE,
-    USER_TARGET_TIME,
-    reg_Date,
-    BANANA_COUNT,
-    STUDY_INTEREST1,
-    STUDY_INTEREST2,
-    STUDY_INTEREST3
-) VALUES (
-    #{email:VARCHAR},
-    '1',
-    '1',
-    #{nickname:VARCHAR},
-    #{password:VARCHAR},
-    #{name:VARCHAR},
-    #{birth:DATE},
-    #{gender:VARCHAR},
-    #{userImage:VARCHAR},
-    #{goal:VARCHAR},
-    #{withdrawDate:DATE},
-    #{withdrawreason:VARCHAR},
-    #{restoreDate:DATE},
-    #{restoreReason:VARCHAR},
-    #{diligenceRate:NUMERIC},
-    #{participationRate:NUMERIC},
-    #{suspendStartDate:DATE},
-    #{suspendEndDate:DATE},
-    #{userTargetTime:NUMERIC},
-    SYSDATE,
-    #{bananaCount:NUMERIC},
-    #{studyInterest1:VARCHAR},
-    #{studyInterest2:VARCHAR},
-    #{studyInterest3:VARCHAR}
-)
-
-	 
-
-
+		    EMAIL,
+		    ROLE,
+		    CONDITION,
+		    NICKNAME,
+		    PASSWORD,
+		    NAME,
+		    BIRTH,
+		    GENDER,
+		    USER_IMAGE,
+		    GOAL,
+		    WITHDRAW_DATE,
+		    WITHDRAW_REASON,
+		    RESTORE_DATE,
+		    RESTORE_REASON,
+		    DILIGENCE_RATE,
+		    PARTICIPATION_RATE,
+		    SUSPEND_START_DATE,
+		    SUSPEND_END_DATE,
+		    USER_TARGET_TIME,
+		    reg_Date,
+		    BANANA_COUNT,
+		    STUDY_INTEREST1,
+		    STUDY_INTEREST2,
+		    STUDY_INTEREST3
+		) VALUES (
+		    #{email:VARCHAR},
+		    '1',
+		    '1',
+		    #{nickname:VARCHAR},
+		    #{password:VARCHAR},
+		    #{name:VARCHAR},
+		    #{birth:DATE},
+		    #{gender:VARCHAR},
+		    #{userImage:VARCHAR},
+		    #{goal:VARCHAR},
+		    #{withdrawDate:DATE},
+		    #{withdrawReason:VARCHAR},
+		    #{restoreDate:DATE},
+		    #{restoreReason:VARCHAR},
+		    #{diligenceRate:NUMERIC},
+		    #{participationRate:NUMERIC},
+		    #{suspendStartDate:DATE},
+		    #{suspendEndDate:DATE},
+		    #{userTargetTime:NUMERIC},
+		    SYSDATE,
+		    #{bananaCount:NUMERIC},
+		    #{studyInterest1:VARCHAR},
+		    #{studyInterest2:VARCHAR},
+		    #{studyInterest3:VARCHAR}
+		)
 	 </insert>
 	 
 	 	<!--SQL : 프로필 (수정)  -->    
@@ -220,54 +214,47 @@ FROM
 	 
 
 		  	 <!--로그인  -->  	  
-	  <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
-  	  	  
-  	  	  select *
-from users
-where EMAIL= #{email:VARCHAR}
-AND PASSWORD = #{password:VARCHAR}
-  	  	  </select> 
+	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+			SELECT *
+			FROM users
+			WHERE EMAIL= #{email:VARCHAR}
+			AND PASSWORD = #{password:VARCHAR}
+  	 </select> 
 	  
 	 
-	   <update id="Changedpassword" parameterType="user">
-    update USERS
-     set
-     PASSWORD= #{password} 
-    where EMAIL= #{email:VARCHAR}
- 
-  </update>
+	 <update id="Changedpassword" parameterType="user">
+	    UPDATE users
+	    SET
+	      PASSWORD= #{password} 
+	    WHERE EMAIL= #{email:VARCHAR}
+     </update>
    
    
    <!-- 회원탈퇴 -->
    	 <update	id="withdrawreason"	parameterType="user" >
-   update USERS
-   SET
-   CONDITION = 2,
-    WITHDRAW_DATE = sysdate
-     where EMAIL= #{email:VARCHAR}
+	   UPDATE users
+	   SET
+	   	condition = 2,
+	    withdraw_date = sysdate,
+	    withdraw_reason = #{withdrawReason}
+	    
+	   WHERE EMAIL= #{email:VARCHAR}
      </update>
      <!-- 회원복구 -->
      <update	id="restore"	parameterType="user" >
-     
-    update USERS
-   SET
-   CONDITION = 1,
-    RESTORE_DATE = sysdate ,
-    RESTORE_REASON =#{restoreReason:VARCHAR}
-     where EMAIL= #{email:VARCHAR}
-
-   
+	   UPDATE users
+	   SET
+	   	CONDITION = 1,
+	    RESTORE_DATE = sysdate ,
+	    RESTORE_REASON =#{restoreReason:VARCHAR}
+	   WHERE EMAIL= #{email:VARCHAR}
    </update>
    
    	<select id="nicknameCheck" parameterType="String" resultType="int">
-  	
-SELECT count(*)
+		SELECT count(*)
 		FROM users
 		WHERE NICKNAME = #{nickname};
-  
 	 </select>
-	  
-	 
 	 
  	 <select 	id="getProfile"	parameterType="string"	resultMap="userSelectMap">
 		SELECT *
@@ -275,62 +262,13 @@ SELECT count(*)
 		where EMAIL= #{email:VARCHAR}
 	 </select> 
 	 
-
-	 
-		
-<!--  	 	       <select id="userboardList" parameterType ="hashmap" resultType="boardSelectMap">
-            SELECT
-               BOARD_NO , BOARD_TITLE ,  BOARD_REG_DATE ,  VIEW_COUNT
-             FROM board
-             where EMAIL= #{email:VARCHAR}
-                  
-        </select>   -->
         
-        <select id = "idCheck" parameterType = "String" resultType = "int">
-		SELECT *
-		form users
+     <select id = "idCheck" parameterType = "String" resultType = "int">
+		SELECT count(*)
+		FROM users
 		where NICKNAME= #{nickname:VARCHAR}
-</select>
+	 </select>
 
-	
-		
-	 
-	<!--  SQL : 프로필 (수정)  
-	 <update	id="updateProfile"	parameterType="user" >
-	   	UPDATE users
-	   	set
-	   		  		 name =  #{name} ,
-   		 birth =  #{birth} ,
-   		 gender =  #{gender} ,
-   		 USERIMAGE =  #{user_image} ,
-    		goal =  #{goal} ,
-	   	set
-	   	WHERE email = #{email}
-	 </update> -->
-	 
-
-
-	  	
-	 <!-- SQL : 비밀번호 찾기	 
-	 	   <select id="getPassword" parameterType="String" resultType="String">
-	  	select *  from user where email=#{email}
-	  	</select> -->
-	  	
-	  	
-
-
-
-
-
-  
-		 <!-- 이메일 중복확인   
-
-  	  	  <select id="emailCheck" parameterType="String" resultMap="user">
-  	  	  select count(*)
-  	  	  form users
-  	  	  where email=#{email}
-  	  	  </select> -->
-  	  	  
   	  	  
 	 
 

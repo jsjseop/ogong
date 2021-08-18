@@ -6,9 +6,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>스터디 목록</title>
 <!-- <link rel="stylesheet" href="/resources/css/adminlte.min.css"> -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
 <script src="https://kit.fontawesome.com/e3409dba93.js"></script>
 
@@ -88,7 +90,7 @@
 	
 	$(function() {
 
-		$('a.btn.btn-warning').on('click', function(){
+		$('#addBtn').on('click', function(){
 			location.href = "/study/addStudy?studyType=${studyType}";
 		});
 
@@ -126,7 +128,7 @@
 	var page = 1;
 	$(window).scroll(function() {
 		if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight)) {
-			console.log(++page);
+			++page;
 			getStudyList(page);
 		}
 	});
@@ -172,13 +174,32 @@ img.img-thumbnail:hover {
 	margin: 80px 0px 80px 0px;
 }
 
+#list {
+	margin-bottom: 200px;
+}
+
+#addBtn {
+	background-color: #88b3fa;
+}
+#addBtn:hover {
+	color: #fff;
+}
+
+#interest {
+	color: #007bff;
+}
+
 div.callout {
 	margin : 50px 0px 0px 0px;
 }
 div.jumbotron {
-	background-color: #FFDC3C;
+	background-color: #fff;
 	margin-top: 30px;
 }
+li.breadcrumb-item {
+	
+}
+.breadcrumb-item+.breadcrumb-item::before { content: "ㅣ"; }
 </style>
 </head>
 
@@ -187,18 +208,21 @@ div.jumbotron {
 	<jsp:include page="../common/toolbar.jsp" />
 
 	<div class="container">
-
 		<div class="jumbotron">
 			<c:if test="${studyType == 'self'}">
 				<h1 class="display-4">자율스터디</h1>
 				<p class="lead">누구나 자유롭게 참여할 수 있는 자율스터디입니다.</p>
+				<p class="lead">원하는 스터디를 찾아보고 참가해보세요.</p>
 				<hr class="my-4">
 				<p>스터디를 직접 개설해보세요.
 					<a type="button" id="popover"  data-container="body" 
 					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.(일반:20 , 프리미엄:50)">
 					<i class="fas fa-info-circle"></i></a>
 				</p>
-				<a class="btn btn-warning btn-lg" href="#" role="button">개설하기</a>
+				<div id="addBtn" class="btn btn-lg btn-flat">
+                  <i class="far fas fa-plus-square fa-lg mr-2"></i>
+                  개설하기
+                </div>
 			</c:if>
 			<c:if test="${studyType == 'group'}">
 				<h1 class="display-4">그룹스터디</h1>
@@ -210,10 +234,12 @@ div.jumbotron {
 					data-toggle="popover" data-placement="right" data-content="개설 시에는 바나나가 사용됩니다.(일반:20 , 프리미엄:50)">
 					<i class="fas fa-info-circle"></i></a>
 				</p>
-				<a class="btn btn-warning btn-lg" id="addBtn" role="button">개설하기</a>
+				<div id="addBtn" class="btn btn-lg btn-flat">
+                  <i class="far fas fa-plus-square fa-lg mr-2"></i>
+                  개설하기
+                </div>
 			</c:if>
 		</div>
-
 		<hr/>
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		<div class="row">
@@ -225,7 +251,7 @@ div.jumbotron {
 					<c:if test="${studyType == 'group'}">
 						<div class="col-sm-12" id="groupInterest">
 							<input type="hidden" id="studyInterest" name="studyInterest" value="${search.studyInterest}" />
-				            <ol class="breadcrumb float-sm-center">
+				            <ol class="breadcrumb float-sm-center" >
 				              <li class='breadcrumb-item' value="0">
 				              	${! empty search.studyInterest && search.studyInterest== 0 ? "전체" : '<a id="interest" href="javascript:void(0)" 
 				              		onclick="getInterestList(0)">전체</a>'  }
@@ -327,7 +353,7 @@ div.jumbotron {
 					<img class="img-fluid img-thumbnail rounded" src="/resources/upload_files/study/${study.studyThumbnail}" alt="None"
 					onclick="entranceStudy(${study.studyNo})">
 					<c:if test="${studyType == 'group'}">
-						<p class="text-center">모집기간:${study.recruitmentStartDate}~${study.recruitmentEndDate}</p>
+						<p class="text-center text-md">모집기간 : ${study.recruitmentStartDate}~${study.recruitmentEndDate}</p>
 					</c:if>
 					<p class="text-center">
 					<c:if test="${study.studyRoomGrade == 'premium'}">

@@ -24,7 +24,7 @@
 						<!--  히든값 -->
 						<hr />
 						<div class='text-center'>
-							<a id="image" valuer="asdasd">
+							<a id="image">
 							
 							</a>
 						</div>		
@@ -92,7 +92,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">확인</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 					</div>
 			</div>

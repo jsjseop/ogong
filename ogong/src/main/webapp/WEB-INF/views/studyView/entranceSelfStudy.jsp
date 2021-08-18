@@ -22,6 +22,13 @@ font-size: 20px;
 #container {
 	margin-top: 30px;
 }
+#entrance {
+	background-color:#88b3fa;
+	border-color:white;
+}
+#entrance:hover{
+	color:white;
+}
 </style>
 <script type="text/javascript">
 	function entranceStudy() {
@@ -31,7 +38,7 @@ font-size: 20px;
 			dataType : "text",
 			success: function (data, status){
 				if(data == "success"){
-					popWin = window.open("https://wnstjqtest.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
+					popWin = window.open("https://ogong-cam-study.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
     						"CamStudy",
     						"height=" + screen.height + ",width=" + screen.width + "fullscreen=yes");
 				}else{

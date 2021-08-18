@@ -9,8 +9,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-	
-
   <!-- Theme style -->
   <link rel="stylesheet" href="/resources/css/hanjee/adminlte.min.css">
   
@@ -20,22 +18,17 @@
   <script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
   
 	<style>
- 
-		
- 		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
-		
-		body, 
-		table, 
-		div, 
-		p, 
-		th, 
-		td{
-		font-family: 'Do Hyeon', sans-serif;
-		font-size: 16px;
-		}
-		
-				
-   	</style>  
+@import
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
+	;
+
+body, table, div, p, th, td {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 16px;
+}
+
+
+</style>  
 	<script type="text/javascript">
 	function fncGetList(currentPage) {
 		$("#currentPage").val(currentPage)
@@ -92,9 +85,9 @@
 					$("#birth").html(JSONData.birth);
 					$("#goal").html(JSONData.goal);
 					if(JSONData.userImage != null){
-						$("#image").html("<img  src='/resources/images/"+JSONData.userImage+"' alt='User profile picture'>")	
+						$("#image").html("<img id='userImage' src='/resources/upload_files/user_images/"+JSONData.userImage+"' alt='User profile picture'>")	
 					}else{
-						$("#image").html("<img  src='/resources/images/basic.jpg' alt='User profile picture'>");
+						$("#image").html("<img id='userImage' src='/resources/upload_files/user_images/basic.jpg' alt='User profile picture'>");
 					}
 					$("#interest1").html(JSONData.studyInterest1);
 					$("#interest2").html(JSONData.studyInterest2);
@@ -203,7 +196,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-3">
-          <a href="compose.html" class="btn btn-primary btn-block mb-3" style="background-color:#FFDC3C; border-color:#fff;" data-toggle="modal" data-target="#myModal">쪽지보내기</a>
+          <a href="compose.html" class="btn btn-primary btn-block mb-3" style="background-color:#af945f; border-color:#fff;" data-toggle="modal" data-target="#myModal">쪽지보내기</a>
 
           <div class="card">
             <div class="card-header">

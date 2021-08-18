@@ -32,10 +32,10 @@ public interface UserMapper {
 	//비밀번호 찾기
 	User getPassword(String email);
 	
-/*	// 아이디 중복체크
-	public int idCheck(String email);
+	// 아이디 중복체크
+	//public int idCheck(String email);
 	// 닉네임 중복체크
-	public int idCheck(String nickname);*/
+	public int idCheck(String nickname);
 	
 	//회원탈퇴
 	void withdrawreason(User user);
@@ -43,18 +43,8 @@ public interface UserMapper {
 	//회원복구
 	public void restore(User user);
 
-	//
-
+	
 	List<Board> list(String email);
-	
-
-	
-	
-	
-	
-	
-// 프로필 수정 ㅜㅜ 개많아
-	
 	
 	// 닉네임
 	void updateNickname(User user) throws Exception;
@@ -68,9 +58,4 @@ public interface UserMapper {
 	void updategender(User user) throws Exception;
 	// 목표와 각오
 	void updategoal(User user) throws Exception;
-
-	
-	
-	
-	
 }

@@ -6,11 +6,14 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.LearningHistory;
+import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 
 public interface CamStudyService {
 	
 	public User getUser(String email) throws Exception;
+	
+	public Study getStudy(int studyNo) throws Exception;
 	
 	public void addCamStudyMember(CamStudyMember csm) throws Exception;
 	

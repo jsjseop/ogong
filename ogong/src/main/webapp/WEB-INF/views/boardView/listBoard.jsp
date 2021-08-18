@@ -28,7 +28,7 @@
 
 	$(function() {
 
-		$('tbody td:nth-child(2)').on('click', function() {
+		$('tbody td:nth-child(1)').on('click', function() {
 
 			let boardNo = $(this).children('input').val();
 			location.href = "/board/getBoard?boardNo=" + boardNo;
@@ -60,7 +60,7 @@
 
 body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
-
+font-size: 20px;
 }
 
 table {
@@ -70,33 +70,21 @@ table.one {
 margin-bottom: 3em; 
 border-collapse:collapse;   }   
  
-td {                           
-text-align: center;     
-width: 10em;                    
-padding: 1em;       }       
- 
-th {                             
-text-align: center;                 
-padding: 1em;
-background-color: #FFDC3C;     
-color: white;       
-}                 
- 
-tr {    
-height: 1em;    
+#writeBtn:hover {
+color:white;
 }
  
 table tr:nth-child(even) {            
-    background-color: #FFF8D7;     
-    }
+     
+}
  
 table tr:nth-child(odd) {           
-background-color:#fff;  
+
 }
 
 #searchForm{
-	display: flex;
-	justify-content: flex-end;
+display: flex;
+justify-content: flex-end;
 }
  
 </style>
@@ -105,7 +93,7 @@ background-color:#fff;
 <body>
 	<jsp:include page="../common/toolbar.jsp" />
 
-	<div class="container">
+	<div class="container" style="margin-top:50px;">
 
 		<div class="page-header text-default">
 			<c:if test="${boardCategory == '1'}">
@@ -155,37 +143,35 @@ background-color:#fff;
 							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
 					</div>
 
-					<button type="button" class="btn btn-warning">검색</button>
+					<button type="button" class="btn btn-default">검색</button>
 
 					<input type="hidden" id="currentPage" name="currentPage" value="" />
 				</form>
 			</div>
 		</div>
 
-		<table class="table table-hover table-striped">
+		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th align="center">No</th>
-					<th align="left">제목</th>
-					<th align="left">작성자</th>
-					<th align="left">조회수</th>
-					<th align="left">등록일</th>
+					<th class="col-md-7 text-center">제목</th>
+					<th class="col-md-2 text-center">작성자</th>
+					<th class="col-md-2 text-center">등록일</th>
+					<th class="col-md-1 text-center">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="board" items="${list}">
 					<tr>
-						<td align="center">${board.boardNo}</td>
-						<td align="left">${board.boardTitle}<input type="hidden" value="${board.boardNo}" /></td>
-						<td align="left">${board.writer.nickname}</td>
-						<td align="left">${board.viewCount}</td>
-						<td align="left">${board.boardRegDate}</td>
+						<td class="col-md-7 text-center">${board.boardTitle}<input type="hidden" value="${board.boardNo}" /></td>
+						<td class="col-md-2 text-center">${board.writer.nickname}</td>
+						<td class="col-md-2 text-center">${board.boardRegDate}</td>
+						<td class="col-md-1 text-center">${board.viewCount}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div align="right">
-			<button type="button" class="btn btn-warning" style="width: 80px;"
+			<button type="button" id="writeBtn" class="btn" style="width: 90px; background-color:#88b3fa;"
 				onclick="javascript:fncWrite('${writer.email}')">글쓰기</button>
 		</div>
 		<!--  table End /////////////////////////////////////-->

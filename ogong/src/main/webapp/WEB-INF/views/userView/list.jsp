@@ -10,21 +10,18 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/reset.css">
-<link rel="stylesheet" href="css/common.css">
-<link rel="stylesheet" href="node_modules/slidebars/dist/slidebars.css">
-<link href="node_modules/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
-<script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="node_modules/slidebars/dist/slidebars.js"></script>
+<script>
+$(function() {
+	
+	$( "td:nth-child(1)" ).on("click" , function() {
+		var boardNo = $(this).find('input').val();
+		
+		 self.location ="/board/getBoard?boardNo="+boardNo;
+	});
+	
+});	
+</script>
 <style>
 .container {
 	max-width: 1200px;
@@ -56,7 +53,7 @@
 </style>
 	<!-- ToolBar Start /////////////////////////////////////-->
 	
-	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
+	
 	
    	<!-- ToolBar End /////////////////////////////////////-->
 
@@ -66,7 +63,7 @@
 font-family: 'Do Hyeon', sans-serif;
 }    
 .page-link {
-	color: #ef6c00 !important;
+	color: #9fcfff !important;
 }
 
 
@@ -80,7 +77,7 @@ font-family: 'Do Hyeon', sans-serif;
 
 <body>
 
-
+<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
 
 </div>
 	<!-- free board start  -->
@@ -93,19 +90,19 @@ font-family: 'Do Hyeon', sans-serif;
 		<table class="table table-hover">
 			<thead class="thead-light">
 				<tr>
-					<th align="left">작성일</th>
 					<th align="left">제목</th>
-					<th align="left">댓글수</th>
 					<th align="left">조회수</th>
+					<th align="left">작성일</th>
 				</tr>
-				  			  <input type="hidden" id="email" name="email"	value="${user.email}"/>  <!--  히든값 -->
+				  <!--  히든값 -->
 				
 				<c:forEach items="${list}" var = "board">
 							<tr>
-								<td align="left" >${board.boardRegDate}</td>
-								<td align="left" >${board.boardTitle}</td>
-								<td align="left" >${board.commentCount}</td>
-								<td align="left" >${board.viewCount}</td>
+								<td class="col-md-7" align="left" >${board.boardTitle}
+									<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}"/>
+								</td>
+								<td class="col-md-2" align="left" >${board.viewCount}</td>
+								<td class="col-md-3" align="left" >${board.boardRegDate}</td>
 							</tr>   
 						</c:forEach>
 			

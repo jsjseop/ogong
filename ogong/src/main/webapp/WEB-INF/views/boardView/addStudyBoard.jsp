@@ -20,6 +20,18 @@
 <script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
 
 </head>
+<style>
+#addStudyBtn {
+	background-color:#88b3fa;
+	color:black;
+	border:none;
+}
+#addStudyBtn:hover{
+	color:white;
+}
+
+</style>
+
 
 <div class="toolbar">
 	<jsp:include page="../common/toolbar.jsp" />
@@ -37,11 +49,8 @@
 					<div class="wrap d-md-flex">
 						<div
 							class="text-wrap p-4 p-lg-5 d-flex img d-flex align-items-end"
-							style="background-image: url(/resources/images/add.png);">
-							<div class="text w-100" style="text-align:center">
-								<p>모방해서 실패하는 것 보다 독창적으로 실패하는게 낫다 <br/>
-								- 허먼 멜빌</p>
-							</div>
+							style="background-image: url(/resources/images/addb.png);">
+							
 						</div>
 						<div class="login-wrap p-4 p-md-5">
 							<h3 class="mb-3">스터디 모집등록</h3>
@@ -77,7 +86,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<button type="submit" style="margin: 0 auto" align="center"
-												class="btn btn-secondary submit p-3">등록하기</button>
+												class="btn btn-secondary submit p-3" id="addStudyBtn">등록하기</button>
 										</div>
 									</div>
 								</div>

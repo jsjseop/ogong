@@ -26,6 +26,7 @@ public class StudyRestController {
 	public Map<String, Object> listStudy(@RequestBody Search search) throws Exception{
 		
 		search.setPageSize(8);
+		search.setStudyEndFlag(1);
 		
 		Map<String, Object> result = studyService.getStudyList(search);
 		

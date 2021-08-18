@@ -47,15 +47,10 @@ public interface UserService {
 
 	//List<Board> list(Board user) throws Exception;
 
-
-
-
-		
 	
 		
 	// 닉네임 중복확인
 		public int idCheck(String nickname) throws Exception;
-// 프로필수정
 
 	//이름
 		// 닉네임
@@ -72,16 +67,7 @@ public interface UserService {
 		public void updategoal(User user) throws Exception;
 
 
-
-
-
-
 		//게시판 조회
 		List<Board> list(String email) throws Exception;
 
-
-
-
-
-	   
 }

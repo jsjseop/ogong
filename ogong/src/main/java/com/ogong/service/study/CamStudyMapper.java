@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.LearningHistory;
+import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 
 @Repository
@@ -16,6 +17,8 @@ import com.ogong.service.domain.User;
 public interface CamStudyMapper {
    
    User getUser(String email);
+   
+   Study getStudy(int studyNo);
    
    void addCamStudyMember(CamStudyMember csm);
    

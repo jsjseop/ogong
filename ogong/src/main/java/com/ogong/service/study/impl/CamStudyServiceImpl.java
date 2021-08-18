@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ogong.service.domain.CamStudyMember;
 import com.ogong.service.domain.LearningHistory;
+import com.ogong.service.domain.Study;
 import com.ogong.service.domain.User;
 import com.ogong.service.study.CamStudyMapper;
 import com.ogong.service.study.CamStudyService;
@@ -21,6 +22,12 @@ public class CamStudyServiceImpl implements CamStudyService {
 	public User getUser(String email) throws Exception {
 		// TODO Auto-generated method stub
 		return camStudyMapper.getUser(email);
+	}
+
+	@Override
+	public Study getStudy(int studyNo) throws Exception {
+		// TODO Auto-generated method stub
+		return camStudyMapper.getStudy(studyNo);
 	}
 
 	@Override

@@ -12,7 +12,8 @@
 
 <!-- jQuery -->
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Bootstrap CSS -->
 
@@ -26,61 +27,80 @@
 
 		$("#addForm").submit(function(e) {
 			e.preventDefault();
+			
+			let name = $('input[name="boardTitle"]').val();
+			let detail = $('textarea').val();
 			var formData = new FormData($(this)[0]);
-			$.ajax({
-				url : '/board/json/addBoard',
-				type : 'POST',
-				data : formData,
-				async : false,
-				cache : false,
-				contentType : false,
-				enctype : 'multipart/form-data',
-				processData : false,
-				success : function(res) {
-					location.href = "/board/getBoard?boardNo=" + res;
-				}
-			});
-			return false;
+			
+			if (name == null || name.length < 1) {
+				swal("제목을 입력해주세요.","","warning");
+				return;
+			}else if (detail == null || detail.length < 5) {
+				swal("내용을 5글자 이상 입력해주세요.","","warning");
+				return;
+			}else{
+				$.ajax({
+					url : '/board/json/addBoard',
+					type : 'POST',
+					data : formData,
+					async : false,
+					cache : false,
+					contentType : false,
+					enctype : 'multipart/form-data',
+					processData : false,
+					success : function(res) {
+						location.href = "/board/getBoard?boardNo=" + res;
+					}
+				});
+				return false;
+			}
+			
+			
 		});
+		
+		
+		$("button[id=cancelbtn]").on("click",function(){
+			history.back();
+		})
 	});
+	
 </script>
 <style>
 @import
-	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap')
-	;
-
-
+	url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
 body, table, div, p, th, td {
 	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
 }
 
 h3 {
 	text-align: center;
 }
+button.btn {
+	background-color:#88b3fa;
+}
+button.btn:hover {
+	background-color:#88b3fa;
+	color: white;
+}
 </style>
-</head>
-<body>
 
+</head>
+
+<body>
 	<jsp:include page="../common/toolbar.jsp" />
-</head>
-
-<body>
-
 
 	<div class="container">
 
-<br/>
-		<h3>게시글 등록</h3>
-
-
-
+	<br/>
+		<h3>게시글 쓰기</h3>
 
 		<form id="addForm">
 
 
 			<div class="mb-3">
 				<label for="title">제목</label> <input type="text"
-					class="form-control" name="boardTitle" id="title"
+					class="form-control" name="boardTitle" id="boardTitle"
 					placeholder="제목을 입력해 주세요">
 
 			</div>
@@ -90,7 +110,7 @@ h3 {
 				<label for="content">내용</label>
 
 				<textarea class="form-control" rows="5" name="boardContents"
-					id="content" placeholder="내용을 입력해 주세요"></textarea>
+					id="boardContents" placeholder="내용을 입력해 주세요"></textarea>
 
 			</div>
 
@@ -106,10 +126,10 @@ h3 {
 			<div align="center">
 				<br />
 				<button type="submit" style="width: 80px"
-					class="btn btn-xl btn-warning" id="btnAdd">등록</button>
+					class="btn btn-xl" id="btn">등록</button>
 
 				<button type="button" style="width: 80px"
-					class="btn btn-xl btn-warning" id="btnList">목록</button>
+					class="btn btn-xl" id="cancelbtn">취소</button>
 
 			</div>
 

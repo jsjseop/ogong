@@ -7,13 +7,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-	
-	
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://kit.fontawesome.com/e3409dba93.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
 
@@ -21,15 +20,18 @@ body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
 font-size: 15px;
 }
-
-/* textarea.form-control {
-    height: auto;
-    width: 40%;
+#studyThumbnail {
+	width: 300px;
+	height: 300px;
 }
-.wrapper{
-	margin-left:10px;
-} */
-.con
+.img_wrap {
+	width: 300px;
+	margin-top: 50px;
+}
+
+.img_wrap img {
+	max-width: 100%;
+}
 </style>
     
 
@@ -56,7 +58,7 @@ $(function() {
 function handleImgFileSelect(e) {
     var files = e.target.files;
     var filesArr = Array.prototype.slice.call(files);
-
+	$("#studyThumbnail").remove();
     filesArr.forEach(function(f) {
         if(!f.type.match("image.*")) {
             alert("확장자는 이미지 확장자만 가능합니다.");
@@ -96,7 +98,7 @@ function handleImgFileSelect(e) {
 				</div><hr/>
 				<div class="form-group">
 					<label for="studyInterest">관심주제</label> 
-					<input type="text" id="studyName" name="studyName" value="${study.studyInterest}" class="form-control col-sm-4" maxlength="15" readonly>
+					<input type="text" id="studyInterest" name="studyInterest" value="${study.studyInterest}" class="form-control col-sm-4" maxlength="15" readonly>
 				</div><hr/>
 				
 				<div class="form-group">
@@ -129,7 +131,8 @@ function handleImgFileSelect(e) {
 
 				<div class="form-group">
 					<label for="studyThumbnail">스터디 썸네일</label>
-					<img src="/resources/upload_files/study/${study.studyThumbnail}">
+					<input type="hidden" name="studyThumbnail" value="${study.studyThumbnail}">
+					<img  id="studyThumbnail" src="/resources/upload_files/study/${study.studyThumbnail}">
 					<div class="input-group mb-3">
 						<div class="custom-file col-sm-4">
 							<input type="file" class="custom-file-input" id="file" name="file"> 
@@ -167,64 +170,8 @@ function handleImgFileSelect(e) {
 			</form>
 						
 		    
-		    
-		    
-		    
-		    
-		    
-		    
-		   <%--  <!-- form Start /////////////////////////////////////-->
-			<form class="form-horizontal" id="sroomfrom">
-			<input type="hidden" name="studyNo" value="${study.studyNo}"/>
-			  <div class="form-group" align="left">
-			    <label for="studyName" class="col-sm-offset-1 col-sm-1 control-label">스 터 디 명</label>
-			    <div class="col-sm-4">
-			      <input type="text" class="form-control" id="studyName" name="studyName" value="${study.studyName}" >
-			    </div>
-			  </div>
-			
-			  <div class="form-group">
-			    <label for="groupStudyInfo" class="col-sm-offset-1 col-sm-1 control-label">스터디 소개</label>
-			    <div class="col-sm-4">
-			      <textarea class="form-control" id="groupStudyInfo" name="groupStudyInfo">${study.groupStudyInfo}</textarea>
-			    </div>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="studyHashtag" class="col-sm-offset-1 col-sm-1 control-label">해 시 태 그</label>
-			    <div class="col-sm-4">
-			      <input type="text" class="form-control" id="studyHashtag" name="studyHashtag" value="${study.studyHashtag}" >
-			    </div>
-			  </div>
-			  
-			  
-			  <div class="form-group">
-			    <label for="" class="col-sm-offset-1 col-sm-1 control-label">모집 기간</label>
-			    <div class="col-sm-4">
-			      <input type="text" size="27" value="${study.recruitmentStartDate} ~ ${study.recruitmentEndDate} " readonly>
-			      <input type="hidden" name="recruitmentStartDate" value="${study.recruitmentStartDate}">
-			      <input type="hidden" name="recruitmentEndDate"value="${study.recruitmentEndDate}">
-			      <span id="helpBlock" class="help-block">
-			      	<strong class="text-danger">수정불가</strong>
-			      </span>
-			    </div>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="" class="col-sm-offset-1 col-sm-1 control-label">진행 기간</label>
-			    <div class="col-sm-4">
-			      <input type="text" size="27" value="${study.studyStartDate} ~ ${study.studyEndDate}" readonly>
-			      <input type="hidden" name="studyStartDate" value="${study.studyStartDate}">
-			      <input type="hidden" name="studyEndDate"value="${study.studyEndDate}">
-			      
-			      <span id="helpBlock" class="help-block" >
-			      	<strong class="text-danger">수정불가</strong>
-			      </span>
-			    </div>
-			  </div>
-			  
-			  
-			</form> --%>
+	    
+		   
 			<!-- form Start /////////////////////////////////////-->
 
 	    

@@ -22,8 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ogong.common.Search;
+import com.ogong.service.banana.BananaService;
 import com.ogong.service.board.BoardService;
 import com.ogong.service.domain.Answer;
+import com.ogong.service.domain.Banana;
 import com.ogong.service.domain.Board;
 import com.ogong.service.domain.Comment;
 import com.ogong.service.domain.File;
@@ -37,10 +39,13 @@ import com.ogong.service.integration.IntegrationService;
 public class RestBoardController {
     
     @Autowired
-    BoardService boardService;
+    private BoardService boardService;
 
     @Autowired
-    IntegrationService integrationService;
+    private IntegrationService integrationService;
+    
+    @Autowired
+    private BananaService bananaService;
     
 	@PostMapping("/json/addBoard")
 	public int addBoard(MultipartHttpServletRequest request, @ModelAttribute("board") Board board) throws Exception {
@@ -49,6 +54,7 @@ public class RestBoardController {
 		User user = (User) session.getAttribute("user");
 		board.setWriter(user);
 		
+		System.err.println("@@@@@@@@@@@@@@");
 
 		int result = boardService.addBoard(board, fileList);
 		return result;  
@@ -68,13 +74,40 @@ public class RestBoardController {
 		
 	}
     
-    @GetMapping("/json/updateAdoption/{answerNo}/{boardNo}")
-	public void updateAdoption(@PathVariable("answerNo") int answerNo, @PathVariable("boardNo") int boardNo) throws Exception {
+    @GetMapping("/json/updateAdoption/{answerNo}/{boardNo}/{boardRegBanana}")
+	public void updateAdoption(@PathVariable("answerNo") int answerNo, @PathVariable("boardNo") int boardNo,
+													@PathVariable("boardRegBanana") int boardRegBanana) throws Exception {
 		Answer answer = new Answer();
 		answer.setAnswerNo(answerNo);		
+		answer = boardService.getAnswer(answer);
+		Banana banana = new Banana();
+		User user = new User();
+		user.setEmail(answer.getEmail());
+		
+		Board board = new Board();
+		board.setBoardNo(boardNo);
+		Map<String, Object> map = boardService.getBoard(board);
+		
+		
+		banana.setBananaEmail(user);
+		banana.setBananaAmount(boardRegBanana);
+		banana.setBananaHistory("Q&A 게시글 채택으로 인한 바나나 적립");
+		banana.setBananaCategory("1");
+		bananaService.addBanana(banana);
+		user.setBananaCount(boardRegBanana);
+		bananaService.updateAcquireBanana(user);
 
 		boardService.updateAdoption(answerNo);
 		boardService.updateBoardAdoption(boardNo);
+		
+		Notice notice = new Notice();
+		//확인
+		System.out.println("확인 ::: "+map.get("board"));
+		notice.setNoticeUser(user);
+		notice.setNoticeBoard((Board)map.get("board"));
+		notice.setNoticeCategory("3");
+		notice.setNoticeCondition("2");
+		integrationService.addNotice(notice);
 		
 	}
     
@@ -130,11 +163,28 @@ public class RestBoardController {
     	return list;
 	}  
     
+    @PostMapping("addAnswer")
+    public String addAnswer(@RequestBody Answer answer) throws Exception {
+    	
+    	// 알림 처리를 위한 인서트~
+		Notice notice = new Notice();
+		Board board = boardService.getNoticeBoard(answer.getBoardNo());
+    	notice.setNoticeUser(board.getWriter());
+    	notice.setNoticeBoard(board);
+    	notice.setNoticeCategory("2");
+    	notice.setNoticeCondition("2");
+    	integrationService.addNotice(notice);		
+		
+		boardService.addAnswer(answer);
+    	
+    	return "success";
+    }
+    
     @PostMapping("updateAnswer")
    	public String updateAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
        	HttpSession session = request.getSession();
        	User user = (User)session.getAttribute("user");
-       	answer.setAnswerWriter(user);
+       	answer.setEmail(user.getEmail());
 
        		
    		boardService.updateAnswer(answer);
@@ -147,7 +197,7 @@ public class RestBoardController {
    	public Boolean deleteAnswer(HttpServletRequest request, @RequestBody Answer answer) throws Exception {	
        	HttpSession session = request.getSession();
        	User user = (User)session.getAttribute("user");
-       	answer.setAnswerWriter(user);
+       	answer.setEmail(user.getEmail());
    		
        	return boardService.deleteAnswer(answer);
 

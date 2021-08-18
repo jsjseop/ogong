@@ -11,7 +11,7 @@ public class Board {
 	private String boardContents;
 	private int boardNo;
 	private String boardCategory;
-	private Date boardRegDate;
+	private String boardRegDate;
 	private Date boardWriteDate;
 	private int boardRegBanana;
 	private User writer;

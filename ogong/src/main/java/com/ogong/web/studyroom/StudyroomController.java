@@ -1,10 +1,13 @@
 package com.ogong.web.studyroom;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ogong.service.domain.GroupStudyMember;
 import com.ogong.service.domain.Study;
@@ -49,7 +53,6 @@ public class StudyroomController {
 		model.addAttribute("study", studyService.getStudy(studyNo));
 		model.addAttribute("list", studyroomService.getGSMemberList(studyNo));
 		model.addAttribute("result", studyroomService.getAttendanceList(map));
-		System.out.println("ㅇ");
 		
 		return "/studyroomView/getStudyRoom";
 	}
@@ -104,8 +107,29 @@ public class StudyroomController {
 	}
 	
 	@PostMapping("updateStudy")
-	public String updateStudy( @ModelAttribute("study") Study study,
+	public String updateStudy( @ModelAttribute("study") Study study, @RequestParam("file") MultipartFile file,
+			HttpSession session, HttpServletRequest request,
 								Model model) throws Exception {
+		
+		
+		if(file.getOriginalFilename().equals("")) {    //파일 선택안했을때
+			study.setStudyThumbnail(study.getStudyThumbnail());
+		}else {
+			String root_path = request.getSession().getServletContext().getRealPath("/");  
+			String attach_path = "resources/upload_files/study/";
+			
+			String temDir = root_path+attach_path;
+			String fileName = file.getOriginalFilename();
+			File uploadFile = new File(temDir, fileName);
+			try {
+				file.transferTo(uploadFile);
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(uploadFile.getPath());
+			study.setStudyThumbnail(fileName);
+		}
+		
 		
 		studyroomService.updateStudy(study);
 		
@@ -116,8 +140,4 @@ public class StudyroomController {
 
 	}
 	
-	@PostMapping("addAttendance")
-	public String addAttendance()throws Exception{
-		return null;
-	}
 }

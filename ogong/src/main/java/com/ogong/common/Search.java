@@ -11,6 +11,7 @@ public class Search {
 	private String searchKeyword;
 	private String studyType;
 	private int studyInterest;
+	private int studyEndFlag;
 	private int searchSort;
 	private int pageSize;
 	private int endRowNum;

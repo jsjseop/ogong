@@ -30,7 +30,7 @@ public class User {
 	private String studyInterest1;
 	private String studyInterest2;
 	private String studyInterest3;
-	private String withdrawreason;
+	private String withdrawReason;
 
 
 

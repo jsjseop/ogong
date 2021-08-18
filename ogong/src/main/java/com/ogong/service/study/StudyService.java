@@ -26,4 +26,6 @@ public interface StudyService {
 	public List<Study> getMySelfStudy(String email) throws Exception;
 
 	public List<Study> getMyStudy(String email, String endFlag, String approvalFlag) throws Exception;
+	
+	public void updateNotice(Study study) throws Exception;
 }

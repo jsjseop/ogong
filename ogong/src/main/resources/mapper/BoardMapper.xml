@@ -21,7 +21,7 @@
 		<result property="studyStartDate" 		column="study_start_date" 		jdbcType="VARCHAR" />
 		<result property="studyEndDate" 		column="study_end_date" 		jdbcType="VARCHAR" />
 		<result property="adoptionFlag" 		column="adoption_flag" 			jdbcType="VARCHAR" />
-
+		<result property="recommendCount" 		column="recommend_count" 		jdbcType="VARCHAR" />
 
 
  		<association property="writer"  javaType="user">
@@ -46,11 +46,12 @@
 	<resultMap id="answerSelectMap" 	type="answer">
 		<result property="answerNo" 			 column="answer_no" 				jdbcType="NUMERIC" />
 		<result property="boardNo" 				 column="board_no" 					jdbcType="NUMERIC"/>
-		<result property="answerWriter.email" 	 column="email" 					jdbcType="VARCHAR" />
+		<result property="email" 	 			 column="email" 					jdbcType="VARCHAR" />
 		<result property="answerContents"		 column="answer_contents" 			jdbcType="VARCHAR" />
-		<result property="adoptionFlag" 		 column="adoption_flag" 			jdbcType="NUMERIC" />  
+		<result property="nickname" 			 column="nickname" 			 		jdbcType="VARCHAR"/>
+		<result property="userImage" 			 column="user_image" 			 	jdbcType="VARCHAR"/>
+		<result property="adoptionFlag" 		 column="adoption_flag" 			jdbcType="VARCHAR" />  
 		<result property="answerRegDate" 		 column="answer_reg_date" 			jdbcType="DATE" /> 
-		<result property="answerWriter.nickname" column="nickname" 					jdbcType="VARCHAR" />
 		<result property="adoptionDate" 		 column="adoption_date" 			jdbcType="DATE" />
 		<result property="adoptionNo" 			 column="adoption_no" 				jdbcType="NUMERIC" />
 	</resultMap>
@@ -92,10 +93,10 @@
 					file_flag, 
 					study_start_date,
 					study_end_date,
-					view_count,
-				<if test="boardCategory='2'">
-					adoption_flag
-				</if>	
+					view_count
+					<if test="boardCategory=='2'">
+						,adoption_flag
+					</if>	
 					)
 			VALUES( #{boardNo},
 					<if test="study!=null and study.studyNo!=null">
@@ -114,10 +115,10 @@
 					#{fileFlag},
 					#{studyStartDate:VARCHAR},
 					#{studyEndDate:VARCHAR},		
-					0,
-				<if test="boardCategory='2'">
-					'2'
-				</if>	 
+					0
+					<if test="boardCategory=='2'">
+						,'2'
+					</if>	 
 					)
 	</insert>	
 
@@ -135,7 +136,7 @@
 				board_title,
 				board_contents,
 				board_interest,
-				board_reg_date,
+				TO_CHAR(board_reg_date,'YYYY/MM/DD HH:MM') board_reg_date,
 				view_count,
 				study_start_date,
 				study_end_date,
@@ -145,8 +146,15 @@
                 (SELECT COUNT(*)
                      FROM answer a
                      WHERE a.board_no = #{boardNo}) answer_count,
+                board_reg_banana,
 				file_flag,
-				adoption_flag
+				adoption_flag,
+				(
+                   	SELECT COUNT(*)
+             		FROM
+             		 	recommend r
+             		WHERE r.board_no = #{boardNo}
+             	) recommend_count
 			
 			FROM 
 				board
@@ -206,7 +214,7 @@
                      a.board_title,
                      a.board_contents,
                      a.board_interest,
-                     a.board_reg_date,
+                     TO_CHAR(a.board_reg_date,'YYYY/MM/DD') board_reg_date,
                      a.view_count,
                      (
                      	SELECT COUNT(*)
@@ -235,11 +243,12 @@
                 	<if test="search.searchKeyword!=null and search.searchKeyword!=''">
                 		<choose>
                 			<!-- <when test="searchCondition!=null and searchCondition==1"> -->
-                			<when test='search.searchCondition!=null and search.searchCondition.equals("1")'>
-                				AND board_title like '%'||#{search.searchKeyword}||'%'
+                			<when test='search.searchCondition == 1'>
+                				AND (board_title like '%'||#{search.searchKeyword}||'%'
+                				OR board_contents like '%'||#{search.searchKeyword}||'%')
                 			</when>
-                			<when test="searchCondition!=null and searchCondition==2">
-                				AND board_contents like '%'||#{search.searchKeyword}||'%'
+                			<when test="search.searchCondition == 2">
+                				AND board_title like '%'||#{search.searchKeyword}||'%'
                 			</when>
                 			<otherwise>
                 				AND nickname like '%'||#{search.searchKeyword}||'%'
@@ -408,8 +417,8 @@
 					 c.comment_no,
 					 c.board_no,
 					 c.email,
-					 c.comment_contents,		
-					 c.comment_reg_date
+					 c.comment_contents,	
+					 TO_CHAR(c.comment_reg_date,'YYYY/MM/DD HH:MM') comment_reg_date
 				FROM
 					comment_info c
 				WHERE	
@@ -422,6 +431,7 @@
 		ON  c.email = u.email 
 		WHERE 
 			c.rnum BETWEEN #{startRowNum} AND #{endRowNum}
+		ORDER BY c.comment_no
 						
 	</select>
 
@@ -443,18 +453,21 @@
 	
 	<select id="listAnswer" parameterType="int" resultMap="answerSelectMap">
 		SELECT		
-			 answer_no
-			,board_no
-			,email
-			,answer_contents
-			,adoption_flag
-			,answer_reg_date
-			,nickname
-			,adoption_date
+			 a.answer_no
+			,a.board_no
+			,a.email
+			,a.answer_contents
+			,a.adoption_flag
+			,TO_CHAR(a.answer_reg_date,'YYYY/MM/DD HH:MM') answer_reg_date
+			,a.nickname
+			,a.adoption_date
+			,u.user_image
 		FROM
-			answer
+			answer a, users u
 		WHERE 
 			board_no = #{boardNo}
+			AND a.email = u.email
+		ORDER BY a.answer_no DESC
 	</select>
 
 	<!-- Q&A 게시판 답변 등록 -->
@@ -466,13 +479,14 @@
 		VALUES (
 			seq_answer_no.nextval,
 			#{boardNo},
-			#{answerWriter.email},
+			#{email},
 			#{answerContents},
 			2,
 			SYSDATE,
-			#{answerWriter.nickname},
+			(SELECT nickname
+			FROM users
+			WHERE email = #{email}),
 			#{adoptionDate:DATE}
-			
 		)
 
 	</insert>
@@ -490,7 +504,7 @@
 		WHERE 
 			answer_no = #{answerNo}	
 		AND	board_no = #{boardNo}
-		AND email = #{answerWriter.email}				
+		AND email = #{email}				
 	</update> 
 	
 	
@@ -512,7 +526,6 @@
 			answer
 		WHERE 
 			answer_no = #{answerNo}	
-		AND email = #{answerWriter.email}				
 	</select> 
 
 	<!-- Q&A 게시판 답변 삭제 -->	
@@ -524,7 +537,7 @@
 		WHERE
 			answer_no = #{answerNo}
 		AND board_no = #{boardNo}
-		AND email = #{answerWriter.email}		
+		AND email = #{email}		
 	</delete>
 	
 	
@@ -613,7 +626,7 @@
 		FROM 
 			answer
 		WHERE 
-			nickname = #{answerWriter.nickname}
+			nickname = #{nickname}
 		AND	board_no = #{boardNo}  		 
 	</select> 
 	

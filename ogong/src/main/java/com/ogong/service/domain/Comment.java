@@ -12,7 +12,7 @@ public class Comment {
 	private User commentWriter;
 	private String nickname;
 	private String commentContents;
-	private Date commentRegDate;
+	private String commentRegDate;
 	
 
 }

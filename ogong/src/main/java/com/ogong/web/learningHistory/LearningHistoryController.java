@@ -56,9 +56,6 @@ public class LearningHistoryController {
 		List<LearningHistory> lineChart = learningHistoryService.getlineChartTime(map);
 		List<LearningHistory> pieChart = learningHistoryService.getPieChartTime(map);
 		
-		System.out.println("@@@@@"+lineChart);
-		System.out.println("@@@@@"+pieChart);
-		
 		model.addAttribute("list", list);
 		model.addAttribute("lineChart", lineChart);
 		model.addAttribute("pieChart", pieChart);

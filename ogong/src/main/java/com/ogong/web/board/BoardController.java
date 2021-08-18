@@ -41,10 +41,10 @@ import com.ogong.service.integration.IntegrationService;
 @RequestMapping("/board/*")
 public class BoardController {
 
-	@Value("4")
+	@Value("5")
 	int pageUnit;
 
-	@Value("4")
+	@Value("5")
 	int pageSize;
 
 	@Autowired
@@ -123,51 +123,6 @@ public class BoardController {
 
 	}
 	
-
-	@GetMapping("addAnswer")
-	public String addAnswer(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
-	/*
-	 * @GetMapping("addAnswer") public String addAnswer(@RequestParam("boardNo") int
-	 * boardNo, Model model) throws Exception {
-	 * 
-	 * Board board = new Board(); board.setBoardNo(boardNo);
-	 * 
-	 * board = boardService.getBoard(board);
-	 * 
-	 * 
-	 * model.addAttribute("board", board);
-	 * 
-	 * return "/boardView/addAnswer"; }
-	 */
-
-		Board board = new Board();
-		board.setBoardNo(boardNo);
-
-		Map<String, Object> result = boardService.getBoard(board);
-		board = (Board) result.get("board");
-		
-		model.addAttribute("board", board);
-
-		return "/boardView/addAnswer";
-	}
-
-	@PostMapping("addAnswer")
-	public String addAnswer(@ModelAttribute("answer") Answer answer, Model model) throws Exception {
-		
-		// 알림 처리를 위한 인서트~
-		Notice notice = new Notice();
-		Board board = boardService.getNoticeBoard(answer.getBoardNo());
-    	notice.setNoticeUser(board.getWriter());
-    	notice.setNoticeBoard(board);
-    	notice.setNoticeCategory("2");
-    	notice.setNoticeCondition("2");
-    	integrationService.addNotice(notice);		
-		
-		boardService.addAnswer(answer);
-		
-		return "redirect:/board/getBoard?boardNo=" + answer.getBoardNo();
-	}
-	
 	@GetMapping("updateAnswer")
 	public String updateAnswer(HttpSession session, @RequestParam("answerNo") int answerNo, Model model) throws Exception {
 
@@ -175,7 +130,7 @@ public class BoardController {
 		
 		Answer answer = new Answer();
 		answer.setAnswerNo(answerNo);	
-		answer.setAnswerWriter(user);
+		answer.setEmail(user.getEmail());
 		
 		Answer result = boardService.getAnswer(answer);
 		
@@ -203,7 +158,8 @@ public class BoardController {
 
 		Map<String, Object> result = boardService.getBoard(board);
 		board = (Board) result.get("board");
-		List<File> fileList = (List<File>) result.get("fileList");
+		List<File> fileList = (List<File>)result.get("fileList");
+		
 		model.addAttribute("board", board);
 		/* model.addAttribute("comment", comment); */
 		model.addAttribute("fileList", fileList);
@@ -212,7 +168,6 @@ public class BoardController {
 		if (board.getBoardCategory().equals("2")) {
 
 			return "/boardView/getQaBoard";
-
 		}
 		
 		if (board.getBoardCategory().equals("5")) {

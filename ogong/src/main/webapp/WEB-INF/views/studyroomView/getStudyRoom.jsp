@@ -55,24 +55,24 @@ hr {
 }
 
 .fc .fc-button-primary:disabled {
-    color: #fff;
-    color: var(--fc-button-text-color, #fff);
-    background-color: #2C3E50;
-    background-color: var(--fc-button-bg-color, #2C3E50);
-    border-color: #2C3E50;
-    border-color: var(--fc-button-border-color, #2C3E50);
+    color: black;
+    background-color: #eee;
+    background-color: var(--fc-button-bg-color, #eee;);
+    border-color: #333;
+    border-color: var(--fc-button-border-color, #eee;);
 }
 .fc .fc-button:disabled {
     opacity: 0.65;
 }
 .fc .fc-button-primary {
-	background-color: #FFDC3C;
-	border: 1px solid #c9aa5f;
+	background-color: #eee;
+	color: black;
+	/* border: 1px solid #fff; */
 } 
 .fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active{
-	background-color: #FFDC3C;
-	border: 1px solid #c9aa5f;
-	color: #fff;
+	background-color: #eee;
+	/* border: 1px solid #fff; */
+	color: black;
 }
 .swal-button {
   padding: 7px 19px;
@@ -80,6 +80,43 @@ hr {
   background-color: #7cd1f9;
   font-size: 12px;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+.fc .fc-col-header-cell-cushion {
+    color: black;
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: large;
+}
+.border-head {
+	text-align:right;
+}
+element.style {
+    position: relative;
+    top: 17px;
+    float: right;
+    width: 6px;
+    height: 415px;
+    background-color: black;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
+.fc .fc-daygrid-day-number {
+    position: relative;
+    z-index: 4;
+    padding: 4px;
+    color: black;
+}
+.panel-heading1 {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.panel-heading span {
+	margin-top: -20px;
+	font-size: 15px;
+}
+.glyphicon-chevron-up:before {
+    content: "\e113";
+    color: antiquewhite;
 }
 </style>
 </head>
@@ -104,10 +141,54 @@ $(function () {
 	});
 	
 	$('#camstudy').on("click", function (){
-		popWin = window.open("https://wnstjqtest.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
+		popWin = window.open("https://ogong-cam-study.herokuapp.com/"+`${study.studyNo}`+"/"+`${user.email}`,
                 "CamStudy",
                 "height=" + screen.height + ",width=" + screen.width + "fullscreen=yes");
 	});
+	
+	
+	$('.panel-title').on('click', function(e){
+	    var $this = $(this);
+		if(!$this.hasClass('panel-collapsed')) {
+			$this.parents('.panel').find('.panel-body').slideUp();
+			$this.addClass('panel-collapsed');
+		} else {
+			$this.parents('.panel').find('.panel-body').slideDown();
+			$this.removeClass('panel-collapsed');
+		}
+	});
+	
+	$('#addNoticeBtn').on('click', function(){
+		$("#noticeModal").modal("show");
+	});
+	
+	$('#addNotice').one('click', function(){
+		studyNo = ${study.studyNo};
+		groupStudyNotice = $('#groupStudyNotice').val();
+		$.ajax({
+			type: 'post',
+			url: '/studyroom/json/updateNotice',
+			data : JSON.stringify({
+				studyNo:studyNo,
+				groupStudyNotice:groupStudyNotice
+			}),
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			datatype : 'json',
+			success : function(data) {
+				$("#noticeModal").modal("hide");
+				$('.panel-body').empty();
+				$('.panel-body').append(data);
+			},
+			error:function(request, status, error){
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}		
+		});	
+		
+	});
+	
 });
 
 </script>
@@ -125,15 +206,15 @@ $(function () {
               <div class="row">
                   <div class="col-lg-9 main-chart">			
                       <!--CUSTOM CHART START -->
-                      <div class="border-head" id="room-head" align="left">
+                      <div class="border-head" id="room-head">
                           <button id="sroomInfo">
-                           <h6> 스터디 정보 조회 </h6> 
+                           <h5> 스터디 정보 조회 </h5> 
                           </button>
                           <button class="float-right"id="chat">
-                           <h6> 채팅 접속 </h6> 
+                           <h5> 채팅 접속 </h5> 
                           </button>
                           <button class="float-right"id="camstudy">
-                           <h6> 화상 스터디 </h6> 
+                           <h5> 화상 스터디 </h5> 
                           </button>
                       </div>
 					<hr>
@@ -154,23 +235,39 @@ $(function () {
                   
                   <div class="col-lg-3 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
+	                    <div class="panel panel-default">
+							<div class="panel-heading1">
+								<h3 class="panel-title">공 지 사 항 : CLICK</h3>
+								<span class="pull-right clickable"></span>
+							</div>
+							<div class="panel-body"><span>${study.groupStudyNotice}</span>
+								<c:if test="${study.studyMaker.email == user.email}">
+									<div class="col-2" style='text-align: right;'>
+										<button id="addNoticeBtn">등록/저장</button>
+									</div>
+								</c:if>
+							</div>
+						</div>
+                    
 						<a id=attendance href="#">
 							<h3>출석 체크</h3>
 							<input type="hidden" id="email" value="${email}">
 						</a>
-	                    <c:forEach var="aList" items="${result}">                      
-	                      <!-- First Action -->
-	                      <div class="desc">
-	                      	<div class="thumb">
-	                      		<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px" align="">
-	                      	</div>
-	                      	<div class="details">
-	                      		<muted >출석일자 : ${aList.get("ATTENDANCE_DATE")}</muted><!-- <br/> -->
-	                      		   <a href="#"></a> 출석. <br/>
-	                      		
-	                      	</div>
-	                      </div>
-	                    </c:forEach>
+						<div id = "attList">
+		                    <c:forEach var="aList" items="${result}">                      
+		                      <!-- First Action -->
+		                      <div class="desc">
+		                      	<div class="thumb">
+		                      		<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px" align="">
+		                      	</div>
+		                      	<div class="details">
+		                      		<muted >출석일자 : ${aList.get("ATTENDANCE_DATE")}</muted><!-- <br/> -->
+		                      		   <a href="#"></a> 출석. <br/>
+		                      		
+		                      	</div>
+		                      </div>
+		                    </c:forEach>
+	                    </div>
            
 
                        <!-- USERS ONLINE SECTION -->
@@ -196,7 +293,7 @@ $(function () {
 								   </span>
 	                      		</p>
 	                      		<muted>
-	                      			${gMember.determination}
+	                      			각오 : ${gMember.determination}
 	                      		</muted>
 	                      	</div>
 	                      </div>
@@ -338,6 +435,30 @@ $(function () {
                 </div>
             </div>
         </div>
+        
+        <!-- 공지사항 등록 모달 -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="noticeModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"> 공지사항 등록 </h4>
+                    </div>
+                    <div class="modal-body">
+						<label for="groupStudyNoice">공지사항</label> 
+						 <div>
+						 	<input type="hidden" name="studyNo" value="${study.studyNo}">
+						 	<textarea class="inputModal" id="groupStudyNotice" name="groupStudyNotice" style="width:570px; height:150px;"></textarea>
+						 </div>
+                    </div>
+                    <div class="modal-footer modalBtnContainer-addEvent">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-info" id="addNotice">저장</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 	
 
   <!-- js placed at the end of the document so the pages load faster -->
@@ -422,7 +543,7 @@ $(function () {
 			    	click: function() {
 			     		$("#myModal").modal("show");
 			     		
-			     		$("#save").on("click", function(){
+			     		$("#save").one("click", function(){
 			     			
 			     			var title = $('#title').val();
 			     			var startDate = $('#start').val();
@@ -460,8 +581,7 @@ $(function () {
 				     						title: title,
 				     						start: startDate,
 				     						end: endDate,
-				     						backgroundColor:calendarColor,
-				     						textColor:"#fc0101",
+				     						backgroundColor:calendarColor
 				     					});
 				     					$("#myModal").modal("hide");
 				     				},
@@ -478,7 +598,6 @@ $(function () {
 			buttonText:{
 				list : '주간 일정표'
 			},
-			initialDate: '2021-07-20', 
 			navLinks: true,
 			selectable: true, 
 			selectMirror: true, 
@@ -486,16 +605,6 @@ $(function () {
 				console.log(arg); 
 				
 				var title = prompt('입력할 일정:'); 
-				if (title) { 
-					/* calendar.addEvent({
-						title: title,
-						start: arg.start,
-						end: arg.end,
-						allDay: arg.allDay,
-						backgroundColor:"#9501fc",
-						textColor:"#fc0101" 
-					})  */
-				}  
 			calendar.unselect() 
 			},
 			eventDrop : function(info){
@@ -625,15 +734,36 @@ $(function () {
     		$.ajax({
     			url: "/studyroom/json/addAttendance/"+studyNo,
     			method : "GET" ,
-    			dataType : "text",
+    			dataType : "json",
+     			headers : {
+ 					"Accept" : "application/json",
+ 					"Content-Type" : "application/json"
+ 				}, 
     			success: function (data, status){
-    				if(data == ""){
+    				if(data != ""){
     					swal({
       					  title: "출석체크 완료",
       					  icon: "success",
       					  button: "확 인",
       					});
-    				}else if (data != null){
+    					var display ='';
+    					$('#attList').empty();
+    					$.each(data, function(index, data){
+    						display = '<div class="desc">'
+    								+'<div class="thumb">'
+    								+'<img class="img-circle" src="/resources/images/ogg.png" width="35px" height="35px">'
+    								+'</div>'
+    								+ '<div class="details">'
+    								+'<muted> 출석일자 : '+data.ATTENDANCE_DATE+'</muted>'
+    								+'<a href="#"></a> 출석. <br>'
+    								+'</div>'
+    								+'</div>';
+    								
+    						$('#attList').append(display);
+    					});
+    					
+    						
+    				}else if (data == ""){
         				swal({
           					title: "이미 출석체크 하셨습니다.",
           					icon: "warning",

@@ -198,7 +198,7 @@
     <section class="content">
       <div class="row" style="padding-top:7px">
         <div class="col-md-3">
-          <a href="compose.html" class="btn btn-primary btn-block mb-3" style="background-color:#FFDC3C; border-color:#fff;" data-toggle="modal" data-target="#myModal">쪽지보내기</a>
+          <a href="compose.html" class="btn btn-primary btn-block mb-3" style="background-color:#af945f; border-color:#fff;" data-toggle="modal" data-target="#myModal">쪽지보내기</a>
 
           <div class="card">
             <div class="card-header">
@@ -311,7 +311,7 @@
 									${message.receiver.email}
 								</a>
 								  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
+								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal">프로필보기
 								    <input type="hidden" value="${message.receiver.email}" /></a></li>
 								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
 								    <input type="hidden" value="${message.receiver.email}" /></a></li>
@@ -363,7 +363,7 @@
 									</script>
 							</div>
 						</div>                
-                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModal">
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
                     <i class="far fa-trash-alt"></i>
                   </button>
                   <button type="button" class="btn btn-default btn-sm" name="refresh">

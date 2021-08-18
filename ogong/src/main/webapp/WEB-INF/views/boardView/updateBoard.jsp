@@ -101,8 +101,8 @@ text-align:center;
 			<br/>
 			<br/>
 			<div align="center">
-				<button type="button" class="btn btn-default" style="width: 60px;">수 정</button>
-				<button type="button" class="btn btn-default" style="width: 60px;">취 소</button>
+				<button type="button" class="btn btn-default" style="width: 60px;background-color:#88b3fa;">수 정</button>
+				<button type="button" class="btn btn-default" style="width: 60px;background-color:#88b3fa;">취 소</button>
 			</div>
 		</form>
 	</div>

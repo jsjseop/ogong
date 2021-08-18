@@ -349,30 +349,33 @@ public class IntegrationController {
 		Banana choose3 = new Banana();
 		
 		//채택랭킹 1위
-		choose1.setBananaEmail(chooseRank.get(0).getAnswerWriter());
+		user.setEmail(chooseRank.get(0).getEmail());
+		choose1.setBananaEmail(user);
 		choose1.setBananaAmount(100);
 		choose1.setBananaHistory("채택수 랭킹 1위로 인한 포인트 지급");
 		choose1.setBananaCategory("1");
 		bananaService.addBanana(choose1);
-		user.setEmail(chooseRank.get(0).getAnswerWriter().getEmail());
+		user.setEmail(chooseRank.get(0).getEmail());
 		user.setBananaCount(100);
 		bananaService.updateAcquireBanana(user);
 		//채택랭킹 2위
-		choose2.setBananaEmail(chooseRank.get(1).getAnswerWriter());
+		user.setEmail(chooseRank.get(1).getEmail());
+		choose2.setBananaEmail(user);
 		choose2.setBananaAmount(50);
 		choose2.setBananaHistory("채택수 랭킹 2위로 인한 포인트 지급");
 		choose2.setBananaCategory("1");
 		bananaService.addBanana(choose2);
-		user.setEmail(chooseRank.get(1).getAnswerWriter().getEmail());
+		user.setEmail(chooseRank.get(1).getEmail());
 		user.setBananaCount(50);
 		bananaService.updateAcquireBanana(user);
 		//채택랭킹 3위
-		choose2.setBananaEmail(chooseRank.get(2).getAnswerWriter());
+		user.setEmail(chooseRank.get(2).getEmail());
+		choose2.setBananaEmail(user);
 		choose2.setBananaAmount(30);
 		choose2.setBananaHistory("채택수 랭킹 3위로 인한 포인트 지급");
 		choose2.setBananaCategory("1");
 		bananaService.addBanana(choose3);
-		user.setEmail(chooseRank.get(2).getAnswerWriter().getEmail());
+		user.setEmail(chooseRank.get(2).getEmail());
 		user.setBananaCount(30);
 		bananaService.updateAcquireBanana(user);
 		
