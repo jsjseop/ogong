@@ -1,7 +1,7 @@
 package com.ogong.service.learningHistory.impl;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class LearningHistoryServiceImpl implements LearningHistoryService {
 	}
 	
 	@Override
-	public List<LearningHistory> getLearningHistoryList(HashMap<String, Object> map) throws Exception {
+	public List<LearningHistory> getLearningHistoryList(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
 		return learningHistoryMapper.getLearningHistoryList(map);
 	}
@@ -44,6 +44,18 @@ public class LearningHistoryServiceImpl implements LearningHistoryService {
 	public String getTotalLearningTime(String email) throws Exception {
 		// TODO Auto-generated method stub
 		return learningHistoryMapper.getTotalLearningTime(email);
+	}
+
+	@Override
+	public List<LearningHistory> getlineChartTime(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return learningHistoryMapper.getlineChartTime(map);
+	}
+
+	@Override
+	public List<LearningHistory> getPieChartTime(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return learningHistoryMapper.getPieChartTime(map);
 	}
 	
 }

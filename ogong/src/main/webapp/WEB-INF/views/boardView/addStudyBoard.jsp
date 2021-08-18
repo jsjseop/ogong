@@ -10,30 +10,15 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-	rel="stylesheet">
-
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="/resources/css/addBoardStudy.css">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-<link href="/css/animate.min.css" rel="stylesheet">
 
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-<script type="text/javascript" src="../javascript/calendar.js"></script>
+<script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
+
 </head>
 
 <div class="toolbar">
@@ -54,7 +39,7 @@
 							class="text-wrap p-4 p-lg-5 d-flex img d-flex align-items-end"
 							style="background-image: url(/resources/images/add.png);">
 							<div class="text w-100" style="text-align:center">
-								<p>모방해서 실패하는 것 보다 독창적응로 실패하는게 낫다 <br/>
+								<p>모방해서 실패하는 것 보다 독창적으로 실패하는게 낫다 <br/>
 								- 허먼 멜빌</p>
 							</div>
 						</div>

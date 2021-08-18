@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://kit.fontawesome.com/e3409dba93.js" crossorigin="anonymous"></script>
  
+ 
 <div class="container text-center">
 		 
 		 <nav>
@@ -17,7 +18,7 @@
 			<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
 				<li>
 			</c:if>
-                  <a href="javascript:fncGetList('${ resultPage.currentPage-1}')">
+                  <a href="javascript:fncGetList('${resultPage.currentPage-1}')">
                     <button type="button" class="btn btn-default btn-sm">
                       <i class="fas fa-chevron-left"></i>
                     </button>
@@ -39,7 +40,7 @@
 				    </li>
 				</c:if>	
 				
-				<c:if test="${ resultPage.currentPage != i}">	
+				<c:if test="${resultPage.currentPage != i}">	
 					<li>
 						<a href="javascript:fncGetList('${ i }');">
 							<button type="button" class="btn btn-default btn-sm">

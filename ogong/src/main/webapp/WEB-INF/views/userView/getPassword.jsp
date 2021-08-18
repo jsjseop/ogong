@@ -27,14 +27,10 @@
 
 			<div class="id_wrap">
 			
-			<h2>비밀번호 찾기 </h1>
-
-
-
-
-
+			<h2>비밀번호 찾기 </h2>   
+01. 이메일입력 입력>02. 본인 확인>03. 비밀번호 재설정
 			<hr>
-
+비밀번호를 찾고자 하는 이메일을 입력해 주세요.
 			<div class="mail_wrap">
 				    <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
                     <div class="col-lg-10">
@@ -56,7 +52,10 @@
 				</div>
 			</div>
 		
+		
 			<div class="join_button_wrap">
+			                    <div class="col-lg-10">
+			
 				<input type="button" class="join_button" value="비밀번호 변경">
 			</div>
 		</div>

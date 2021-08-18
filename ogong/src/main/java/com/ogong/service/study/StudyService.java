@@ -1,5 +1,6 @@
 package com.ogong.service.study;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ogong.common.Search;
@@ -21,5 +22,10 @@ public interface StudyService {
 	public void deleteStudy(int studyNo) throws Exception;
 	
 	public void addParticipation(GroupStudyMember gsm) throws Exception;
+	
+	public List<Study> getMySelfStudy(String email) throws Exception;
 
+	public List<Study> getMyStudy(String email, String endFlag, String approvalFlag) throws Exception;
+	
+	public void updateNotice(Study study) throws Exception;
 }

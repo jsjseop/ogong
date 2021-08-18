@@ -100,6 +100,7 @@
 			var email = $('#email2').val()
 			/* alert(email); */			
 			fncupdateUserSuspend(email)
+			alert("정지가 완료되었습니다.")
 		}); 
 		
 		// 기억해_
@@ -230,13 +231,13 @@
 									  			<td align="left">${report.sendReporter.email}</td>
 									  			<td align="left">
 									  			<c:if test="${reportType == 1}">
-									  				<div class="report"	reportNo="${report.reportNo}">${report.reportBoard.boardTitle}</div>
+									  				<a class="report"	reportNo="${report.reportNo}" href="/board/getBoard?boardNo=${report.reportBoard.boardNo}">${report.reportBoard.boardTitle}</a>
 									  			</c:if>
 									  			<c:if test="${reportType == 2}">
-									  				<div class="report"	reportNo="${report.reportNo}">${report.reportAnswer.answerContents}</div>
+									  				<a class="report"	reportNo="${report.reportNo}" href="/board/getBoard?boardNo=${report.reportBoard.boardNo}">${report.reportAnswer.answerContents}</a>
 									  			</c:if>
 									  			<c:if test="${reportType == 3}">
-									  				<div class="report"	reportNo="${report.reportNo}">${report.reportComment.commentContents}</div>
+									  				<a class="report"	reportNo="${report.reportNo}" href="/board/getBoard?boardNo=${report.reportBoard.boardNo}">${report.reportComment.boardNo}${report.reportComment.commentContents}</a>
 									  			</c:if>		  					  			
 									  			</td>
 									  			<td align="left">${report.reportReason}</td>

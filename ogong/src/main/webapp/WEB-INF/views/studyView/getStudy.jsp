@@ -5,30 +5,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>그룹스터디 정보</title>
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
-body {
-    padding-top : 50px;
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+
+body, table, div, p, th, td{
+font-family: 'Do Hyeon', sans-serif;
+font-size: 20px;
 }
+img {
+	width: 500px;
+	height: 500px;
+}
+#studyThumbnail {
+	float:center;
+}
+div#container {
+	margin-top: 50px;
+}
+
 </style>
 
 <script type="text/javascript">
 	$( function(){
 		
-		$("#btn").on("click", function(){
-			self.location = "/study/listStudy"
+		$("#cancel").on("click", function(){
+			history.back();
 		});
 		
 		$("#apply").on("click", function(){
@@ -53,7 +61,7 @@ body {
 						
 					
 					}else if(data == true){
-						alert("이미 참가신청 하셧습니다.");
+						swal("이미 참가신청 하셨습니다.","","warning");
 					}
 				},
 				error:function(request, status, error){
@@ -85,83 +93,92 @@ body {
 
 	<jsp:include page="/WEB-INF/views/common/toolbar.jsp" />
 
-	<div class="container">
+	<div class="container" id="container">
 	
-		
-		
-		<div class="page-header">
-	       <h3 class=" text-info">스터디 상세조회</h3>
-	    </div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>스 터 디 명</strong></div>
-			<div class="col-xs-8 col-md-4">${study.studyName}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>스터디 소개</strong></div>
-			<div class="col-xs-8 col-md-4">${study.groupStudyInfo}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>해 시 태 그</strong></div>
-			<div class="col-xs-8 col-md-4">${study.studyHashtag}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>인원</strong></div>
-			<div class="col-xs-8 col-md-4">${study.currentMember} / ${study.maxMember}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>모집 기간</strong></div>
-			<div class="col-xs-8 col-md-4">${study.recruitmentStartDate} ~ ${study.recruitmentEndDate}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>진행 기간</strong></div>
-			<div class="col-xs-8 col-md-4">${study.studyStartDate} ~ ${study.studyEndDate}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>썸 네 일</strong></div>
-			<div class="col-xs-8 col-md-4">${study.studyThumbnail}</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-md-12 text-center ">
-	  				<button id="apply" class="btn btn-primary">
-	  				<!-- data-toggle="modal" data-target="#myModal" -->
-					  참 가 신 청
-					</button>
-					<button id="btn" class="btn btn-primary" >확 인</button>
-	  		</div>
-		</div>
+	
+		<div class="card card-solid">
+	        <div class="card-body">
+	          <div class="row">
+	            <div class="col-12 col-sm-6">
+	              <div class="col-12">
+	                <img src="/resources/upload_files/study/${study.studyThumbnail}" class="product-image" alt="Study Image">
+
+					<div class="row mt-4">
+						<nav class="w-100">
+							<div class="nav nav-tabs" id="product-tab" role="tablist">
+								<a class="nav-item nav-link active" id="product-desc-tab"
+									data-toggle="tab" href="#product-desc" role="tab"
+									aria-controls="product-desc" aria-selected="true">소개</a>
+								<a class="nav-item nav-link" id="product-comments-tab"
+									data-toggle="tab" href="#product-comments" role="tab"
+									aria-controls="product-comments" aria-selected="false">계획</a>
+								<a class="nav-item nav-link" id="product-rating-tab"
+									data-toggle="tab" href="#product-rating" role="tab"
+									aria-controls="product-rating" aria-selected="false">참가조건</a>
+							</div>
+						</nav>
+						<div class="tab-content p-3" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="product-desc"
+								role="tabpanel" aria-labelledby="product-desc-tab">
+								${study.groupStudyInfo}
+							</div>
+							<div class="tab-pane fade" id="product-comments"
+								role="tabpanel" aria-labelledby="product-comments-tab">
+								${study.groupStudyPlan}
+							</div>
+							<div class="tab-pane fade" id="product-rating" role="tabpanel"
+								aria-labelledby="product-rating-tab">
+								${study.groupStudyCondition}
+							</div>
+						</div>
+					</div>
+				</div>
+	            </div>
+	            <div class="col-12 col-sm-6">
+	              <h3 class="my-3">${study.studyName}</h3>
+	              <hr/>
+	              <h4 class="my-3">스터디리더</h4>
+	              <p>${study.studyMaker.email}</p>
+	              <hr/>
+	              <h4 class="my-3">관심주제</h4>
+	              <p>${study.studyInterest}</p>
+	              <hr/>
+	              <h4 class="my-3">해시태그</h4>
+	              <p>${study.studyHashtag}</p>
+	              <hr/>
+	              <h4 class="my-3">최대인원</h4>
+	              <p>${study.maxMember}명</p>
+	              <hr/>
+	              <h4 class="my-3">모집기간</h4>
+	              <p>${study.recruitmentStartDate} ~ ${study.recruitmentEndDate}</p>
+	              <hr/>
+	              <h4 class="my-3">진행기간</h4>
+	              <p>${study.studyStartDate} ~ ${study.studyEndDate}</p>
+	              <hr/>
+	              <div class="mt-4">
+	                <div id="apply" class="btn btn-primary btn-lg btn-flat">
+	                  <i class="fas fa-cart-plus fa-lg mr-2"></i>
+	                  참가신청
+	                </div>
+	
+	                <div id="cancel" class="btn btn-default btn-lg btn-flat">
+	                  취소
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	        <!-- /.card-body -->
+	     </div>
 		
 		<br/>
-		
+				
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
+		      	<h4 class="modal-title" id="myModalLabel">그룹스터디 참가신청</h4>
 		      	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">그룹스터디 참가신청</h4>
 		      </div>
 		      <div class="modal-body">
 		        <form>

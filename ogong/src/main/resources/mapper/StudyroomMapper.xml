@@ -11,7 +11,7 @@
 		<result property="study.studyNo"			column="study_no" 					jdbcType="NUMERIC" />
 		<result property="member.email" 			column="email" 						jdbcType="VARCHAR" />
 		<result property="member.nickname" 			column="nickname" 					jdbcType="VARCHAR" />
-		<result property="studyRole" 				column="study_role" 				jdbcType="VARCHAR" />
+		<result property="studyRole" 				column="studyrole" 				jdbcType="VARCHAR" />
 		<result property="diligenceScore" 			column="diligence_score" 			jdbcType="NUMERIC" />
 		<result property="participationScore" 		column="participation_score" 		jdbcType="NUMERIC" />
 		<result property="participationReason" 		column="participation_reason" 		jdbcType="VARCHAR" />
@@ -27,6 +27,7 @@
 		<result property="calendarContents" 		column="calendar_contents" 			jdbcType="VARCHAR" />
 		<result property="calendarStartDate" 		column="calendar_start_date" 		jdbcType="DATE" />
 		<result property="calendarEndDate" 			column="calendar_end_date" 			jdbcType="DATE" />
+		<result property="calendarColor" 			column="calendar_color" 			jdbcType="VARCHAR" />
 		
 	</resultMap>
 	
@@ -84,6 +85,15 @@
 	 
 	 </update>
 	 
+	 <update id ="updateMember"	parameterType="int">
+	 	UPDATE
+	 		study
+	 	SET
+	 		current_member = current_member+1
+		WHERE
+			study_no = ${value}	 
+	 </update>
+	 
 	 <delete id="rejectParticipation"	parameterType="string">
 	 	DELETE
 	 		groupstudy_member
@@ -97,17 +107,24 @@
 			g.groupstudy_member_no,
 			g.study_no,
 			g.email,
+			g.studyrole,
+			g.determination,
 			u.nickname,
 			s.study_end_date-s.study_start_date,
-			TRUNC((count.c/((SYSDATE+1)-s.study_start_date))*100,1) attendance_rate
+			TRUNC((count.c/TRUNC(((SYSDATE+1)-s.study_start_date)))*100,1) attendance_rate
 		FROM groupstudy_member g, users u, study s, 
-			(select email, study_no, count(*) c
-                FROM attendance
-                WHERE 
-                    study_no = #{value}
+			(select ag.email, ag.study_no, count(a.attendance_date) c
+                FROM attendance a, groupstudy_member ag
+                WHERE
+                    a.email(+)= ag.email
+                AND 
+                    a.study_no(+) = ag.study_no
+                AND 
+                    ag.study_no = #{value}
                 GROUP BY 
-                	email, study_no) count		
+                	ag.email, ag.study_no) count		
 		WHERE g.email = u.email
+		AND g.studyrole is not null
 		AND g.email = count.email
 		AND g.study_no = count.study_no
 		AND g.study_no = s.study_no
@@ -130,16 +147,11 @@
 	 	UPDATE study
 		SET
 			study_name = #{studyName},
-			study_hashtag = #{studyHashtag:VARCHAR},
 			study_thumbnail = #{studyThumbnail:VARCHAR},
 			selfstudy_rule = #{selfStudyRule:VARCHAR},
 			groupstudy_info = #{groupStudyInfo:VARCHAR},
 			groupstudy_plan = #{groupStudyPlan:VARCHAR},
-			groupstudy_condition = #{groupStudyCondition:VARCHAR},
-			recruitment_start_date = #{recruitmentStartDate:DATE},
-			recruitment_end_date = #{recruitmentEndDate:DATE},
-			study_start_date = #{studyStartDate:DATE},
-			study_end_date = #{studyEndDate:DATE}
+			groupstudy_condition = #{groupStudyCondition:VARCHAR}
 		WHERE
 			study_no = #{studyNo}
 	 
@@ -173,6 +185,24 @@
 		AND email = #{email}
 		AND TO_CHAR(attendance_date,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd') 
 	 </select>
+ 
+	<select id="getAttendanceList"	parameterType="map"	resultType="hashmap">
+	 
+	SELECT
+		TO_CHAR(attendance_date,'yyyy-mm-dd') attendance_date
+	FROM
+    	(SELECT 
+        	a.attendance_date
+         FROM 
+            attendance a
+         WHERE
+            study_no = #{studyNo}
+         AND email = #{email}
+         ORDER BY a.attendance_date DESC
+         )
+	WHERE
+    	ROWNUM &lt;= 5
+	 </select>
 	 
 	 <insert id="addCalendar"	parameterType="calendar">
 	 	
@@ -184,7 +214,8 @@
 			calendar_title,
 			calendar_contents,
 			calendar_start_date,
-			calendar_end_date
+			calendar_end_date,
+			calendar_color
 		)
 		VALUES
 		(
@@ -193,7 +224,8 @@
 			#{calendarTitle:VARCHAR},
 			#{calendarContents:VARCHAR},
 			TO_DATE(#{calendarStartDate},'YYYY-MM-DD HH24:MI'),
-			TO_DATE(#{calendarEndDate}, 'YYYY-MM-DD HH24:MI')
+			TO_DATE(#{calendarEndDate}, 'YYYY-MM-DD HH24:MI'),
+			#{calendarColor:VARCHAR}
 		)
 	 
 	 </insert>
@@ -205,7 +237,8 @@
 			calendar_title,
 			calendar_contents,
 			calendar_start_date,
-			calendar_end_date
+			calendar_end_date,
+			calendar_color
 			FROM
 				calendar
 			WHERE
@@ -221,7 +254,8 @@
 			calendar_title,
 			calendar_contents,
 			calendar_start_date,
-			calendar_end_date
+			calendar_end_date,
+			calendar_color
 		FROM
 			calendar
 		WHERE
@@ -234,8 +268,8 @@
 		SET
 			calendar_title = #{calendarTitle:VARCHAR},
 			calendar_contents = #{calendarContents:VARCHAR},
-			calendar_start_date = to_date(#{calendarStartDate},'yyyy-mm-dd'),
-			calendar_end_date = to_date(#{calendarEndDate},'yyyy-mm-dd')
+			calendar_start_date = to_date(#{calendarStartDate},'YYYY-MM-DD HH24:MI'),
+			calendar_end_date = to_date(#{calendarEndDate},'YYYY-MM-DD HH24:MI')
 		WHERE
 			calendar_no = #{calendarNo}
 	 	

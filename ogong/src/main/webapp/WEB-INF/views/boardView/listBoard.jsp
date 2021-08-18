@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -7,23 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
-<title>Á¤º¸°øÀ¯ °Ô½ÃÆÇ</title>
+<title>ì •ë³´ê³µìœ  ê²Œì‹œíŒ</title>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script type="text/javascript">
 	function fncGetList(currentPage) {
 
 		$('#currentPage').val(currentPage);
-		$('form').attr('action', '/board/listBoard?boardCategory='+`${boardCategory}`).attr('method', 'POST')
-				.submit();
+		$('form').attr('action', '/board/listBoard?boardCategory='+`${boardCategory}`).attr('method', 'POST').submit();
 	}
 
 	function fncWrite(user) {
 
 		boardNo = location.search.substring(15);
-
+		
 		location.href = "/board/addBoard?boardCategory=" + `${boardCategory}`;
 	}
 
@@ -35,7 +34,7 @@
 			location.href = "/board/getBoard?boardNo=" + boardNo;
 		})
 
-		$('button:contains("°Ë»ö")').on('click', function() {
+		$('button:contains("ê²€ìƒ‰")').on('click', function() {
 
 			fncGetList('1');
 		})
@@ -57,6 +56,7 @@
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@600&family=Sunflower:wght@300&display=swap');
+
 
 body, table, div, p, th, td{
 font-family: 'Do Hyeon', sans-serif;
@@ -83,13 +83,21 @@ color: white;
 }                 
  
 tr {    
-height: 1em;    }
+height: 1em;    
+}
  
 table tr:nth-child(even) {            
-    background-color: #FFF8D7;     }
+    background-color: #FFF8D7;     
+    }
  
 table tr:nth-child(odd) {           
-background-color:#fff;      }
+background-color:#fff;  
+}
+
+#searchForm{
+	display: flex;
+	justify-content: flex-end;
+}
  
 </style>
 </head>
@@ -101,53 +109,53 @@ background-color:#fff;      }
 
 		<div class="page-header text-default">
 			<c:if test="${boardCategory == '1'}">
-				<h3>Á¤º¸°øÀ¯ °Ô½ÃÆÇ</h3>
+				<h3>ì •ë³´ê³µìœ  ê²Œì‹œíŒ</h3>
 			</c:if>
 			<c:if test="${boardCategory == '3'}">
-				<h3>ÇÕ°İÈÄ±â °Ô½ÃÆÇ</h3>
+				<h3>í•©ê²©í›„ê¸° ê²Œì‹œíŒ</h3>
 			</c:if>
 			<c:if test="${boardCategory == '4'}">
-				<h3>ÀÚÀ¯ °Ô½ÃÆÇ</h3>
+				<h3>ììœ  ê²Œì‹œíŒ</h3>
 			</c:if>
 			<c:if test="${boardCategory == '5'}">
-				<h3>ÀÚÀ²½ºÅÍµğ ¸ğÁı °Ô½ÃÆÇ</h3>
+				<h3>ììœ¨ìŠ¤í„°ë”” ëª¨ì§‘ ê²Œì‹œíŒ</h3>
 			</c:if>
 			<c:if test="${boardCategory == '6'}">
-				<h3>ÆÄÀÏ°øÀ¯ °Ô½ÃÆÇ</h3>
+				<h3>íŒŒì¼ê³µìœ  ê²Œì‹œíŒ</h3>
 			</c:if>
 		</div>
 
-		<!-- table À§ÂÊ °Ë»ö Start /////////////////////////////////////-->
+		<!-- table ìœ„ìª½ ê²€ìƒ‰ Start /////////////////////////////////////-->
 		<div class="row">
 
 			<div class="col-md-6 text-left">
-				<p class="text-default">ÀüÃ¼ ${resultPage.totalCount} °Ç¼ö, ÇöÀç
-					${resultPage.currentPage} ÆäÀÌÁö</p>
+				<p class="text-default">ì „ì²´ ${resultPage.totalCount} ê±´ìˆ˜, í˜„ì¬
+					${resultPage.currentPage} í˜ì´ì§€</p>
 			</div>
 
 			<div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm">
+				<form class="form-inline" name="detailForm" id="searchForm">
 
 					<div class="form-group">
 						<select name="searchCondition" class="form-control"
 							style="width: 110px">
-							<option value="0"
-								${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>Á¦¸ñ+³»¿ë</option>
 							<option value="1"
-								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>Á¦¸ñ</option>
+								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>ì œëª©+ë‚´ìš©</option>
 							<option value="2"
-								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>ÀÛ¼ºÀÚ</option>
+								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>ì œëª©</option>
+							<option value="3"
+								${! empty search.searchCondition && search.searchCondition== 3 ? "selected" : ""  }>ì‘ì„±ì</option>
 						</select>
 					</div>
 
 					<div class="form-group">
-						<label class="sr-only" for="searchKeyword">°Ë»ö¾î</label> <input
+						<label class="sr-only" for="searchKeyword">ê²€ìƒ‰ì–´</label> <input
 							type="text" class="form-control" id="searchKeyword"
-							name="searchKeyword" placeholder="°Ë»ö¾î"
+							name="searchKeyword" placeholder="ê²€ìƒ‰ì–´"
 							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
 					</div>
 
-					<button type="button" class="btn btn-warning">°Ë»ö</button>
+					<button type="button" class="btn btn-warning">ê²€ìƒ‰</button>
 
 					<input type="hidden" id="currentPage" name="currentPage" value="" />
 				</form>
@@ -158,10 +166,10 @@ background-color:#fff;      }
 			<thead>
 				<tr>
 					<th align="center">No</th>
-					<th align="left">Á¦¸ñ</th>
-					<th align="left">ÀÛ¼ºÀÚ</th>
-					<th align="left">Á¶È¸¼ö</th>
-					<th align="left">µî·ÏÀÏ</th>
+					<th align="left">ì œëª©</th>
+					<th align="left">ì‘ì„±ì</th>
+					<th align="left">ì¡°íšŒìˆ˜</th>
+					<th align="left">ë“±ë¡ì¼</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -178,7 +186,7 @@ background-color:#fff;      }
 		</table>
 		<div align="right">
 			<button type="button" class="btn btn-warning" style="width: 80px;"
-				onclick="javascript:fncWrite('${writer.email}')">±Û¾²±â</button>
+				onclick="javascript:fncWrite('${writer.email}')">ê¸€ì“°ê¸°</button>
 		</div>
 		<!--  table End /////////////////////////////////////-->
 		<jsp:include page="../common/pageNavigator.jsp" />

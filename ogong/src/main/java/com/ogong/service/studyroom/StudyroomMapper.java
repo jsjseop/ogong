@@ -1,5 +1,6 @@
 package com.ogong.service.studyroom;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,4 +42,9 @@ public interface StudyroomMapper {
 	String checkAttendance(Map<String, Object> map);
 	
 	GroupStudyMember getGSMember(GroupStudyMember gsm);
+	
+	void updateMember (int studyNo);
+	
+	List<Map<String, Object>> getAttendanceList(Map<String, Object> map);
+	
 }

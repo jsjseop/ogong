@@ -9,12 +9,11 @@
 <title>글 쓰기</title>
 
 <!-- jQuery -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- Bootstrap CSS -->
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
 
 	
@@ -35,7 +34,7 @@
 			return;
 		}
 
-		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory="+`${boardCategory}`)
+		$('form').attr('method', 'POST').attr('action', "/board/addBoard?boardCategory=")
 				.submit();
 	}
 
@@ -100,7 +99,7 @@ text-align:center;
 		
 			<h3>Q&A 게시글 등록</h3>
 
-			<form name="AddBoard" id="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
+			<form name="AddBoard" id="form" method="post">
 
 				<div class="mb-3">
 
@@ -115,7 +114,7 @@ text-align:center;
 
 					<label for="banana">바나나 수</label>
 
-				<input type="text" class="form-control" name="boardBanana" id="title" placeholder="채택에 필요한 바나나 수를 입력해주세요"
+				<input type="text" class="form-control" name="boardRegBanana" id="banana" placeholder="채택에 필요한 바나나 수를 입력해주세요"
 				value="${boardRegBanana}">
 
 				</div>			
