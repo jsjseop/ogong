@@ -557,7 +557,7 @@ button:hover{
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="drop1">
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#getMyProfile">프로필보기
 				    <input type="hidden" value="${board.writer.email}" /></a></li>
-				    <input type="hidden" id="boardWriter" value="${board.writer.email}" /></a></li>
+				    <li><a><input type="hidden" id="boardWriter" value="${board.writer.email}" /></a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal2">쪽지보내기
 					<input type="hidden" value="${board.writer.email}" /></a></li>
 				</ul>
