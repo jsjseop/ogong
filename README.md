@@ -8,7 +8,3 @@
 - learningHistory : 공부 기록 조회
 - integration : 통합 관리 시스템(쪽지, 알림, 랭킹)
 - admin : 관리자 시스템(신고, 복구, 정지)
-
-domain객체
-- User, Banana, Study, CamStudyMember, GroupStudyMember, Calendar, Notice,
-- Board, File, Comment, Answer, Recommend, LearningHistory, Message, Report
