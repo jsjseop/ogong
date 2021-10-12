@@ -29,7 +29,7 @@
 	function getStudyList(page) {
 		$.ajax({
 			type : 'post',
-			url : "/study/json/listStudy",
+			url : "/study/listStudy",
 			data : JSON.stringify({currentPage: page,
 									searchKeyword: $("#searchKeyword").val(),
 									studyType: "${studyType}",

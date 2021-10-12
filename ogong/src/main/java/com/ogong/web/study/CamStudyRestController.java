@@ -34,7 +34,7 @@ public class CamStudyRestController {
 	private LearningHistoryService learningHistoryService;
 	
 	
-	@GetMapping("/json/getUser/{email}")
+	@GetMapping("/getUser/{email}")
 	public User getUser(@PathVariable String email, HttpServletResponse response) throws Exception {
 		
 		User user = camStudyService.getUser(email);
@@ -42,7 +42,7 @@ public class CamStudyRestController {
 		return user;
 	}
 	
-	@GetMapping("/json/getStudy/{studyNo}")
+	@GetMapping("/getStudy/{studyNo}")
 	public Study getStudy(@PathVariable int studyNo, HttpServletResponse response) throws Exception {
 		
 		Study study = camStudyService.getStudy(studyNo);
@@ -50,7 +50,7 @@ public class CamStudyRestController {
 		return study;
 	}
 	
-	@GetMapping("/json/getCamStudyMemberList/{studyNo}")
+	@GetMapping("/getCamStudyMemberList/{studyNo}")
 	public List<CamStudyMember> getCamStudyMemberList(@PathVariable int studyNo) throws Exception{
 		
 		return camStudyService.getCamStudyMemberList(studyNo);
@@ -62,19 +62,19 @@ public class CamStudyRestController {
 		camStudyService.addCamStudyMember(csm);
 	}
 	
-	@PostMapping("/json/updateCamStudyMember")
+	@PostMapping("/updateCamStudyMember")
 	public void updateCamStudyMember(@RequestBody CamStudyMember csm) throws Exception{
 		
 		camStudyService.updateCamStudyMember(csm);
 	}
 	
-	@PostMapping("/json/updateCamStudyMemberZero")
+	@PostMapping("/updateCamStudyMemberZero")
 	public void updateCamStudyMemberZero(@RequestBody CamStudyMember csm) throws Exception{
 		
 		camStudyService.updateCamStudyMemberZero(csm);
 	}
 	
-	@PostMapping("/json/addLearningHistory")
+	@PostMapping("/addLearningHistory")
 	public void addLearningHistory(@RequestBody LearningHistory learningHistory) throws Exception{
 
 		learningHistoryService.addLearningHistory(learningHistory);

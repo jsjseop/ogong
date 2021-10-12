@@ -22,7 +22,7 @@ public class StudyRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@PostMapping("/json/listStudy")
+	@PostMapping("/listStudy")
 	public Map<String, Object> listStudy(@RequestBody Search search) throws Exception{
 		
 		search.setPageSize(8);
