@@ -267,8 +267,6 @@ a.page-link {
 
 <div class="wrapper">
 
-  <!-- Content Wrapper. Contains page content -->
-    <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container">
       
@@ -276,19 +274,15 @@ a.page-link {
           <div class="col-sm-6">
             <h1 class="m-0">공부기록</h1>
           </div>
-        </div><!-- /.row -->
+        </div>
         
-      </div><!-- /.container-fluid -->
+      </div>
     </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
     <section class="content">
       <div class="container">
-        <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-lg-4 col-6">
-            <!-- small box -->
             <div class="small-box bg-white">
               <div class="inner">
               	<p>오늘 공부한 시간</p>
@@ -296,9 +290,7 @@ a.page-link {
               </div>
             </div>
           </div>
-          <!-- ./col -->
           <div class="col-lg-4 col-6">
-            <!-- small box -->
             <div class="small-box bg-white">
               <div class="inner">
               	<p>하루 평균 공부시간</p>
@@ -306,9 +298,7 @@ a.page-link {
               </div>
             </div>
           </div>
-          <!-- ./col -->
           <div class="col-lg-4 col-6">
-            <!-- small box -->
             <div class="small-box bg-white">
               <div class="inner">
               	<p>전체 공부시간</p>
@@ -316,16 +306,11 @@ a.page-link {
               </div>
             </div>
           </div>
-          <!-- ./col -->
         </div><br><hr><br>
-        <!-- /.row -->
-        <!-- Main row -->
+        
         <div class="row">
-          <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
             
-            
-            <!-- TO DO List -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
@@ -343,7 +328,6 @@ a.page-link {
                   </ul>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
                 <div class="card-body table-responsive p-0">
 	                <table class="table table-hover text-nowrap">
@@ -374,15 +358,10 @@ a.page-link {
 	                </table>
 	              </div>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
 
-			<!-- Custom tabs (Charts with tabs)-->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
@@ -399,10 +378,9 @@ a.page-link {
                     </li>
                   </ul>
                 </div>
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
               	<div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
                   <div class="chart tab-pane active" id="revenue-chart"
                        style="position: relative; height: 400px;">
                       <canvas id="myChart" width="400" height="400"></canvas>
@@ -411,23 +389,15 @@ a.page-link {
                   	<canvas id="myChart2" width="400" height="400"></canvas>
                   </div>
                 </div>
-              		
-                 
-              </div><!-- /.card-body -->
+  
+              </div>
             </div>
-            <!-- /.card -->
 
           </section>
-          <!-- right col -->
         </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-    <!-- /.content -->
 </div>
-<!-- ./wrapper -->
-
-
 
 </body>
 </html>

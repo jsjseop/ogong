@@ -85,7 +85,12 @@
 		#{studyName}, 
 		#{studyHashtag:VARCHAR}, 
 		#{studyThumbnail:VARCHAR}, 
-		#{studyStartDate}, 
+		<if test="studyStartDate == null">
+			SYSDATE,
+		</if>
+		<if test="studyStartDate != null">
+			#{studyStartDate},
+		</if>
 		#{studyEndDate}, 
 		SYSDATE, 
 		#{currentMember}, 

@@ -2,8 +2,7 @@ package com.ogong.web.study;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 import java.util.List;
 import java.util.Map;
 
@@ -156,11 +155,7 @@ public class StudyController {
 		}
 		
 		//자율스터디일 경우
-		java.util.Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		study.setStudyStartDate(sdf.format(cal.getTime()) );
 		studyService.addStudy(study);
-		
 		
 		model.addAttribute("study", study);
 		
@@ -231,7 +226,6 @@ public class StudyController {
 	@PostMapping("leaveStudy")
 	@ResponseBody
 	public void leaveStudy(@RequestBody LearningHistory learningHistory) throws Exception{
-		System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		String learningTime = (camStudyService.getCamStudyMember(learningHistory.getStudyNo(), learningHistory.getEmail())).getLearningTime();
 		if(!learningTime.equals("00:00:00")) {
 			int userTargetTime = (camStudyService.getUser(learningHistory.getEmail())).getUserTargetTime();
@@ -292,13 +286,10 @@ public class StudyController {
 
 		//진행중인 자율스터디
 		List<Study> mySelfStudyList = studyService.getMySelfStudy(email);
-		System.out.println("1111111111111111111111111111111111111");
 		//진행중인 그룹스터디
 		List<Study> myGroupStudyList = studyService.getMyStudy(email, "1", "1");
-		System.out.println("222222222222222222222222222222222");
 		//참가신청중인 그룹스터디
 		List<Study> myApprovalGroupStudyList = studyService.getMyStudy(email, "1", "0");
-		System.out.println("33333333333333333333333333333333333333");
 		//종료된 그룹스터디
 		List<Study> myEndGroupStudyList = studyService.getMyStudy(email, "2", "1");
 		
